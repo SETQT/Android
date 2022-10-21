@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidProject08</string>
+    <string name="trangchaomung_textview1">
+        Chào mừng bạn đến với app mua sắm
+    </string>
+    <string name="trangchaomung_textview2" >
+        App mua sắm được tạo từ bàn tay của các sinh viên KHTN
+    </string>
+</resources>
