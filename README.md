@@ -7,5 +7,5 @@ Team member:
 ## Triệu Quốc Thái
 ## Trần Văn Thật
 ## Hồ Duy Bảo
-## Trương Văn Hào
+## Trương Văn Hào - 20120471
 ## Dương Minh Hiếu - 20120473
