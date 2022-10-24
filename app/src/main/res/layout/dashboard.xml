@@ -18,13 +18,13 @@
         android:background="@drawable/circle_white" />
 
     <ImageView
-        android:id="@+id/ic_soc"
+        android:id="@+id/ic_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="34.5dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="18.5dp"
         android:gravity="center"
-        android:src="@drawable/ic_soc" />
+        android:src="@drawable/icon_menu" />
 
     <View
         android:id="@+id/circle_white_02"
@@ -41,10 +41,10 @@
         android:id="@+id/ic_giohang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="278dp"
+        android:layout_marginLeft="279dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:src="@drawable/ic_giohang" />
+        android:src="@drawable/icon_giohang" />
 
     <View
         android:id="@+id/circle_red_giohang"
@@ -84,10 +84,10 @@
         android:id="@+id/ic_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="345dp"
+        android:layout_marginLeft="343dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:src="@drawable/ic_chat" />
+        android:src="@drawable/icon_chat" />
 
     <View
         android:id="@+id/circle_red_chat"
@@ -139,9 +139,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="82dp"
         android:gravity="center"
-        android:src="@drawable/ic_timkiem" />
+        android:src="@drawable/icon_timkiem" />
 
     <View
         android:id="@+id/rectangle_bg_orange_01"
@@ -219,9 +219,9 @@
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="185dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:horizontalSpacing="5dp"
         android:numColumns="2"
@@ -244,7 +244,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="616dp"
         android:gravity="center"
-        android:src="@drawable/ic_home" />
+        android:src="@drawable/icon_home" />
 
     <TextView
         android:id="@+id/home"
@@ -267,7 +267,7 @@
         android:layout_marginLeft="145dp"
         android:layout_marginTop="616dp"
         android:gravity="center"
-        android:src="@drawable/ic_scan" />
+        android:src="@drawable/icon_scan" />
 
     <TextView
         android:id="@+id/scan"
@@ -290,7 +290,7 @@
         android:layout_marginLeft="250dp"
         android:layout_marginTop="616dp"
         android:gravity="center"
-        android:src="@drawable/ic_notify" />
+        android:src="@drawable/icon_notify" />
 
     <TextView
         android:id="@+id/notify"
@@ -313,7 +313,7 @@
         android:layout_marginLeft="340dp"
         android:layout_marginTop="616dp"
         android:gravity="center"
-        android:src="@drawable/ic_profile" />
+        android:src="@drawable/icon_profile" />
 
     <TextView
         android:id="@+id/profile"
