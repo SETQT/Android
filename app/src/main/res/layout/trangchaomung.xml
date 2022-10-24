@@ -6,7 +6,8 @@
     android:layout_height="fill_parent"
     android:background="@drawable/trang_chao_"
     android:clipToOutline="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <TextView
         android:layout_width="213dp"
@@ -20,26 +21,27 @@
         android:layout_height="337dp"
         android:background="@drawable/ellipse_2"
         android:translationX="-46dp"
-        android:translationY="-253dp"
-        />
+        android:translationY="-253dp" />
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="314dp"
+        android:layout_width="285dp"
+        android:layout_height="303dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="115dp"
         android:src="@drawable/image_chaomung" />
 
     <TextView
-        android:layout_width="358dp"
-        android:layout_height="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="172dp"
+        android:layout_marginBottom="209dp"
         android:gravity="center"
         android:text="@string/trangchaomung_textview1"
         android:textAppearance="@style/trangchaomung_textview1"
+        android:fontFamily="@font/fontpoppinbold"
         />
 
     <TextView
@@ -47,11 +49,11 @@
         android:layout_height="42dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="439dp"
+        android:layout_marginTop="462dp"
         android:gravity="center_horizontal|top"
         android:text="@string/trangchaomung_textview2"
         android:textAppearance="@style/trangchaomung_textview2"
-        />
+        android:fontFamily="@font/fontpoppinsregular"/>
 
     <Button
         android:id="@+id/btn_batdau"
@@ -63,7 +65,9 @@
         android:gravity="center"
         android:text="Bắt đầu"
         android:textSize="20dp"
-        android:translationY="500dp"
+        android:translationY="562dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/fontpoppinbold"
         />
 
 </RelativeLayout>

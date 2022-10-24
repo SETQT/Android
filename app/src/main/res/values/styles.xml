@@ -18,8 +18,6 @@
         </item>
     </style>
 
-    <style name="HiddenTitleTheme">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+    <style name="HiddenTitleTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 </resources>

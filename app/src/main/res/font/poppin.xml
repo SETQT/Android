@@ -4,11 +4,11 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/poppinsblack"
+        android:font="@font/fontpoppinsregular"
         tools:ignore="ResourceCycle" />
     <font
         android:fontStyle="italic"
         android:fontWeight="400"
-        android:font="@font/poppinsblack"
+        android:font="@font/fontpoppinbold"
         tools:ignore="ResourceCycle" />
 </font-family>
