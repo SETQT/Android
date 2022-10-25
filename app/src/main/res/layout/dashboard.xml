@@ -8,41 +8,28 @@
     android:background="#E5E5E5">
 
     <View
-        android:id="@+id/circle_white_01"
-        android:layout_width="42dp"
-        android:layout_height="44dp"
+        android:id="@+id/rectangle_header"
+        android:layout_width="411dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/circle_white" />
+        android:background="@drawable/rectangle_footer" />
 
     <ImageView
         android:id="@+id/ic_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="33dp"
-        android:layout_marginTop="18.5dp"
+        android:layout_marginTop="13dp"
         android:gravity="center"
         android:src="@drawable/icon_menu" />
 
-    <View
-        android:id="@+id/circle_white_02"
-        android:layout_width="42dp"
-        android:layout_height="44dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="270dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/circle_white" />
-
-
     <ImageView
         android:id="@+id/ic_giohang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="279dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:src="@drawable/icon_giohang" />
 
@@ -56,36 +43,26 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/circle_red"
         />
+
     <TextView
         android:id="@+id/id_giohang"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="17dp"
+        android:layout_height="18dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="299dp"
+        android:layout_marginLeft="298dp"
         android:layout_marginTop="6dp"
         android:gravity="center"
         android:text="5"
         android:textColor="#FFFFFF"
         android:textSize="10sp" />
 
-    <View
-        android:id="@+id/circle_white_03"
-        android:layout_width="42dp"
-        android:layout_height="44dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="335dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/circle_white" />
-
-
     <ImageView
         android:id="@+id/ic_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_marginLeft="343dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:src="@drawable/icon_chat" />
 
@@ -94,19 +71,20 @@
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="362dp"
+        android:layout_marginLeft="363dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
         android:background="@drawable/circle_red"
         />
+
     <TextView
         android:id="@+id/id_chat"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="364dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginLeft="364.5dp"
+        android:layout_marginTop="7dp"
         android:gravity="center"
         android:text="10"
         android:textColor="#FFFFFF"
@@ -119,7 +97,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="62dp"
         android:background="@drawable/rectangle_search" />
 
     <EditText
@@ -129,7 +107,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="62dp"
         android:gravity="left"
         android:hint="Tìm kiếm"
         android:textColor="#C6C6C6"
@@ -139,89 +117,121 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="74dp"
         android:gravity="center"
         android:src="@drawable/icon_timkiem" />
 
-    <View
-        android:id="@+id/rectangle_bg_orange_01"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="130dp"
-        android:background="@drawable/rectangle_bg_orange"
-        />
+        android:layout_marginTop="115dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/tatca"
-        android:layout_width="51dp"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="57dp"
-        android:layout_marginTop="142dp"
-        android:gravity="top"
-        android:text="Tất cả"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <View
-        android:id="@+id/rectangle_bg_white_01"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="130dp"
-        android:background="@drawable/rectangle_bg_white"
-        />
+            <TextView
+                android:id="@+id/option_tatca"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_orange"
+                android:gravity="center"
+                android:text="Tất cả"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/aokhoac"
-        android:layout_width="75dp"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="172dp"
-        android:layout_marginTop="142dp"
-        android:gravity="top"
-        android:text="Áo khoác"
-        android:textColor="#AEAEAE"
-        android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/option_aokhoac"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_white"
+                android:gravity="center"
+                android:text="Áo khoác"
+                android:textColor="#AEAEAE"
+                android:textSize="16sp" />
 
-    <View
-        android:id="@+id/rectangle_bg_white_02"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="273dp"
-        android:layout_marginTop="130dp"
-        android:background="@drawable/rectangle_bg_white"
-        />
+            <TextView
+                android:id="@+id/option_mu"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_white"
+                android:gravity="center"
+                android:text="Mũ"
+                android:textColor="#AEAEAE"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/mu"
-        android:layout_width="40dp"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="315dp"
-        android:layout_marginTop="142dp"
-        android:gravity="top"
-        android:text="Mũ"
-        android:textColor="#AEAEAE"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/option_quan"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_white"
+                android:gravity="center"
+                android:text="Quần"
+                android:textColor="#AEAEAE"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/option_áo"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_white"
+                android:gravity="center"
+                android:text="Áo"
+                android:textColor="#AEAEAE"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/option_giay"
+                android:layout_width="110dp"
+                android:layout_height="47dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/rectangle_bg_white"
+                android:gravity="center"
+                android:text="Giày"
+                android:textColor="#AEAEAE"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="185dp"
+        android:layout_marginTop="175dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:horizontalSpacing="5dp"
         android:numColumns="2"
@@ -229,7 +239,7 @@
         android:verticalSpacing="10dp" />
 
     <View
-        android:id="@+id/rectangle_8"
+        android:id="@+id/rectangle_footer"
         android:layout_width="411dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
