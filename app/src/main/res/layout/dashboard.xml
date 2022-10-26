@@ -125,9 +125,7 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="115dp"
-        android:layout_marginRight="25dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -137,21 +135,22 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
                 android:id="@+id/option_tatca"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/rectangle_bg_orange"
                 android:gravity="center"
+                android:textAllCaps="false"
                 android:text="Tất cả"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/option_aokhoac"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
@@ -162,10 +161,11 @@
                 android:background="@drawable/rectangle_bg_white"
                 android:gravity="center"
                 android:text="Áo khoác"
+                android:textAllCaps="false"
                 android:textColor="#AEAEAE"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/option_mu"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
@@ -176,10 +176,11 @@
                 android:background="@drawable/rectangle_bg_white"
                 android:gravity="center"
                 android:text="Mũ"
+                android:textAllCaps="false"
                 android:textColor="#AEAEAE"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/option_quan"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
@@ -190,10 +191,11 @@
                 android:background="@drawable/rectangle_bg_white"
                 android:gravity="center"
                 android:text="Quần"
+                android:textAllCaps="false"
                 android:textColor="#AEAEAE"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/option_áo"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
@@ -204,20 +206,23 @@
                 android:background="@drawable/rectangle_bg_white"
                 android:gravity="center"
                 android:text="Áo"
+                android:textAllCaps="false"
                 android:textColor="#AEAEAE"
                 android:textSize="16sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/option_giay"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="25dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/rectangle_bg_white"
                 android:gravity="center"
                 android:text="Giày"
+                android:textAllCaps="false"
                 android:textColor="#AEAEAE"
                 android:textSize="16sp" />
 

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="index_circle_red">
+    <style name="HiddenTitleTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+    <style name="index_circle_red" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textSize">8sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
