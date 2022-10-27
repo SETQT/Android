@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.androidproject08"
-        minSdk 29
+        minSdk 28
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets', 'src\\main\\assets\\fhj'
+            }
+        }
     }
 }
 

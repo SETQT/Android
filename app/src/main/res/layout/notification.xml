@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+
+
+        android:background="@color/background">
+
+
+        <TextView
+            android:id="@+id/txtNotify"
+            android:layout_width="109dp"
+            android:layout_height="30dp"
+
+            android:layout_centerVertical="true"
+
+            android:layout_marginLeft="114dp"
+
+            android:gravity="top"
+            android:text="Thông báo"
+            android:textColor="@color/textColor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/card"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/icon_circle"
+            android:padding="10dp"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_cart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-16dp"
+            android:layout_marginTop="1dp"
+            android:layout_toRightOf="@+id/card"
+            android:background="@drawable/num_noti"
+            android:text="51"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/notify"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:layout_marginLeft="343dp"
+
+            android:layout_marginTop="10dp"
+            android:background="@drawable/icon_circle"
+            android:padding="10dp"
+
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_chat"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="57dp"
+            android:layout_marginTop="-1dp"
+            android:layout_toRightOf="@+id/card"
+            android:background="@drawable/num_noti"
+            android:text="51"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        >
+
+        <ListView
+            android:id="@+id/idListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</RelativeLayout>
