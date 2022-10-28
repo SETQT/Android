@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#E5E5E5">
+
+    <View
+        android:id="@+id/rectangle_header_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="165dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/record_rectangle_header_profile" />
+
+    <View
+        android:id="@+id/ic_back"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:background="@drawable/icon_back"
+        android:backgroundTint="#FFFFFF"/>
+
+    <View
+        android:id="@+id/frame_avatar_profile"
+        android:layout_width="120dp"
+        android:layout_height="123dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/record_frame_avatar_profile" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="120dp"
+        android:layout_height="123dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="68dp"
+        android:gravity="center"
+        android:src="@drawable/img" />
+
+    <View
+        android:id="@+id/bg_camera_01"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="357dp"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/record_bg_camera" />
+
+    <ImageView
+        android:id="@+id/camera_01"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="362dp"
+        android:layout_marginTop="113dp"
+        android:gravity="center"
+        android:src="@drawable/icon_camera" />
+
+    <View
+        android:id="@+id/bg_camera_02"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="158dp"
+        android:background="@drawable/record_bg_camera" />
+
+    <ImageView
+        android:id="@+id/camera_02"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="120.5dp"
+        android:layout_marginTop="163dp"
+        android:gravity="center"
+        android:src="@drawable/icon_camera" />
+
+
+    <View
+        android:id="@+id/bg_custom_01"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="216dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="228dp"
+        android:gravity="center"
+        android:text="Tên"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="228dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="Dương Minh Hiếu"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_01"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="226dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_02"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="261dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="273dp"
+        android:gravity="center"
+        android:text="Bio"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="273dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="Đẹp trai không có tội"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_02"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="271dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_03"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="306dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="57dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="318dp"
+        android:gravity="center"
+        android:text="Giới tính"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="318dp"
+        android:gravity="center"
+        android:text="Nam"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_03"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="316dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_04"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="351dp"
+        android:background="@drawable/record_bg_custom_profile"
+        />
+
+    <TextView
+        android:layout_width="70dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="363dp"
+        android:gravity="center"
+        android:text="Ngày sinh"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="363dp"
+        android:gravity="center"
+        android:text="20-02-2002"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_04"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="361dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_05"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="410dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="90dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="422dp"
+        android:gravity="center"
+        android:text="Đổi mật khẩu"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_05"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="422dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_06"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="455dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="151dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="467dp"
+        android:gravity="center"
+        android:text="Thay đổi số điện thoại"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="467dp"
+        android:gravity="center"
+        android:text="09******08"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_06"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="465dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/bg_custom_07"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="103dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="510dp"
+        android:gravity="center"
+        android:text="Thay đổi email"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="505dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="duongminh22002@gmail.com"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/next_07"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="511dp"
+        android:background="@drawable/icon_next" />
+
+    <Button
+        android:id="@+id/btn_save_profile"
+        android:layout_width="361dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="604dp"
+        android:background="@drawable/record_btn_save_profile"
+        android:gravity="center"
+        android:text="Lưu"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</RelativeLayout>

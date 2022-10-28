@@ -8,12 +8,12 @@
     android:background="#E5E5E5">
 
     <View
-        android:id="@+id/khung_sanpham"
+        android:id="@+id/frame_product"
         android:layout_width="173dp"
         android:layout_height="233dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/rectangle_product" />
+        android:background="@drawable/dashboard_custom_gridview_rectangle_product" />
 
     <ImageView
         android:id="@+id/picture_product"
@@ -46,7 +46,7 @@
         android:layout_marginTop="200dp"
         android:gravity="top"
         android:textColor="#F9A826"
-        android:foreground="@drawable/strikethrough"
+        android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
         android:textSize="12sp"
         android:typeface="sans" />
 
