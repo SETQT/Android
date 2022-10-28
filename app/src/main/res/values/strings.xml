@@ -4,5 +4,27 @@
     <string name="ng_k_">Đăng ký</string>
     <string name="quen_mat_khau">Quên mật khẩu?</string>
     <string name="hoac">Hoặc</string>
+    <string name="username">hoduybaoo</string>
+    <string name="donhangcuatoi">Đơn hàng của tôi</string>
+    <string name="hintdonhangcuatoi_profile">Đơn hàng của tôi</string>
+    <string name="choxacnhan">Chờ xác nhận</string>
+    <string name="cholayhang">Chờ lấy hàng</string>
+    <string name="danggiaohang">Đang giao hàng</string>
+    <string name="danhgia">Đánh giá</string>
+    <string name="tienich">Tiện ích</string>
+    <string name="vi">Ví group 8 pay</string>
+    <string name="shop_xu">Shop xu</string>
+    <string name="kho_voucher">Kho voucher</string>
+    <string name="hosocuatoi">Hồ sơ của tôi</string>
+    <string name="donhangdamua">Đơn hàng đã mua</string>
+
+
+
+
+
+
+
+
+
 
 </resources>

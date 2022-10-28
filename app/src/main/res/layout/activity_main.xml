@@ -59,17 +59,17 @@
             android:layout_marginTop="150dp"
             android:background="@drawable/rectangle_3" />
 
-        <TextView
-            android:id="@+id/dangnhap"
-            android:layout_width="68dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="131dp"
-            android:layout_marginTop="159dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/ng_nh_p"
-            android:textAppearance="@style/ng_nh_p" />
+    <TextView
+        android:id="@+id/dangnhap"
+        android:layout_width="68dp"
+        android:layout_height="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="131dp"
+        android:layout_marginTop="159dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/ng_nh_p"
+        android:textAppearance="@style/ng_nh_p" />
 
         <EditText
             android:id="@+id/edittext_tk"
@@ -83,15 +83,15 @@
             android:paddingLeft="45dp"
             android:textSize="16sp" />
 
-        <View
-            android:id="@+id/ic_person"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="224dp"
-            android:background="@drawable/ic_person" />
+    <View
+        android:id="@+id/ic_person"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="224dp"
+        android:background="@drawable/ic_person" />
 
         <EditText
             android:id="@+id/edittext_mk"
@@ -137,18 +137,20 @@
             android:textAppearance="@style/m_t_kh_u"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btn_dangnhap"
-            android:layout_width="360dp"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="390dp"
-            android:layout_marginBottom="43dp"
-            android:background="@drawable/btn_default"
-            android:gravity="center"
-            android:text="Đăng nhập"
-            android:textSize="18dp" />
+    <Button
+        android:id="@+id/btn_dangnhap"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="390dp"
+        android:layout_marginBottom="43dp"
+        android:background="@drawable/btn_default"
+        android:gravity="center"
+        android:text="Đăng nhập"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textSize="18dp" />
 
         <TextView
             android:id="@+id/m_t_kh_u"
@@ -171,12 +173,13 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="500dp"
         android:layout_marginBottom="43dp"
-        android:paddingLeft="5dp"
         android:background="@drawable/tieptucgoogle"
         android:drawableLeft="@drawable/ic_google"
         android:gravity="center"
+        android:paddingLeft="5dp"
         android:text="Tiếp tục với google"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_facebook"
@@ -191,7 +194,8 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:text="Tiếp tục với facebook"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:textAllCaps="false"/>
 
 
 </RelativeLayout>

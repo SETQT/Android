@@ -167,6 +167,8 @@
         android:background="@drawable/btn_default"
         android:gravity="center"
         android:text="Đăng ký"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
         android:textSize="18dp" />
 
     <TextView
@@ -189,12 +191,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="530dp"
-        android:paddingLeft="5dp"
         android:background="@drawable/tieptucgoogle"
         android:drawableLeft="@drawable/ic_google"
         android:gravity="center"
+        android:paddingLeft="5dp"
         android:text="Tiếp tục với google"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_facebook_dk"
@@ -208,7 +211,8 @@
         android:gravity="center"
         android:paddingLeft="10dp"
         android:text="Tiếp tục với facebook"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:textAllCaps="false"/>
 
 
 </RelativeLayout>
