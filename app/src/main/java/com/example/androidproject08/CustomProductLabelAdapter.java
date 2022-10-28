@@ -17,6 +17,7 @@ public class CustomProductLabelAdapter extends BaseAdapter {
     String costs_sale[];
     String percents_sale[];
     LayoutInflater inflter;
+
     public CustomProductLabelAdapter(Context applicationContext, int[] logos, String[] names, String[] costs, String[] costs_sale, String[] percents_sale) {
         this.context = applicationContext;
         this.logos = logos;

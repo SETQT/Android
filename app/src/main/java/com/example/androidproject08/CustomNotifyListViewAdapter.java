@@ -40,13 +40,25 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
         TextView textTitle = (TextView) v.findViewById(R.id.itemTitle);
         ImageView imageView = (ImageView) v.findViewById(R.id.icon);
         TextView textContent = (TextView) v.findViewById(R.id.content);
-        TextView textProduct = (TextView) v.findViewById(R.id.product);
         TextView textDate = (TextView) v.findViewById(R.id.date);
 
         textTitle.setText(my_notify.get(position).getTitle());
 
-        textContent.setText(my_notify.get(position).getContent());
-        textProduct.setText(my_notify.get(position).getProduct());
+        if (my_notify.get(position).getCheckProduct() == 1){
+            String str;
+            if (my_notify.get(position).getStatus() == 1){
+                str = " đã được giao thành công đến bạn";
+            } else if (my_notify.get(position).getStatus() == 0) {
+                str = " không được giao hàng thành công";
+            } else {
+                str = " đã được shop xác nhận và chuyển cho shipper";
+            }
+            String htmlcontent =  "<div>Kiện hàng <font color=\"#53AD59\">"+ my_notify.get(position).getProduct()+
+                    "</font>"+str+"</div>";
+            textContent.setText(android.text.Html.fromHtml(htmlcontent));
+        } else {
+            textContent.setText(my_notify.get(position).getContent()) ;
+        }
         textDate.setText(my_notify.get(position).getDate());
         imageView.setImageResource(my_notify.get(position).getImage());
 
