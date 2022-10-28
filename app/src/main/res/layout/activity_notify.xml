@@ -64,18 +64,19 @@
         android:id="@+id/ic_chat"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_marginLeft="343dp"
+        android:layout_marginLeft="345dp"
         android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:background="@drawable/icon_chat" />
+        android:background="@drawable/icon_chat"
+        android:backgroundTint="#E5A433"
+        android:gravity="center" />
 
     <View
         android:id="@+id/circle_red_chat"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="363dp"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="365dp"
         android:layout_marginTop="14dp"
         android:background="@drawable/dashboard_circle_red" />
 
@@ -85,7 +86,7 @@
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="365dp"
+        android:layout_marginLeft="367dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="10"
@@ -161,9 +162,9 @@
         android:layout_height="26dp"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
+        android:background="@drawable/icon_notify"
         android:backgroundTint="#F9A826"
-        android:background="@drawable/icon_notify" />
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/notify"

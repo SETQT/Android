@@ -44,9 +44,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="200dp"
+        android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
         android:gravity="top"
         android:textColor="#F9A826"
-        android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
         android:textSize="12sp"
         android:typeface="sans" />
 

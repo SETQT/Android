@@ -43,7 +43,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="68dp"
         android:gravity="center"
-        android:src="@drawable/img" />
+        android:src="@drawable/record_avatar" />
 
     <View
         android:id="@+id/bg_camera_01"

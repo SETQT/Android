@@ -58,12 +58,13 @@
 
     <View
         android:id="@+id/ic_chat"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginLeft="343dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="345dp"
         android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:background="@drawable/icon_chat" />
+        android:background="@drawable/icon_chat"
+        android:backgroundTint="#E5A433"
+        android:gravity="center" />
 
     <View
         android:id="@+id/circle_red_chat"
