@@ -8,7 +8,7 @@
     android:background="#E5E5E5">
 
     <View
-        android:id="@+id/frame_product"
+        android:id="@+id/dashboard_custom_frame_product"
         android:layout_width="173dp"
         android:layout_height="233dp"
         android:layout_alignParentLeft="true"
@@ -16,7 +16,7 @@
         android:background="@drawable/dashboard_custom_gridview_rectangle_product" />
 
     <ImageView
-        android:id="@+id/picture_product"
+        android:id="@+id/dashboard_custom_picture_product"
         android:layout_width="154dp"
         android:layout_height="157dp"
         android:layout_alignParentLeft="true"
@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/name_product"
+        android:id="@+id/dashboard_custom_name_product"
         android:layout_width="133dp"
         android:layout_height="21dp"
         android:layout_alignParentLeft="true"
@@ -37,7 +37,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/cost_product"
+        android:id="@+id/dashboard_custom_cost_product"
         android:layout_width="55dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
@@ -51,7 +51,7 @@
         android:typeface="sans" />
 
     <TextView
-        android:id="@+id/cost_sale_product"
+        android:id="@+id/dashboard_custom_cost_sale_product"
         android:layout_width="55dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
@@ -63,7 +63,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/percent_sale_product"
+        android:id="@+id/dashboard_custom_percent_sale_product"
         android:layout_width="35dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"

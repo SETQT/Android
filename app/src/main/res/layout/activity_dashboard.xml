@@ -8,7 +8,7 @@
     android:background="#E5E5E5">
 
     <View
-        android:id="@+id/rectangle_header"
+        android:id="@+id/dashboard_rectangle_header"
         android:layout_width="411dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -16,7 +16,7 @@
         android:background="@drawable/dashboard_rectangle_footer" />
 
     <View
-        android:id="@+id/ic_menu"
+        android:id="@+id/dashboard_ic_menu"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="33dp"
@@ -25,7 +25,7 @@
         android:background="@drawable/icon_menu" />
 
     <View
-        android:id="@+id/ic_cart"
+        android:id="@+id/dashboard_ic_cart"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginLeft="279dp"
@@ -34,7 +34,7 @@
         android:gravity="center" />
 
     <View
-        android:id="@+id/circle_red_cart"
+        android:id="@+id/dashboard_circle_red_cart"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
@@ -44,7 +44,7 @@
         android:background="@drawable/dashboard_circle_red" />
 
     <TextView
-        android:id="@+id/number_cart"
+        android:id="@+id/dashboard_number_cart"
         android:layout_width="17dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
@@ -57,7 +57,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/ic_chat"
+        android:id="@+id/dashboard_ic_chat"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="345dp"
@@ -67,7 +67,7 @@
         android:gravity="center" />
 
     <View
-        android:id="@+id/circle_red_chat"
+        android:id="@+id/dashboard_circle_red_chat"
         android:layout_width="19dp"
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
@@ -78,7 +78,7 @@
         />
 
     <TextView
-        android:id="@+id/id_chat"
+        android:id="@+id/dashboard_number_chat"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -91,7 +91,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/khung_timkiem"
+        android:id="@+id/dashboard_frame_search"
         android:layout_width="361dp"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
@@ -101,7 +101,7 @@
         android:background="@drawable/dashboard_rectangle_search" />
 
     <EditText
-        android:id="@+id/timkiem"
+        android:id="@+id/dashboard_id_search"
         android:layout_width="284dp"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
@@ -114,6 +114,7 @@
         android:textSize="16sp" />
 
     <View
+        android:id="@+id/dashboard_ic_search"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="38dp"
@@ -136,7 +137,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/option_tatca"
+                android:id="@+id/dashboard_option_tatca"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -151,7 +152,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/option_aokhoac"
+                android:id="@+id/dashboard_option_aokhoac"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -166,7 +167,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/option_mu"
+                android:id="@+id/dashboard_option_mu"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -181,7 +182,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/option_quan"
+                android:id="@+id/dashboard_option_quan"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -196,7 +197,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/option_áo"
+                android:id="@+id/dashboard_option_ao"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -211,7 +212,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/option_giay"
+                android:id="@+id/dashboard_option_giay"
                 android:layout_width="110dp"
                 android:layout_height="47dp"
                 android:layout_alignParentLeft="true"
@@ -230,7 +231,7 @@
     </HorizontalScrollView>
 
     <GridView
-        android:id="@+id/gridview"
+        android:id="@+id/dashboard_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
@@ -244,7 +245,7 @@
         android:verticalSpacing="10dp" />
 
     <View
-        android:id="@+id/rectangle_footer"
+        android:id="@+id/dashboard_rectangle_footer"
         android:layout_width="411dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -253,7 +254,7 @@
         android:background="@drawable/dashboard_rectangle_footer" />
 
     <View
-        android:id="@+id/ic_home"
+        android:id="@+id/dashboard_ic_home"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="40dp"
@@ -263,7 +264,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/home"
+        android:id="@+id/dashboard_text_home"
         android:layout_width="31dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -277,16 +278,16 @@
         />
 
     <View
-        android:id="@+id/ic_scan"
+        android:id="@+id/dashboard_ic_scan"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="145dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
-        android:background="@drawable/icon_qrcode" />
+        android:background="@drawable/icon_qrcode"
+        android:gravity="center" />
 
     <TextView
-        android:id="@+id/scan"
+        android:id="@+id/dashboard_text_scan"
         android:layout_width="45dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -300,16 +301,16 @@
         />
 
     <View
-        android:id="@+id/ic_notify"
+        android:id="@+id/dashboard_ic_notify"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
-        android:background="@drawable/icon_notify" />
+        android:background="@drawable/icon_notify"
+        android:gravity="center" />
 
     <TextView
-        android:id="@+id/notify"
+        android:id="@+id/dashboard_text_notify"
         android:layout_width="52dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -323,7 +324,7 @@
         />
 
     <View
-        android:id="@+id/ic_profile"
+        android:id="@+id/dashboard_ic_profile"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="340dp"
@@ -332,7 +333,7 @@
         android:background="@drawable/icon_profile" />
 
     <TextView
-        android:id="@+id/profile"
+        android:id="@+id/dashboard_text_profile"
         android:layout_width="20dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"

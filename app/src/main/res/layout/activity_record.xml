@@ -8,7 +8,7 @@
     android:background="#E5E5E5">
 
     <View
-        android:id="@+id/rectangle_header_profile"
+        android:id="@+id/record_rectangle_header_profile"
         android:layout_width="wrap_content"
         android:layout_height="165dp"
         android:layout_alignParentLeft="true"
@@ -17,7 +17,7 @@
         android:background="@drawable/record_rectangle_header_profile" />
 
     <View
-        android:id="@+id/ic_back"
+        android:id="@+id/record_ic_back"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginLeft="25dp"
@@ -27,7 +27,7 @@
         android:backgroundTint="#FFFFFF"/>
 
     <View
-        android:id="@+id/frame_avatar_profile"
+        android:id="@+id/record_frame_avatar_profile"
         android:layout_width="120dp"
         android:layout_height="123dp"
         android:layout_alignParentLeft="true"
@@ -37,7 +37,7 @@
         android:background="@drawable/record_frame_avatar_profile" />
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/record_avatar"
         android:layout_width="120dp"
         android:layout_height="123dp"
         android:layout_marginLeft="25dp"
@@ -46,7 +46,7 @@
         android:src="@drawable/record_avatar" />
 
     <View
-        android:id="@+id/bg_camera_01"
+        android:id="@+id/record_bg_camera_01"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_alignParentLeft="true"
@@ -56,7 +56,7 @@
         android:background="@drawable/record_bg_camera" />
 
     <ImageView
-        android:id="@+id/camera_01"
+        android:id="@+id/record_camera_01"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="362dp"
@@ -65,7 +65,7 @@
         android:src="@drawable/icon_camera" />
 
     <View
-        android:id="@+id/bg_camera_02"
+        android:id="@+id/record_bg_camera_02"
         android:layout_width="29dp"
         android:layout_height="29dp"
         android:layout_alignParentLeft="true"
@@ -75,7 +75,7 @@
         android:background="@drawable/record_bg_camera" />
 
     <ImageView
-        android:id="@+id/camera_02"
+        android:id="@+id/record_camera_02"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="120.5dp"
@@ -85,7 +85,7 @@
 
 
     <View
-        android:id="@+id/bg_custom_01"
+        android:id="@+id/record_bg_custom_01"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -106,7 +106,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_ten"
+        android:id="@+id/record_id_profile_ten"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_alignParentTop="true"
@@ -119,7 +119,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_01"
+        android:id="@+id/record_next_01"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
@@ -129,7 +129,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_02"
+        android:id="@+id/record_bg_custom_02"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -150,7 +150,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_bio"
+        android:id="@+id/record_id_profile_bio"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_alignParentTop="true"
@@ -163,7 +163,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_02"
+        android:id="@+id/record_next_02"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
@@ -173,7 +173,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_03"
+        android:id="@+id/record_bg_custom_03"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -194,7 +194,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_sex"
+        android:id="@+id/record_id_profile_sex"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_alignParentRight="true"
@@ -207,7 +207,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_03"
+        android:id="@+id/record_next_03"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -217,7 +217,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_04"
+        android:id="@+id/record_bg_custom_04"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -239,7 +239,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_dob"
+        android:id="@+id/record_id_profile_dob"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_alignParentRight="true"
@@ -252,7 +252,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_04"
+        android:id="@+id/record_next_04"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -262,7 +262,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_05"
+        android:id="@+id/record_bg_custom_05"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -283,7 +283,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_05"
+        android:id="@+id/record_next_05"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -293,7 +293,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_06"
+        android:id="@+id/record_bg_custom_06"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -314,7 +314,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_phone"
+        android:id="@+id/record_id_profile_phone"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_alignParentRight="true"
@@ -327,7 +327,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_06"
+        android:id="@+id/record_next_06"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -337,7 +337,7 @@
         android:background="@drawable/icon_next" />
 
     <View
-        android:id="@+id/bg_custom_07"
+        android:id="@+id/record_bg_custom_07"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -358,7 +358,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/id_profile_email"
+        android:id="@+id/record_id_profile_email"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_alignParentTop="true"
@@ -371,7 +371,7 @@
         android:textSize="14sp" />
 
     <View
-        android:id="@+id/next_07"
+        android:id="@+id/record_next_07"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
@@ -381,7 +381,7 @@
         android:background="@drawable/icon_next" />
 
     <Button
-        android:id="@+id/btn_save_profile"
+        android:id="@+id/record_btn_save_profile"
         android:layout_width="361dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"

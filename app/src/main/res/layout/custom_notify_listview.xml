@@ -5,7 +5,7 @@
     android:orientation="horizontal" >
 
     <View
-        android:id="@+id/notify_custom_listview_bg_notify"
+        android:id="@+id/custom_notify_listview_bg_notify"
         android:layout_width="411dp"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
@@ -13,7 +13,7 @@
         android:background="@drawable/notify_custom_listview_bg_notify" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/custom_notify_icon"
         android:layout_width="64dp"
         android:layout_height="65dp"
         android:layout_alignParentLeft="true"
@@ -28,7 +28,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/itemTitle"
+            android:id="@+id/custom_notify_itemTitle"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_alignParentLeft="true"
@@ -39,7 +39,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/custom_notify_content"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
@@ -50,7 +50,7 @@
 
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/custom_notify_date"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_alignParentLeft="true"

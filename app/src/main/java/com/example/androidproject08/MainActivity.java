@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        gridview = (GridView) findViewById(R.id.gridview);
+        gridview = (GridView) findViewById(R.id.dashboard_gridview);
         CustomProductLabelAdapter customAdapter = new CustomProductLabelAdapter(getApplicationContext(), logos, names, costs, costs_sale, percent_sale);
         gridview.setAdapter(customAdapter);
     }*/
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_notify);
 
 
-        listNotification = (ListView) findViewById(R.id.idListView);
+        listNotification = (ListView) findViewById(R.id.MyCart_listview);
 
         for (int i=0;i<7;i++){
             notifiesArray.add(new Notify(i, CheckProduct[i],title[i], status[i], product[i],date[i],content[i], image[i]));
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_mycart);
 
 
-        listMyCart = (ListView) findViewById(R.id.idListView);
+        listMyCart = (ListView) findViewById(R.id.MyCart_listview);
 
         for (int i=0;i<6;i++){
             MyCartArray.add(new MyCart(i, name[i],old_cost[i], new_cost[i], number[i], image[i]));
