@@ -37,10 +37,10 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.custom_notify_listview, null);
 
-        TextView textTitle = (TextView) v.findViewById(R.id.itemTitle);
-        ImageView imageView = (ImageView) v.findViewById(R.id.icon);
-        TextView textContent = (TextView) v.findViewById(R.id.content);
-        TextView textDate = (TextView) v.findViewById(R.id.date);
+        TextView textTitle = (TextView) v.findViewById(R.id.custom_notify_itemTitle);
+        ImageView imageView = (ImageView) v.findViewById(R.id.custom_notify_icon);
+        TextView textContent = (TextView) v.findViewById(R.id.custom_notify_content);
+        TextView textDate = (TextView) v.findViewById(R.id.custom_notify_date);
 
         textTitle.setText(my_notify.get(position).getTitle());
 

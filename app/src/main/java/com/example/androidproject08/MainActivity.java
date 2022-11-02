@@ -67,7 +67,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycart);
 
-
         listMyCart = (ListView) findViewById(R.id.MyCart_listview);
 
         for (int i=0;i<6;i++){
@@ -75,7 +74,5 @@ public class MainActivity extends Activity {
         }
         CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(this,R.layout.custom_notify_listview, MyCartArray);
         listMyCart.setAdapter(myAdapter);
-
     }
-
 }
