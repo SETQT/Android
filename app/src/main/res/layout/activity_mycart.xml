@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5">
+
+    <View
+        android:id="@+id/MyCart_rectangle_header"
+        android:layout_width="414dp"
+        android:layout_height="109dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/notify_bg_header" />
+
+    <View
+        android:id="@+id/MyCart_ic_back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/icon_back"
+        android:backgroundTint="#F9A826"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/MyCart_text_header"
+        android:layout_width="109dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="158dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Giỏ hàng"
+        android:textColor="#F9A826"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/MyCart_ic_chat"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="345dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/icon_chat"
+        android:backgroundTint="#E5A433"
+        android:gravity="center" />
+
+    <View
+        android:id="@+id/MyCart_circle_red_chat"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="365dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/dashboard_circle_red" />
+
+    <TextView
+        android:id="@+id/MyCart_number_chat"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="367dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="10"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp" />
+
+    <ListView
+        android:id="@+id/MyCart_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="47dp"
+        />
+
+    <View
+        android:id="@+id/MyCart_rectangle_footer"
+        android:layout_width="411dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="614dp"
+        android:background="@drawable/mycart_rectangle_footer" />
+
+    <View
+        android:id="@+id/bg_check_all"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="624dp"
+        android:background="@drawable/mycart_bg_check_all" />
+
+    <View
+        android:id="@+id/MyCart_icon_check_all"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="629dp"
+        android:background="@drawable/icon_done"
+        android:backgroundTint="#000000" />
+
+    <TextView
+        android:layout_width="41dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="626dp"
+        android:gravity="center"
+        android:text="Tất cả"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="135dp"
+        android:layout_marginTop="629dp"
+        android:gravity="center_vertical"
+        android:text="Tổng thanh toán"
+        android:textColor="#000000"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/MyCart_total_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="217dp"
+        android:layout_marginTop="629dp"
+        android:gravity="center_vertical"
+        android:text="đ400.000"
+        android:textColor="#F9A826"
+        android:textSize="11sp" />
+
+    <View
+        android:id="@+id/MyCart_bg_buy"
+        android:layout_width="134.33dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="277dp"
+        android:layout_marginTop="614dp"
+        android:background="@drawable/mycart_bg_buy" />
+
+    <TextView
+        android:id="@+id/MyCart_BuyProductWithNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="298dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="624dp"
+        android:text="Mua hàng (2)"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:gravity="center_vertical"
+        />
+
+
+</RelativeLayout>
