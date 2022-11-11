@@ -245,7 +245,7 @@
         android:verticalSpacing="10dp" />
 
     <View
-        android:id="@+id/dashboard_rectangle_footer"
+        android:id="@+id/rectangle_footer"
         android:layout_width="411dp"
         android:layout_height="45dp"
         android:layout_alignParentStart="true"
@@ -258,7 +258,7 @@
         android:background="@drawable/dashboard_rectangle_footer" />
 
     <View
-        android:id="@+id/dashboard_ic_home"
+        android:id="@+id/icon_home"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
@@ -270,7 +270,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/dashboard_text_home"
+        android:id="@+id/text_home"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -283,7 +283,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/dashboard_ic_scan"
+        android:id="@+id/icon_scan"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
@@ -294,7 +294,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/dashboard_text_scan"
+        android:id="@+id/text_scan"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -307,7 +307,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/dashboard_ic_notify"
+        android:id="@+id/icon_notify"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
@@ -318,7 +318,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/dashboard_text_notify"
+        android:id="@+id/text_notify"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -331,7 +331,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/dashboard_ic_profile"
+        android:id="@+id/icon_profile"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
@@ -342,7 +342,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/dashboard_text_profile"
+        android:id="@+id/text_profile"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
