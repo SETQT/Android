@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:id="@+id/profile"
     android:background="@drawable/login"
-    android:clipToOutline="true"
-    tools:context=".MainActivity">
+    android:clipToOutline="true">
 
     <View
         android:id="@+id/rectangle_profile"
         android:layout_width="411dp"
-        android:layout_height="165dp"
+        android:layout_height="145dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="0dp"
@@ -20,23 +19,23 @@
         android:background="@drawable/rectangle_profile" />
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/profile_avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="35dp"
         android:gravity="center"
         android:src="@drawable/avatar_profile" />
 
 
     <View
-        android:id="@+id/ic_setting"
+        android:id="@+id/icon_setting"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="243dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginLeft="258dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/ic_profile_settings" />
 
 
@@ -46,8 +45,8 @@
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="285dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/ic_profile_giohang" />
 
     <View
@@ -56,8 +55,8 @@
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="308dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginLeft="323dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/cycle_red_profile" />
 
     <TextView
@@ -66,22 +65,23 @@
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="308.5dp"
-        android:layout_marginTop="26.5dp"
+        android:layout_marginLeft="324dp"
+        android:layout_marginTop="7dp"
         android:gravity="center"
         android:text="5"
         android:textColor="#FFFFFF"
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/ic_chat"
-        android:layout_width="35dp"
+        android:id="@+id/icon_chat"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="335dp"
-        android:layout_marginTop="34dp"
-        android:background="@drawable/ic_chat" />
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/icon_chat"
+        android:backgroundTint="#FFFFFF" />
 
     <View
         android:id="@+id/circle_red_chat_profile"
@@ -89,8 +89,8 @@
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="361dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginLeft="368dp"
+        android:layout_marginTop="7dp"
         android:background="@drawable/cycle_red_profile" />
 
     <TextView
@@ -99,21 +99,21 @@
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="362.5dp"
-        android:layout_marginTop="26.5dp"
+        android:layout_marginLeft="369dp"
+        android:layout_marginTop="7dp"
         android:gravity="center"
-        android:text="50"
+        android:text="5"
         android:textColor="#FFFFFF"
         android:textSize="10sp" />
 
     <TextView
         android:id="@+id/username_profile"
-        android:layout_width="188dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="60dp"
         android:gravity="top"
         android:text=""
         android:textAppearance="@style/username" />
@@ -126,12 +126,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="157dp"
+        android:layout_marginTop="137dp"
         android:background="@drawable/rectangle_profile_donhangcuatoi">
 
         <TextView
             android:id="@+id/text_donhangcuatoi_profile"
-            android:layout_width="131dp"
+            android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -144,7 +144,7 @@
 
         <TextView
             android:id="@+id/hintdonhangcuatoi_profile"
-            android:layout_width="103dp"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -185,8 +185,8 @@
 
         <TextView
             android:id="@+id/choxacnhan_profile"
-            android:layout_width="69dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
@@ -207,8 +207,8 @@
 
         <TextView
             android:id="@+id/text_cholayhang"
-            android:layout_width="66dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="128dp"
@@ -229,8 +229,8 @@
 
         <TextView
             android:id="@+id/text_danggiaohang"
-            android:layout_width="75dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="228dp"
@@ -251,8 +251,8 @@
 
         <TextView
             android:id="@+id/text_danhgia"
-            android:layout_width="46dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="339dp"
@@ -272,15 +272,16 @@
 
         <TextView
             android:id="@+id/donhangdamua_profile"
-            android:layout_width="128dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="131dp"
             android:gravity="top"
             android:text="@string/donhangdamua"
-            android:textAppearance="@style/donhangcuatoi" />
+            android:textAppearance="@style/donhangcuatoi"
+            android:textSize="14dp" />
 
         <View
             android:id="@+id/baseline_arrow_profile2"
@@ -301,13 +302,13 @@
         android:layout_height="119dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="320dp"
         android:background="@drawable/rectangle_profile_tienich">
 
         <TextView
             android:id="@+id/tienich"
-            android:layout_width="59dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
@@ -360,8 +361,8 @@
 
         <TextView
             android:id="@+id/text_shop_xu"
-            android:layout_width="40dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="185dp"
@@ -382,16 +383,15 @@
 
         <TextView
             android:id="@+id/kho_voucher"
-            android:layout_width="63dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="323dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="323dp"
             android:layout_marginTop="85dp"
-            android:text="@string/kho_voucher"
-            android:textAppearance="@style/giaohang"
             android:gravity="center"
-            />
+            android:text="@string/kho_voucher"
+            android:textAppearance="@style/giaohang" />
 
     </RelativeLayout>
 
@@ -401,17 +401,18 @@
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="475dp"
+        android:layout_marginTop="455dp"
         android:background="@drawable/rectangle_profile_hosocuatoi">
 
         <TextView
             android:id="@+id/h_s_c_a_t_i"
-            android:layout_width="90dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="12dp"
+            android:textSize="14dp"
             android:gravity="center"
             android:text="@string/hosocuatoi"
             android:textAppearance="@style/donhangcuatoi" />
@@ -444,10 +445,10 @@
         android:layout_width="361dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="540dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/rectangle_dangxuat"
         android:gravity="center"
         android:text="Đăng xuất"
@@ -468,100 +469,135 @@
         android:layout_marginBottom="0dp"
         android:background="@drawable/dashboard_rectangle_footer" />
 
-    <View
+    <RelativeLayout
         android:id="@+id/icon_home"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="42dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_home"
-        android:gravity="center" />
+        android:layout_marginLeft="42dp">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Home"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/profile_icon_home"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_home"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Home"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/icon_scan"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="148dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_qrcode"
-        android:gravity="center" />
+        android:layout_marginLeft="135dp">
 
-    <TextView
-        android:id="@+id/text_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="136dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Scan/Pay"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/profile_icon_scan"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_qrcode"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Scan/Pay"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_notify"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="58dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="253dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_notify"
-        android:gravity="center" />
+        android:layout_marginLeft="243dp">
 
-    <TextView
-        android:id="@+id/text_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="240dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Thông báo"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/profile_icon_notify"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_notify"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Thông báo"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_profile"
         android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="343dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_profile"
-        android:backgroundTint="#F9A826"
-        android:gravity="center" />
+        android:layout_marginLeft="340dp">
 
-    <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="346dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Tôi"
-        android:textColor="#F9A826"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/profile_icon_profile"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_profile"
+            android:backgroundTint="#F9A826"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Tôi"
+            android:textColor="#F9A826"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
 </RelativeLayout>

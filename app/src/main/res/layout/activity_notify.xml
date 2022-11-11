@@ -20,13 +20,13 @@
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="114dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Thông báo"
         android:textColor="#F9A826"
         android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <View
         android:id="@+id/icon_cart"
@@ -61,7 +61,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/notify_ic_chat"
+        android:id="@+id/icon_chat"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="345dp"
@@ -98,7 +98,9 @@
         android:id="@+id/notify_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="80dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="50dp" />
 
     <View
@@ -114,102 +116,134 @@
         android:layout_marginBottom="0dp"
         android:background="@drawable/dashboard_rectangle_footer" />
 
-    <View
+    <RelativeLayout
         android:id="@+id/icon_home"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="42dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_home"
-        android:gravity="center" />
+        android:layout_marginLeft="42dp">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Home"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/notify_icon_home"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_home"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Home"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/icon_scan"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="148dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_qrcode"
-        android:gravity="center" />
+        android:layout_marginLeft="135dp">
 
-    <TextView
-        android:id="@+id/text_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="136dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Scan/Pay"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/notify_icon_scan"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_qrcode"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Scan/Pay"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_notify"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="58dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="253dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_notify"
-        android:backgroundTint="#F9A826"
-        android:gravity="center" />
+        android:layout_marginLeft="243dp">
 
-    <TextView
-        android:id="@+id/text_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="240dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Thông báo"
-        android:textColor="#F9A826"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/notify_icon_notify"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_notify"
+            android:backgroundTint="#F9A826"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Thông báo"
+            android:textColor="#F9A826"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_profile"
         android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="343dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_profile"
-        android:gravity="center" />
+        android:layout_marginLeft="340dp">
+        <View
+            android:id="@+id/notify_icon_profile"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_profile"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="346dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Tôi"
-        android:textColor="#000000"
-        android:textSize="10sp" />
-
+        <TextView
+            android:id="@+id/text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Tôi"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
