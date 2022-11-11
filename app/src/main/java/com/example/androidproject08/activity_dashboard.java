@@ -2,10 +2,14 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+
+import java.io.File;
 
 public class activity_dashboard extends Activity {
     GridView gridview;
@@ -24,9 +28,9 @@ public class activity_dashboard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        dashboard_ic_scan = (View) findViewById(R.id.dashboard_ic_scan);
-        dashboard_ic_notify = (View) findViewById(R.id.dashboard_ic_notify);
-        dashboard_ic_profile = (View) findViewById(R.id.dashboard_ic_profile);
+        dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
+        dashboard_ic_notify = (View) findViewById(R.id.icon_notify);
+        dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
 
         // chuyển sang giao diện scan mã qr
         dashboard_ic_scan.setOnClickListener(new View.OnClickListener() {

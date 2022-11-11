@@ -1,16 +1,9 @@
 package com.example.androidproject08;
 
 
-import android.util.Log;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class User {
     private String username;
@@ -29,21 +22,63 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-//    public User(String id,String username,String password ,String email,
-//                String phone,String gender,String fullname) {
-//        this.setFullname(fullname);
-//        this.setUserId(id);
-//        this.setUsername(username);
-//        this.setEmail(email);
-//        this.setUserId(getUserId());
-//        this.setPassword(password);
-//        this.setPhone(phone);
-//        this.setGender(gender);
-//    }
-
-    public User(String username, String password) {
+    public User(String id, String username, String password, String email,
+                String phone, String gender, String address, String fullname, Cart cart) {
         this.username = username;
         this.password = password;
+        this.fullname = fullname;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.userId = id;
+        this.cart = cart;
+    }
+
+    public User(String username, String password) {
+        // mã hóa mật khẩu
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+            messageDigest.update(password.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            this.password = sb.toString();
+            this.username = username;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // mã hóa password người dùng nhập => check
+    public boolean checkPassword(String password) {
+        MessageDigest messageDigest = null;
+        try {
+            messageDigest = MessageDigest.getInstance("SHA");
+            messageDigest.update(password.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            if(this.password.equals(sb.toString())) {
+                return true;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 //    public void loadById(Integer id){

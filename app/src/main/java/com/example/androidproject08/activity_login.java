@@ -2,6 +2,8 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,9 @@ public class activity_login extends Activity {
     View btn_register;
     EditText edittext_tk, edittext_mk;
     Button btn_login;
+
+    // kết nối sqlite
+    SQLiteDatabase sqlite;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -64,9 +70,22 @@ public class activity_login extends Activity {
                             return;
                         } else {
                             // kiểm tra password
-                            if (usernameList.get(0).getPassword().equals(mk)) {
+                            if (usernameList.get(0).checkPassword(mk)) {
                                 // thêm vào cookie => lần sau vào không cần đăng nhập nữa
+                                // khi người dùng đăng nhập vào thì ta lấy username của người dùng lưu lại
+                                // khi khởi động ứng dụng ta truy vấn vào sqlite này để xem nếu username tồn tại rồi thì
+                                // không cần đăng nhập vào thẳng trang dash_board cho người dùng
+                                File storagePath = getApplication().getFilesDir();
+                                String myDbPath = storagePath + "/" + "loginDb";
+                                sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
+                                if(!tableExists(sqlite, "USER")) {
+                                    // create table USER
+                                    sqlite.execSQL("create table USER ("
+                                            + "username text PRIMARY KEY);");
+                                }
+
+                                sqlite.execSQL("insert into USER(username) values ('" + tk + "');");
 
                                 // chuyển sang giao diện chính
                                 Intent moveActivity = new Intent(activity_login.this, activity_dashboard.class);
@@ -111,5 +130,14 @@ public class activity_login extends Activity {
                         }
                     }
                 });
+    }
+
+    public boolean tableExists(SQLiteDatabase db, String tableName) {
+        String mySql = "SELECT name FROM sqlite_master " + " WHERE type='table' " + " AND name='" + tableName + "'";
+        int resultSize = db.rawQuery(mySql, null).getCount();
+        if (resultSize != 0) {
+            return true;
+        }
+        else return false;
     }
 }

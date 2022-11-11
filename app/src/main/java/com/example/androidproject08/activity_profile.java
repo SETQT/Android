@@ -15,9 +15,9 @@ public class activity_profile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        dashboard_ic_home = (View) findViewById(R.id.dashboard_ic_home);
-        dashboard_ic_scan = (View) findViewById(R.id.dashboard_ic_scan);
-        dashboard_ic_notify = (View) findViewById(R.id.dashboard_ic_notify);
+        dashboard_ic_home = (View) findViewById(R.id.icon_home);
+        dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
+        dashboard_ic_notify = (View) findViewById(R.id.icon_notify);
 
         // trở về giao diện dashboard
         dashboard_ic_home.setOnClickListener(new View.OnClickListener() {

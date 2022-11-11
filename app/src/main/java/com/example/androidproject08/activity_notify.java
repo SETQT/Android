@@ -42,9 +42,9 @@ public class activity_notify extends Activity {
         CustomNotifyListViewAdapter myAdapter = new CustomNotifyListViewAdapter(this, R.layout.custom_notify_listview, notifiesArray);
         listNotification.setAdapter(myAdapter);
 
-        dashboard_ic_home = (View) findViewById(R.id.dashboard_ic_home);
-        dashboard_ic_scan = (View) findViewById(R.id.dashboard_ic_scan);
-        dashboard_ic_profile = (View) findViewById(R.id.dashboard_ic_profile);
+        dashboard_ic_home = (View) findViewById(R.id.icon_home);
+        dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
+        dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
 
         // trở về giao diện dashboard
         dashboard_ic_home.setOnClickListener(new View.OnClickListener() {
