@@ -77,16 +77,14 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="47dp"
-        />
+        android:layout_marginBottom="60dp" />
 
     <View
         android:id="@+id/MyCart_rectangle_footer"
         android:layout_width="411dp"
-        android:layout_height="45dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="614dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/mycart_rectangle_footer" />
 
     <View
@@ -94,41 +92,41 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="624dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/mycart_bg_check_all" />
 
-    <View
+    <Button
         android:id="@+id/MyCart_icon_check_all"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="629dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/icon_done"
         android:backgroundTint="#000000" />
 
     <TextView
-        android:layout_width="41dp"
-        android:layout_height="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="62dp"
-        android:layout_marginTop="626dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Tất cả"
         android:textColor="#000000"
-        android:textSize="14sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="135dp"
-        android:layout_marginTop="629dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:text="Tổng thanh toán"
         android:textColor="#000000"
@@ -137,39 +135,28 @@
     <TextView
         android:id="@+id/MyCart_total_cost"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="217dp"
-        android:layout_marginTop="629dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:text="đ400.000"
         android:textColor="#F9A826"
         android:textSize="11sp" />
 
-    <View
+    <Button
         android:id="@+id/MyCart_bg_buy"
         android:layout_width="134.33dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="277dp"
-        android:layout_marginTop="614dp"
-        android:background="@drawable/mycart_bg_buy" />
-
-    <TextView
-        android:id="@+id/MyCart_BuyProductWithNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="298dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="624dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/mycart_bg_buy"
         android:text="Mua hàng (2)"
-        android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:gravity="center_vertical"
-        />
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:textSize="16sp"/>
 
 
 </RelativeLayout>

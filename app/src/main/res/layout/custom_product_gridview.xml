@@ -34,11 +34,11 @@
         android:layout_marginTop="172dp"
         android:gravity="top"
         android:textColor="#000000"
-        android:textSize="14sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/dashboard_custom_cost_product"
-        android:layout_width="55dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -47,7 +47,7 @@
         android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
         android:gravity="top"
         android:textColor="#F9A826"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:typeface="sans" />
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_marginTop="200dp"
         android:gravity="top"
         android:textColor="#000000"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/dashboard_custom_percent_sale_product"
@@ -72,6 +72,6 @@
         android:layout_marginTop="200dp"
         android:gravity="top"
         android:textColor="#E53333"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
 </RelativeLayout>
