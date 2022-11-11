@@ -70,7 +70,7 @@ public class activity_profile extends Activity {
         readData(new FirestoreCallBack() {
             @Override
             public void onCallBack(List<User> list) {
-                if (usernameList.get(0).getFullname().equals("")) {
+                if (usernameList.get(0).getFullname() == null) {
                     username_profile.setText(usernameList.get(0).getUsername());
                 } else {
                     username_profile.setText(usernameList.get(0).getFullname());
