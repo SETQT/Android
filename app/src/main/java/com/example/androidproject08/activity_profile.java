@@ -39,6 +39,7 @@ public class activity_profile extends Activity {
     // khai báo biến UI
     TextView username_profile, id_cycle_red_giohang;
     Button dangxuat;
+    View icon_cart;
 
 
     @Override
@@ -52,6 +53,7 @@ public class activity_profile extends Activity {
         username_profile = (TextView) findViewById(R.id.username_profile);
         id_cycle_red_giohang = (TextView) findViewById(R.id.id_cycle_red_giohang);
         dangxuat = (Button) findViewById(R.id.dangxuat);
+        icon_cart = (View) findViewById(R.id.icon_cart);
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -78,6 +80,17 @@ public class activity_profile extends Activity {
             }
         }, username);
 
+        // chuyển sang giao diện my cart
+        icon_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+                moveActivity.putExtra("name_activity", "activity_profile");
+                startActivity(moveActivity);
+            }
+        });
+
+        // đăng xuất tài khoản
         dangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

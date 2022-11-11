@@ -26,7 +26,7 @@ public class activity_notify extends Activity {
             R.drawable.mono1, R.drawable.notify_img_voucher, R.drawable.mono1, R.drawable.mono1};
 
     // khai báo biến UI
-    View dashboard_ic_home, dashboard_ic_scan, dashboard_ic_profile;
+    View dashboard_ic_home, dashboard_ic_scan, dashboard_ic_profile, icon_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,17 @@ public class activity_notify extends Activity {
         dashboard_ic_home = (View) findViewById(R.id.icon_home);
         dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
         dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
+        icon_cart = (View) findViewById(R.id.icon_cart);
+
+        // chuyển sang giao diện my cart
+        icon_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+                moveActivity.putExtra("name_activity", "activity_notify");
+                startActivity(moveActivity);
+            }
+        });
 
         // trở về giao diện dashboard
         dashboard_ic_home.setOnClickListener(new View.OnClickListener() {

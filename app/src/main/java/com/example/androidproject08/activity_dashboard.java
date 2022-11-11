@@ -21,7 +21,7 @@ public class activity_dashboard extends Activity {
     String percent_sale[] = {"-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%"};
 
     // khai báo biến UI
-    View dashboard_ic_scan, dashboard_ic_notify, dashboard_ic_profile;
+    View dashboard_ic_scan, dashboard_ic_notify, dashboard_ic_profile, icon_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,17 @@ public class activity_dashboard extends Activity {
         dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
         dashboard_ic_notify = (View) findViewById(R.id.icon_notify);
         dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
+        icon_cart = (View) findViewById(R.id.icon_cart);
+
+        // chuyển sang giao diện my cart
+        icon_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+                moveActivity.putExtra("name_activity", "activity_dashboard");
+                startActivity(moveActivity);
+            }
+        });
 
         // chuyển sang giao diện scan mã qr
         dashboard_ic_scan.setOnClickListener(new View.OnClickListener() {

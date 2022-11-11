@@ -26,10 +26,10 @@
         android:text="Thông báo"
         android:textColor="#F9A826"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <View
-        android:id="@+id/notify_ic_cart"
+        android:id="@+id/icon_cart"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_marginLeft="279dp"
