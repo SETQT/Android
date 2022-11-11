@@ -3,6 +3,7 @@ package com.example.androidproject08;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.text.HtmlCompat;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,8 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
         TextView textContent = (TextView) v.findViewById(R.id.custom_notify_content);
         TextView textDate = (TextView) v.findViewById(R.id.custom_notify_date);
 
+        Log.i("TAG", "getView: "+ "zo");
+
         textTitle.setText(my_notify.get(position).getTitle());
 
         if (my_notify.get(position).getCheckProduct() == 1){
@@ -55,7 +60,7 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
             }
             String htmlcontent =  "<div>Kiện hàng <font color=\"#53AD59\">"+ my_notify.get(position).getProduct()+
                     "</font>"+str+"</div>";
-            textContent.setText(android.text.Html.fromHtml(htmlcontent));
+            textContent.setText(android.text.Html.fromHtml(htmlcontent, HtmlCompat.FROM_HTML_MODE_LEGACY));
         } else {
             textContent.setText(my_notify.get(position).getContent()) ;
         }
@@ -63,6 +68,5 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
         imageView.setImageResource(my_notify.get(position).getImage());
 
         return v;
-
     }
 }

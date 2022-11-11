@@ -111,7 +111,7 @@
         android:background="@drawable/dashboard_rectangle_footer" />
 
     <View
-        android:id="@+id/notify_ic_home"
+        android:id="@+id/dashboard_ic_home"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="40dp"
@@ -134,7 +134,7 @@
         />
 
     <View
-        android:id="@+id/notify_ic_scan"
+        android:id="@+id/dashboard_ic_scan"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="145dp"
@@ -157,7 +157,7 @@
         />
 
     <View
-        android:id="@+id/notify_ic_notify"
+        android:id="@+id/dashboard_ic_notify"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="250dp"
@@ -181,7 +181,7 @@
         />
 
     <View
-        android:id="@+id/notify_ic_profile"
+        android:id="@+id/dashboard_ic_profile"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="340dp"

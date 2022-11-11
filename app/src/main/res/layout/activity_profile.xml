@@ -465,7 +465,7 @@
         android:background="@drawable/rectangle_footer_profile" />
 
     <View
-        android:id="@+id/ic_home_profile"
+        android:id="@+id/dashboard_ic_home"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="40dp"
@@ -488,13 +488,13 @@
         />
 
     <View
-        android:id="@+id/ic_scan_profile"
+        android:id="@+id/dashboard_ic_scan"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="145dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
-        android:background="@drawable/icon_qrcode" />
+        android:background="@drawable/icon_qrcode"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/text_scan_profile"
@@ -511,13 +511,13 @@
         />
 
     <View
-        android:id="@+id/ic_notify_profile"
+        android:id="@+id/dashboard_ic_notify"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="250dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
-        android:background="@drawable/icon_notify" />
+        android:background="@drawable/icon_notify"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/text_notify_profile"
@@ -534,14 +534,14 @@
         />
 
     <View
-        android:id="@+id/ic_profile_profile"
+        android:id="@+id/dashboard_ic_profile"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="340dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
+        android:background="@drawable/icon_profile"
         android:backgroundTint="#F9A826"
-        android:background="@drawable/icon_profile" />
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/text_profile_profile"

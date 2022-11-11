@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".activity_mycart"
     android:background="#E5E5E5">
 
     <View
@@ -329,8 +329,8 @@
         android:layout_height="26dp"
         android:layout_marginLeft="340dp"
         android:layout_marginTop="616dp"
-        android:gravity="center"
-        android:background="@drawable/icon_profile" />
+        android:background="@drawable/icon_profile"
+        android:gravity="center" />
 
     <TextView
         android:id="@+id/dashboard_text_profile"

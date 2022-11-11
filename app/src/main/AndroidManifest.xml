@@ -22,8 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activity_mycart"></activity>
         <activity android:name=".activity_login"></activity>
         <activity android:name=".activity_register"></activity>
+        <activity android:name=".activity_dashboard"></activity>
+        <activity android:name=".activity_notify"></activity>
+        <activity android:name=".activity_profile"></activity>
     </application>
 </manifest>

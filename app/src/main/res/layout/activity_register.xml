@@ -103,6 +103,7 @@
         android:layout_marginTop="280dp"
         android:hint="Mật khẩu"
         android:paddingLeft="45dp"
+        android:inputType="textPassword"
         android:textSize="16sp" />
 
     <View
@@ -133,6 +134,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="345dp"
         android:hint="Nhập lại mật khẩu"
+        android:inputType="textPassword"
         android:paddingLeft="45dp"
         android:textSize="16sp" />
 
