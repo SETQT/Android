@@ -45,8 +45,6 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notify> {
         TextView textContent = (TextView) v.findViewById(R.id.custom_notify_content);
         TextView textDate = (TextView) v.findViewById(R.id.custom_notify_date);
 
-        Log.i("TAG", "getView: "+ "zo");
-
         textTitle.setText(my_notify.get(position).getTitle());
 
         if (my_notify.get(position).getCheckProduct() == 1){

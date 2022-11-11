@@ -14,6 +14,8 @@ import java.io.File;
 public class activity_welcomepage extends Activity {
 
     Button btn_batdau;
+
+    // sqlite
     SQLiteDatabase sqlite;
 
     @Override
