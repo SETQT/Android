@@ -16,7 +16,7 @@
         android:background="@drawable/dashboard_rectangle_footer" />
 
     <View
-        android:id="@+id/dashboard_ic_menu"
+        android:id="@+id/icon_menu"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="33dp"
@@ -44,7 +44,7 @@
         android:background="@drawable/dashboard_circle_red" />
 
     <TextView
-        android:id="@+id/dashboard_number_cart"
+        android:id="@+id/number_cart"
         android:layout_width="17dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"
@@ -57,7 +57,7 @@
         android:textSize="10sp" />
 
     <View
-        android:id="@+id/dashboard_ic_chat"
+        android:id="@+id/icon_chat"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="345dp"
@@ -78,7 +78,7 @@
         />
 
     <TextView
-        android:id="@+id/dashboard_number_chat"
+        android:id="@+id/number_chat"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
@@ -114,7 +114,7 @@
         android:textSize="16sp" />
 
     <View
-        android:id="@+id/dashboard_ic_search"
+        android:id="@+id/icon_search"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginLeft="38dp"
@@ -149,7 +149,7 @@
                 android:text="Tất cả"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/dashboard_option_aokhoac"
@@ -164,7 +164,7 @@
                 android:text="Áo khoác"
                 android:textAllCaps="false"
                 android:textColor="#AEAEAE"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/dashboard_option_mu"
@@ -179,7 +179,7 @@
                 android:text="Mũ"
                 android:textAllCaps="false"
                 android:textColor="#AEAEAE"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/dashboard_option_quan"
@@ -194,7 +194,7 @@
                 android:text="Quần"
                 android:textAllCaps="false"
                 android:textColor="#AEAEAE"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/dashboard_option_ao"
@@ -209,7 +209,7 @@
                 android:text="Áo"
                 android:textAllCaps="false"
                 android:textColor="#AEAEAE"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/dashboard_option_giay"
@@ -225,7 +225,7 @@
                 android:text="Giày"
                 android:textAllCaps="false"
                 android:textColor="#AEAEAE"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -257,101 +257,135 @@
         android:layout_marginBottom="0dp"
         android:background="@drawable/dashboard_rectangle_footer" />
 
-    <View
+    <RelativeLayout
         android:id="@+id/icon_home"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="42dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_home"
-        android:backgroundTint="#F9A826"
-        android:gravity="center" />
+        android:layout_marginLeft="42dp">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Home"
-        android:textColor="#F9A826"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/dashboard_icon_home"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_home"
+            android:backgroundTint="#F9A826"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Home"
+            android:textColor="#F9A826"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/icon_scan"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="148dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_qrcode"
-        android:gravity="center" />
+        android:layout_marginLeft="135dp">
 
-    <TextView
-        android:id="@+id/text_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="136dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Scan/Pay"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/dashboard_icon_scan"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_qrcode"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Scan/Pay"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_notify"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="58dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="253dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_notify"
-        android:gravity="center" />
+        android:layout_marginLeft="243dp">
 
-    <TextView
-        android:id="@+id/text_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="240dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Thông báo"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <View
+            android:id="@+id/dashboard_icon_notify"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_notify"
+            android:gravity="center" />
 
-    <View
+        <TextView
+            android:id="@+id/text_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Thông báo"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/icon_profile"
         android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="343dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/icon_profile"
-        android:gravity="center" />
+        android:layout_marginLeft="340dp">
+        <View
+            android:id="@+id/dashboard_icon_profile"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_profile"
+            android:gravity="center" />
 
-    <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="346dp"
-        android:layout_marginBottom="3dp"
-        android:gravity="top"
-        android:text="Tôi"
-        android:textColor="#000000"
-        android:textSize="10sp" />
+        <TextView
+            android:id="@+id/text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Tôi"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
+

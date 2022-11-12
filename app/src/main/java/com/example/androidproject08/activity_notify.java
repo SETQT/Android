@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -26,7 +27,9 @@ public class activity_notify extends Activity {
             R.drawable.mono1, R.drawable.notify_img_voucher, R.drawable.mono1, R.drawable.mono1};
 
     // khai báo biến UI
-    View dashboard_ic_home, dashboard_ic_scan, dashboard_ic_profile, icon_cart;
+    RelativeLayout icon_home, icon_scan, icon_profile;
+
+    View icon_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +45,10 @@ public class activity_notify extends Activity {
         CustomNotifyListViewAdapter myAdapter = new CustomNotifyListViewAdapter(this, R.layout.custom_notify_listview, notifiesArray);
         listNotification.setAdapter(myAdapter);
 
-        dashboard_ic_home = (View) findViewById(R.id.icon_home);
-        dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
-        dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
+        icon_home = (RelativeLayout) findViewById(R.id.icon_home);
+        icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
+        icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
+
         icon_cart = (View) findViewById(R.id.icon_cart);
 
         // chuyển sang giao diện my cart
@@ -58,7 +62,7 @@ public class activity_notify extends Activity {
         });
 
         // trở về giao diện dashboard
-        dashboard_ic_home.setOnClickListener(new View.OnClickListener() {
+        icon_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
@@ -67,7 +71,7 @@ public class activity_notify extends Activity {
         });
 
         // chuyển sang giao diện scan mã qr
-        dashboard_ic_scan.setOnClickListener(new View.OnClickListener() {
+        icon_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
@@ -76,7 +80,7 @@ public class activity_notify extends Activity {
         });
 
         // chuyển sang giao diện profile
-        dashboard_ic_profile.setOnClickListener(new View.OnClickListener() {
+        icon_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);

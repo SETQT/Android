@@ -152,11 +152,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/mycart_bg_buy"
-        android:text="Mua hàng (2)"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
         android:gravity="center"
-        android:textSize="16sp"/>
+        android:text="Mua hàng (2)"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

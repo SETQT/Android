@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import com.facebook.CallbackManager;
 
@@ -23,16 +24,17 @@ public class activity_dashboard extends Activity {
     String percent_sale[] = {"-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%"};
 
     // khai báo biến UI
-    View dashboard_ic_scan, dashboard_ic_notify, dashboard_ic_profile, icon_cart;
-
+    RelativeLayout icon_scan, icon_notify, icon_profile;
+    View icon_cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        dashboard_ic_scan = (View) findViewById(R.id.icon_scan);
-        dashboard_ic_notify = (View) findViewById(R.id.icon_notify);
-        dashboard_ic_profile = (View) findViewById(R.id.icon_profile);
+        icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
+        icon_notify = (RelativeLayout) findViewById(R.id.icon_notify);
+        icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
+
         icon_cart = (View) findViewById(R.id.icon_cart);
 
         // chuyển sang giao diện my cart
@@ -46,7 +48,7 @@ public class activity_dashboard extends Activity {
         });
 
         // chuyển sang giao diện scan mã qr
-        dashboard_ic_scan.setOnClickListener(new View.OnClickListener() {
+        icon_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
@@ -55,7 +57,7 @@ public class activity_dashboard extends Activity {
         });
 
         // chuyển sang giao diện thông báo
-        dashboard_ic_notify.setOnClickListener(new View.OnClickListener() {
+        icon_notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
@@ -64,7 +66,7 @@ public class activity_dashboard extends Activity {
         });
 
         // chuyển sang giao diện profile
-        dashboard_ic_profile.setOnClickListener(new View.OnClickListener() {
+        icon_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
