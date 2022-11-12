@@ -71,6 +71,7 @@ public class activity_register extends Activity {
             }
         });
 
+        // đăng nhập/ đăng ký bằng facebook
         mCallbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(mCallbackManager,
                 new FacebookCallback<LoginResult>() {
