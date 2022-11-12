@@ -2,7 +2,6 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,14 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,13 +30,11 @@ public class activity_login extends Activity {
     EditText edittext_tk, edittext_mk;
     Button btn_login;
 
+    // facebook
+    private CallbackManager mCallbackManager;
+
     // kết nối sqlite
     SQLiteDatabase sqlite;
-
-    // kết nối firestore
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference usersRef = db.collection("users");
-    ArrayList<User> usernameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,28 @@ public class activity_login extends Activity {
         btn_login = (Button) findViewById(R.id.btn_dangnhap);
         edittext_tk = (EditText) findViewById(R.id.edittext_tk);
         edittext_mk = (EditText) findViewById(R.id.edittext_mk); // mật khẩu người dùng
+
+        // login bằng facebook
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        setFacebookData(loginResult);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                        Toast.makeText(getApplicationContext(), "Đăng nhập bằng facebook thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        Toast.makeText(getApplicationContext(), "Đăng nhập bằng facebook thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,18 +80,15 @@ public class activity_login extends Activity {
                     return;
                 }
 
-                // kiểm tra với database
-                usernameList = new ArrayList<>();
-
-                readData(new FirestoreCallBack() {
+                Handle.readData(new FirestoreCallBack() {
                     @Override
                     public void onCallBack(List<User> list) {
-                        if (usernameList.size() == 0) {
+                        if (Handle.usernameList.size() == 0) {
                             Toast.makeText(activity_login.this, "Tài khoản hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
                             // kiểm tra password
-                            if (usernameList.get(0).checkPassword(mk)) {
+                            if (Handle.usernameList.get(0).checkPassword(mk)) {
                                 // thêm vào cookie => lần sau vào không cần đăng nhập nữa
                                 // khi người dùng đăng nhập vào thì ta lấy username của người dùng lưu lại
                                 // khi khởi động ứng dụng ta truy vấn vào sqlite này để xem nếu username tồn tại rồi thì
@@ -79,7 +97,7 @@ public class activity_login extends Activity {
                                 String myDbPath = storagePath + "/" + "loginDb";
                                 sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                                if(!tableExists(sqlite, "USER")) {
+                                if(!Handle.tableExists(sqlite, "USER")) {
                                     // create table USER
                                     sqlite.execSQL("create table USER ("
                                             + "username text PRIMARY KEY);");
@@ -110,34 +128,68 @@ public class activity_login extends Activity {
         });
     }
 
-    // truy vấn dữ liệu từ database với username mà người dùng nhập
-    private void readData(FirestoreCallBack firestoreCallBack, String tk) {
-        usersRef
-                .whereEqualTo("username", tk)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    // lấy dữ liệu từ facebook => đưa dữ liệu lên firestore
+    private void setFacebookData(final LoginResult loginResult)
+    {
+        GraphRequest request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                User user = document.toObject(User.class);
-                                usernameList.add(user);
-                            }
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        // Application code
+                        try {
+                            // vì id của facebook cung cấp cho user là độc nhất nên khi người dùng sử dụng tính năng đăng ký với facebook thì username = id
+                            String email = response.getJSONObject().getString("email");
 
-                            firestoreCallBack.onCallBack(usernameList);
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
+                            String firstName = response.getJSONObject().getString("first_name");
+                            String middleName = response.getJSONObject().getString("middle_name");
+                            String lastName = response.getJSONObject().getString("last_name");
+                            String fullname = firstName + " " + middleName + " " + lastName;
+
+                            String username = response.getJSONObject().getString("id");
+
+                            // check tài khoản đã tồn tại hay chưa
+                            Handle.readData(new FirestoreCallBack() {
+                                @Override
+                                public void onCallBack(List<User> list) {
+                                    if (Handle.usernameList.size() == 0) {
+                                        // tạo user mới và thêm vào database
+                                        User newUser = new User(username, fullname, email);
+                                        Handle.usersRef.add(newUser);
+                                    }
+
+                                    // thêm vào cookie => lần sau vào không cần đăng nhập nữa
+                                    File storagePath = getApplication().getFilesDir();
+                                    String myDbPath = storagePath + "/" + "loginDb";
+                                    sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+                                    if(!Handle.tableExists(sqlite, "USER")) {
+                                        // create table USER
+                                        sqlite.execSQL("create table USER ("
+                                                + "username text PRIMARY KEY);");
+                                    }
+
+                                    sqlite.execSQL("insert into USER(username) values ('" + username + "');");
+
+                                    // chuyển sang giao diện dash_board
+                                    Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                                    startActivity(moveActivity);
+                                }
+                            }, username);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,email,first_name, middle_name,last_name");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
-    public boolean tableExists(SQLiteDatabase db, String tableName) {
-        String mySql = "SELECT name FROM sqlite_master " + " WHERE type='table' " + " AND name='" + tableName + "'";
-        int resultSize = db.rawQuery(mySql, null).getCount();
-        if (resultSize != 0) {
-            return true;
-        }
-        else return false;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

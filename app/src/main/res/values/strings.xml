@@ -21,5 +21,7 @@
     <string name="trangchaomung_textview2" >
         App mua sắm được tạo từ bàn tay của các sinh viên KHTN
     </string>
-
+    <string name="facebook_app_id">1198225674435177</string>
+    <string name="fb_login_protocol_scheme">fb1198225674435177</string>
+    <string name="facebook_client_token">07c1225c7a94be6e3872a9a7121f58ae</string>
 </resources>

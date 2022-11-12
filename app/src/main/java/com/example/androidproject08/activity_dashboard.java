@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 
+import com.facebook.CallbackManager;
+
 import java.io.File;
 
 public class activity_dashboard extends Activity {

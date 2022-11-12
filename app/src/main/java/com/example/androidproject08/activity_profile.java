@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -96,6 +97,8 @@ public class activity_profile extends Activity {
             public void onClick(View view) {
                 sqlite.execSQL("DROP TABLE IF EXISTS USER; "); // xóa bảng <=> xóa phiên đăng nhập hiện tại
                 Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
+
+                LoginManager.getInstance().logOut();
                 startActivity(moveActivity);
             }
         });

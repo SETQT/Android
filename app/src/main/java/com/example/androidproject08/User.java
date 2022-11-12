@@ -35,6 +35,12 @@ public class User {
         this.cart = cart;
     }
 
+    public User(String username, String fullname, String email) {
+        this.fullname = fullname;
+        this.username = username;
+        this.email = email;
+    }
+
     public User(String username, String password) {
         // mã hóa mật khẩu
         try {

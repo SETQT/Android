@@ -201,20 +201,31 @@
         android:textAllCaps="false"
         android:textSize="14dp" />
 
-    <Button
-        android:id="@+id/btn_facebook_dk"
+<!--    <Button-->
+<!--        android:id="@+id/btn_facebook_dk"-->
+<!--        android:layout_width="360dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginLeft="100dp"-->
+<!--        android:layout_marginTop="580dp"-->
+<!--        android:background="@drawable/tieptucgoogle"-->
+<!--        android:drawableLeft="@drawable/ic_facebook"-->
+<!--        android:gravity="center"-->
+<!--        android:paddingLeft="10dp"-->
+<!--        android:text="Tiếp tục với facebook"-->
+<!--        android:textSize="14dp"-->
+<!--        android:textAllCaps="false"/>-->
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
         android:layout_width="360dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="580dp"
-        android:background="@drawable/tieptucgoogle"
-        android:drawableLeft="@drawable/ic_facebook"
         android:gravity="center"
         android:paddingLeft="10dp"
-        android:text="Tiếp tục với facebook"
-        android:textSize="14dp"
-        android:textAllCaps="false"/>
-
-
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="14dp" />
 </RelativeLayout>
