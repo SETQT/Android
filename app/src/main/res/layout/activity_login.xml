@@ -81,7 +81,7 @@
         android:layout_marginTop="215dp"
         android:hint="Email/Số điện thoại/Tên đăng nhập"
         android:paddingLeft="45dp"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <View
         android:id="@+id/ic_person"
@@ -104,7 +104,7 @@
         android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:paddingLeft="45dp"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
         <View
             android:id="@+id/ic_lock"
@@ -126,18 +126,18 @@
         android:layout_marginTop="285dp"
         android:background="@drawable/ic_eye" />
 
-        <TextView
-            android:id="@+id/quenmatkhau"
-            android:layout_width="120dp"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="260dp"
-            android:layout_marginTop="340dp"
-            android:gravity="center_vertical"
-            android:text="@string/quen_mat_khau"
-            android:textAppearance="@style/m_t_kh_u"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/quenmatkhau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="340dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center_vertical"
+        android:text="@string/quen_mat_khau"
+        android:textAppearance="@style/m_t_kh_u"
+        android:textSize="13sp" />
 
     <Button
         android:id="@+id/btn_dangnhap"
@@ -154,18 +154,18 @@
         android:textAllCaps="false"
         android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/m_t_kh_u"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="190dp"
-            android:layout_marginTop="460dp"
-            android:gravity="center_vertical"
-            android:text="@string/hoac"
-            android:textAppearance="@style/m_t_kh_u"
-            android:textSize="16dp"/>
+    <TextView
+        android:id="@+id/m_t_kh_u"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="460dp"
+        android:gravity="center_vertical"
+        android:text="@string/hoac"
+        android:textAppearance="@style/m_t_kh_u"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/btn_google"
