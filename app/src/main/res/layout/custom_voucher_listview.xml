@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    >
+
+    <View
+        android:id="@+id/voucher_custom_bg_picture"
+        android:layout_width="110dp"
+        android:layout_height="104dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/voucher_custom_bg_picture" />
+
+    <ImageView
+        android:id="@+id/custom_voucher_picture"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="11dp" />
+
+    <View
+        android:id="@+id/voucher_custom_bg_text"
+        android:layout_width="251dp"
+        android:layout_height="104dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="138dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/voucher_custom_bg_text" />
+
+    <RelativeLayout
+        android:layout_width="251dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="138dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/custom_voucher_title"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:text="Tất cả hình thức thanh toán"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/voucher_custom_frame_cost_free"
+            android:layout_width="50dp"
+            android:layout_height="14dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="44dp"
+            android:background="@drawable/voucher_custom_frame_cost_free" />
+
+        <TextView
+            android:id="@+id/custom_voucher_free_cost"
+            android:layout_width="50dp"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="45dp"
+            android:gravity="center"
+            android:text="Tối đa 40k"
+            android:textColor="#F9A826"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/custom_voucher_expiry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="65dp"
+            android:gravity="top"
+            android:text="HSD: 20/11/2022"
+            android:textColor="#AEAEAE"
+            android:textSize="8sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

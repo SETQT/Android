@@ -7,8 +7,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
-    /*GridView gridview;
+public class MainActivity extends Activity{
+    /*ridView gridview;
     int logos[] = {R.drawable.mono1, R.drawable.ao1, R.drawable.ao2, R.drawable.mono1, R.drawable.ao1, R.drawable.ao2, R.drawable.mono1, R.drawable.ao1, R.drawable.mono1, R.drawable.ao2};
     String names[] = {"Áo khoác cực chất","Waiting for you", "Áo khoác cực chất","Waiting for you", "Áo khoác cực chất","Waiting for you", "Áo khoác cực chất","Waiting for you",
             "Áo khoác cực chất","Waiting for you"};
@@ -24,8 +24,8 @@ public class MainActivity extends Activity {
         gridview.setAdapter(customAdapter);
     }*/
 
-    /*
-    ListView listNotification;
+
+   /* ListView listNotification;
     ArrayList<Notify> notifiesArray =new ArrayList<Notify>();
 
     Integer[] CheckProduct = {1, 1, 1, 0, 1, 0, 1, 1};
@@ -44,16 +44,18 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_notify);
 
 
-        listNotification = (ListView) findViewById(R.id.MyCart_listview);
+        listNotification = (ListView) findViewById(R.id.notify_listview);
 
-        for (int i=0;i<7;i++){
+        for (int i=0;i<8;i++){
             notifiesArray.add(new Notify(i, CheckProduct[i],title[i], status[i], product[i],date[i],content[i], image[i]));
         }
+
         CustomNotifyListViewAdapter myAdapter=new CustomNotifyListViewAdapter(this,R.layout.custom_notify_listview,notifiesArray);
         listNotification.setAdapter(myAdapter);
 
     }*/
 
+    /*
     ListView listMyCart;
     ArrayList<MyCart> MyCartArray =new ArrayList<MyCart>();
 
@@ -73,8 +75,32 @@ public class MainActivity extends Activity {
         for (int i=0;i<6;i++){
             MyCartArray.add(new MyCart(i, name[i],old_cost[i], new_cost[i], number[i], image[i]));
         }
-        CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(this,R.layout.custom_notify_listview, MyCartArray);
+        CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(this,R.layout.custom_mycart_listview, MyCartArray);
         listMyCart.setAdapter(myAdapter);
+
+    }*/
+
+    ListView listvoucher;
+    ArrayList<Voucher> VoucherArray =new ArrayList<Voucher>();
+
+    String[] title = {"Tất cả hình thức thanh toán", "Tất cả hình thức thanh toán",
+            "Tất cả hình thức thanh toán", "Tất cả hình thức thanh toán", "Tất cả hình thức thanh toán"};
+    String[] free_cost = {"Tối đa 40k", "Tối đa 30k", "Tối đa 50k", "Tối đa 70k", "Tối đa 60k" };
+    String[] date = {"HSD: 20/11/2022", "HSD: 30/11/2022","HSD: 28/11/2022","HSD: 27/11/2022","HSD: 28/11/2022",  };
+    Integer[] image = {R.drawable.free_ship, R.drawable.free_ship, R.drawable.free_ship, R.drawable.free_ship,R.drawable.free_ship  };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_voucher);
+
+
+        listvoucher = (ListView) findViewById(R.id.voucher_listview);
+
+        for (int i=0;i<5;i++){
+            VoucherArray.add(new Voucher(i, image[i], title[i],free_cost[i], date[i]));
+        }
+        CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(this,R.layout.custom_voucher_listview, VoucherArray);
+        listvoucher.setAdapter(myAdapter);
 
     }
 
