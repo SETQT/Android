@@ -23,8 +23,8 @@ public class activity_notify extends Activity {
     String[] content = {"", "", "", "Bạn nhận được mã voucher là 3TMAIDINH, mã voucher có giá trị sử dụng đến ngày 31-10-2022", "", "Bạn có mã freeship là GROUP8MOBILE, vui lòng sử dụng trong vòng 5 ngày", "", ""};
     String[] date = {"09:54 12-10-2022", "06:50 15-10-2022", "09:04 18-10-2022", "16:35 22-10-2022"
             , "09:00 23-10-2022", "16:35 24-10-2022", "08:20 25-10-2022", "16:47 26-10-2022"};
-    Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.notify_img_voucher,
-            R.drawable.mono1, R.drawable.notify_img_voucher, R.drawable.mono1, R.drawable.mono1};
+    Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1,
+            R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1};
 
     // khai báo biến UI
     RelativeLayout icon_home, icon_scan, icon_profile;

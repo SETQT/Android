@@ -70,12 +70,12 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         date_free_ship.add("HSD: 27/11/2022");
         date_free_ship.add("HSD: 28/11/2022");
         date_free_ship.add("HSD: 30/11/2022");
-        image_free_ship.add(R.drawable.free_ship);
-        image_free_ship.add(R.drawable.free_ship);
-        image_free_ship.add(R.drawable.free_ship);
-        image_free_ship.add(R.drawable.free_ship);
-        image_free_ship.add(R.drawable.free_ship);
-        image_free_ship.add(R.drawable.free_ship);
+        image_free_ship.add(R.drawable.img_voucher);
+        image_free_ship.add(R.drawable.img_voucher);
+        image_free_ship.add(R.drawable.img_voucher);
+        image_free_ship.add(R.drawable.img_voucher);
+        image_free_ship.add(R.drawable.img_voucher);
+        image_free_ship.add(R.drawable.img_voucher);
 
 
         title_shop.add("Mã giảm giá đơn hàng hơn 100k");

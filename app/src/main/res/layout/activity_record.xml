@@ -22,9 +22,9 @@
         android:layout_height="33dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
-        android:gravity="center"
         android:background="@drawable/icon_back"
-        android:backgroundTint="#FFFFFF"/>
+        android:backgroundTint="#FFFFFF"
+        android:gravity="center" />
 
     <View
         android:id="@+id/record_frame_avatar_profile"

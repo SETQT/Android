@@ -16,8 +16,6 @@ public class User {
     private String userId;
     private Cart cart;
 
-//    public DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
-
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -86,23 +84,6 @@ public class User {
 
         return false;
     }
-
-//    public void loadById(Integer id){
-//        Query allPost=mDatabase.child("user").child(id.toString()).child("email");
-//        allPost.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String result = dataSnapshot.getValue().toString();
-//                Log.i("testdb", "loadById: "+result);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 
     public String getUsername() {
         return username;

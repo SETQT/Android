@@ -42,6 +42,7 @@ public class activity_profile extends Activity {
     TextView username_profile, id_cycle_red_giohang;
     Button dangxuat;
     View icon_cart;
+    RelativeLayout rectangle_profile_hosocuatoi;
 
 
     @Override
@@ -57,6 +58,7 @@ public class activity_profile extends Activity {
         id_cycle_red_giohang = (TextView) findViewById(R.id.id_cycle_red_giohang);
         dangxuat = (Button) findViewById(R.id.dangxuat);
         icon_cart = (View) findViewById(R.id.icon_cart);
+        rectangle_profile_hosocuatoi = (RelativeLayout) findViewById(R.id.rectangle_profile_hosocuatoi);
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -128,6 +130,15 @@ public class activity_profile extends Activity {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
+                startActivity(moveActivity);
+            }
+        });
+
+        // chuyển sang giao diện hồ sơ cá nhân
+        rectangle_profile_hosocuatoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveActivity = new Intent(getApplicationContext(), activity_record.class);
                 startActivity(moveActivity);
             }
         });
