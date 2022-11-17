@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,21 +28,28 @@ public class mycart_asynctask extends AsyncTask<Void, MyCart, MyCart> {
     ProgressDialog pd;
     ArrayList<MyCart> finalList = new ArrayList<MyCart>(); // danh sách chứa các sản phẩm
     ListView listMyCart;
+    Integer totalCart;
+    Integer totalMoney;
+
+    // biến UI
+    Button MyCart_bg_buy;
+    TextView MyCart_total_cost;
 
     public mycart_asynctask(Activity curContext, String username) {
         this.curContext = curContext;
         this.username = username;
+
         this.listMyCart = curContext.findViewById(R.id.MyCart_listview);
+        this.MyCart_bg_buy = curContext.findViewById(R.id.MyCart_bg_buy);
+        this.MyCart_total_cost = curContext.findViewById(R.id.MyCart_total_cost);
+
+        this.totalCart = 0;
+        this.totalMoney = 0;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
-        // show dialog loading
-        pd = new ProgressDialog(curContext);
-        pd.setMessage("Loading");
-        pd.show();
     }
 
     @Override
@@ -71,6 +80,13 @@ public class mycart_asynctask extends AsyncTask<Void, MyCart, MyCart> {
         super.onProgressUpdate(carts);
         finalList.add(carts[0]);
 
+        totalCart += carts[0].getAmount();
+        totalMoney += carts[0].getAmount() * carts[0].getPrice();
+
+        // hiển thị tổng sản phẩm và tổng tiền tất cả các mặt hàng có trong giỏ hàng
+        MyCart_bg_buy.setText("Mua hàng (" + totalCart.toString() + ")");
+        MyCart_total_cost.setText("đ" + totalMoney.toString());
+
         CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(curContext,R.layout.custom_notify_listview, finalList);
         listMyCart.setAdapter(myAdapter);
     }
@@ -78,8 +94,5 @@ public class mycart_asynctask extends AsyncTask<Void, MyCart, MyCart> {
     @Override
     protected void onPostExecute(MyCart myCart) {
         super.onPostExecute(myCart);
-
-        // tắt dialog khi đã query xong
-        pd.dismiss();
     }
 }
