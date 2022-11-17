@@ -3,6 +3,7 @@ package com.example.androidproject08;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 
 public class User {
@@ -14,7 +15,9 @@ public class User {
     private String address;
     private String email;
     private String userId;
+    private String bio;
     private Cart cart;
+    private Date birthdate;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -75,7 +78,7 @@ public class User {
                 sb.append(String.format("%02x", b));
             }
 
-            if(this.password.equals(sb.toString())) {
+            if (this.password.equals(sb.toString())) {
                 return true;
             }
         } catch (NoSuchAlgorithmException e) {
@@ -83,6 +86,22 @@ public class User {
         }
 
         return false;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getUsername() {
