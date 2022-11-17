@@ -2,25 +2,34 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.MetadataChanges;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.File;
 
 public class activity_mycart extends Activity {
-
-    ListView listMyCart;
-    ArrayList<MyCart> MyCartArray = new ArrayList<MyCart>();
-
-    String[] name = {"Áo khoác Mono cực chất lượng", "Áo Liver giúp ra hang đầu mùa giải", "Áo anh 7 dự bị", "Giày độn", "Áo khoác", "Mũ lưỡi trai"};
-    String[] old_cost = {"đ500.000", "đ400.000", "đ300.000", "đ700.000", "đ100.000", "đ200.000"};
-    String[] new_cost = {"đ300.000", "đ200.000", "đ200.000", "đ500.000", "đ80.000", "đ150.000"};
-    String[] number = {"02", "01", "02", "01", "01", "01"};
-    Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1};
-
     // khai báo biến UI
     View icon_back;
+    ListView listMyCart;
+
+    // sqlite
+    SQLiteDatabase sqlite;
+
+    // biến xử lý
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +39,36 @@ public class activity_mycart extends Activity {
         listMyCart = (ListView) findViewById(R.id.MyCart_listview);
         icon_back = (View) findViewById(R.id.icon_back);
 
+        // get tên của activity trước đỏ để back khi nhấn button back lại đúng vị trí
         Intent intent = getIntent();
         String previousActivity = intent.getStringExtra("name_activity");
+
+        // get username từ sqlite
+        // kết nối sqlite
+        File storagePath = getApplication().getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        String username = c1.getString(0);
+
+        if (username == null) {
+            return;
+        }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference cartsRef = db.collection("carts");
+        cartsRef.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                // query dữ liệu cho qua listview
+                mycart_asynctask mc_at = new mycart_asynctask(activity_mycart.this, username);
+                mc_at.execute();
+            }
+        });
+
 
         // trở lại activity trước đó
         icon_back.setOnClickListener(new View.OnClickListener() {
@@ -56,12 +93,5 @@ public class activity_mycart extends Activity {
                 startActivity(moveActivity);
             }
         });
-
-        for (int i = 0; i < 6; i++) {
-            MyCartArray.add(new MyCart(i, name[i], old_cost[i], new_cost[i], number[i], image[i]));
-        }
-
-        CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(this, R.layout.custom_notify_listview, MyCartArray);
-        listMyCart.setAdapter(myAdapter);
     }
 }

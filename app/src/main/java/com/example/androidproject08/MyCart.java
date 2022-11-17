@@ -1,71 +1,89 @@
 package com.example.androidproject08;
 
 public class MyCart {
+    private Integer amount; // lưu số lượng của mặt hàng này trong giỏ
+    private String id; // id sản phẩm
+    private String image; // lưu hình ảnh mô tả sản phẩm
+    private String name; // tên sản phẩm
+    private Integer price; // giá của sản phẩm
+    private Integer sale; // phần trăm giảm giá đơn vị  %
+    private String ownCart; // chủ của giỏ hàng này
+    private String idDoc;
 
-
-    private int id;
-    private String name;
-    private String old_cost;
-    private String new_cost;
-    private String number;
-    private Integer image;
-
-
-    public MyCart(int id, String name, String old_cost, String new_cost, String number, Integer img) {
-        this.setId(id);
-        this.setName(name);
-        this.setOld_cost(old_cost);
-        this.setNew_cost(new_cost);
-        this.setNumber(number);
-        this.setImage(img);
+    public void setIdDoc(String idDoc) {
+        this.idDoc = idDoc;
     }
 
-
-    public int getId() {
-        return id;
+    public String getIdDoc() {
+        return idDoc;
     }
 
-    public void setId(int id) {
+    public MyCart() {
+    }
+
+    public MyCart(Integer amount, String id, String image, String name, Integer price, Integer sale, String ownCart) {
+        this.amount = amount;
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.price = price;
+        this.sale = sale;
+        this.ownCart = ownCart;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getOld_cost() {
-        return old_cost;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public void setOld_cost(String old_cost) {
-        this.old_cost = old_cost;
+    public void setSale(Integer sale) {
+        this.sale = sale;
     }
 
-    public String getNew_cost() {
-        return new_cost;
+    public void setOwnCart(String ownCart) {
+        this.ownCart = ownCart;
     }
 
-    public void setNew_cost(String new_cost) {
-        this.new_cost = new_cost;
+    public String getId() {
+        return id;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public Integer getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Integer image) {
-        this.image = image;
+    public String getName() {
+        return name;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public Integer getSale() {
+        return sale;
+    }
+
+    public String getOwnCart() {
+        return ownCart;
     }
 }

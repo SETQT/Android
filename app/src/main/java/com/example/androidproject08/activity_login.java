@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class activity_login extends Activity {
@@ -80,6 +78,10 @@ public class activity_login extends Activity {
                     return;
                 }
 
+
+//                activity_login_asynctask login_asynctask = new activity_login_asynctask(activity_login.this, tk);
+//                login_asynctask.execute();
+
                 Handle.readData(new FirestoreCallBack() {
                     @Override
                     public void onCallBack(List<User> list) {
@@ -97,7 +99,7 @@ public class activity_login extends Activity {
                                 String myDbPath = storagePath + "/" + "loginDb";
                                 sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                                if(!Handle.tableExists(sqlite, "USER")) {
+                                if (!Handle.tableExists(sqlite, "USER")) {
                                     // create table USER
                                     sqlite.execSQL("create table USER ("
                                             + "username text PRIMARY KEY);");
@@ -129,8 +131,7 @@ public class activity_login extends Activity {
     }
 
     // lấy dữ liệu từ facebook => đưa dữ liệu lên firestore
-    private void setFacebookData(final LoginResult loginResult)
-    {
+    private void setFacebookData(final LoginResult loginResult) {
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -163,7 +164,7 @@ public class activity_login extends Activity {
                                     String myDbPath = storagePath + "/" + "loginDb";
                                     sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                                    if(!Handle.tableExists(sqlite, "USER")) {
+                                    if (!Handle.tableExists(sqlite, "USER")) {
                                         // create table USER
                                         sqlite.execSQL("create table USER ("
                                                 + "username text PRIMARY KEY);");
