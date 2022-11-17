@@ -100,4 +100,11 @@
             #000000
         </item>
     </style>
+	<style name="setTextAfterClick" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="setTextNotClick" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>
