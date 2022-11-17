@@ -7,13 +7,13 @@
 
     <View
         android:id="@+id/custom_mycart_listview_bg_mycart"
-        android:layout_width="358dp"
+        android:layout_width="363dp"
         android:layout_height="108dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/mycart_custom_listview_bg_mycart" />
 
     <ImageView
@@ -23,13 +23,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="15dp" />
 
     <RelativeLayout
         android:layout_width="245dp"
         android:layout_height="110dp"
         android:layout_marginLeft="140dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -38,31 +38,31 @@
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:gravity="top"
             android:text="Áo khoác Mono cực chất lượng"
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <View
+        <Button
             android:id="@+id/custom_mycart_icon_garbage"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="208dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/icon_garbage" />
 
 
         <TextView
             android:id="@+id/custom_mycart_old_cost_product"
-            android:layout_width="47dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="55dp"
             android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
             android:gravity="center"
             android:text="đ500.000"
@@ -71,11 +71,11 @@
 
         <TextView
             android:id="@+id/custom_mycart_new_cost_product"
-            android:layout_width="55dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="75dp"
             android:gravity="top"
             android:text="đ100.000"
             android:textColor="#F9A826"
@@ -88,28 +88,28 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="90dp"
-            android:layout_marginTop="79dp"
+            android:layout_marginTop="74dp"
             android:background="@drawable/mycart_custom_listview_circle_decrease" />
 
-        <View
+        <Button
             android:id="@+id/custom_mycart_icon_decrease"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="94dp"
-            android:layout_marginTop="83dp"
+            android:layout_marginTop="78dp"
             android:background="@drawable/icon_decrease"
             android:backgroundTint="#FFFFFF" />
 
         <TextView
             android:id="@+id/custom_mycart_number_product"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="79dp"
+            android:layout_marginTop="74dp"
             android:gravity="center"
             android:text="01"
             android:textColor="#000000"
@@ -123,17 +123,17 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="151dp"
-            android:layout_marginTop="79dp"
+            android:layout_marginTop="74dp"
             android:background="@drawable/mycart_custom_listview_circle_increase" />
 
-        <View
+        <Button
             android:id="@+id/custom_mycart_icon_increase"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="155dp"
-            android:layout_marginTop="83dp"
+            android:layout_marginTop="78dp"
             android:background="@drawable/icon_increase"
             android:backgroundTint="#FFFFFF" />
 
@@ -147,7 +147,7 @@
             android:layout_marginTop="80dp"
             android:background="@drawable/mycart_custom_listview_bg_black" />
 
-        <View
+        <Button
             android:id="@+id/custom_mycart_icon_done"
             android:layout_width="16dp"
             android:layout_height="16dp"

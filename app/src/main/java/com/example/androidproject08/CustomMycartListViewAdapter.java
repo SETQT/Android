@@ -37,11 +37,11 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.custom_mycart_listview, null);
 
-        TextView name = (TextView) v.findViewById(R.id.name_product);
-        TextView old_cost = (TextView) v.findViewById(R.id.old_cost_product);
-        TextView new_cost = (TextView) v.findViewById(R.id.new_cost_product);
-        TextView number = (TextView) v.findViewById(R.id.number_product);
-        ImageView img = (ImageView) v.findViewById(R.id.picture) ;
+        TextView name = (TextView) v.findViewById(R.id.custom_mycart_name_product);
+        TextView old_cost = (TextView) v.findViewById(R.id.custom_mycart_old_cost_product);
+        TextView new_cost = (TextView) v.findViewById(R.id.custom_mycart_new_cost_product);
+        TextView number = (TextView) v.findViewById(R.id.custom_mycart_number_product);
+        ImageView img = (ImageView) v.findViewById(R.id.custom_mycart_picture) ;
 
         name.setText(my_cart.get(position).getName());
         old_cost.setText(my_cart.get(position).getOld_cost());

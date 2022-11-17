@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 
-public class MainActivity extends FragmentActivity implements MainCallbacks{
+public class activity_voucher extends FragmentActivity implements MainCallbacks{
     FragmentTransaction ft; VoucherFragmentFirst firstFrag; VoucherFragmentSecond secondFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

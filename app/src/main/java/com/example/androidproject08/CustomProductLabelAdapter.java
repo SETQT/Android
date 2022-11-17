@@ -42,11 +42,11 @@ public class CustomProductLabelAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.custom_product_gridview, null); // inflate the layout
-        ImageView picture = (ImageView) view.findViewById(R.id.picture_product); // get the reference of ImageView
-        TextView name = (TextView) view.findViewById(R.id.name_product);
-        TextView cost = (TextView) view.findViewById(R.id.cost_product);
-        TextView cost_sale = (TextView) view.findViewById(R.id.cost_sale_product);
-        TextView percent_sale = (TextView) view.findViewById(R.id.percent_sale_product);
+        ImageView picture = (ImageView) view.findViewById(R.id.dashboard_custom_picture_product); // get the reference of ImageView
+        TextView name = (TextView) view.findViewById(R.id.dashboard_custom_name_product);
+        TextView cost = (TextView) view.findViewById(R.id.dashboard_custom_cost_product);
+        TextView cost_sale = (TextView) view.findViewById(R.id.dashboard_custom_cost_sale_product);
+        TextView percent_sale = (TextView) view.findViewById(R.id.dashboard_custom_percent_sale_product);
         picture.setImageResource(logos[i]); // set logo images
         name.setText(names[i]);
         cost.setText(costs[i]);
