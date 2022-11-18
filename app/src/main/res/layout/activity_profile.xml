@@ -174,7 +174,7 @@
 
         <RelativeLayout
             android:id="@+id/icon_choxacnhan"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -198,19 +198,19 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="5dp"
                 android:gravity="center"
                 android:text="@string/choxacnhan"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/icon_cholayhang"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="135dp"
             android:layout_marginTop="64dp">
+
             <View
                 android:id="@+id/ic_cholayhang"
                 android:layout_width="25dp"
@@ -227,26 +227,26 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="7dp"
                 android:gravity="center"
                 android:text="@string/cholayhang"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/icon_danggiaohang"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="230dp"
             android:layout_marginTop="64dp">
+
             <View
                 android:id="@+id/ic_danggiaohang"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/ic_xehang" />
 
             <TextView
@@ -255,20 +255,19 @@
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="4dp"
                 android:layout_marginTop="25dp"
-                android:gravity="top"
+                android:gravity="center"
                 android:text="@string/danggiaohang"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/icon_danhgia"
-            android:layout_width="55dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="320dp"
+            android:layout_marginLeft="330dp"
             android:layout_marginTop="60dp">
 
             <View
@@ -277,7 +276,7 @@
                 android:layout_height="23.88dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/ic_saodanhgia" />
 
             <TextView
@@ -286,9 +285,8 @@
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="30dp"
-                android:gravity="top"
+                android:gravity="center"
                 android:text="@string/danhgia"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
@@ -361,7 +359,7 @@
 
         <RelativeLayout
             android:id="@+id/icon_vi"
-            android:layout_width="75dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -391,7 +389,7 @@
 
         <RelativeLayout
             android:id="@+id/icon_shop_xu"
-            android:layout_width="45dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -409,11 +407,10 @@
 
             <TextView
                 android:id="@+id/text_shop_xu"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="2dp"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
                 android:text="@string/shop_xu"
@@ -422,7 +419,7 @@
 
         <RelativeLayout
             android:id="@+id/icon_voucher_profile"
-            android:layout_width="65dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -444,7 +441,6 @@
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
                 android:text="@string/kho_voucher"
