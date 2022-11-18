@@ -33,6 +33,7 @@
         <activity android:name=".activity_profile"></activity>
         <activity android:name=".activity_voucher"></activity>
         <activity android:name=".activity_record"></activity>
+        <activity android:name=".activity_payment"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

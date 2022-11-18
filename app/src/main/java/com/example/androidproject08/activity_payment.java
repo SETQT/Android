@@ -1,4 +1,4 @@
-package com.example.doan;
+package com.example.androidproject08;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +30,6 @@ public class activity_payment extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
 
         listOrder = (ListView) findViewById(R.id.listview_payment);
 

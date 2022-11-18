@@ -1,4 +1,4 @@
-package com.example.doan;
+package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.ClipData;
