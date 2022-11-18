@@ -232,4 +232,18 @@
     <style name="setTextNotClick" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textSize">13sp</item>
     </style>
+
+    <style name="setTextAfterClickDashBoard" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+
+    </style>
+
+    <style name="setTextNotClickDashBoard" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#AEAEAE</item>
+        <item name="android:background">#000000</item>
+    </style>
+
 </resources>

@@ -10,26 +10,36 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.facebook.CallbackManager;
 
 import java.io.File;
+import java.util.ArrayList;
 
-public class activity_dashboard extends Activity {
-    GridView gridview;
-    int logos[] = {R.drawable.mono1, R.drawable.ao1, R.drawable.ao2, R.drawable.mono1, R.drawable.ao1, R.drawable.ao2, R.drawable.mono1, R.drawable.ao1, R.drawable.mono1, R.drawable.ao2};
-    String names[] = {"Áo khoác cực chất", "Waiting for you", "Áo khoác cực chất", "Waiting for you", "Áo khoác cực chất", "Waiting for you", "Áo khoác cực chất", "Waiting for you",
-            "Áo khoác cực chất", "Waiting for you"};
-    String costs[] = {"đ100.000", "đ500.000", "đ100.000", "đ500.000", "đ100.000", "đ500.000", "đ100.000", "đ500.000", "đ100.000", "đ500.000"};
-    String costs_sale[] = {"đ80.000", "đ400.000", "đ80.000", "đ400.000", "đ80.000", "đ400.000", "đ80.000", "đ400.000", "đ80.000", "đ400.000"};
-    String percent_sale[] = {"-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%", "-20%"};
-
+public class activity_dashboard extends FragmentActivity implements MainCallbacks {
     // khai báo biến UI
     RelativeLayout icon_scan, icon_notify, icon_profile;
     View icon_cart;
+
+    FragmentTransaction ft; DashboardFragmentFirst firstFrag; DashboardFragmentSecond secondFrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        ft = getSupportFragmentManager().beginTransaction();
+        firstFrag = DashboardFragmentFirst.newInstance("first-frag");
+        ft.replace(R.id.dashboard_fragment_first, firstFrag);
+        ft.commit();
+
+        ft = getSupportFragmentManager().beginTransaction();
+        secondFrag = DashboardFragmentSecond.newInstance("");
+        ft.replace(R.id.dashboard_fragment_second, secondFrag);
+        ft.commit();
+
 
         icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
         icon_notify = (RelativeLayout) findViewById(R.id.icon_notify);
@@ -74,8 +84,23 @@ public class activity_dashboard extends Activity {
             }
         });
 
-        gridview = (GridView) findViewById(R.id.dashboard_gridview);
-        CustomProductLabelAdapter customAdapter = new CustomProductLabelAdapter(getApplicationContext(), logos, names, costs, costs_sale, percent_sale);
-        gridview.setAdapter(customAdapter);
+    }
+
+    @Override
+    public void onMsgFromFragToMain(String sender, String strValue) {
+//        Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
+        if (sender.equals("RED-FRAG")) {
+            try { // forward blue-data to redFragment using its callback method
+                firstFrag.onMsgFromMainToFragment( strValue);
+            }
+            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
+        }
+        if (sender.equals("BLUE-FRAG")) {
+            try { // forward blue-data to redFragment using its callback method
+                secondFrag.onMsgFromMainToFragment( strValue);
+            }
+            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
+        }
     }
 }
+
