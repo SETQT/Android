@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/payment"
+    android:background="@drawable/login"
+    android:clipToOutline="true"
+    tools:context=".activity_payment">
+
+    <RelativeLayout
+        android:id="@+id/rectangle_thanhtoan_payment"
+        android:layout_width="411dp"
+        android:layout_height="105dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/rectangle_payment">
+
+        <View
+            android:id="@+id/ic_back_payment"
+            android:layout_width="21dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/ic_back_payment" />
+
+        <TextView
+            android:id="@+id/text_thanhtoan_payment"
+            android:layout_width="117dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="147dp"
+            android:layout_marginTop="52dp"
+            android:gravity="top"
+            android:text="Thanh toán"
+            android:textAppearance="@style/thanhtoan" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rectangle_address_payment"
+        android:layout_width="411dp"
+        android:layout_height="98dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="81dp"
+        android:background="@drawable/rectangle_address_payment">
+
+        <View
+            android:id="@+id/ic_address_payment"
+            android:layout_width="18.75dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/ic_address_payment"
+            />
+
+        <TextView
+            android:id="@+id/name_user_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="63dp"
+            android:layout_marginTop="15dp"
+            android:gravity="top"
+            android:text="Dương Minh Hiếu"
+            android:textAppearance="@style/name_user_payment"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/line_address_payment"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/name_user_payment"
+            android:background="@drawable/line_address_payment" />
+
+        <TextView
+            android:id="@+id/some_id"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/line_address_payment"
+            android:gravity="top"
+            android:text="0812301805"
+            android:textAppearance="@style/phone_user_payment"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/address_payment"
+            android:layout_width="281dp"
+            android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="63dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="43dp"
+            android:text="Ký túc xá khu B, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương"
+            android:textAppearance="@style/phone_user_payment"
+            android:gravity="top"
+            />
+
+        <View
+            android:id="@+id/arrow_adrress_payment"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="382dp"
+            android:layout_marginTop="43dp"
+            android:background="@drawable/ic_baseline_arrow" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="190dp"
+        android:layout_marginBottom="122dp" />
+
+    <RelativeLayout
+        android:id="@+id/rectangle_voucher"
+        android:layout_width="410dp"
+        android:layout_height="47dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="62dp"
+        android:background="@drawable/rectangle_voucher"
+        >
+        <View
+            android:id="@+id/rectangle_voucher_payment"
+            android:layout_width="45dp"
+            android:layout_height="27.5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_voucher_payment"
+            />
+        <View
+            android:id="@+id/ic_voucher_profile"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="11dp"
+            android:backgroundTint="#F92626"
+            android:background="@drawable/ic_voucher" />
+        <TextView
+            android:id="@+id/voucher"
+            android:layout_width="wrap_content"
+            android:layout_height="18.19dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="86dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:text="Voucher"
+            android:textAppearance="@style/phone_user_payment"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/chon_voucher"
+            android:layout_width="113dp"
+            android:layout_height="18.19dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="270dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="14dp"
+            android:text="Chọn voucher"
+            android:textAppearance="@style/hintdonhangcuatoi_profile" />            android:gravity="center_vertical"
+            />
+        <View
+            android:id="@+id/arrow_voucher"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="382dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_baseline_arrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rectangle_dathang"
+        android:layout_width="411dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/rectangle_dathang"
+        android:elevation="10dp">
+
+        <View
+            android:id="@+id/rectangle_dathang_payment"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/rectangle_dathang_payment" />
+
+        <TextView
+            android:id="@+id/text_dathang_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="315dp"
+            android:layout_marginTop="19dp"
+            android:gravity="top"
+            android:text="Đặt hàng"
+            android:textAppearance="@style/text_dathang_payment" />
+
+        <TextView
+            android:id="@+id/tongtien_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/cost_payment"
+            android:gravity="top"
+            android:text="Tổng thanh toán:"
+            android:textAppearance="@style/phone_user_payment" />
+
+        <TextView
+            android:id="@+id/cost_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="18.5dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/rectangle_dathang_payment"
+            android:gravity="top"
+            android:text="263.000000đ"
+            android:textAppearance="@style/tongtien_payment"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

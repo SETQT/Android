@@ -172,93 +172,126 @@
             android:layout_marginTop="44dp"
             android:background="@drawable/line_profile" />
 
-        <View
-            android:id="@+id/ic_bag_profile"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
+        <RelativeLayout
+            android:id="@+id/icon_choxacnhan"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="47dp"
-            android:layout_marginTop="64dp"
-            android:background="@drawable/ic_bag_profile" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="64dp">
 
-        <TextView
-            android:id="@+id/choxacnhan_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="92dp"
-            android:gravity="center"
-            android:text="@string/choxacnhan"
-            android:textAppearance="@style/giaohang" />
+            <View
+                android:id="@+id/ic_bag_profile"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="22dp"
+                android:background="@drawable/ic_bag_profile"
+                android:gravity="center" />
 
-        <View
-            android:id="@+id/ic_cholayhang"
-            android:layout_width="25dp"
-            android:layout_height="21.88dp"
+            <TextView
+                android:id="@+id/choxacnhan_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="@string/choxacnhan"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/icon_cholayhang"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="149dp"
-            android:layout_marginTop="63dp"
-            android:background="@drawable/ic_box_profile" />
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="64dp">
+            <View
+                android:id="@+id/ic_cholayhang"
+                android:layout_width="25dp"
+                android:layout_height="21.88dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="22dp"
+                android:background="@drawable/ic_box_profile" />
 
-        <TextView
-            android:id="@+id/text_cholayhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/text_cholayhang"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="7dp"
+                android:gravity="center"
+                android:text="@string/cholayhang"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/icon_danggiaohang"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="128dp"
-            android:layout_marginTop="92dp"
-            android:gravity="center"
-            android:text="@string/cholayhang"
-            android:textAppearance="@style/giaohang" />
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="64dp">
+            <View
+                android:id="@+id/ic_danggiaohang"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="22dp"
+                android:background="@drawable/ic_xehang" />
 
-        <View
-            android:id="@+id/ic_danggiaohang"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="64dp"
-            android:background="@drawable/ic_xehang" />
+            <TextView
+                android:id="@+id/text_danggiaohang"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="25dp"
+                android:gravity="top"
+                android:text="@string/danggiaohang"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/text_danggiaohang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/icon_danhgia"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="228dp"
-            android:layout_marginTop="92dp"
-            android:gravity="top"
-            android:text="@string/danggiaohang"
-            android:textAppearance="@style/giaohang" />
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="60dp">
 
-        <View
-            android:id="@+id/ic_danhgia"
-            android:layout_width="25dp"
-            android:layout_height="23.88dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="345dp"
-            android:layout_marginTop="62dp"
-            android:background="@drawable/ic_saodanhgia" />
+            <View
+                android:id="@+id/ic_danhgia"
+                android:layout_width="25dp"
+                android:layout_height="23.88dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/ic_saodanhgia" />
 
-        <TextView
-            android:id="@+id/text_danhgia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="339dp"
-            android:layout_marginTop="92dp"
-            android:gravity="top"
-            android:text="@string/danhgia"
-            android:textAppearance="@style/giaohang" />
+            <TextView
+                android:id="@+id/text_danhgia"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:gravity="top"
+                android:text="@string/danhgia"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
 
         <View
             android:id="@+id/line2"
@@ -326,72 +359,97 @@
             android:layout_marginTop="44dp"
             android:background="@drawable/line_profile" />
 
-        <View
-            android:id="@+id/ic_vi"
-            android:layout_width="25dp"
-            android:layout_height="21.88dp"
+        <RelativeLayout
+            android:id="@+id/icon_vi"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/ic_vi" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="64dp">
 
-        <TextView
-            android:id="@+id/text_vi"
-            android:layout_width="73dp"
-            android:layout_height="15dp"
+            <View
+                android:id="@+id/ic_vi"
+                android:layout_width="25dp"
+                android:layout_height="21.88dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/ic_vi" />
+
+            <TextView
+                android:id="@+id/text_vi"
+                android:layout_width="73dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="@string/vi"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/icon_shop_xu"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="85dp"
-            android:gravity="center"
-            android:text="@string/vi"
-            android:textAppearance="@style/giaohang" />
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="64dp">
 
-        <View
-            android:id="@+id/ic_shop_xu"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            <View
+                android:id="@+id/ic_shop_xu"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_coins" />
+
+            <TextView
+                android:id="@+id/text_shop_xu"
+                android:layout_width="40dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="@string/shop_xu"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/icon_voucher_profile"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="193dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/ic_coins" />
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="64dp">
 
-        <TextView
-            android:id="@+id/text_shop_xu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="185dp"
-            android:layout_marginTop="85dp"
-            android:gravity="center"
-            android:text="@string/shop_xu"
-            android:textAppearance="@style/giaohang" />
+            <View
+                android:id="@+id/ic_voucher_profile"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/ic_voucher" />
 
-        <View
-            android:id="@+id/ic_voucher_profile"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="342dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/ic_voucher" />
-
-        <TextView
-            android:id="@+id/kho_voucher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="323dp"
-            android:layout_marginTop="85dp"
-            android:gravity="center"
-            android:text="@string/kho_voucher"
-            android:textAppearance="@style/giaohang" />
-
+            <TextView
+                android:id="@+id/kho_voucher"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="@string/kho_voucher"
+                android:textAppearance="@style/giaohang" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -477,7 +535,7 @@
         android:layout_marginLeft="42dp">
 
         <View
-            android:id="@+id/profile_icon_home"
+            android:id="@+id/dashboard_icon_home"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
@@ -511,7 +569,7 @@
         android:layout_marginLeft="135dp">
 
         <View
-            android:id="@+id/profile_icon_scan"
+            android:id="@+id/dashboard_icon_scan"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
@@ -543,7 +601,7 @@
         android:layout_marginLeft="243dp">
 
         <View
-            android:id="@+id/profile_icon_notify"
+            android:id="@+id/dashboard_icon_notify"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
@@ -573,9 +631,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="340dp">
-
         <View
-            android:id="@+id/profile_icon_profile"
+            android:id="@+id/dashboard_icon_profile"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
@@ -583,6 +640,7 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/icon_profile"
             android:backgroundTint="#F9A826"
+
             android:gravity="center" />
 
         <TextView
@@ -598,5 +656,4 @@
             android:textColor="#F9A826"
             android:textSize="10sp" />
     </RelativeLayout>
-
 </RelativeLayout>
