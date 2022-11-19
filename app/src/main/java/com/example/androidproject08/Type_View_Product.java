@@ -1,4 +1,4 @@
-package com.example.doan;
+package com.example.androidproject08;
 
 public class Type_View_Product {
     private String name_type;
