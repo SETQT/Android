@@ -25,7 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class activity_profile extends Activity {
+public class activity_profile extends Activity implements View.OnClickListener {
 
     //khai báo biến UI
     RelativeLayout icon_home, icon_scan, icon_notify;
@@ -42,7 +42,7 @@ public class activity_profile extends Activity {
     TextView username_profile, id_cycle_red_giohang;
     Button dangxuat;
     View icon_cart;
-    RelativeLayout rectangle_profile_hosocuatoi;
+    RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
 
     @Override
@@ -51,14 +51,25 @@ public class activity_profile extends Activity {
         setContentView(R.layout.activity_profile);
 
         icon_home = (RelativeLayout) findViewById(R.id.icon_home);
+        icon_home.setOnClickListener(this);
         icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
+        icon_scan.setOnClickListener(this);
         icon_notify = (RelativeLayout) findViewById(R.id.icon_notify);
+        icon_notify.setOnClickListener(this);
 
         username_profile = (TextView) findViewById(R.id.username_profile);
         id_cycle_red_giohang = (TextView) findViewById(R.id.id_cycle_red_giohang);
         dangxuat = (Button) findViewById(R.id.dangxuat);
+        dangxuat.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
+        icon_cart.setOnClickListener(this);
         rectangle_profile_hosocuatoi = (RelativeLayout) findViewById(R.id.rectangle_profile_hosocuatoi);
+        rectangle_profile_hosocuatoi.setOnClickListener(this);
+        icon_voucher_profile = (RelativeLayout) findViewById(R.id.icon_voucher_profile);
+        icon_voucher_profile.setOnClickListener(this);
+        icon_donhangcuatoi = (RelativeLayout) findViewById(R.id.icon_donhangcuatoi);
+        icon_donhangcuatoi.setOnClickListener(this);
+
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -85,63 +96,7 @@ public class activity_profile extends Activity {
             }
         }, username);
 
-        // chuyển sang giao diện my cart
-        icon_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
-                moveActivity.putExtra("name_activity", "activity_profile");
-                startActivity(moveActivity);
-            }
-        });
 
-        // đăng xuất tài khoản
-        dangxuat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sqlite.execSQL("DROP TABLE IF EXISTS USER; "); // xóa bảng <=> xóa phiên đăng nhập hiện tại
-                Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
-
-                LoginManager.getInstance().logOut();
-                startActivity(moveActivity);
-            }
-        });
-
-        // trở về giao diện dashboard
-        icon_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện scan mã qr
-        icon_scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện thông báo
-        icon_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện hồ sơ cá nhân
-        rectangle_profile_hosocuatoi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_record.class);
-                startActivity(moveActivity);
-            }
-        });
     }
 
     // truy vấn dữ liệu từ database với username mà người dùng nhập
@@ -164,5 +119,60 @@ public class activity_profile extends Activity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == icon_voucher_profile.getId()) {
+            // chuyển sang giao diện my voucher
+            Intent moveActivity = new Intent(getApplicationContext(), activity_voucher.class);
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_cart.getId()) {
+            // chuyển sang giao diện my cart
+            Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+            moveActivity.putExtra("name_activity", "activity_profile");
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == dangxuat.getId()) {
+            // đăng xuất tài khoản
+            sqlite.execSQL("DROP TABLE IF EXISTS USER; "); // xóa bảng <=> xóa phiên đăng nhập hiện tại
+            Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
+
+            LoginManager.getInstance().logOut();
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_home.getId()) {
+            // trở về giao diện dashboard
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_scan.getId()) {
+            // chuyển sang giao diện scan mã qr
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_notify.getId()) {
+            // chuyển sang giao diện thông báo
+            Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == rectangle_profile_hosocuatoi.getId()) {
+            // chuyển sang giao diện hồ sơ cá nhân
+            Intent moveActivity = new Intent(getApplicationContext(), activity_record.class);
+            startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_donhangcuatoi.getId()) {
+            // chuyển sang giao diện đơn hàng của tôi
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            startActivity(moveActivity);
+        }
     }
 }

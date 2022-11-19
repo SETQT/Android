@@ -86,6 +86,12 @@ public class activity_mycart extends Activity {
                     case "activity_profile":
                         moveActivity = new Intent(getApplicationContext(), activity_profile.class);
                         break;
+                    case "activity_voucher":
+                        moveActivity = new Intent(getApplicationContext(), activity_voucher.class);
+                        break;
+                    case "activity_myorder":
+                        moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                        break;
                     default:
                         break;
                 }

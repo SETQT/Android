@@ -34,11 +34,8 @@
         <activity android:name=".activity_voucher"></activity>
         <activity android:name=".activity_record"></activity>
         <activity android:name=".activity_payment"></activity>
-        <activity
-            android:name=".activity_view_product"
-            android:exported="false" />
-        <activity
-	<activity android:name=".activity_myorder"></activity>
+	    <activity android:name=".activity_myorder"></activity>
+        <activity android:name=".activity_edit_profile"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

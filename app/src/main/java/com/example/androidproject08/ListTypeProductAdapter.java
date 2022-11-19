@@ -1,4 +1,4 @@
-package com.example.doan;
+package com.example.androidproject08;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class ListTypeProductAdapter extends RecyclerView.Adapter<ListTypeProductAdapter.MyViewHolder> {
-        private List<Type_View_Product> listType;
+        private List<com.example.doan.Type_View_Product> listType;
         class MyViewHolder extends RecyclerView.ViewHolder {
             Button name_type;
             MyViewHolder(View view) {
@@ -17,7 +17,7 @@ public class ListTypeProductAdapter extends RecyclerView.Adapter<ListTypeProduct
                 name_type = view.findViewById(R.id.name_type_product);
             }
         }
-        public ListTypeProductAdapter(List<Type_View_Product> listType) {
+        public ListTypeProductAdapter(List<com.example.doan.Type_View_Product> listType) {
             this.listType = listType;
         }
         @NonNull
@@ -29,7 +29,7 @@ public class ListTypeProductAdapter extends RecyclerView.Adapter<ListTypeProduct
         }
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            Type_View_Product movie = listType.get(position);
+            com.example.doan.Type_View_Product movie = listType.get(position);
             holder.name_type.setText(movie.get_name_type());
         }
         @Override

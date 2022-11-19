@@ -30,14 +30,21 @@
         <entry key="..\:/Code java/AndroidProject08/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.206" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/drawable/ic_showhide_password.xml" value="0.1835" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_dashboard.xml" value="0.5" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_edit_profile.xml" value="0.24583333333333332" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_mycart.xml" value="0.36666666666666664" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_myorder.xml" value="0.20989583333333334" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_notify.xml" value="0.33" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_record.xml" value="0.36666666666666664" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_voucher.xml" value="0.20989583333333334" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_welcomepage.xml" value="0.25" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/custom_dashboard_layout_fragment_first.xml" value="0.20989583333333334" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/custom_myorder_layout_fragment_first.xml" value="0.20989583333333334" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/custom_product_gridview.xml" value="0.5" />
+        <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/custom_voucher_layout_fragment_first.xml" value="0.20989583333333334" />
       </map>
     </option>
   </component>

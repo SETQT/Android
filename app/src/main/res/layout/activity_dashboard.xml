@@ -129,12 +129,13 @@
         android:layout_marginTop="115dp"
         android:orientation="vertical" />
 
-    <FrameLayout android:id="@+id/dashboard_fragment_second"
+    <FrameLayout
+        android:id="@+id/dashboard_fragment_second"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginTop="175dp"
-        android:layout_marginBottom="60dp"/>
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical" />
 
     <View
         android:id="@+id/rectangle_footer"

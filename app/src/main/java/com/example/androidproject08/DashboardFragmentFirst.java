@@ -16,8 +16,9 @@ import androidx.fragment.app.Fragment;
 public class DashboardFragmentFirst extends Fragment {
 
     activity_dashboard main;
-    Button dashboard_option_tatca, dashboard_option_aokhoac, dashboard_option_mu, dashboard_option_quan, dashboard_option_ao;
 
+    // khai báo biến UI
+    Button dashboard_option_tatca, dashboard_option_aokhoac, dashboard_option_mu, dashboard_option_quan, dashboard_option_ao;
 
     // convenient constructor(accept arguments, copy them to a bundle, binds bundle to fragment)
     public static DashboardFragmentFirst newInstance(String strArg) {

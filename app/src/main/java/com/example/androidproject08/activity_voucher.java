@@ -3,15 +3,19 @@ package com.example.androidproject08;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-public class activity_voucher extends FragmentActivity implements MainCallbacks{
+public class activity_voucher extends FragmentActivity implements MainCallbacks, View.OnClickListener{
     FragmentTransaction ft; VoucherFragmentFirst firstFrag; VoucherFragmentSecond secondFrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voucher);
+
         ft = getSupportFragmentManager().beginTransaction();
         firstFrag = VoucherFragmentFirst.newInstance("first-frag");
         ft.replace(R.id.voucher_fragment_first, firstFrag);
@@ -37,5 +41,10 @@ public class activity_voucher extends FragmentActivity implements MainCallbacks{
             }
             catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
