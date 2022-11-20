@@ -59,8 +59,8 @@ public class ListTypeOptionDashboard extends RecyclerView.Adapter<ListTypeOption
             public void onClick(View view) {
 
                 IClickItemListener.onClickItem(l);
-                holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
-                holder.text.setTextAppearance(R.style.setTextAfterClickDashBoard);
+//                holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+//                holder.text.setTextAppearance(R.style.setTextAfterClickDashBoard);
             }
         });
     }

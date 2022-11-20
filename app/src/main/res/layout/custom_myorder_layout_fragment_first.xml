@@ -19,7 +19,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="-2dp"
             android:background="@drawable/record_rectangle_header_profile" />
 
         <View
