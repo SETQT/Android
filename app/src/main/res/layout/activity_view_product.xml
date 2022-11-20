@@ -393,7 +393,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rectangle_info_shop">
 
-                <View
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/avatar_shop_view_product"
                     android:layout_width="46dp"
                     android:layout_height="45dp"
@@ -401,7 +401,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="27dp"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/avatar_profile" />
+                    android:src="@drawable/logo_shop" />
 
                 <TextView
                     android:id="@+id/username_shop_view_product"
@@ -412,7 +412,7 @@
                     android:layout_marginLeft="89dp"
                     android:layout_marginTop="12dp"
                     android:gravity="top"
-                    android:text="3T Shop"
+                    android:text="G8 Shop"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     android:textStyle="bold" />
