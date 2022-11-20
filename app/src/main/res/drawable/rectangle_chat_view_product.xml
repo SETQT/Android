@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="71dp"
-    android:height="45dp"
+    android:height="49dp"
     android:viewportWidth="71"
-    android:viewportHeight="45"
+    android:viewportHeight="49"
     >
 
     <group>
 
         <clip-path
-            android:pathData="M20 0H51C62.0457 0 71 8.95431 71 20V25C71 36.0457 62.0457 45 51 45H20C8.95431 45 0 36.0457 0 25V20C0 8.95431 8.95431 0 20 0Z"
+            android:pathData="M5 0H66C68.7614 0 71 2.23858 71 5V44C71 46.7614 68.7614 49 66 49H5C2.23858 49 0 46.7614 0 44V5C0 2.23858 2.23858 0 5 0Z"
             />
 
         <path
-            android:pathData="M0 0V45H71V0"
+            android:pathData="M0 0V49H71V0"
             android:fillColor="#34A353"
             />
 
