@@ -36,6 +36,7 @@
         <activity android:name=".activity_payment"></activity>
 	    <activity android:name=".activity_myorder"></activity>
         <activity android:name=".activity_edit_profile"></activity>
+        <activity android:name=".activity_view_product"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

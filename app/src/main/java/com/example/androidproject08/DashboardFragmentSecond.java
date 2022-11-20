@@ -42,10 +42,9 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
 
         dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, "Tất cả");
         db_at.execute();
-
         try {
             Bundle arguments = getArguments();
-            textIdUser.setText(arguments.getString("arg1", ""));
+//            textIdUser.setText(arguments.getString("arg1", ""));
         } catch (Exception e) {
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
@@ -55,29 +54,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
 
     @Override
     public void onMsgFromMainToFragment(String strValue) {
-
-        Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
-
-        if (strValue == "Tat ca") {
-            dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, "Tất cả");
-            db_at.execute();
-        }
-
-        if (strValue == "Ao khoac") {
-
-        }
-
-        if (strValue == "Mu") {
-
-        }
-
-        if (strValue == "Quan") {
-
-        }
-
-        if (strValue == "Ao") {
-            dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, "Áo");
-            db_at.execute();
-        }
+        dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, strValue);
+        db_at.execute();
     }
 }

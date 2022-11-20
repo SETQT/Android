@@ -1,36 +1,22 @@
 package com.example.androidproject08;
 
-import android.app.ListActivity;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-
 import java.util.ArrayList;
 
 public class DashboardFragmentFirst extends Fragment{
 
     activity_dashboard main;
-
-    // khai báo biến UI
-
     ArrayList<ListViewOptionDashboard> list = new ArrayList<ListViewOptionDashboard>();
     ArrayList<String> text = new ArrayList<>();
 
@@ -64,13 +50,17 @@ public class DashboardFragmentFirst extends Fragment{
                 main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
             }
         });
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(main.getApplicationContext());
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        text.add("Tất cả");text.add("Áo khoác");text.add("Quần");text.add("Áo"); text.add("Mũ");
+//        dashboard_fragment_first_asynctask db_frag_1_at = new dashboard_fragment_first_asynctask(main, recyclerView, list);
+//        db_frag_1_at.execute();
+
+        text.add("Tất cả");text.add("Áo khoác");text.add("Quần");text.add("Áo"); text.add("Mũ"); text.add("Giày");
 
         for (int i = 0; i < text.size(); i++) {
             list.add(new ListViewOptionDashboard(text.get(i)));
@@ -82,7 +72,6 @@ public class DashboardFragmentFirst extends Fragment{
     public void onMsgFromMainToFragment(String strValue) {
         String dataSend = strValue;
         main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
-
     }
 }// class
 

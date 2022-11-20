@@ -30,6 +30,7 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
     GridView dashboard_gridview;
     LinearLayout curFrag;
 
+    // kết nối firestore
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static CollectionReference productsRef = db.collection("products");
 
@@ -73,10 +74,18 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
+                                    Boolean isPass = false;
+
                                     for (QueryDocumentSnapshot document : task.getResult()) {
+                                        isPass = true;
+
                                         Product product = document.toObject(Product.class);
                                         product.setIdDoc(document.getId().toString());
                                         publishProgress(product);
+                                    }
+
+                                    if(!isPass) {
+                                        publishProgress();
                                     }
                                 } else {
                                     Log.d("TAG", "Error getting documents: ", task.getException());
@@ -94,7 +103,12 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
     protected void onProgressUpdate(Product... products) {
         //Hàm thực hiện update giao diện khi có dữ liệu từ hàm doInBackground gửi xuống
         super.onProgressUpdate(products);
-        finalList.add(products[0]);
+
+        if(products.length == 0) {
+            finalList.clear();
+        } else {
+            finalList.add(products[0]);
+        }
 
         try {
             CustomProductLabelAdapter customAdapter = new CustomProductLabelAdapter(curContext, R.layout.custom_product_gridview, finalList);
