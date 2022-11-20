@@ -2,6 +2,8 @@ package com.example.androidproject08;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
@@ -47,6 +59,8 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         old_price.setText("đ" + oldPrice.toString());
         percent_sale.setText("-"+products.get(position).getSale().toString() + "%");
 
+        downloadFile(v,products.get(position).getImage());
+
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,5 +71,37 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         });
 
         return v;
+    }
+
+    public  void downloadFile(View v,String id){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
+        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
+
+        try {
+            File localFile = File.createTempFile("tempfile", ".jpg");
+
+            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("down", "success: ");
+
+                    // Local temp file has been created
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    ImageView imgProduct = (ImageView)  v.findViewById(R.id.dashboard_custom_picture_product);
+                    imgProduct.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("down", "onFailure: ");
+                }
+            });
+
+        }catch ( IOException e){
+
+        }
+
     }
 }
