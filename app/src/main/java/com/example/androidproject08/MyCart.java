@@ -21,7 +21,7 @@ public class MyCart {
     public MyCart() {
     }
 
-    public MyCart(Integer amount, String id, String image, String name, Integer price, Integer sale, String ownCart) {
+    public MyCart(Integer amount, String id, String image, String name, Integer price, Integer sale, String ownCart, String idDoc) {
         this.amount = amount;
         this.id = id;
         this.image = image;
@@ -29,6 +29,7 @@ public class MyCart {
         this.price = price;
         this.sale = sale;
         this.ownCart = ownCart;
+        this.idDoc = idDoc;
     }
 
     public Integer getAmount() {

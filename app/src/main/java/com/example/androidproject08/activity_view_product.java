@@ -2,6 +2,8 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -9,7 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -23,6 +27,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -36,20 +42,29 @@ public class activity_view_product extends Activity implements View.OnClickListe
     // biến UI
     View ic_back_view_product, icon_cart;
     RecyclerView recyclerView_color, recyclerView_size;
+    RelativeLayout rectangle_add_to_card_view_product;
 
     // biến xử lý
     String previousActivity, idDoc;
     private ListTypeProductAdapter mAdapter_color, mAdapter_size;
     ArrayList<String> list = new ArrayList<>();
+    String username = "";
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference productsRef = db.collection("products");
+    CollectionReference cartsRef = db.collection("carts");
+
+    // sqlite
+    SQLiteDatabase sqlite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_product);
+
+        rectangle_add_to_card_view_product = (RelativeLayout) findViewById(R.id.rectangle_add_to_card_view_product);
+        rectangle_add_to_card_view_product.setOnClickListener(this);
 
         recyclerView_color = (RecyclerView) findViewById(R.id.recyclerView_color_view_product);
         LinearLayoutManager mLayoutManager_color = new LinearLayoutManager(getApplicationContext());
@@ -77,6 +92,15 @@ public class activity_view_product extends Activity implements View.OnClickListe
         previousActivity = intent.getStringExtra("name_activity");
         idDoc = intent.getStringExtra("idDoc");
 
+        // kết nối sqlite
+        File storagePath = getApplication().getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        username = c1.getString(0);
 
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
@@ -86,15 +110,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == ic_back_view_product.getId()) {
-//            switch (previousActivity) {
-//                case "activity_dashboard":
-//                    Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-//                    startActivity(moveActivity);
-//                    break;
-//                default:
-//                    break;
-//            }
-            // chuyển về activity dash_board
             Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
         }
@@ -104,6 +119,55 @@ public class activity_view_product extends Activity implements View.OnClickListe
             moveActivity.putExtra("idDoc", idDoc);
             moveActivity.putExtra("name_activity", "activity_view_product");
             startActivity(moveActivity);
+        }
+
+        if (view.getId() == rectangle_add_to_card_view_product.getId()) {
+            try {
+                productsRef.document(idDoc).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    Product product = document.toObject(Product.class);
+
+                                    MyCart ToCart = new MyCart(1, "", product.getImage(), product.getName(), product.getPrice(), product.getSale(), username, document.getId().toString());
+
+                                    cartsRef
+                                            .whereEqualTo("idDoc", ToCart.getIdDoc())
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        boolean isDuplicated = false;
+                                                        Integer totalAmount = 0;
+
+                                                        // kiểm tra thử sản phẩm đã có trong giỏ hàng trước đó chưa
+                                                        // nếu có thì cộng thêm số lượng vào
+                                                        for (QueryDocumentSnapshot document2 : task.getResult()) {
+                                                            MyCart cart = document2.toObject(MyCart.class);
+                                                            isDuplicated = true;
+                                                            totalAmount = cart.getAmount() + 1;
+                                                            cartsRef.document(document2.getId()).update("amount", totalAmount);
+                                                        }
+
+                                                        // nếu không thì tạo cart mới
+                                                        if (!isDuplicated) {
+                                                            cartsRef.add(ToCart);
+                                                        }
+                                                    } else {
+                                                        Log.d("TAG", "Error getting documents: ", task.getException());
+                                                    }
+                                                }
+                                            });
+                                    Toast.makeText(activity_view_product.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            } catch (Exception error) {
+                Log.e("ERROR", "activity_view_product: " + error);
+            }
         }
     }
 

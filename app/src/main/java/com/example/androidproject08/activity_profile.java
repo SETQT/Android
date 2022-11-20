@@ -46,8 +46,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
     CollectionReference usersRef = db.collection("users");
     ArrayList<User> usernameList;
 
-
-
     // sqlite
     SQLiteDatabase sqlite;
 
