@@ -93,7 +93,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
 
         Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
 
-        if (strValue == "Tat ca") {
+        if (strValue == "Tất cả") {
             names.clear(); costs.clear(); costs_sale.clear(); percents_sale.clear(); logos.clear();
 
             logos.add(R.drawable.mono1);logos.add(R.drawable.ao1);logos.add(R.drawable.mono1);logos.add(R.drawable.ao2);
@@ -119,7 +119,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
 
         }
 
-        if (strValue == "Ao khoac") {
+        if (strValue == "Áo khoác") {
             names.clear(); costs.clear(); costs_sale.clear(); percents_sale.clear(); logos.clear();
 
             logos.add(R.drawable.ao2);logos.add(R.drawable.ao1);logos.add(R.drawable.ao1);logos.add(R.drawable.ao2);
@@ -134,7 +134,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
             percents_sale.add("-30%");percents_sale.add("-30%");
         }
 
-        if (strValue == "Mu") {
+        if (strValue == "Quần") {
             names.clear(); costs.clear(); costs_sale.clear(); percents_sale.clear(); logos.clear();
 
             logos.add(R.drawable.ao2);logos.add(R.drawable.mono1);logos.add(R.drawable.ao1);logos.add(R.drawable.ao2);
@@ -145,7 +145,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
 
         }
 
-        if (strValue == "Quan") {
+        if (strValue == "Áo") {
             names.clear(); costs.clear(); costs_sale.clear(); percents_sale.clear(); logos.clear();
 
             logos.add(R.drawable.ao2);logos.add(R.drawable.ao1);logos.add(R.drawable.ao1);logos.add(R.drawable.ao2);
@@ -160,7 +160,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
             percents_sale.add("-30%");percents_sale.add("-40%");
         }
 
-        if (strValue == "Ao") {
+        if (strValue == "Mũ") {
             names.clear(); costs.clear(); costs_sale.clear(); percents_sale.clear(); logos.clear();
 
             logos.add(R.drawable.mono1);logos.add(R.drawable.ao1);logos.add(R.drawable.ao1);logos.add(R.drawable.ao2);
