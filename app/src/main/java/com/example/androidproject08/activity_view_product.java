@@ -135,6 +135,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
                                     cartsRef
                                             .whereEqualTo("idDoc", ToCart.getIdDoc())
+                                            .whereEqualTo("ownCart", ToCart.getOwnCart())
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
