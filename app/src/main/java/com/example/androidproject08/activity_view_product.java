@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import java.util.ArrayList;
@@ -25,11 +25,11 @@ import java.util.ArrayList;
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
     View ic_back_view_product, icon_cart;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView_color, recyclerView_size;
 
     // biến xử lý
     String previousActivity, idDoc;
-    private ListTypeProductAdapter mAdapter;
+    private ListTypeProductAdapter mAdapter_color, mAdapter_size;
     ArrayList<String> list = new ArrayList<>();
 
     // kết nối firestore
@@ -41,13 +41,21 @@ public class activity_view_product extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_product);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_view_product);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mAdapter = new ListTypeProductAdapter(list);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        recyclerView_color = (RecyclerView) findViewById(R.id.recyclerView_color_view_product);
+        LinearLayoutManager mLayoutManager_color = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager_color.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mAdapter_color = new ListTypeProductAdapter(list);
+        recyclerView_color.setLayoutManager(mLayoutManager_color);
+        recyclerView_color.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_color.setAdapter(mAdapter_color);
+
+        LinearLayoutManager mLayoutManager_size = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager_size.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView_size = (RecyclerView) findViewById(R.id.recyclerView_size_view_product);
+        mAdapter_size = new ListTypeProductAdapter(list);
+        recyclerView_size.setLayoutManager(mLayoutManager_size);
+        recyclerView_size.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_size.setAdapter(mAdapter_color);
 
         ic_back_view_product = (View) findViewById(R.id.ic_back_view_product);
         ic_back_view_product.setOnClickListener(this);
@@ -133,8 +141,13 @@ public class activity_view_product extends Activity implements View.OnClickListe
             expTv.setText(products[0].getDescription());
 
             // thiết lập color
-            mAdapter = new ListTypeProductAdapter(products[0].getTypeColor());
-            recyclerView.setAdapter(mAdapter);
+            mAdapter_color = new ListTypeProductAdapter(products[0].getTypeColor());
+            recyclerView_color.setAdapter(mAdapter_color);
+
+            // thiết lập size
+            mAdapter_size = new ListTypeProductAdapter(products[0].getTypeSize());
+            recyclerView_size.setAdapter(mAdapter_size);
+
         }
     }
 }
