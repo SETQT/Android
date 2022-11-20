@@ -1,13 +1,18 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,13 +20,19 @@ import androidx.annotation.NonNull;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +55,12 @@ public class activity_profile extends Activity implements View.OnClickListener {
     View icon_cart;
     RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
+//    android:id="@+id/profile_avatar"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         icon_home = (RelativeLayout) findViewById(R.id.icon_home);
         icon_home.setOnClickListener(this);
         icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
@@ -89,8 +100,13 @@ public class activity_profile extends Activity implements View.OnClickListener {
             @Override
             public void onCallBack(List<User> list) {
                 if (usernameList.get(0).getFullname() == null) {
+
+
                     username_profile.setText(usernameList.get(0).getUsername());
                 } else {
+//                    Log.d("USER", "downdxxxFile: "+usernameList.get(0).getImage());
+
+//                    downloadFile(usernameList.get(0));
                     username_profile.setText(usernameList.get(0).getFullname());
                 }
             }

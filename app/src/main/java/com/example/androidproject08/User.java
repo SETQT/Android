@@ -17,15 +17,18 @@ public class User {
     private String userId;
     private String bio;
     private Cart cart;
+
     private Date birthdate;
+    private String image;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String id, String username, String password, String email,
-                String phone, String gender, String address, String fullname, Cart cart) {
+                String phone, String gender, String address, String fullname, Cart cart,String img) {
         this.username = username;
+        this.image=img;
         this.password = password;
         this.fullname = fullname;
         this.gender = gender;
@@ -174,5 +177,13 @@ public class User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

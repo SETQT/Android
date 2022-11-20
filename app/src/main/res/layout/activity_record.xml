@@ -7,14 +7,18 @@
     tools:context=".activity_mycart"
     android:background="#E5E5E5">
 
-    <View
+    <ImageView
         android:id="@+id/record_rectangle_header_profile"
+
+
         android:layout_width="wrap_content"
         android:layout_height="165dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="1dp"
         android:layout_marginTop="-24dp"
-        android:background="@drawable/record_rectangle_header_profile" />
+        android:background="@drawable/record_rectangle_header_profile"
+        android:scaleType="centerCrop" />
 
     <View
         android:id="@+id/record_ic_back"
@@ -36,14 +40,16 @@
         android:layout_marginTop="68dp"
         android:background="@drawable/record_frame_avatar_profile" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/record_avatar"
         android:layout_width="120dp"
         android:layout_height="123dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="68dp"
-        android:gravity="center"
-        android:src="@drawable/record_avatar" />
+        android:src="@drawable/ao1"
+        app:civ_border_width="1dp"
+        app:civ_border_color="#000000"/>
 
     <View
         android:id="@+id/record_bg_camera_01"

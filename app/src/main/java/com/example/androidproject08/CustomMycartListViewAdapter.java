@@ -1,6 +1,9 @@
 package com.example.androidproject08;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +12,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
@@ -20,6 +32,37 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartsRef = db.collection("carts");
 
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    public  void downloadFile(View v,String id){
+//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
+        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
+
+        try {
+            File localFile = File.createTempFile("tempfile", ".jpg");
+
+            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("down", "success: ");
+
+                    // Local temp file has been created
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    ImageView imgProduct = (ImageView)  v.findViewById(R.id.custom_mycart_picture);
+                    imgProduct.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("down", "onFailure: ");
+                }
+            });
+
+        }catch ( IOException e){
+
+        }
+
+    }
     public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects) {
         super(context, resource, objects);
         this.my_cart = objects;
@@ -47,7 +90,8 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         View addButton = (View) v.findViewById((R.id.custom_mycart_icon_increase));
         View garbage = (View) v.findViewById((R.id.custom_mycart_icon_garbage));
         View addTotal = (View) v.findViewById((R.id.custom_mycart_icon_done));
-
+//        my_cart.get(position).getId
+        downloadFile(v,my_cart.get(position).getImage());
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
         name.setText(my_cart.get(position).getName());
