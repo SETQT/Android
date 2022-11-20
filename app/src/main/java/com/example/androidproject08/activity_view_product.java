@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -79,7 +78,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
         idDoc = intent.getStringExtra("idDoc");
 
 
-
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
     }
@@ -88,18 +86,21 @@ public class activity_view_product extends Activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == ic_back_view_product.getId()) {
-            switch (previousActivity) {
-                case "activity_dashboard":
-                    Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                    startActivity(moveActivity);
-                    break;
-                default:
-                    break;
-            }
+//            switch (previousActivity) {
+//                case "activity_dashboard":
+//                    Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+//                    startActivity(moveActivity);
+//                    break;
+//                default:
+//                    break;
+//            }
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
         }
 
         if (view.getId() == icon_cart.getId()) {
             Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+            moveActivity.putExtra("idDoc", idDoc);
             moveActivity.putExtra("name_activity", "activity_view_product");
             startActivity(moveActivity);
         }
@@ -112,17 +113,21 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         @Override
         protected Product doInBackground(Void... voids) {
-            productsRef.document(idDoc).get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if(task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                Product product = document.toObject(Product.class);
-                                publishProgress(product);
+            try {
+                productsRef.document(idDoc).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    Product product = document.toObject(Product.class);
+                                    publishProgress(product);
+                                }
                             }
-                        }
-                    });
+                        });
+            } catch (Exception error) {
+                Log.e("ERROR", "activity_view_product: " + error);
+            }
             return null;
         }
 
@@ -164,7 +169,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
         }
     }
 
-    public  void downloadFile(String id){
+    public void downloadFile(String id) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 //        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
@@ -190,7 +195,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                 }
             });
 
-        }catch ( IOException e){
+        } catch (IOException e) {
 
         }
 

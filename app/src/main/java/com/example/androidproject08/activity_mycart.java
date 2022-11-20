@@ -79,37 +79,7 @@ public class activity_mycart extends Activity {
             }
         });
     }
-//    public  void downloadFile(){
-//       StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
-//
-////        File localFile = File.createTempFile("tempFile", ".jpg");
-//        String path = Environment.getExternalStorageDirectory().getPath();
-//        String myJpgPath = path + "/Download/girl480x600.jpg";
-//        try {
-//            File localFile = File.createTempFile("tempfile", ".jpg");
-//
-//        islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                Log.d("down", "success: ");
-//
-//                // Local temp file has been created
-//                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                ImageView imgProduct = (ImageView)  findViewById(R.id.custom_mycart_picture);
-//                imgProduct.setImageBitmap(bitmap);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Log.d("down", "onFailure: ");
-//            }
-//        });
-//
-//        }catch ( IOException e){
-//
-//        }
-//
-//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -124,7 +94,7 @@ public class activity_mycart extends Activity {
         // get tên của activity trước đỏ để back khi nhấn button back lại đúng vị trí
         Intent intent = getIntent();
         String previousActivity = intent.getStringExtra("name_activity");
-
+        String idDoc = intent.getStringExtra("idDoc");
         // get username từ sqlite
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -151,8 +121,6 @@ public class activity_mycart extends Activity {
             }
         });
 
-
-
         // trở lại activity trước đó
         icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +145,7 @@ public class activity_mycart extends Activity {
                         break;
                     case "activity_view_product":
                         moveActivity = new Intent(getApplicationContext(), activity_view_product.class);
+                        moveActivity.putExtra("idDoc", idDoc);
                         break;
                     default:
                         break;

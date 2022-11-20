@@ -17,7 +17,6 @@ public class User {
     private String userId;
     private String bio;
     private Cart cart;
-
     private Date birthdate;
     private String image;
 
