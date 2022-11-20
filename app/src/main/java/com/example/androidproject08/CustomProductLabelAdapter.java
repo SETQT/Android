@@ -51,6 +51,7 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(curContext, activity_view_product.class);
+                moveActivity.putExtra("name_activity", "activity_dashboard");
                 moveActivity.putExtra("idDoc", products.get(position).getIdDoc());
                 curContext.startActivity(moveActivity);
             }

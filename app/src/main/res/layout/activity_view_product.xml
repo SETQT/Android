@@ -27,13 +27,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         >
-        <View android:id="@+id/mono_1"
+
+        <View
+            android:id="@+id/mono_1"
             android:layout_width="411dp"
             android:layout_height="284dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/mono_view_product"/>
+            android:background="@drawable/mono_view_product" />
         />
+
         <View
             android:id="@+id/ic_back_view_product"
             android:layout_width="21dp"
