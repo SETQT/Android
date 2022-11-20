@@ -56,6 +56,11 @@ public class ListTypeOptionDashboard extends RecyclerView.Adapter<ListTypeOption
         holder.text.setText(movie.getText());
         textviewList.add(holder.text);
 
+        if (holder.text.getText() == listType.get(0).getText()){
+            holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+            holder.text.setTextAppearance(R.style.setTextAfterClickDashBoard);
+        }
+
         holder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
