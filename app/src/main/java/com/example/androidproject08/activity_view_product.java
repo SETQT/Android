@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
 import java.util.ArrayList;
 
 public class activity_view_product extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class activity_view_product extends AppCompatActivity {
 
         // calling setText on the ExpandableTextView so that
         // text content will be  displayed to the user
+
         expTv.setText(getString(R.string.expandable_text));
         RecyclerView recyclerView = findViewById(R.id.recyclerView_view_product);
         mAdapter = new ListTypeProductAdapter(listType);
@@ -30,7 +33,6 @@ public class activity_view_product extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         prepareMovieData();
-
     }
     private void prepareMovieData() {
         Type_View_Product type = new Type_View_Product("Đen");

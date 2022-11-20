@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_listview_option_dashboard"
+    android:layout_width="135dp"
+    android:layout_height="47dp"
+    android:background="#E5E5E5"
+    android:orientation="horizontal"
+    android:layout_marginRight="12dp">
+
+    <TextView
+        android:id="@+id/button_option"
+        android:layout_width="110dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/dashboard_rectangle_bg_white"
+        android:gravity="center"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+</LinearLayout>

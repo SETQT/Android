@@ -11,18 +11,22 @@
         android:id="@+id/dashboard_rectangle_header"
         android:layout_width="411dp"
         android:layout_height="50dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/dashboard_rectangle_footer" />
 
-    <View
-        android:id="@+id/icon_menu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="13dp"
-        android:gravity="center"
-        android:background="@drawable/icon_menu" />
+    <ImageView
+        android:id="@+id/icon_logo"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/logo_nhom"
+        android:gravity="center" />
 
     <View
         android:id="@+id/icon_cart"
@@ -92,21 +96,21 @@
 
     <View
         android:id="@+id/dashboard_frame_search"
-        android:layout_width="361dp"
+        android:layout_width="376dp"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="62dp"
         android:background="@drawable/dashboard_rectangle_search" />
 
     <EditText
         android:id="@+id/dashboard_id_search"
-        android:layout_width="284dp"
+        android:layout_width="294dp"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="62dp"
         android:gravity="left"
         android:hint="Tìm kiếm"
@@ -117,7 +121,7 @@
         android:id="@+id/icon_search"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_marginLeft="38dp"
+        android:layout_marginLeft="28dp"
         android:layout_marginTop="74dp"
         android:gravity="center"
         android:background="@drawable/icon_search" />
@@ -126,7 +130,7 @@
         android:id="@+id/dashboard_fragment_first"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical" />
 
     <FrameLayout

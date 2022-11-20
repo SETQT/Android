@@ -17,24 +17,24 @@
 
     <ImageView
         android:id="@+id/dashboard_custom_picture_product"
-        android:layout_width="154dp"
-        android:layout_height="157dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/dashboard_custom_name_product"
-        android:layout_width="133dp"
-        android:layout_height="21dp"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="158dp"
         android:gravity="top"
         android:textColor="#000000"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/dashboard_custom_cost_product"
@@ -45,10 +45,9 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="200dp"
         android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
-        android:gravity="top"
-        android:textColor="#F9A826"
-        android:textSize="11sp"
-        android:typeface="sans" />
+        android:gravity="center"
+        android:textColor="#AEAEAE"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/dashboard_custom_cost_sale_product"
@@ -59,9 +58,8 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="200dp"
         android:gravity="top"
-        android:textColor="#000000"
-        android:textSize="11sp"
-        />
+        android:textColor="#F9A826"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/dashboard_custom_percent_sale_product"
@@ -73,6 +71,6 @@
         android:layout_marginTop="200dp"
         android:gravity="top"
         android:textColor="#E53333"
-        android:textSize="11sp" />
+        android:textSize="11sp"/>
 
 </RelativeLayout>
