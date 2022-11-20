@@ -1,5 +1,6 @@
 package com.example.androidproject08;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -15,12 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ListTypeOptionDashboard extends RecyclerView.Adapter<ListTypeOptionDashboard.MyViewHolder> {
     private List<ListViewOptionDashboard> listType;
     private IClickItemListener IClickItemListener;
+    List<TextView> textviewList = new ArrayList<>();
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView text;
@@ -47,22 +50,28 @@ public class ListTypeOptionDashboard extends RecyclerView.Adapter<ListTypeOption
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
         final ListViewOptionDashboard l = listType.get(position);
         ListViewOptionDashboard movie = listType.get(position);
         holder.text.setText(movie.getText());
-
-        holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
-        holder.text.setTextAppearance(R.style.setTextNotClickDashBoard);
+        textviewList.add(holder.text);
 
         holder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 IClickItemListener.onClickItem(l);
-//                holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
-//                holder.text.setTextAppearance(R.style.setTextAfterClickDashBoard);
+                for(TextView textView : textviewList){
+                    textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                    textView.setTextAppearance(R.style.setTextNotClickDashBoard);
+                }
+                holder.text.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                holder.text.setTextAppearance(R.style.setTextAfterClickDashBoard);
             }
+
         });
+
+
+
     }
 
 

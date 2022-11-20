@@ -43,6 +43,7 @@ public class DashboardFragmentFirst extends Fragment{
         LinearLayout layout_first = (LinearLayout) inflater.inflate(R.layout.custom_dashboard_layout_fragment_first, null);
 
         RecyclerView recyclerView = layout_first.findViewById(R.id.dashboard_listview);
+
         ListTypeOptionDashboard mAdapter = new ListTypeOptionDashboard(list, new IClickItemListener() {
             @Override
             public void onClickItem(ListViewOptionDashboard l) {
