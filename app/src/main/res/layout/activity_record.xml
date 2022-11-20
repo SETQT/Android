@@ -385,19 +385,5 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/icon_next" />
 
-    <Button
-        android:id="@+id/record_btn_save_profile"
-        android:layout_width="361dp"
-        android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="604dp"
-        android:background="@drawable/record_btn_save_profile"
-        android:gravity="center"
-        android:text="Lưu"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
 
 </RelativeLayout>

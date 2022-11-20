@@ -108,6 +108,6 @@ public class activity_edit_profile extends Activity implements View.OnClickListe
         });
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(700, 480);
+        window.setLayout(700, 650);
     }
 }

@@ -92,8 +92,8 @@
 
                 <TextView
                     android:id="@+id/name_view_product"
-                    android:layout_width="215dp"
-                    android:layout_height="21dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="27dp"
@@ -205,7 +205,7 @@
                 <TextView
                     android:id="@+id/number_evaluate"
                     android:layout_width="wrap_content"
-                    android:layout_height="11dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="110dp"
@@ -227,8 +227,8 @@
 
                 <TextView
                     android:id="@+id/sales_view_product"
-                    android:layout_width="65dp"
-                    android:layout_height="11dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="9dp"
                     android:layout_marginTop="74dp"
@@ -240,8 +240,8 @@
 
                 <View
                     android:id="@+id/ic_heart_view_product"
-                    android:layout_width="18dp"
-                    android:layout_height="16dp"
+                    android:layout_width="14dp"
+                    android:layout_height="12dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="334dp"
@@ -281,7 +281,7 @@
 
                 <TextView
                     android:id="@+id/charge_transfer_view_product"
-                    android:layout_width="141dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
@@ -398,8 +398,8 @@
 
                 <TextView
                     android:id="@+id/username_shop_view_product"
-                    android:layout_width="75dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="89dp"
@@ -439,8 +439,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="1dp"
                         android:gravity="top"
                         android:text="Xem shop"
                         android:textColor="#F9A826"
@@ -476,7 +476,7 @@
                 <TextView
                     android:id="@+id/rate_evaluate_view_product"
                     android:layout_width="wrap_content"
-                    android:layout_height="12dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="17dp"
                     android:layout_marginTop="67dp"
@@ -569,8 +569,8 @@
                 >
                 <TextView
                     android:id="@+id/text_evaluate_comment"
-                    android:layout_width="110dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="25dp"
                     android:layout_alignParentTop="true"
@@ -684,13 +684,8 @@
         android:id="@+id/rectangle_footer_view_product"
         android:layout_width="411dp"
         android:layout_height="65dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginTop="613dp"
-        android:layout_marginBottom="0dp"
         android:background="@drawable/rectangle_footer_view_product" />
 
     <RelativeLayout
@@ -698,9 +693,9 @@
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="616dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_chat_view_product">
 
         <View
@@ -728,19 +723,19 @@
 
     <RelativeLayout
         android:id="@+id/rectangle_add_to_card_view_product"
-        android:layout_width="110dp"
+        android:layout_width="120dp"
         android:layout_height="42dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="125dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="616dp"
+        android:layout_marginLeft="130dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_add_to_cart_view_product">
 
         <View
             android:id="@+id/icon_add_to_cart"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="44dp"
+            android:layout_marginLeft="48dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/icon_cart_view_product"
             android:gravity="center" />
@@ -751,7 +746,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="2dp"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="12dp"
             android:gravity="top"
             android:text="Thêm vào giỏ hàng"
             android:textColor="#FFFFFF"
@@ -764,8 +759,8 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="275dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="616dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_buy_now_view_product">
 
         <TextView
@@ -779,7 +774,7 @@
             android:gravity="top"
             android:text="Mua ngay"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </RelativeLayout>
