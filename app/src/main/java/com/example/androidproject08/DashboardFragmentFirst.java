@@ -74,4 +74,3 @@ public class DashboardFragmentFirst extends Fragment{
         main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
     }
 }// class
-

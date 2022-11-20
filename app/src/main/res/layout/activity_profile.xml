@@ -7,13 +7,14 @@
     android:background="@drawable/login"
     android:clipToOutline="true">
 
-    <View
+    <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/rectangle_profile"
         android:layout_width="411dp"
         android:layout_height="145dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="0dp"
+        android:layout_marginLeft="-1dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/rectangle_profile" />
 

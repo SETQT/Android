@@ -21,6 +21,7 @@ public class User {
     private Date birthdate;
     private String image;
 
+
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }

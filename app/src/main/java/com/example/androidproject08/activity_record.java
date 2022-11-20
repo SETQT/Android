@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -19,11 +20,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -33,17 +43,36 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-//import gun0912.tedbottompicker.TedBottomPicker;
-//import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
-
-
-//import gun0912.tedbottompicker.TedBottomPicker;
-//import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
-
-//import gun0912.tedbottompicker.TedBottomPicker;
-//import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 
 public class activity_record extends Activity {
+
+
+    // sqlite
+    SQLiteDatabase sqlite;
+
+    // khai báo biến UI
+    View record_ic_back;
+    ImageView camera;
+    ImageView cameraBackground;
+    ImageView header;
+    ImageView avatar;
+    private static final int PICK_IMAGE = 100;
+    private static final int PICK_IMAGE_BACKGROUND = 200;
+    User userForimage;
+    Uri imageUri;
+    Uri imageBackUri;
+    String userName;
+
+    //    CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    private void openGalleryBackground() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE_BACKGROUND);
+    }
 
 
     //request permission can thiet camera,thu vien ,...
@@ -68,42 +97,63 @@ public class activity_record extends Activity {
 
     }
 
-    // sqlite
-    SQLiteDatabase sqlite;
-
-    // khai báo biến UI
-    View record_ic_back;
-    ImageView camera;
-    ImageView cameraBackground;
-
-    private static final int PICK_IMAGE = 100;
-    private static final int PICK_IMAGE_BACKGROUND = 200;
-    Uri imageUri;
-
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    } private void openGalleryBackground() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE_BACKGROUND);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
 //            ImageView avatar = (ImageView) findViewById(R.id.record_avatar);
+//            CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
             CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
             imageUri = data.getData();
             avatar.setImageURI(imageUri);
 
-        }
-        else
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_BACKGROUND) {
-            ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference usersRef = db.collection("users");
+            usersRef
+                    .whereEqualTo("username", userName)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    User user = document.toObject(User.class);
+                                    user.setUserId(document.getId()); // lấy id document của user
 
-            imageUri = data.getData();
-            avatar.setImageURI(imageUri);
+                                    uploadFile(user.getUsername().toString()+"avatar", imageUri);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
+        } else if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_BACKGROUND) {
+
+//            ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
+            ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
+            imageBackUri = data.getData();
+            avatar.setImageURI(imageBackUri);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference usersRef = db.collection("users");
+            usersRef
+                    .whereEqualTo("username", userName)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    User user = document.toObject(User.class);
+                                    user.setUserId(document.getId()); // lấy id document của user
+                                    uploadFile(user.getUsername().toString() + "background", imageBackUri);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
 
         }
     }
@@ -126,14 +176,22 @@ public class activity_record extends Activity {
         Cursor c1 = sqlite.rawQuery(mySQL, null);
         c1.moveToPosition(0);
         String username = c1.getString(0);
+        userName = username;
+        loadImage(userName);
 
         if (username == null) {
             return;
         }
 
         // query dữ liệu cho qua listview
-        record_asynctask r_at = new record_asynctask(activity_record.this, username);
+        record_asynctask r_at = new record_asynctask(activity_record.this, username, imageUri, imageBackUri);
         r_at.execute();
+
+
+//
+//        this.userForimage=r_at.curUser;
+//        Log.d("ssss", "onCreate: "+ userForimage.getImage().toString());
+
 
         // quay trở lại activity profile
         record_ic_back.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +222,7 @@ public class activity_record extends Activity {
         if (ContextCompat.checkSelfPermission(activity_record.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_GRANTED) {
             if (type.equals("avatar"))
-            openGallery();
+                openGallery();
             else openGalleryBackground();
 
         } else {
@@ -180,44 +238,39 @@ public class activity_record extends Activity {
 
         }
     }
-//
-//    public void changeImage(String type) {
-//        if (ContextCompat.checkSelfPermission(activity_record.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
-//                PackageManager.PERMISSION_GRANTED) {
-//            openGallery();
-//
-//        } else {
-//            requestPermission();
-//
-//            if (ContextCompat.checkSelfPermission(activity_record.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
-//                    PackageManager.PERMISSION_GRANTED) {
-//                openGallery();
-//            }
-//
-//        }
-//    }
 
-    public void downloadFile(User user) {
-//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
+    public void loadImage(String name) {
+        header = (ImageView) findViewById(R.id.record_rectangle_header_profile);
+        avatar = (ImageView) findViewById(R.id.record_avatar);
+
+        downloadFile(header,name+"background");
+        downloadFile(avatar,name+"avatar");
+    }
+
+
+    public void downloadFile(ImageView avatar,String name) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-//        Log.d("USER", "downdFile: "+user.getImage());
         StorageReference storageRef = storage.getReference();
-        StorageReference islandRef = storageRef.child("ProfileUser").child(user.getImage().toString());//+".jpg");
-//
-//    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//    v = inflater.inflate(R., null);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = db.collection("users");
+        StorageReference islandRef = storageRef.child("ProfileUser/"+name);
+//        Log.d("ss", "downloadFile: "+islandRef);
+//        if (islandRef.ex) islandRef = storageRef.child("ProfileUser/"+"default");
+//        String nameImage="";
+
+
         try {
             File localFile = File.createTempFile("tempfile", ".jpg");
 
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("down", "success: ");
+//                    Log.d("down", "success: ");
 
                     // Local temp file has been created
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ImageView imgProduct = (ImageView) findViewById(R.id.profile_avatar);
-                    imgProduct.setImageBitmap(bitmap);
+//                    ImageView imgProduct = (ImageView) findViewById(R.id.custom_mycart_picture);
+                    avatar.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -231,4 +284,35 @@ public class activity_record extends Activity {
         }
 
     }
+
+    public void uploadFile(String name, Uri avatar) {
+//        String path = Environment.getExternalStorageDirectory().getPath();
+//        String myJpgPath = path + "/Download/girl480x600.jpg";
+
+        Log.d("upload", "uploadFile:okk ");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        StorageReference test = storageRef.child("ProfileUser/" + name);
+
+        UploadTask uploadTask = test.putFile(avatar);
+
+// Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getApplication(), "Upload Thất bại", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Toast.makeText(getApplication(), "  Upload Thành công", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
 }

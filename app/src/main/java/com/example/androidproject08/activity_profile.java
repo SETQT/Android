@@ -46,6 +46,8 @@ public class activity_profile extends Activity implements View.OnClickListener {
     CollectionReference usersRef = db.collection("users");
     ArrayList<User> usernameList;
 
+
+
     // sqlite
     SQLiteDatabase sqlite;
 
@@ -127,6 +129,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 usernameList.add(user);
+                                loadImage(user.getUsername());
                             }
 
                             firestoreCallBack.onCallBack(usernameList);
@@ -190,5 +193,52 @@ public class activity_profile extends Activity implements View.OnClickListener {
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             startActivity(moveActivity);
         }
+
+
+    }
+    public void loadImage(String name) {
+        ImageView  header = (ImageView) findViewById(R.id.rectangle_profile);
+        ImageView avatar = (ImageView) findViewById(R.id.profile_avatar);
+
+        downloadFile(header,name+"background");
+        downloadFile(avatar,name+"avatar");
+    }
+
+
+    public void downloadFile(ImageView avatar,String name) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = db.collection("users");
+        StorageReference islandRef = storageRef.child("ProfileUser/"+name);
+//        Log.d("ss", "downloadFile: "+islandRef);
+//        if (islandRef.ex) islandRef = storageRef.child("ProfileUser/"+"default");
+//        String nameImage="";
+
+
+        try {
+            File localFile = File.createTempFile("tempfile", ".jpg");
+
+            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                    Log.d("down", "success: ");
+
+                    // Local temp file has been created
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                    ImageView imgProduct = (ImageView) findViewById(R.id.custom_mycart_picture);
+                    avatar.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("down", "onFailure: ");
+                }
+            });
+
+        } catch (IOException e) {
+
+        }
+
     }
 }
