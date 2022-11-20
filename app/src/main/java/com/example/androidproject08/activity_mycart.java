@@ -175,6 +175,9 @@ public class activity_mycart extends Activity {
                     case "activity_myorder":
                         moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
                         break;
+                    case "activity_view_product":
+                        moveActivity = new Intent(getApplicationContext(), activity_view_product.class);
+                        break;
                     default:
                         break;
                 }

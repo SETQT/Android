@@ -211,9 +211,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection("users");
         StorageReference islandRef = storageRef.child("ProfileUser/"+name);
-//        Log.d("ss", "downloadFile: "+islandRef);
-//        if (islandRef.ex) islandRef = storageRef.child("ProfileUser/"+"default");
-//        String nameImage="";
+
 
 
         try {
@@ -237,7 +235,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
             });
 
         } catch (IOException e) {
-
+            Log.e("error", "downloadFile error ");
         }
 
     }
