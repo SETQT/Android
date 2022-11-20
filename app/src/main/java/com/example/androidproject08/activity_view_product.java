@@ -94,6 +94,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
 //                default:
 //                    break;
 //            }
+            // chuyển về activity dash_board
             Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
         }
