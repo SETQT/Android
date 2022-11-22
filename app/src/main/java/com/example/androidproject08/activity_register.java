@@ -17,10 +17,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -32,8 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class activity_register extends Activity {
@@ -49,6 +45,10 @@ public class activity_register extends Activity {
 
     // kết nối sqlite
     SQLiteDatabase sqlite;
+
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference usersRef = db.collection("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,23 +113,31 @@ public class activity_register extends Activity {
                 }
 
                 // check tài khoản đã tồn tại hay chưa
-                Handle.readData(new FirestoreCallBack() {
-                    @Override
-                    public void onCallBack(List<User> list) {
-                        if (Handle.usernameList.size() == 0) {
-                            // tạo user mới và thêm vào database
-                            User newUser = new User(tk, mk);
-                            Handle.usersRef.add(newUser);
+                usersRef.whereEqualTo("username", tk)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    boolean isExisted = false;
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        isExisted = true;
+                                    }
+                                    if (isExisted) {
+                                        Toast.makeText(activity_register.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        User newUser = new User(tk, mk);
+                                        usersRef.add(newUser);
 
-                            // chuyển sang giao diện đăng nhập
-                            Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
-                            startActivity(moveActivity);
-                        } else { // tài khoản đã tồn tại
-                            Toast.makeText(activity_register.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                }, tk);
+                                        // chuyển sang giao diện đăng nhập
+                                        Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
+                                        startActivity(moveActivity);
+                                    }
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
             }
         });
 
@@ -143,8 +151,7 @@ public class activity_register extends Activity {
     }
 
     // lấy dữ liệu từ facebook => đưa dữ liệu lên firestore
-    private void setFacebookData(final LoginResult loginResult)
-    {
+    private void setFacebookData(final LoginResult loginResult) {
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -178,7 +185,7 @@ public class activity_register extends Activity {
                                     String myDbPath = storagePath + "/" + "loginDb";
                                     sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                                    if(!Handle.tableExists(sqlite, "USER")) {
+                                    if (!Handle.tableExists(sqlite, "USER")) {
                                         // create table USER
                                         sqlite.execSQL("create table USER ("
                                                 + "username text PRIMARY KEY);");

@@ -3,6 +3,7 @@ package com.example.androidproject08;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +28,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
-
+    // biến xử lý
     ArrayList<MyCart> my_cart = new ArrayList<MyCart>();
+    Context curContext;
+    int resource;
+
+    // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartsRef = db.collection("carts");
 
+    // kết nối firestore để lấy ảnh
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+
     public  void downloadFile(View v,String id){
 //        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
         StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
@@ -44,8 +51,6 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("down", "success: ");
-
                     // Local temp file has been created
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                     ImageView imgProduct = (ImageView)  v.findViewById(R.id.custom_mycart_picture);
@@ -59,15 +64,17 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             });
 
         }catch ( IOException e){
-
+            Log.e("ERROR", "Custommycart downloadFile: ", e);
         }
 
     }
+
     public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects) {
         super(context, resource, objects);
         this.my_cart = objects;
+        this.curContext = context;
+        this.resource = resource;
     }
-
 
     @Override
     public int getCount() {
@@ -90,15 +97,14 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         View addButton = (View) v.findViewById((R.id.custom_mycart_icon_increase));
         View garbage = (View) v.findViewById((R.id.custom_mycart_icon_garbage));
         View addTotal = (View) v.findViewById((R.id.custom_mycart_icon_done));
-//        my_cart.get(position).getId
-        downloadFile(v,my_cart.get(position).getImage());
+
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
+        downloadFile(v,my_cart.get(position).getImage());
         name.setText(my_cart.get(position).getName());
         old_cost.setText(oldCost.toString());
         new_cost.setText(my_cart.get(position).getPrice().toString());
         number.setText(my_cart.get(position).getAmount().toString());
-//        img.setImageResource(my_cart.get(position).getImage().toString());
 
         // trừ số lượng san phẩm trong cart khi bấm vào button "-"
         subButton.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +142,9 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             public void onClick(View view) {
                 // cập nhật lên firestore
                 cartsRef.document(my_cart.get(position).getIdDoc()).delete();
+                my_cart.remove(position);
+
+                notifyDataSetChanged();
             }
         });
 

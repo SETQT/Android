@@ -1,7 +1,6 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -50,7 +49,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
     SQLiteDatabase sqlite;
 
     // khai báo biến UI
-    TextView username_profile, id_cycle_red_giohang;
+    TextView username_profile, number_cart;
     Button dangxuat;
     View icon_cart;
     RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
@@ -69,7 +68,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_notify.setOnClickListener(this);
 
         username_profile = (TextView) findViewById(R.id.username_profile);
-        id_cycle_red_giohang = (TextView) findViewById(R.id.id_cycle_red_giohang);
+        number_cart = (TextView) findViewById(R.id.number_cart);
         dangxuat = (Button) findViewById(R.id.dangxuat);
         dangxuat.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
@@ -100,13 +99,9 @@ public class activity_profile extends Activity implements View.OnClickListener {
             @Override
             public void onCallBack(List<User> list) {
                 if (usernameList.get(0).getFullname() == null) {
-
-
                     username_profile.setText(usernameList.get(0).getUsername());
+                    number_cart.setText(usernameList.get(0).getCart().get("amount").toString());
                 } else {
-//                    Log.d("USER", "downdxxxFile: "+usernameList.get(0).getImage());
-
-//                    downloadFile(usernameList.get(0));
                     username_profile.setText(usernameList.get(0).getFullname());
                 }
             }
@@ -186,7 +181,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_donhangcuatoi.getId()) {
+        if (view.getId() == icon_donhangcuatoi.getId()) {
             // chuyển sang giao diện đơn hàng của tôi
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             startActivity(moveActivity);
@@ -194,47 +189,45 @@ public class activity_profile extends Activity implements View.OnClickListener {
 
 
     }
+
     public void loadImage(String name) {
-        ImageView  header = (ImageView) findViewById(R.id.rectangle_profile);
+        ImageView header = (ImageView) findViewById(R.id.rectangle_profile);
         ImageView avatar = (ImageView) findViewById(R.id.profile_avatar);
 
-        downloadFile(header,name+"background");
-        downloadFile(avatar,name+"avatar");
+        try {
+            downloadFile(header, name + "background");
+            downloadFile(avatar, name + "avatar");
+        } catch (Exception error) {
+            Log.e("ERROR", "activity_profile loadImage: ", error);
+        }
     }
 
 
-    public void downloadFile(ImageView avatar,String name) {
+    public void downloadFile(ImageView avatar, String name) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("users");
-        StorageReference islandRef = storageRef.child("ProfileUser/"+name);
-
-
+        StorageReference islandRef = storageRef.child("ProfileUser/" + name);
 
         try {
             File localFile = File.createTempFile("tempfile", ".jpg");
-
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                    Log.d("down", "success: ");
-
                     // Local temp file has been created
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                    ImageView imgProduct = (ImageView) findViewById(R.id.custom_mycart_picture);
                     avatar.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
+//                    int errorCode = ((StorageException) exception).getErrorCode();
+//                    String errorMessage = exception.getMessage();
+//                    Log.e("ERROR", "activity_profile onFailure: " + ((StorageException) exception).ERROR_INVALID_CHECKSUM + " " + errorMessage);
+                    return;
                 }
             });
-
         } catch (IOException e) {
-            Log.e("error", "downloadFile error ");
+            Log.e("ERROR", "downloadFile error " + e);
         }
-
     }
 }

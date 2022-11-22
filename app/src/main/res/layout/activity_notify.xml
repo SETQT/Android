@@ -48,7 +48,7 @@
         android:background="@drawable/dashboard_circle_red"/>
 
     <TextView
-        android:id="@+id/notify_number_cart"
+        android:id="@+id/number_cart"
         android:layout_width="17dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"

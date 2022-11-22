@@ -43,10 +43,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class activity_record extends Activity {
-
-
     // sqlite
     SQLiteDatabase sqlite;
 
@@ -129,8 +126,6 @@ public class activity_record extends Activity {
                     });
 
         } else if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_BACKGROUND) {
-
-//            ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
             ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
             imageBackUri = data.getData();
             avatar.setImageURI(imageBackUri);
@@ -162,10 +157,11 @@ public class activity_record extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-//            openGallery();
+
         record_ic_back = (View) findViewById(R.id.record_ic_back);
         camera = (ImageView) findViewById(R.id.record_camera_02);
         cameraBackground = (ImageView) findViewById(R.id.record_camera_01);
+
         // get username từ sqlite
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -187,12 +183,6 @@ public class activity_record extends Activity {
         record_asynctask r_at = new record_asynctask(activity_record.this, username, imageUri, imageBackUri);
         r_at.execute();
 
-
-//
-//        this.userForimage=r_at.curUser;
-//        Log.d("ssss", "onCreate: "+ userForimage.getImage().toString());
-
-
         // quay trở lại activity profile
         record_ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,15 +195,12 @@ public class activity_record extends Activity {
             @Override
             public void onClick(View view) {
                 changeImage("avatar");
-
-
             }
         });
         cameraBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeImage("background");
-
             }
         });
     }
@@ -233,9 +220,7 @@ public class activity_record extends Activity {
                 if (type.equals("avatar"))
                     openGallery();
                 else openGalleryBackground();
-
             }
-
         }
     }
 
@@ -254,10 +239,6 @@ public class activity_record extends Activity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection("users");
         StorageReference islandRef = storageRef.child("ProfileUser/"+name);
-//        Log.d("ss", "downloadFile: "+islandRef);
-//        if (islandRef.ex) islandRef = storageRef.child("ProfileUser/"+"default");
-//        String nameImage="";
-
 
         try {
             File localFile = File.createTempFile("tempfile", ".jpg");
@@ -265,11 +246,7 @@ public class activity_record extends Activity {
             islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                    Log.d("down", "success: ");
-
-                    // Local temp file has been created
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                    ImageView imgProduct = (ImageView) findViewById(R.id.custom_mycart_picture);
                     avatar.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -282,13 +259,9 @@ public class activity_record extends Activity {
         } catch (IOException e) {
 
         }
-
     }
 
     public void uploadFile(String name, Uri avatar) {
-//        String path = Environment.getExternalStorageDirectory().getPath();
-//        String myJpgPath = path + "/Download/girl480x600.jpg";
-
         Log.d("upload", "uploadFile:okk ");
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -297,19 +270,15 @@ public class activity_record extends Activity {
 
         UploadTask uploadTask = test.putFile(avatar);
 
-// Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(getApplication(), "Upload Thất bại", Toast.LENGTH_SHORT).show();
-
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 Toast.makeText(getApplication(), "  Upload Thành công", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

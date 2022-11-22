@@ -18,6 +18,19 @@ public class Product {
     public Product() {
     }
 
+    public Product(String category, String name, Integer price, Integer amount, Integer sale, String image, String description, Integer amountOfSold, ArrayList<String> typeColor, ArrayList<String> typeSize) {
+        this.category = category;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+        this.sale = sale;
+        this.image = image;
+        this.description = description;
+        this.amountOfSold = amountOfSold;
+        this.typeColor = typeColor;
+        this.typeSize = typeSize;
+    }
+
     public String getCategory() {
         return category;
     }

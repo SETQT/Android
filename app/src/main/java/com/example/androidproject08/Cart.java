@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
-    Map<Integer, String> product = new HashMap<Integer, String>();
+    Map<String, Integer> product = new HashMap<String, Integer>();
     float total;
-    Cart(int key,String state,float price){
-        this.product.put(key,state);
-        this.total+=price;
+
+    Cart() {
+        this.product.put("amount", 0);
+        this.product.put("totalMoney", 0);
     }
+
 }

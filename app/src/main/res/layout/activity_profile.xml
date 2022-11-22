@@ -60,7 +60,7 @@
         android:background="@drawable/cycle_red_profile" />
 
     <TextView
-        android:id="@+id/id_cycle_red_giohang"
+        android:id="@+id/number_cart"
         android:layout_width="17dp"
         android:layout_height="18dp"
         android:layout_alignParentLeft="true"

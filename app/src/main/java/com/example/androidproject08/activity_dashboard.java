@@ -1,29 +1,44 @@
 package com.example.androidproject08;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.facebook.CallbackManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class activity_dashboard extends FragmentActivity implements MainCallbacks {
     // khai báo biến UI
     RelativeLayout icon_scan, icon_notify, icon_profile;
     View icon_cart;
+    TextView number_cart;
 
-    FragmentTransaction ft; DashboardFragmentFirst firstFrag; DashboardFragmentSecond secondFrag;
+    FragmentTransaction ft;
+    DashboardFragmentFirst firstFrag;
+    DashboardFragmentSecond secondFrag;
+
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference usersRef = db.collection("users");
+
+    // sqlite
+    SQLiteDatabase sqlite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +61,34 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
 
         icon_cart = (View) findViewById(R.id.icon_cart);
+
+        number_cart = (TextView) findViewById(R.id.number_cart);
+
+        // kết nối sqlite
+        File storagePath = getApplication().getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        String username = c1.getString(0);
+
+        // lấy số lượng sản phẩm
+        usersRef.whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                User user = document.toObject(User.class);
+                                number_cart.setText(user.getCart().get("amount").toString());
+                                break;
+                            }
+                        }
+                    }
+                });
 
         // chuyển sang giao diện my cart
         icon_cart.setOnClickListener(new View.OnClickListener() {
@@ -91,15 +134,17 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
 //        Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
         if (sender.equals("RED-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
-                firstFrag.onMsgFromMainToFragment( strValue);
+                firstFrag.onMsgFromMainToFragment(strValue);
+            } catch (Exception e) {
+                Log.e("ERROR", "onStrFromFragToMain " + e.getMessage());
             }
-            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }
         if (sender.equals("BLUE-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
-                secondFrag.onMsgFromMainToFragment( strValue);
+                secondFrag.onMsgFromMainToFragment(strValue);
+            } catch (Exception e) {
+                Log.e("ERROR", "onStrFromFragToMain " + e.getMessage());
             }
-            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }
     }
 }

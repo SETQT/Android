@@ -51,50 +51,59 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
     protected Product doInBackground(Void... params) {
         try {
             if (category.equals("Tất cả")) {
-                productsRef
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Product product = document.toObject(Product.class);
-                                        product.setIdDoc(document.getId().toString());
-                                        publishProgress(product);
+                try {
+                    productsRef
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Product product = document.toObject(Product.class);
+                                            product.setIdDoc(document.getId().toString());
+                                            publishProgress(product);
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
                                     }
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
+                            });
+                } catch (Exception error) {
+                    throw error;
+                }
+
             } else {
-                productsRef.whereEqualTo("category", category)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    Boolean isPass = false;
+                try {
+                    productsRef.whereEqualTo("category", category)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        Boolean isPass = false;
 
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        isPass = true;
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            isPass = true;
 
-                                        Product product = document.toObject(Product.class);
-                                        product.setIdDoc(document.getId().toString());
-                                        publishProgress(product);
+                                            Product product = document.toObject(Product.class);
+                                            product.setIdDoc(document.getId().toString());
+                                            publishProgress(product);
+                                        }
+
+                                        if(!isPass) {
+                                            publishProgress();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
                                     }
-
-                                    if(!isPass) {
-                                        publishProgress();
-                                    }
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
+                            });
+                } catch (Exception error) {
+                    throw error;
+                }
             }
         } catch (Exception error) {
-            Log.i("Exception error", "doInBackground: " + error.toString());
+            throw error;
         }
         return null;
     }

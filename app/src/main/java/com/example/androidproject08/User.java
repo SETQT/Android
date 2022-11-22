@@ -4,6 +4,8 @@ package com.example.androidproject08;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class User {
@@ -16,17 +18,16 @@ public class User {
     private String email;
     private String userId;
     private String bio;
-    private Cart cart;
+    private Map<String, Integer> cart = new HashMap<>();
     private Date birthdate;
     private String image;
-
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String id, String username, String password, String email,
-                String phone, String gender, String address, String fullname, Cart cart,String img) {
+                String phone, String gender, String address, String fullname, Map<String, Integer> cart,String img) {
         this.username = username;
         this.image=img;
         this.password = password;
@@ -43,6 +44,8 @@ public class User {
         this.fullname = fullname;
         this.username = username;
         this.email = email;
+        this.cart.put("amount", 0);
+        this.cart.put("totalMoney", 0);
     }
 
     public User(String username, String password) {
@@ -61,6 +64,9 @@ public class User {
 
             this.password = sb.toString();
             this.username = username;
+
+            this.cart.put("amount", 0);
+            this.cart.put("totalMoney", 0);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -171,11 +177,11 @@ public class User {
         this.userId = userId;
     }
 
-    public Cart getCart() {
+    public Map<String, Integer> getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(Map<String, Integer> cart) {
         this.cart = cart;
     }
 
