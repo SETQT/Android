@@ -55,8 +55,8 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         Integer oldPrice = (products.get(position).getPrice() / (100 - products.get(position).getSale())) * 100;
 
         name.setText(products.get(position).getName());
-        price.setText("đ" + products.get(position).getPrice().toString());
-        old_price.setText("đ" + oldPrice.toString());
+        old_price.setText("đ" + products.get(position).getPrice().toString());
+        price.setText("đ" + oldPrice.toString());
         percent_sale.setText("-"+products.get(position).getSale().toString() + "%");
 
         downloadFile(v,products.get(position).getImage());
