@@ -40,16 +40,15 @@
         android:layout_marginTop="68dp"
         android:background="@drawable/record_frame_avatar_profile" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/record_avatar"
         android:layout_width="120dp"
         android:layout_height="123dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="68dp"
         android:src="@drawable/ao1"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#000000"/>
+        app:civ_border_color="#000000"
+        app:civ_border_width="1dp" />
 
     <View
         android:id="@+id/record_bg_camera_01"

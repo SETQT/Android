@@ -38,7 +38,12 @@
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_record.xml" value="0.36666666666666664" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/activity_welcomepage.xml" value="0.25" />
+<<<<<<< HEAD
         <entry key="..\:/Code java/DoAn/Android/app/src/main/res/layout/custom_dashboard_layout_fragment_first.xml" value="0.19479166666666667" />
+=======
+        <entry key="..\:/HCMUS/GitHub/Android/app/src/main/res/layout/activity_record.xml" value="0.14895833333333333" />
+        <entry key="..\:/HCMUS/GitHub/Android/app/src/main/res/layout/activity_view_product.xml" value="0.30428769017980634" />
+>>>>>>> 0cd96edf0e469e8fe761da4d7ff37d6f3ba97cb9
         <entry key="..\:/Mobile-22/FrontEnd/Android/app/src/main/res/drawable/voucher_custom_frame_cost_free.xml" value="0.2125" />
         <entry key="..\:/Mobile-22/FrontEnd/Android/app/src/main/res/drawable/voucher_rectangle_option.xml" value="0.2125" />
         <entry key="..\:/Mobile-22/FrontEnd/Android/app/src/main/res/layout/activity_profile.xml" value="0.33" />
