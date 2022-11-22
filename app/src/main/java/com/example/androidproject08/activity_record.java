@@ -60,6 +60,10 @@ public class activity_record extends Activity {
     Uri imageBackUri;
     String userName;
 
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference usersRef = db.collection("users");
+
     //    CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -118,6 +122,7 @@ public class activity_record extends Activity {
                                     user.setUserId(document.getId()); // lấy id document của user
 
                                     uploadFile(user.getUsername().toString()+"avatar", imageUri);
+                                    usersRef.document(user.getUserId()).update("image", user.getUsername().toString()+"avatar");
                                 }
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
@@ -142,6 +147,7 @@ public class activity_record extends Activity {
                                     User user = document.toObject(User.class);
                                     user.setUserId(document.getId()); // lấy id document của user
                                     uploadFile(user.getUsername().toString() + "background", imageBackUri);
+                                    usersRef.document(user.getUserId()).update("imageBg", user.getUsername().toString()+"background");
                                 }
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
@@ -173,6 +179,8 @@ public class activity_record extends Activity {
         c1.moveToPosition(0);
         String username = c1.getString(0);
         userName = username;
+
+
         loadImage(userName);
 
         if (username == null) {
@@ -228,8 +236,38 @@ public class activity_record extends Activity {
         header = (ImageView) findViewById(R.id.record_rectangle_header_profile);
         avatar = (ImageView) findViewById(R.id.record_avatar);
 
-        downloadFile(header,name+"background");
-        downloadFile(avatar,name+"avatar");
+        try {
+            usersRef
+                    .whereEqualTo("username", name)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    User user = document.toObject(User.class);
+
+                                    if(user.getImage() != null) {
+                                        downloadFile(avatar,name+"avatar");
+                                    }
+
+                                    if(user.getImageBg() != null) {
+                                        downloadFile(header,name+"background");
+                                    }
+
+                                    if(user.getImage() != null && user.getImageBg() != null) {
+                                        downloadFile(avatar,name+"avatar");
+                                        downloadFile(header,name+"background");
+                                    }
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        } catch (Exception error) {
+            Log.e("ERROR", "activity_profile loadImage: ", error);
+        }
     }
 
 
@@ -278,6 +316,7 @@ public class activity_record extends Activity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
                 Toast.makeText(getApplication(), "  Upload Thành công", Toast.LENGTH_SHORT).show();
             }
         });

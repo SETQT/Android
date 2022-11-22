@@ -21,13 +21,14 @@ public class User {
     private Map<String, Integer> cart = new HashMap<>();
     private Date birthdate;
     private String image;
+    private String imageBg;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String id, String username, String password, String email,
-                String phone, String gender, String address, String fullname, Map<String, Integer> cart,String img) {
+                String phone, String gender, String address, String fullname, Map<String, Integer> cart,String img, String imgBg) {
         this.username = username;
         this.image=img;
         this.password = password;
@@ -38,6 +39,7 @@ public class User {
         this.email = email;
         this.userId = id;
         this.cart = cart;
+        this.imageBg = imgBg;
     }
 
     public User(String username, String fullname, String email) {
@@ -191,5 +193,13 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getImageBg() {
+        return imageBg;
+    }
+
+    public void setImageBg(String imageBg) {
+        this.imageBg = imageBg;
     }
 }

@@ -122,9 +122,9 @@ public class activity_profile extends Activity implements View.OnClickListener {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 usernameList.add(user);
+
                                 loadImage(user.getUsername());
                             }
-
                             firestoreCallBack.onCallBack(usernameList);
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -195,8 +195,34 @@ public class activity_profile extends Activity implements View.OnClickListener {
         ImageView avatar = (ImageView) findViewById(R.id.profile_avatar);
 
         try {
-            downloadFile(header, name + "background");
-            downloadFile(avatar, name + "avatar");
+            usersRef
+                    .whereEqualTo("username", name)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    User user = document.toObject(User.class);
+
+                                    if(user.getImage() != null) {
+                                        downloadFile(avatar,name+"avatar");
+                                    }
+
+                                    if(user.getImageBg() != null) {
+                                        downloadFile(header,name+"background");
+                                    }
+
+                                    if(user.getImage() != null && user.getImageBg() != null) {
+                                        downloadFile(avatar,name+"avatar");
+                                        downloadFile(header,name+"background");
+                                    }
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
         } catch (Exception error) {
             Log.e("ERROR", "activity_profile loadImage: ", error);
         }
