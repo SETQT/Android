@@ -164,7 +164,7 @@
     <style name="cost_product_payment">
 
         <item name="android:textSize">
-            12sp
+            14sp
         </item>
 
         <item name="android:textColor">
