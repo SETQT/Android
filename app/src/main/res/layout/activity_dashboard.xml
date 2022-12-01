@@ -112,6 +112,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="62dp"
+        android:background="@null"
         android:gravity="left"
         android:hint="Tìm kiếm"
         android:textColor="#C6C6C6"
@@ -123,8 +124,8 @@
         android:layout_height="26dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="74dp"
-        android:background="@drawable/icon_search"
-        android:gravity="center" />
+        android:gravity="center"
+        android:background="@drawable/icon_search" />
 
     <FrameLayout
         android:id="@+id/dashboard_fragment_first"

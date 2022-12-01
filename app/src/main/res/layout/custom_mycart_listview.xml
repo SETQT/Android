@@ -137,26 +137,16 @@
             android:background="@drawable/icon_increase"
             android:backgroundTint="#FFFFFF" />
 
-        <View
-            android:id="@+id/custom_mycart_listview_bg_black"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <CheckBox
+            android:id="@+id/custom_mycart_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="210dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/mycart_custom_listview_bg_black" />
+            android:layout_marginLeft="205dp"
+            android:layout_marginTop="70dp" />
 
-        <Button
-            android:id="@+id/custom_mycart_icon_done"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="212dp"
-            android:layout_marginTop="82dp"
-            android:background="@drawable/icon_done"
-            android:backgroundTint="#FFFFFF" />
+
 
     </RelativeLayout>
 

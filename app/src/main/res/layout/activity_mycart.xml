@@ -88,26 +88,15 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/mycart_rectangle_footer" />
 
-    <View
-        android:id="@+id/bg_check_all"
+    <CheckBox
+        android:id="@+id/mycart_checkbox_all"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="25dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/mycart_bg_check_all" />
+        android:layout_marginBottom="15dp" />
 
-    <Button
-        android:id="@+id/MyCart_icon_check_all"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/icon_done"
-        android:backgroundTint="#000000" />
 
     <TextView
         android:layout_width="wrap_content"

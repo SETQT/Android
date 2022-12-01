@@ -32,26 +32,38 @@
 
     <View
         android:id="@+id/rectangle_5"
-        android:layout_width="265dp"
+        android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="85dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/search_frame_bg_search" />
 
     <EditText
         android:id="@+id/text_search"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
+        android:layout_width="225dp"
+        android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="97dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="13dp"
+        android:background="@null"
         android:gravity="top"
-        android:hint="Tìm kiếm ..."
         android:textColor="#C6C6C6"
         android:textSize="16sp" />
+
+    <View
+        android:id="@+id/icon_search"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/icon_search"
+        android:backgroundTint="#F9A826" />
+
 
     <GridView
         android:id="@+id/search_gridview"
