@@ -91,6 +91,22 @@ public class activity_profile extends Activity implements View.OnClickListener {
         c1.moveToPosition(0);
         String username = c1.getString(0);
 
+        // lấy số lượng sản phẩm
+        usersRef.whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                User user = document.toObject(User.class);
+                                number_cart.setText(user.getCart().get("amount").toString());
+                                break;
+                            }
+                        }
+                    }
+                });
+
         // kiểm tra với database
         usernameList = new ArrayList<>();
 

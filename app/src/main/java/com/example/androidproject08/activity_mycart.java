@@ -65,23 +65,18 @@ public class activity_mycart extends Activity {
 
 
         Uri file = Uri.fromFile(new File(myJpgPath));
-//        Log.d("fileName12", " " + file.getPath());
         StorageReference test =storageRef.child("image/"+file.getLastPathSegment());
 
         UploadTask uploadTask = test.putFile(file);
 
-// Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(getApplicationContext(), " Upload Thành công", Toast.LENGTH_SHORT).show();
-                // Handle unsuccessful uploads
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
                 Toast.makeText(getApplicationContext(), " Upload Thất bại", Toast.LENGTH_SHORT).show();
 
             }
@@ -91,8 +86,6 @@ public class activity_mycart extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//        uploadFile();
-//        downloadFile();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycart);
 
@@ -105,6 +98,7 @@ public class activity_mycart extends Activity {
         Intent intent = getIntent();
         String previousActivity = intent.getStringExtra("name_activity");
         String idDoc = intent.getStringExtra("idDoc");
+
         // get username từ sqlite
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();

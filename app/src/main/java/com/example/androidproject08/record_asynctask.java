@@ -47,7 +47,6 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
     Uri avatar;
     Uri background;
 
-//        public record_asynctask(Activity curContext, String username) {
     public record_asynctask(Activity curContext, String username, Uri avatar, Uri background) {
         this.curContext = curContext;
         this.username = username;
@@ -65,15 +64,14 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         this.record_next_05 = curContext.findViewById(R.id.record_next_05);
         this.record_next_06 = curContext.findViewById(R.id.record_next_06);
         this.record_next_07 = curContext.findViewById(R.id.record_next_07);
-//        Log.d("upload", "uploadFile:okk ");
 
-        if(avatar!=null)
-        this.avatar = avatar;
-//        Log.d("upload", "uploadFile:okk "+avatar);
+        if(avatar!=null) {
+            this.avatar = avatar;
+        }
 
-        if(background!=null)
-
+        if(background!=null) {
             this.background = background;
+        }
     }
 
     @Override
@@ -109,10 +107,6 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         //Hàm thực hiện update giao diện khi có dữ liệu từ hàm doInBackground gửi xuống
         super.onProgressUpdate(user);
         this.curUser = user[0];
-//
-//        if (this.avatar != null) {
-//            uploadFile();
-//        }
 
         record_id_profile_ten.setText(user[0].getFullname());
         record_id_profile_bio.setText(user[0].getBio());
@@ -160,6 +154,17 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
             }
 
             Intent moveActivity = new Intent(curContext, activity_edit_profile.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("userId", curUser.getUserId());
+            bundle.putString("propNeedUpdate", propNeedUpdate);
+            moveActivity.putExtras(bundle);
+            curContext.startActivity(moveActivity);
+        }
+
+        if(view.getId() == record_next_05.getId()) {
+            String propNeedUpdate = "password";
+
+            Intent moveActivity = new Intent(curContext, activity_change_password.class);
             Bundle bundle = new Bundle();
             bundle.putString("userId", curUser.getUserId());
             bundle.putString("propNeedUpdate", propNeedUpdate);

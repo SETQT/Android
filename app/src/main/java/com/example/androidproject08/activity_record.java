@@ -53,6 +53,7 @@ public class activity_record extends Activity {
     ImageView cameraBackground;
     ImageView header;
     ImageView avatar;
+
     private static final int PICK_IMAGE = 100;
     private static final int PICK_IMAGE_BACKGROUND = 200;
     User userForimage;
@@ -64,7 +65,6 @@ public class activity_record extends Activity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
 
-    //    CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
@@ -74,7 +74,6 @@ public class activity_record extends Activity {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE_BACKGROUND);
     }
-
 
     //request permission can thiet camera,thu vien ,...
     public void requestPermission() {
@@ -102,8 +101,6 @@ public class activity_record extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-//            ImageView avatar = (ImageView) findViewById(R.id.record_avatar);
-//            CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
             CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
             imageUri = data.getData();
             avatar.setImageURI(imageUri);
@@ -154,8 +151,6 @@ public class activity_record extends Activity {
                             }
                         }
                     });
-
-
         }
     }
 
@@ -199,12 +194,14 @@ public class activity_record extends Activity {
                 startActivity(moveActivity);
             }
         });
+
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeImage("avatar");
             }
         });
+
         cameraBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -321,6 +318,4 @@ public class activity_record extends Activity {
             }
         });
     }
-
-
 }

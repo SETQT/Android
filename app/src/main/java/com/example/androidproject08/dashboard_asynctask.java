@@ -120,7 +120,7 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
         }
 
         try {
-            CustomProductLabelAdapter customAdapter = new CustomProductLabelAdapter(curContext, R.layout.custom_product_gridview, finalList);
+            CustomProductLabelAdapter customAdapter = new CustomProductLabelAdapter(curContext, R.layout.custom_product_gridview, finalList, "activity_dashboard");
             dashboard_gridview.setAdapter(customAdapter);
         } catch (Exception error) {
             Log.e("TAG", "onProgressUpdate: error handling", error);

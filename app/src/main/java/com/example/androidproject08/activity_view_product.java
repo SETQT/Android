@@ -37,12 +37,15 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
     View ic_back_view_product, icon_cart;
     RecyclerView recyclerView_color, recyclerView_size;
     RelativeLayout rectangle_add_to_card_view_product;
+    TextView number_cart;
 
     // biến xử lý
     String previousActivity, idDoc;
@@ -54,6 +57,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference productsRef = db.collection("products");
     CollectionReference cartsRef = db.collection("carts");
+    CollectionReference usersRef = db.collection("users");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -87,6 +91,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
         icon_cart = (View) findViewById(R.id.icon_cart);
         icon_cart.setOnClickListener(this);
 
+        number_cart = (TextView) findViewById(R.id.number_cart);
+
         // nhận dữ liệu từ các activity khác gửi tới
         Intent intent = getIntent();
         previousActivity = intent.getStringExtra("name_activity");
@@ -102,6 +108,22 @@ public class activity_view_product extends Activity implements View.OnClickListe
         c1.moveToPosition(0);
         username = c1.getString(0);
 
+        // lấy số lượng sản phẩm
+        usersRef.whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                User user = document.toObject(User.class);
+                                number_cart.setText(user.getCart().get("amount").toString());
+                                break;
+                            }
+                        }
+                    }
+                });
+
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
     }
@@ -110,8 +132,21 @@ public class activity_view_product extends Activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == ic_back_view_product.getId()) {
-            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-            startActivity(moveActivity);
+            Intent moveActivity = new Intent();
+
+            switch (previousActivity) {
+                case "activity_search":
+                    moveActivity = new Intent(getApplicationContext(), activity_search.class);
+                    startActivity(moveActivity);
+                    break;
+                case "activity_dashboard":
+                    moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                    startActivity(moveActivity);
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         if (view.getId() == icon_cart.getId()) {
@@ -156,6 +191,24 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                                         // nếu không thì tạo cart mới
                                                         if (!isDuplicated) {
                                                             cartsRef.add(ToCart);
+                                                            // tăng số lượng trong giỏ hàng cho user
+                                                            usersRef
+                                                                    .whereEqualTo("username", ToCart.getOwnCart())
+                                                                    .get()
+                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                                    User user = document.toObject(User.class);
+                                                                                    Map<String, Integer> userCart = new HashMap<>();
+                                                                                    userCart.put("amount", user.getCart().get("amount") + 1);
+                                                                                    number_cart.setText(userCart.get("amount").toString());
+                                                                                    usersRef.document(document.getId()).update("cart", userCart);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    });
                                                         }
                                                     } else {
                                                         Log.d("TAG", "Error getting documents: ", task.getException());
@@ -202,7 +255,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
             super.onProgressUpdate(products);
 
             // thiết lập các thuộc tính cơ bản của product
-
             downloadFile(products[0].getImage());
             TextView name_view_product = (TextView) findViewById(R.id.name_view_product);
             name_view_product.setText(products[0].getName());
@@ -238,8 +290,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     public void downloadFile(String id) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
-        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
+        StorageReference islandRef = storageRef.child("image").child(id.toString());
 
         try {
             File localFile = File.createTempFile("tempfile", ".jpg");

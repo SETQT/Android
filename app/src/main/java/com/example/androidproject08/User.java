@@ -1,6 +1,8 @@
 package com.example.androidproject08;
 
 
+import android.util.Log;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -28,9 +30,9 @@ public class User {
     }
 
     public User(String id, String username, String password, String email,
-                String phone, String gender, String address, String fullname, Map<String, Integer> cart,String img, String imgBg) {
+                String phone, String gender, String address, String fullname, Map<String, Integer> cart, String img, String imgBg) {
         this.username = username;
-        this.image=img;
+        this.image = img;
         this.password = password;
         this.fullname = fullname;
         this.gender = gender;
@@ -47,7 +49,6 @@ public class User {
         this.username = username;
         this.email = email;
         this.cart.put("amount", 0);
-        this.cart.put("totalMoney", 0);
     }
 
     public User(String username, String password) {
@@ -68,11 +69,29 @@ public class User {
             this.username = username;
 
             this.cart.put("amount", 0);
-            this.cart.put("totalMoney", 0);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
+
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = null;
+        String result = "";
+        messageDigest = MessageDigest.getInstance("SHA");
+        messageDigest.update(password.getBytes());
+
+        byte[] resultByteArray = messageDigest.digest();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (byte b : resultByteArray) {
+            sb.append(String.format("%02x", b));
+        }
+
+        result = sb.toString();
+        return result;
+    }
+
 
     // mã hóa password người dùng nhập => check
     public boolean checkPassword(String password) {

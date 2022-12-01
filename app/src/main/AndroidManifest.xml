@@ -4,12 +4,14 @@
     package="com.example.androidproject08">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"
+    <uses-permission
+        android:name="android.permission.MEDIA_CONTENT_CONTROL"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -41,9 +43,11 @@
         <activity android:name=".activity_voucher"></activity>
         <activity android:name=".activity_record"></activity>
         <activity android:name=".activity_payment"></activity>
-	    <activity android:name=".activity_myorder"></activity>
+        <activity android:name=".activity_myorder"></activity>
         <activity android:name=".activity_edit_profile"></activity>
         <activity android:name=".activity_view_product"></activity>
+        <activity android:name=".activity_change_password"></activity>
+        <activity android:name=".activity_search"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -3,8 +3,6 @@ package com.example.androidproject08;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,6 +28,8 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     // biến xử lý
@@ -36,12 +40,13 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartsRef = db.collection("carts");
+    CollectionReference usersRef = db.collection("users");
 
     // kết nối firestore để lấy ảnh
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
 
-    public  void downloadFile(View v,String id){
+    public void downloadFile(View v, String id) {
 //        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
         StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
 
@@ -53,7 +58,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     // Local temp file has been created
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ImageView imgProduct = (ImageView)  v.findViewById(R.id.custom_mycart_picture);
+                    ImageView imgProduct = (ImageView) v.findViewById(R.id.custom_mycart_picture);
                     imgProduct.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -63,7 +68,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
                 }
             });
 
-        }catch ( IOException e){
+        } catch (IOException e) {
             Log.e("ERROR", "Custommycart downloadFile: ", e);
         }
 
@@ -100,7 +105,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
 
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
-        downloadFile(v,my_cart.get(position).getImage());
+        downloadFile(v, my_cart.get(position).getImage());
         name.setText(my_cart.get(position).getName());
         old_cost.setText(oldCost.toString());
         new_cost.setText(my_cart.get(position).getPrice().toString());
@@ -125,7 +130,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer newNumber = Integer.parseInt(number.getText().toString())+1;
+                Integer newNumber = Integer.parseInt(number.getText().toString()) + 1;
                 if (newNumber != 10000) {
                     number.setText(newNumber.toString());
 
@@ -142,9 +147,27 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             public void onClick(View view) {
                 // cập nhật lên firestore
                 cartsRef.document(my_cart.get(position).getIdDoc()).delete();
-                my_cart.remove(position);
 
-                notifyDataSetChanged();
+                // tăng số lượng trong giỏ hàng cho user
+                usersRef
+                        .whereEqualTo("username", my_cart.get(position).getOwnCart())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        User user = document.toObject(User.class);
+                                        Map<String, Integer> userCart = new HashMap<>();
+                                        userCart.put("amount", user.getCart().get("amount") - 1);
+                                        usersRef.document(document.getId()).update("cart", userCart);
+                                    }
+
+                                    my_cart.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            }
+                        });
             }
         });
 

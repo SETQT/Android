@@ -28,11 +28,13 @@ import java.util.ArrayList;
 public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
     ArrayList<Product> products;
     Context curContext;
+    String nameActivity;
 
-    public CustomProductLabelAdapter(Context context, int resource, ArrayList<Product> objects) {
+    public CustomProductLabelAdapter(Context context, int resource, ArrayList<Product> objects, String nameActivity) {
         super(context, resource, objects);
         this.products = objects;
         this.curContext = context;
+        this.nameActivity = nameActivity;
     }
 
     @Override
@@ -65,7 +67,8 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View view) {
                 Intent moveActivity = new Intent(curContext, activity_view_product.class);
-                moveActivity.putExtra("name_activity", "activity_dashboard");
+                moveActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                moveActivity.putExtra("name_activity", nameActivity);
                 moveActivity.putExtra("idDoc", products.get(position).getIdDoc());
                 curContext.startActivity(moveActivity);
             }

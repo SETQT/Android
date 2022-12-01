@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,19 +17,18 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 
-public class activity_dashboard extends FragmentActivity implements MainCallbacks {
+public class activity_dashboard extends FragmentActivity implements MainCallbacks, View.OnClickListener {
     // khai báo biến UI
     RelativeLayout icon_scan, icon_notify, icon_profile;
-    View icon_cart;
+    View icon_cart, icon_search;
     TextView number_cart;
-
+    EditText dashboard_id_search;
     FragmentTransaction ft;
     DashboardFragmentFirst firstFrag;
     DashboardFragmentSecond secondFrag;
@@ -55,13 +55,18 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         ft.replace(R.id.dashboard_fragment_second, secondFrag);
         ft.commit();
 
-
         icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
+        icon_scan.setOnClickListener(this);
         icon_notify = (RelativeLayout) findViewById(R.id.icon_notify);
+        icon_notify.setOnClickListener(this);
         icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
-
+        icon_profile.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
+        icon_cart.setOnClickListener(this);
+        icon_search = (View) findViewById(R.id.icon_search);
+        icon_search.setOnClickListener(this);
 
+        dashboard_id_search = (EditText) findViewById(R.id.dashboard_id_search);
         number_cart = (TextView) findViewById(R.id.number_cart);
 
         // kết nối sqlite
@@ -80,7 +85,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
@@ -89,44 +94,6 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                         }
                     }
                 });
-
-        // chuyển sang giao diện my cart
-        icon_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
-                moveActivity.putExtra("name_activity", "activity_dashboard");
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện scan mã qr
-        icon_scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện thông báo
-        icon_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
-                startActivity(moveActivity);
-            }
-        });
-
-        // chuyển sang giao diện profile
-        icon_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
-                startActivity(moveActivity);
-            }
-        });
-
     }
 
     @Override
@@ -145,6 +112,43 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
             } catch (Exception e) {
                 Log.e("ERROR", "onStrFromFragToMain " + e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        // chuyển sang giao diện my cart
+        if (view.getId() == icon_cart.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+            moveActivity.putExtra("name_activity", "activity_dashboard");
+            startActivity(moveActivity);
+        }
+
+        // chuyển sang giao diện scan mã qr
+        if (view.getId() == icon_scan.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
+        }
+
+        // chuyển sang giao diện thông báo
+        if (view.getId() == icon_notify.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_notify.class);
+            startActivity(moveActivity);
+        }
+
+        // chuyển sang giao diện profile
+        if (view.getId() == icon_profile.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
+            startActivity(moveActivity);
+        }
+
+        // Chuyển sang giao diện search + hiển thị kết quả
+        if(view.getId() == icon_search.getId()) {
+            String dataSearch = dashboard_id_search.getText().toString();
+
+            Intent moveActivity = new Intent(getApplicationContext(), activity_search.class);
+            moveActivity.putExtra("data_search", dataSearch);
+            startActivity(moveActivity);
         }
     }
 }
