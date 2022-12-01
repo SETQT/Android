@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 public class activity_search extends Activity implements View.OnClickListener {
 
     // khai báo biến UI
-    View icon_back;
+    View icon_back, icon_search;
     RelativeLayout icon_scan, icon_notify, icon_profile, icon_home;
     GridView search_gridview;
     EditText text_search;
@@ -56,6 +56,8 @@ public class activity_search extends Activity implements View.OnClickListener {
         icon_profile.setOnClickListener(this);
         icon_home = (RelativeLayout) findViewById(R.id.icon_home);
         icon_home.setOnClickListener(this);
+        icon_search = (View) findViewById(R.id.icon_search);
+        icon_search.setOnClickListener(this);
 
         text_search = (EditText) findViewById(R.id.text_search);
         search_gridview = (GridView) findViewById(R.id.search_gridview);
@@ -102,6 +104,18 @@ public class activity_search extends Activity implements View.OnClickListener {
         if (view.getId() == icon_back.getId() || view.getId() == icon_home.getId()) {
             Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_search.getId()) {
+            String dataSearch = "";
+            dataSearch = text_search.getText().toString();
+
+            String temp = Normalizer.normalize(dataSearch.toLowerCase(), Normalizer.Form.NFD);
+            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+            String slugNameProduct = pattern.matcher(temp).replaceAll("").toLowerCase().replaceAll(" ", "-").replaceAll("đ", "d");
+
+            search_asynctask as_at = new search_asynctask(slugNameProduct);
+            as_at.execute();
         }
     }
 

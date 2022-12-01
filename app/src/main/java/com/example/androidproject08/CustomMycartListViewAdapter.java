@@ -101,7 +101,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         View subButton = (View) v.findViewById((R.id.custom_mycart_icon_decrease));
         View addButton = (View) v.findViewById((R.id.custom_mycart_icon_increase));
         View garbage = (View) v.findViewById((R.id.custom_mycart_icon_garbage));
-        View addTotal = (View) v.findViewById((R.id.custom_mycart_icon_done));
+        View addTotal = (View) v.findViewById((R.id.custom_mycart_checkbox));
 
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
