@@ -36,12 +36,18 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
 
         TextView title = (TextView) v.findViewById(R.id.custom_voucher_title);
         TextView free_cost = (TextView) v.findViewById(R.id.custom_voucher_free_cost);
-        TextView date = (TextView) v.findViewById(R.id.custom_voucher_expiry_date);
+        TextView count = (TextView) v.findViewById(R.id.custom_voucher_count);
+        TextView start_date = (TextView) v.findViewById(R.id.custom_voucher_start_date);
+        TextView expiry_date = (TextView) v.findViewById(R.id.custom_voucher_expiry_date);
+
         ImageView img = (ImageView) v.findViewById(R.id.custom_voucher_picture) ;
 
         title.setText(voucher.get(position).getTitle());
         free_cost.setText(voucher.get(position).getFree_cost());
-        date.setText(voucher.get(position).getDate());
+        count.setText(voucher.get(position).getCount());
+        start_date.setText(voucher.get(position).getStart_date());
+        expiry_date.setText(voucher.get(position).getExpiry_date());
+
         img.setImageResource(voucher.get(position).getImage());
 
         return v;

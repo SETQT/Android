@@ -19,15 +19,12 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
     ListView listVoucher;
     ArrayList<Voucher> VoucherArray = new ArrayList<Voucher>();
 
-    ArrayList<String> title_free_ship = new ArrayList<>();
-    ArrayList<String> free_cost_free_ship = new ArrayList<>();
-    ArrayList<String> date_free_ship = new ArrayList<>();
-    ArrayList<Integer> image_free_ship = new ArrayList<>();
-
-    ArrayList<String> title_shop = new ArrayList<>();
-    ArrayList<String> free_cost_shop = new ArrayList<>();
-    ArrayList<String> date_shop = new ArrayList<>();
-    ArrayList<Integer> image_shop = new ArrayList<>();
+    ArrayList<String> title = new ArrayList<>();
+    ArrayList<String> free_cost = new ArrayList<>();
+    ArrayList<String> count = new ArrayList<>();
+    ArrayList<String> start_date = new ArrayList<>();
+    ArrayList<String> expiry_date = new ArrayList<>();
+    ArrayList<Integer> image = new ArrayList<>();
 
     public static VoucherFragmentSecond newInstance(String strArg1) {
         VoucherFragmentSecond fragment = new VoucherFragmentSecond();
@@ -52,66 +49,59 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
 
         listVoucher = (ListView) layout_second.findViewById(R.id.voucher_listview);
 
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        free_cost_free_ship.add("Tối đa 40k");
-        free_cost_free_ship.add("Tối đa 30k");
-        free_cost_free_ship.add("Tối đa 50k");
-        free_cost_free_ship.add("Tối đa 70k");
-        free_cost_free_ship.add("Tối đa 60k");
-        free_cost_free_ship.add("Tối đa 60k");
-        date_free_ship.add("HSD: 20/11/2022");
-        date_free_ship.add("HSD: 30/11/2022");
-        date_free_ship.add("HSD: 28/11/2022");
-        date_free_ship.add("HSD: 27/11/2022");
-        date_free_ship.add("HSD: 28/11/2022");
-        date_free_ship.add("HSD: 30/11/2022");
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
+        title.add("Tất cả hình thức thanh toán");
+        title.add("Tất cả hình thức thanh toán");
+        title.add("Tất cả hình thức thanh toán");
+        free_cost.add("Tối đa 40k");
+        free_cost.add("Tối đa 30k");
+        free_cost.add("Tối đa 50k");
+        count.add("Số lượng: 10");
+        count.add("Số lượng: 2");
+        count.add("Số lượng: 1");
+        start_date.add("Bắt đầu: 20/11/2022");
+        start_date.add("Bắt đầu: 30/11/2022");
+        start_date.add("Bắt đầu: 10/11/2022");
+        expiry_date.add("HSD: 12/12/2022");
+        expiry_date.add("HSD: 11/12/2022");
+        expiry_date.add("HSD: 10/12/2022");
+        image.add(R.drawable.free_ship);
+        image.add(R.drawable.free_ship);
+        image.add(R.drawable.free_ship);
 
 
-        title_shop.add("Mã giảm giá đơn hàng hơn 100k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 200k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 400k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 500k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 600k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 800k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 1000k");
-        free_cost_shop.add("Tối đa 40k");
-        free_cost_shop.add("Tối đa 30k");
-        free_cost_shop.add("Tối đa 50k");
-        free_cost_shop.add("Tối đa 70k");
-        free_cost_shop.add("Tối đa 60k");
-        free_cost_shop.add("Tối đa 70k");
-        free_cost_shop.add("Tối đa 60k");
-        date_shop.add("HSD: 20/11/2022");
-        date_shop.add("HSD: 30/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        date_shop.add("HSD: 27/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        date_shop.add("HSD: 30/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
+        title.add("Mã giảm giá đơn hàng hơn 100k");
+        title.add("Mã giảm giá đơn hàng hơn 200k");
+        title.add("Mã giảm giá đơn hàng hơn 400k");
+        title.add("Mã giảm giá đơn hàng hơn 500k");
 
-        for (int i = 0; i < image_shop.size(); i++) {
-            VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-        }
-        for (int i = 0; i < image_free_ship.size(); i++) {
-            VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
+        free_cost.add("Tối đa 40k");
+        free_cost.add("Tối đa 30k");
+        free_cost.add("Tối đa 50k");
+        free_cost.add("Tối đa 70k");
+
+        count.add("Số lượng: 10");
+        count.add("Số lượng: 2");
+        count.add("Số lượng: 1");
+        count.add("Số lượng: 1");
+
+        start_date.add("Bắt đầu: 20/11/2022");
+        start_date.add("Bắt đầu: 30/11/2022");
+        start_date.add("Bắt đầu: 10/11/2022");
+        start_date.add("Bắt đầu: 10/11/2022");
+
+        expiry_date.add("HSD: 8/12/2022");
+        expiry_date.add("HSD: 7/12/2022");
+        expiry_date.add("HSD: 6/12/2022");
+        expiry_date.add("HSD: 5/12/2022");
+
+        image.add(R.drawable.img_voucher);
+        image.add(R.drawable.img_voucher);
+        image.add(R.drawable.img_voucher);
+        image.add(R.drawable.img_voucher);
+
+
+        for (int i = 0; i < image.size(); i++) {
+            VoucherArray.add(new Voucher(i, image.get(i), title.get(i), free_cost.get(i), count.get(i), start_date.get(i), expiry_date.get(i)));
         }
 
         CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
@@ -132,31 +122,125 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
 
         Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
 
+        if (strValue == "All") {
+            title.clear(); image.clear(); free_cost.clear(); count.clear(); start_date.clear(); expiry_date.clear();
+
+            title.add("Tất cả hình thức thanh toán");
+            title.add("Tất cả hình thức thanh toán");
+            title.add("Tất cả hình thức thanh toán");
+            free_cost.add("Tối đa 40k");
+            free_cost.add("Tối đa 30k");
+            free_cost.add("Tối đa 50k");
+            count.add("Số lượng: 10");
+            count.add("Số lượng: 2");
+            count.add("Số lượng: 1");
+            start_date.add("Bắt đầu: 20/11/2022");
+            start_date.add("Bắt đầu: 30/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            expiry_date.add("HSD: 12/12/2022");
+            expiry_date.add("HSD: 11/12/2022");
+            expiry_date.add("HSD: 10/12/2022");
+            image.add(R.drawable.free_ship);
+            image.add(R.drawable.free_ship);
+            image.add(R.drawable.free_ship);
+
+
+            title.add("Mã giảm giá đơn hàng hơn 100k");
+            title.add("Mã giảm giá đơn hàng hơn 200k");
+            title.add("Mã giảm giá đơn hàng hơn 400k");
+            title.add("Mã giảm giá đơn hàng hơn 500k");
+            free_cost.add("Tối đa 40k");
+            free_cost.add("Tối đa 30k");
+            free_cost.add("Tối đa 50k");
+            free_cost.add("Tối đa 70k");
+            count.add("Số lượng: 10");
+            count.add("Số lượng: 2");
+            count.add("Số lượng: 1");
+            count.add("Số lượng: 1");
+            start_date.add("Bắt đầu: 20/11/2022");
+            start_date.add("Bắt đầu: 30/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            expiry_date.add("HSD: 8/12/2022");
+            expiry_date.add("HSD: 7/12/2022");
+            expiry_date.add("HSD: 6/12/2022");
+            expiry_date.add("HSD: 5/12/2022");
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+
+            VoucherArray.clear();
+            for (int i = 0; i < image.size(); i++) {
+                VoucherArray.add(new Voucher(i, image.get(i), title.get(i), free_cost.get(i), count.get(i), start_date.get(i), expiry_date.get(i)));
+            }
+
+        }
+
         if (strValue == "FreeShip") {
+
+            title.clear(); image.clear(); free_cost.clear(); count.clear(); start_date.clear(); expiry_date.clear();
+
+            title.add("Tất cả hình thức thanh toán");
+            title.add("Tất cả hình thức thanh toán");
+            title.add("Tất cả hình thức thanh toán");
+            free_cost.add("Tối đa 40k");
+            free_cost.add("Tối đa 30k");
+            free_cost.add("Tối đa 50k");
+            count.add("Số lượng: 10");
+            count.add("Số lượng: 2");
+            count.add("Số lượng: 1");
+            start_date.add("Bắt đầu: 20/11/2022");
+            start_date.add("Bắt đầu: 30/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            expiry_date.add("HSD: 12/12/2022");
+            expiry_date.add("HSD: 11/12/2022");
+            expiry_date.add("HSD: 10/12/2022");
+            image.add(R.drawable.free_ship);
+            image.add(R.drawable.free_ship);
+            image.add(R.drawable.free_ship);
+
             VoucherArray.clear();
 
-            for (int i = 0; i < title_free_ship.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
+            for (int i = 0; i < image.size(); i++) {
+                VoucherArray.add(new Voucher(i, image.get(i), title.get(i), free_cost.get(i), count.get(i), start_date.get(i), expiry_date.get(i)));
             }
         }
         if (strValue == "Shop") {
+            title.clear(); image.clear(); free_cost.clear(); count.clear(); start_date.clear(); expiry_date.clear();
+            title.add("Mã giảm giá đơn hàng hơn 100k");
+            title.add("Mã giảm giá đơn hàng hơn 200k");
+            title.add("Mã giảm giá đơn hàng hơn 400k");
+            title.add("Mã giảm giá đơn hàng hơn 500k");
+            free_cost.add("Tối đa 40k");
+            free_cost.add("Tối đa 30k");
+            free_cost.add("Tối đa 50k");
+            free_cost.add("Tối đa 70k");
+            count.add("Số lượng: 10");
+            count.add("Số lượng: 2");
+            count.add("Số lượng: 1");
+            count.add("Số lượng: 1");
+            start_date.add("Bắt đầu: 20/11/2022");
+            start_date.add("Bắt đầu: 30/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            start_date.add("Bắt đầu: 10/11/2022");
+            expiry_date.add("HSD: 8/12/2022");
+            expiry_date.add("HSD: 7/12/2022");
+            expiry_date.add("HSD: 6/12/2022");
+            expiry_date.add("HSD: 5/12/2022");
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+            image.add(R.drawable.img_voucher);
+
             VoucherArray.clear();
 
-            for (int i = 0; i < image_shop.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
+            for (int i = 0; i < image.size(); i++) {
+                VoucherArray.add(new Voucher(i, image.get(i), title.get(i), free_cost.get(i), count.get(i), start_date.get(i), expiry_date.get(i)));
             }
         }
 
-        if (strValue == "All") {
-            VoucherArray.clear();
-            for (int i = 0; i < image_shop.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-            }
-            for (int i = 0; i < image_free_ship.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-            }
 
-        }
         CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
         listVoucher.setAdapter(myAdapter);
 

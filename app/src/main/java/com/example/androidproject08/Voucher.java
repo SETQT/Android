@@ -5,14 +5,18 @@ public class Voucher {
     private Integer image;
     private String title;
     private String free_cost;
-    private String date;
+    private String count;
+    private String start_date;
+    private String expiry_date;
 
-    public Voucher(int id, Integer image, String title, String free_cost, String date) {
-        this.setId(id);
-        this.setImage(image);
-        this.setTitle(title);
-        this.setFree_cost(free_cost);
-        this.setDate(date);
+    public Voucher(int id, Integer image, String title, String free_cost, String count, String start_date, String expiry_date) {
+        this.id = id;
+        this.image = image;
+        this.title = title;
+        this.free_cost = free_cost;
+        this.count = count;
+        this.start_date = start_date;
+        this.expiry_date = expiry_date;
     }
 
     public int getId() {
@@ -47,12 +51,28 @@ public class Voucher {
         this.free_cost = free_cost;
     }
 
-    public String getDate() {
-        return date;
+    public String getCount() {
+        return count;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(String start_date) {
+        this.start_date = start_date;
+    }
+
+    public String getExpiry_date() {
+        return expiry_date;
+    }
+
+    public void setExpiry_date(String expiry_date) {
+        this.expiry_date = expiry_date;
     }
 }
 
