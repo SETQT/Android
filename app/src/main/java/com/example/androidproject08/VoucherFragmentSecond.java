@@ -1,5 +1,6 @@
 package com.example.androidproject08;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks {
     activity_voucher main;
-    TextView textIdUser;
     ListView listVoucher;
     ArrayList<Voucher> VoucherArray = new ArrayList<Voucher>();
 
@@ -28,6 +31,10 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
     ArrayList<String> free_cost_shop = new ArrayList<>();
     ArrayList<String> date_shop = new ArrayList<>();
     ArrayList<Integer> image_shop = new ArrayList<>();
+
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference vouchersRef = db.collection("vouchers");
 
     public static VoucherFragmentSecond newInstance(String strArg1) {
         VoucherFragmentSecond fragment = new VoucherFragmentSecond();
@@ -107,22 +114,22 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         image_shop.add(R.drawable.img_voucher);
         image_shop.add(R.drawable.img_voucher);
 
-        for (int i = 0; i < image_shop.size(); i++) {
-            VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-        }
-        for (int i = 0; i < image_free_ship.size(); i++) {
-            VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-        }
-
-        CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
-        listVoucher.setAdapter(myAdapter);
-
-        try {
-            Bundle arguments = getArguments();
-            textIdUser.setText(arguments.getString("arg1", ""));
-        } catch (Exception e) {
-            Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
-        }
+//        for (int i = 0; i < image_shop.size(); i++) {
+//            VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
+//        }
+//        for (int i = 0; i < image_free_ship.size(); i++) {
+//            VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
+//        }
+//
+//        CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
+//        listVoucher.setAdapter(myAdapter);
+//
+//        try {
+//            Bundle arguments = getArguments();
+//            textIdUser.setText(arguments.getString("arg1", ""));
+//        } catch (Exception e) {
+//            Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
+//        }
 
         return layout_second;
     }
@@ -132,35 +139,46 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
 
         Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
 
-        if (strValue == "FreeShip") {
-            VoucherArray.clear();
-
-            for (int i = 0; i < title_free_ship.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-            }
-        }
-        if (strValue == "Shop") {
-            VoucherArray.clear();
-
-            for (int i = 0; i < image_shop.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-            }
-        }
-
-        if (strValue == "All") {
-            VoucherArray.clear();
-            for (int i = 0; i < image_shop.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-            }
-            for (int i = 0; i < image_free_ship.size(); i++) {
-                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-            }
-
-        }
+//        if (strValue == "FreeShip") {
+//            VoucherArray.clear();
+//
+//            for (int i = 0; i < title_free_ship.size(); i++) {
+//                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
+//            }
+//        }
+//        if (strValue == "Shop") {
+//            VoucherArray.clear();
+//
+//            for (int i = 0; i < image_shop.size(); i++) {
+//                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
+//            }
+//        }
+//
+//        if (strValue == "All") {
+//            VoucherArray.clear();
+//            for (int i = 0; i < image_shop.size(); i++) {
+//                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
+//            }
+//            for (int i = 0; i < image_free_ship.size(); i++) {
+//                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
+//            }
+//
+//        }
         CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
         listVoucher.setAdapter(myAdapter);
 
     }
 
+    class voucher_asynctask extends AsyncTask<Void, Voucher, Voucher> {
+
+        public voucher_asynctask() {
+
+        }
+
+        @Override
+        protected Voucher doInBackground(Void... voids) {
+            return null;
+        }
+    }
 
 }

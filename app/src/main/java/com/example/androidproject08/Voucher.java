@@ -1,58 +1,90 @@
 package com.example.androidproject08;
 
-public class Voucher {
-    private int id;
-    private Integer image;
-    private String title;
-    private String free_cost;
-    private String date;
+import java.util.Date;
 
-    public Voucher(int id, Integer image, String title, String free_cost, String date) {
-        this.setId(id);
-        this.setImage(image);
-        this.setTitle(title);
-        this.setFree_cost(free_cost);
-        this.setDate(date);
+public class Voucher {
+    private String id;
+    private String image;
+    private String title;
+    private Integer minimumCost; // giá tối thiểu để áp dụng voucher này
+    private Integer amount; // số lượng voucher
+    private Date startedAt;
+    private Date finishedAt;
+    private Integer moneyDeals; // số tiền được khuyến mãi trong voucher này
+
+    public Voucher(String id, String image, String title, Integer minimumCost, Integer amount, Date startedAt, Date finishedAt, Integer moneyDeals) {
+        this.id = id;
+        this.image = image;
+        this.title = title;
+        this.minimumCost = minimumCost;
+        this.amount = amount;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+        this.moneyDeals = moneyDeals;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Integer getImage() {
+    public String getImage() {
         return image;
-    }
-
-    public void setImage(Integer image) {
-        this.image = image;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public Integer getMinimumCost() {
+        return minimumCost;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public Date getStartedAt() {
+        return startedAt;
+    }
+
+    public Date getFinishedAt() {
+        return finishedAt;
+    }
+
+    public Integer getMoneyDeals() {
+        return moneyDeals;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getFree_cost() {
-        return free_cost;
+    public void setMinimumCost(Integer minimumCost) {
+        this.minimumCost = minimumCost;
     }
 
-    public void setFree_cost(String free_cost) {
-        this.free_cost = free_cost;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
-    public String getDate() {
-        return date;
+    public void setStartedAt(Date startedAt) {
+        this.startedAt = startedAt;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setFinishedAt(Date finishedAt) {
+        this.finishedAt = finishedAt;
+    }
+
+    public void setMoneyDeals(Integer moneyDeals) {
+        this.moneyDeals = moneyDeals;
     }
 }
 
