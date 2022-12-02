@@ -4,107 +4,42 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//Code Bảo 
-/*
-package com.example.doan;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-
-import com.ms.square.android.expandabletextview.ExpandableTextView;
-
-
-public class activity_view_product extends Activity implements AdapterView.OnItemSelectedListener {
-    String[] listType_size = {"M", "N", "O", "P"};
-    String[] listType_color = {"Xanh", "Đỏ", "Tím", "Vàng"};
-    Spinner spiner_size_view_product, spiner_color_view_product;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_product);
-        // getting reference of  ExpandableTextView
-        ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.expand_text_view).findViewById(R.id.expand_text_view);
-
-// calling setText on the ExpandableTextView so that
-// text content will be  displayed to the user
-        expTv.setText(getString(R.string.expandable_text));
-
-        spiner_size_view_product = (Spinner) findViewById(R.id.spiner_type_size_view_product);
-        ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(this, R.layout.custom_spiner_payment_methods, listType_size);
-        spiner_size_view_product.setAdapter(adapter_size);
-        spiner_size_view_product.setOnItemSelectedListener(this);
-
-        spiner_color_view_product = (Spinner) findViewById(R.id.spiner_type_color_view_product);
-        ArrayAdapter<String> adapter_color = new ArrayAdapter<String>(this, R.layout.custom_spiner_create_voucher, listType_color);
-        spiner_color_view_product.setAdapter(adapter_color);
-        spiner_color_view_product.setOnItemSelectedListener(this);
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-}
-*/
-
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
     View ic_back_view_product, icon_cart;
-    RecyclerView recyclerView_color, recyclerView_size;
     RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
     TextView number_cart;
-    ImageView imgProduct;
+    Spinner spiner_size_view_product, spiner_color_view_product;
 
     // biến xử lý
     String previousActivity, idDoc;
@@ -112,6 +47,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     ArrayList<String> list = new ArrayList<>();
     String username = "";
     String linkImage = "";
+    String size, color;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -132,21 +68,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
         rectangle_buy_now_view_product = (RelativeLayout) findViewById(R.id.rectangle_buy_now_view_product);
         rectangle_buy_now_view_product.setOnClickListener(this);
 
-        recyclerView_color = (RecyclerView) findViewById(R.id.recyclerView_color_view_product);
-        LinearLayoutManager mLayoutManager_color = new LinearLayoutManager(getApplicationContext());
-        mLayoutManager_color.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mAdapter_color = new ListTypeProductAdapter(list);
-        recyclerView_color.setLayoutManager(mLayoutManager_color);
-        recyclerView_color.setItemAnimator(new DefaultItemAnimator());
-        recyclerView_color.setAdapter(mAdapter_color);
-
-        LinearLayoutManager mLayoutManager_size = new LinearLayoutManager(getApplicationContext());
-        mLayoutManager_size.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView_size = (RecyclerView) findViewById(R.id.recyclerView_size_view_product);
-        mAdapter_size = new ListTypeProductAdapter(list);
-        recyclerView_size.setLayoutManager(mLayoutManager_size);
-        recyclerView_size.setItemAnimator(new DefaultItemAnimator());
-        recyclerView_size.setAdapter(mAdapter_color);
+        spiner_size_view_product = (Spinner) findViewById(R.id.spiner_type_size_view_product);
+        spiner_color_view_product = (Spinner) findViewById(R.id.spiner_type_color_view_product);
 
         ic_back_view_product = (View) findViewById(R.id.ic_back_view_product);
         ic_back_view_product.setOnClickListener(this);
@@ -189,7 +112,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
     }
-
 
     @Override
     public void onClick(View view) {
@@ -299,9 +221,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
             TextView name_view_product = (TextView) findViewById(R.id.name_view_product);
             String name = name_view_product.getText().toString();
 
-            String size = "M";
-            String color = "Đen";
-
             TextView old_cost_view_product = (TextView) findViewById(R.id.old_cost_view_product);
             Integer oldCost = Integer.parseInt(old_cost_view_product.getText().toString().substring(1));
 
@@ -311,7 +230,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             Integer count = 1;
             Integer total = newCost * count;
 
-            Myorder orderProduct = new Myorder(id, linkImage, name, size, color, oldCost, newCost, count, total, 30000);
+            Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total, 30000);
 
             Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
             moveActivity.putExtra("name_activity", "activity_view_product");
@@ -374,13 +293,34 @@ public class activity_view_product extends Activity implements View.OnClickListe
             ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.expand_text_view).findViewById(R.id.expand_text_view);
             expTv.setText(products[0].getDescription());
 
-            // thiết lập color
-            mAdapter_color = new ListTypeProductAdapter(products[0].getTypeColor());
-            recyclerView_color.setAdapter(mAdapter_color);
+            // thiết lập bảng size
+            ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeColor().toArray(new String[products[0].getTypeColor().size()]));
+            spiner_size_view_product.setAdapter(adapter_size);
 
-            // thiết lập size
-            mAdapter_size = new ListTypeProductAdapter(products[0].getTypeSize());
-            recyclerView_size.setAdapter(mAdapter_size);
+            spiner_size_view_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    size = adapterView.getItemAtPosition(i).toString();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            // thiết lập bằng màu
+            ArrayAdapter<String> adapter_color = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeSize().toArray(new String[products[0].getTypeSize().size()]));
+            spiner_color_view_product.setAdapter(adapter_color);
+            spiner_color_view_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    color = adapterView.getItemAtPosition(i).toString();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
     }
 }
