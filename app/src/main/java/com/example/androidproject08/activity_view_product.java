@@ -294,7 +294,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             expTv.setText(products[0].getDescription());
 
             // thiết lập bảng size
-            ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeColor().toArray(new String[products[0].getTypeColor().size()]));
+            ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeSize().toArray(new String[products[0].getTypeSize().size()]));
             spiner_size_view_product.setAdapter(adapter_size);
 
             spiner_size_view_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -309,7 +309,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             });
 
             // thiết lập bằng màu
-            ArrayAdapter<String> adapter_color = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeSize().toArray(new String[products[0].getTypeSize().size()]));
+            ArrayAdapter<String> adapter_color = new ArrayAdapter<String>(getApplicationContext(), R.layout.custom_spiner_payment_methods, products[0].getTypeColor().toArray(new String[products[0].getTypeColor().size()]));
             spiner_color_view_product.setAdapter(adapter_color);
             spiner_color_view_product.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override

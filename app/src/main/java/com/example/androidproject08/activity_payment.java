@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -43,8 +44,6 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
     // biến xử lý
     String username, preActivity;
-
-    Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1};
     Spinner spinner_payment_methods;
     String[] type_payment_methods = {"Tiền mặt", "Momo", "Ngân hàng"};
 
@@ -116,6 +115,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     User user = document.toObject(User.class);
+                                    if(name_user_payment == null || phone_user_payment == null || address_payment == null) {
+                                        Toast.makeText(getApplicationContext(), "Bạn chưa điền thông tin vui lòng qua profile để thêm!", Toast.LENGTH_SHORT).show();
+                                    }
+
                                     name_user_payment.setText(user.getFullname());
                                     phone_user_payment.setText(user.getPhone());
                                     address_payment.setText(user.getAddress());
@@ -134,7 +137,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     @Override
     public void onClick(View view) {
         if (view.getId() == ic_back_payment.getId()) {
-            Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
         }
     }
