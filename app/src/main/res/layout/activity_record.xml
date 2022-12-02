@@ -407,13 +407,13 @@
 
     <TextView
         android:id="@+id/record_id_profile_address"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_width="280dp"
+        android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="545dp"
         android:layout_marginRight="50dp"
-        android:gravity="center"
+        android:gravity="right|center"
         android:text="KTX khu B, ĐHQG TPHCM"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
