@@ -4,11 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.example.doan.CustomMyListViewPaymentAdapter;
+import com.example.doan.Order;
 
 import java.util.ArrayList;
 
-public class activity_payment extends Activity {
+public class activity_payment extends Activity implements AdapterView.OnItemSelectedListener {
 
     ListView listOrder;
     ArrayList<Order> ListOrderArray =new ArrayList<Order>();
@@ -26,10 +33,16 @@ public class activity_payment extends Activity {
 
 
     Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1,R.drawable.mono1,R.drawable.mono1  };
+    Spinner spinner_payment_methods;
+    String[] type_payment_methods={"Tiền mặt","Momo","Ngân hàng"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        spinner_payment_methods=(Spinner)findViewById(R.id.spiner_payment_methods);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_spiner_create_voucher, type_payment_methods);
+        spinner_payment_methods.setAdapter(adapter);
+        spinner_payment_methods.setOnItemSelectedListener(this);
 
         listOrder = (ListView) findViewById(R.id.listview_payment);
 
@@ -38,6 +51,16 @@ public class activity_payment extends Activity {
         }
         CustomMyListViewPaymentAdapter myAdapter = new CustomMyListViewPaymentAdapter(this,R.layout.custom_listview_payment, ListOrderArray);
         listOrder.setAdapter(myAdapter);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
