@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +36,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,12 +50,14 @@ public class activity_view_product extends Activity implements View.OnClickListe
     RecyclerView recyclerView_color, recyclerView_size;
     RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
     TextView number_cart;
+    ImageView imgProduct;
 
     // biến xử lý
     String previousActivity, idDoc;
     private ListTypeProductAdapter mAdapter_color, mAdapter_size;
     ArrayList<String> list = new ArrayList<>();
     String username = "";
+    String linkImage = "";
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -116,7 +122,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
@@ -136,10 +142,10 @@ public class activity_view_product extends Activity implements View.OnClickListe
         if (view.getId() == ic_back_view_product.getId()) {
             Intent moveActivity = new Intent();
 
-            if(previousActivity == null) {
+            if (previousActivity == null) {
                 moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
                 startActivity(moveActivity);
-            }else {
+            } else {
                 switch (previousActivity) {
                     case "activity_search":
                         moveActivity = new Intent(getApplicationContext(), activity_search.class);
@@ -230,9 +236,32 @@ public class activity_view_product extends Activity implements View.OnClickListe
             }
         }
 
-        if(view.getId() == rectangle_buy_now_view_product.getId()) {
+        if (view.getId() == rectangle_buy_now_view_product.getId()) {
+            // lấy những thông tin cần thiết cho đơn hàng
+            String id = idDoc;
+
+            String image = linkImage;
+
+            TextView name_view_product = (TextView) findViewById(R.id.name_view_product);
+            String name = name_view_product.getText().toString();
+
+            String size = "M";
+            String color = "Đen";
+
+            TextView old_cost_view_product = (TextView) findViewById(R.id.old_cost_view_product);
+            Integer oldCost = Integer.parseInt(old_cost_view_product.getText().toString().substring(1));
+
+            TextView new_cost_view_product = (TextView) findViewById(R.id.new_cost_view_product);
+            Integer newCost = Integer.parseInt(new_cost_view_product.getText().toString().substring(1));
+
+            Integer count = 1;
+            Integer total = newCost * count;
+
+            Myorder orderProduct = new Myorder(id, linkImage, name, size, color, oldCost, newCost, count, total, 30000);
+
             Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
-            moveActivity.putExtra("idDoc", idDoc);
+            moveActivity.putExtra("name_activity", "activity_view_product");
+            moveActivity.putExtra("product", orderProduct);
             startActivity(moveActivity);
         }
     }
@@ -268,6 +297,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
             // thiết lập các thuộc tính cơ bản của product
             downloadFile(products[0].getImage());
+
             TextView name_view_product = (TextView) findViewById(R.id.name_view_product);
             name_view_product.setText(products[0].getName());
 
@@ -295,7 +325,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
             // thiết lập size
             mAdapter_size = new ListTypeProductAdapter(products[0].getTypeSize());
             recyclerView_size.setAdapter(mAdapter_size);
-
         }
     }
 
@@ -305,28 +334,22 @@ public class activity_view_product extends Activity implements View.OnClickListe
         StorageReference islandRef = storageRef.child("image").child(id.toString());
 
         try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("down", "success: ");
-
-                    // Local temp file has been created
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                public void onSuccess(Uri uri) {
+                    linkImage = uri.toString();
                     ImageView imgProduct = (ImageView) findViewById(R.id.mono_1);
-                    imgProduct.setImageBitmap(bitmap);
+                    Picasso.with(getApplicationContext()).load(uri.toString()).into(imgProduct);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
+                    // Handle any errors
                 }
             });
 
-        } catch (IOException e) {
-
+        } catch (Exception error) {
+            Log.e("ERROR", "activity_view_product downloadFile: ", error);
         }
-
     }
 }

@@ -27,18 +27,9 @@ public class activity_payment extends Activity implements View.OnClickListener {
     // khai báo biến UI
     ListView listOrder;
     View ic_back_payment;
-    TextView name_user_payment, phone_user_payment, address_payment;
+    TextView name_user_payment, phone_user_payment, address_payment, cost_payment;
 
-    ArrayList<Order> ListOrderArray =new ArrayList<Order>();
-
-    String[] name = {"Áo khoác Mono cực chất lượng", "Áo Liver giúp ra hang đầu mùa giải", "Áo anh 7 dự bị", "Giày độn", "Áo khoác", "Mũ lưỡi trai"};
-    String[] old_cost = {"đ500.000","đ400.000","đ300.000","đ700.000","đ100.000","đ200.000" };
-    String[] new_cost = {"đ300.000","đ200.000","đ200.000","đ500.000","đ80.000","đ150.000" };
-    String[] number = {"02","01","02","01","01","01" };
-    String[] size = {"S","M","L","XL","XXL","XXXL" };
-    String[] color = {"Đen","Đỏ","Tím","Vàng","Xanh","Hồng" };
-    String[] charge_tranfer = {"đ30.000","đ30.000","đ30.000","đ30.000","đ30.000","đ30.000" };
-    String[] cost_final = {"đ500.000","đ500.000","đ500.000","đ500.000","đ500.000","đ500.000" };
+    ArrayList<Myorder> ListOrderArray =new ArrayList<>();
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,7 +40,7 @@ public class activity_payment extends Activity implements View.OnClickListener {
     SQLiteDatabase sqlite;
 
     // biến xử lý
-    String username;
+    String username, preActivity;
 
     Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1,R.drawable.mono1,R.drawable.mono1  };
     @Override
@@ -63,6 +54,25 @@ public class activity_payment extends Activity implements View.OnClickListener {
         name_user_payment = (TextView) findViewById(R.id.name_user_payment);
         phone_user_payment = (TextView) findViewById(R.id.phone_user_payment);
         address_payment = (TextView) findViewById(R.id.address_payment);
+        cost_payment = (TextView) findViewById(R.id.cost_payment);
+
+        // lấy dữ liệu
+        Intent intent = getIntent();
+        preActivity = intent.getStringExtra("name_activity");
+
+        Myorder orderProduct = new Myorder();
+        if(intent.hasExtra("product")) {
+            orderProduct = (Myorder) intent.getExtras().getSerializable("product");
+            ListOrderArray.add(orderProduct);
+        }
+
+        switch (preActivity) {
+            case "activity_view_product":
+                cost_payment.setText("đ" + orderProduct.getTotal().toString());
+                break;
+            default:
+                break;
+        }
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -93,10 +103,6 @@ public class activity_payment extends Activity implements View.OnClickListener {
                     });
         }catch (Exception error) {
             Log.e("ERROR", "activity_payment onCreate: ", error);
-        }
-
-        for (int i=0;i<6;i++){
-            ListOrderArray.add(new Order(i, name[i],old_cost[i], new_cost[i], number[i],size[i],color[i],charge_tranfer[i],cost_final[i],image[i]));
         }
 
         CustomMyListViewPaymentAdapter myAdapter = new CustomMyListViewPaymentAdapter(this,R.layout.custom_listview_payment, ListOrderArray);

@@ -59,7 +59,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         total.add("đ300.000");total.add("đ200.000");total.add("đ200.000");total.add("đ100.000");
 
         for (int i = 0; i < image.size(); i++) {
-            MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
+//            MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
         }
 
         CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, MyOrderArray);
@@ -94,7 +94,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             MyOrderArray.clear();
 
             for (int i = 0; i < image.size(); i++) {
-                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
+//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
             }
         }
         if (strValue == "Cho lay hang") {
@@ -111,7 +111,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             MyOrderArray.clear();
 
             for (int i = 0; i < image.size(); i++) {
-                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
+//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
             }
         }
 
@@ -129,7 +129,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             MyOrderArray.clear();
 
             for (int i = 0; i < image.size(); i++) {
-                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
+//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
             }
 
         }
@@ -148,7 +148,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             MyOrderArray.clear();
 
             for (int i = 0; i < image.size(); i++) {
-                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
+//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
             }
 
         }

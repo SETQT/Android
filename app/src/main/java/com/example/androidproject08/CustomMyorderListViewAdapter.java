@@ -42,14 +42,14 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         TextView total = (TextView) v.findViewById(R.id.myorder_custom_total);
         ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture) ;
 
-        name.setText(myorder.get(position).getName());
-        size.setText(myorder.get(position).getSize());
-        old_cost.setText(myorder.get(position).getOld_cost());
-        new_cost.setText(myorder.get(position).getNew_cost());
-        count.setText(myorder.get(position).getCount());
-        total.setText(myorder.get(position).getTotal());
+//        name.setText(myorder.get(position).getName());
+//        size.setText(myorder.get(position).getSize());
+//        old_cost.setText(myorder.get(position).getOld_cost());
+//        new_cost.setText(myorder.get(position).getNew_cost());
+//        count.setText(myorder.get(position).getCount());
+//        total.setText(myorder.get(position).getTotal());
 
-        img.setImageResource(myorder.get(position).getImage());
+//        img.setImageResource(myorder.get(position).getImage());
 
         return v;
 

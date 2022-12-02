@@ -3,6 +3,9 @@ package com.example.androidproject08;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +14,31 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpEntity;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.EntityUtils;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Order> {
+public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Myorder> {
 
-    ArrayList<Order> order = new ArrayList<Order>();
+    ArrayList<Myorder> orders = new ArrayList<>();
+    Context curContext;
 
-
-    public CustomMyListViewPaymentAdapter(Context context, int resource, ArrayList<Order> objects) {
+    public CustomMyListViewPaymentAdapter(Context context, int resource, ArrayList<Myorder> objects) {
         super(context, resource, objects);
-        this.order = objects;
+        this.orders = objects;
+        this.curContext = context;
     }
 
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return super.getCount();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.custom_listview_payment, null);
@@ -46,14 +52,15 @@ public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Order> {
         TextView cost_final = (TextView) v.findViewById(R.id.total_cost_product_payment);
         ImageView img = (ImageView) v.findViewById(R.id.custom_picture_payment) ;
 
-        name.setText(order.get(position).getName());
-        old_cost.setText(order.get(position).getOld_cost());
-        new_cost.setText(order.get(position).getNew_cost());
-        number.setText(order.get(position).getNumber());
-        size_color.setText(order.get(position).getSize()+","+order.get(position).getColor());
-        charge_tranfer.setText(order.get(position).get_charge_tranfer());
-        cost_final.setText(order.get(position).get_cost_final());
-        img.setImageResource(order.get(position).getImage());
+        name.setText(orders.get(position).getName());
+        old_cost.setText("đ" + orders.get(position).getOldCost().toString());
+        new_cost.setText("đ" + orders.get(position).getNewCost().toString());
+        number.setText(orders.get(position).getCount().toString());
+        size_color.setText(orders.get(position).getSize()+", "+orders.get(position).getColor());
+        charge_tranfer.setText(orders.get(position).getTransportFee().toString());
+        cost_final.setText("đ" + orders.get(position).getTotal().toString());
+
+        Picasso.with(curContext).load(orders.get(position).getImage()).into(img);
         return v;
     }
 }

@@ -1,39 +1,50 @@
 package com.example.androidproject08;
 
-public class Myorder {
-    private int id;
-    private Integer image;
+import java.io.Serializable;
+
+public class Myorder implements Serializable {
+    private String id;
+    private String image;
     private String name;
     private String size;
-    private String old_cost;
-    private String new_cost;
-    private String count;
-    private String total;
+    private String color;
+    private Integer oldCost;
+    private Integer newCost;
+    private Integer count;
+    private Integer total;
+    private Integer transportFee; // phí vận chuyển
+    private String voucher; // voucher áp dụng cho đơn hàng này
+    private String state; // trạng thái đơn hàng
 
-    public Myorder(int id, Integer image, String name, String size, String old_cost, String new_cost, String count, String total) {
-        this.setId(id);
-        this.setImage(image);
-        this.setName(name);
-        this.setSize(size);
-        this.setOld_cost(old_cost);
-        this.setNew_cost(new_cost);
-        this.setCount(count);
-        this.setTotal(total);
+    public Myorder() {
     }
 
-    public int getId() {
+    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total, Integer transportFee) {
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.size = size;
+        this.color = color;
+        this.oldCost = oldCost;
+        this.newCost = newCost;
+        this.count = count;
+        this.total = total;
+        this.transportFee = transportFee;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Integer image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -53,36 +64,68 @@ public class Myorder {
         this.size = size;
     }
 
-    public String getOld_cost() {
-        return old_cost;
+    public String getColor() {
+        return color;
     }
 
-    public void setOld_cost(String old_cost) {
-        this.old_cost = old_cost;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getNew_cost() {
-        return new_cost;
+    public Integer getOldCost() {
+        return oldCost;
     }
 
-    public void setNew_cost(String new_cost) {
-        this.new_cost = new_cost;
+    public void setOldCost(Integer oldCost) {
+        this.oldCost = oldCost;
     }
 
-    public String getCount() {
+    public Integer getNewCost() {
+        return newCost;
+    }
+
+    public void setNewCost(Integer newCost) {
+        this.newCost = newCost;
+    }
+
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public String getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public Integer getTransportFee() {
+        return transportFee;
+    }
+
+    public void setTransportFee(Integer transportFee) {
+        this.transportFee = transportFee;
+    }
+
+    public String getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
 
