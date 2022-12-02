@@ -179,8 +179,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="14dp"
             android:text="Chọn voucher"
-            android:textAppearance="@style/hintdonhangcuatoi_profile" />            android:gravity="center_vertical"
-            />
+            android:gravity="center_vertical"
+            android:textAppearance="@style/hintdonhangcuatoi_profile" />            
         <View
             android:id="@+id/arrow_voucher"
             android:layout_width="15dp"
