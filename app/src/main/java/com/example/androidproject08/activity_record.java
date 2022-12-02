@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,10 +58,11 @@ public class activity_record extends Activity {
 
     private static final int PICK_IMAGE = 100;
     private static final int PICK_IMAGE_BACKGROUND = 200;
-    User userForimage;
     Uri imageUri;
     Uri imageBackUri;
     String userName;
+
+    String urlAvatar = "", urlBg = "";
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -75,7 +78,7 @@ public class activity_record extends Activity {
         startActivityForResult(gallery, PICK_IMAGE_BACKGROUND);
     }
 
-    //request permission can thiet camera,thu vien ,...
+    // request permission can thiet camera,thu vien ,...
     public void requestPermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -88,69 +91,28 @@ public class activity_record extends Activity {
                 Toast.makeText(activity_record.this, "Đã từ chối !!", Toast.LENGTH_SHORT).show();
             }
         };
+
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setDeniedMessage("Không thể cập nhật do chưa cấp quyền truy cập!! \n\n Thay đổi bằng cách Setting -> Permission")
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
-
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             CircleImageView avatar = (CircleImageView) findViewById(R.id.record_avatar);
             imageUri = data.getData();
             avatar.setImageURI(imageUri);
-
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            CollectionReference usersRef = db.collection("users");
-            usersRef
-                    .whereEqualTo("username", userName)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    User user = document.toObject(User.class);
-                                    user.setUserId(document.getId()); // lấy id document của user
-
-                                    uploadFile(user.getUsername().toString()+"avatar", imageUri);
-                                    usersRef.document(user.getUserId()).update("image", user.getUsername().toString()+"avatar");
-                                }
-                            } else {
-                                Log.d("TAG", "Error getting documents: ", task.getException());
-                            }
-                        }
-                    });
-
+            uploadFile(userName+"avatar", imageUri, "avatar");
         } else if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_BACKGROUND) {
             ImageView avatar = (ImageView) findViewById(R.id.record_rectangle_header_profile);
             imageBackUri = data.getData();
             avatar.setImageURI(imageBackUri);
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            CollectionReference usersRef = db.collection("users");
-            usersRef
-                    .whereEqualTo("username", userName)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    User user = document.toObject(User.class);
-                                    user.setUserId(document.getId()); // lấy id document của user
-                                    uploadFile(user.getUsername().toString() + "background", imageBackUri);
-                                    usersRef.document(user.getUserId()).update("imageBg", user.getUsername().toString()+"background");
-                                }
-                            } else {
-                                Log.d("TAG", "Error getting documents: ", task.getException());
-                            }
-                        }
-                    });
+            uploadFile(userName + "background", imageBackUri, "bg");
         }
     }
 
@@ -174,7 +136,6 @@ public class activity_record extends Activity {
         c1.moveToPosition(0);
         String username = c1.getString(0);
         userName = username;
-
 
         loadImage(userName);
 
@@ -245,16 +206,16 @@ public class activity_record extends Activity {
                                     User user = document.toObject(User.class);
 
                                     if(user.getImage() != null) {
-                                        downloadFile(avatar,name+"avatar");
+                                        Picasso.with(getApplicationContext()).load(user.getImage()).into(avatar);
                                     }
 
                                     if(user.getImageBg() != null) {
-                                        downloadFile(header,name+"background");
+                                        Picasso.with(getApplicationContext()).load(user.getImageBg()).into(header);
                                     }
 
                                     if(user.getImage() != null && user.getImageBg() != null) {
-                                        downloadFile(avatar,name+"avatar");
-                                        downloadFile(header,name+"background");
+                                        Picasso.with(getApplicationContext()).load(user.getImage()).into(avatar);
+                                        Picasso.with(getApplicationContext()).load(user.getImageBg()).into(header);
                                     }
                                 }
                             } else {
@@ -267,55 +228,99 @@ public class activity_record extends Activity {
         }
     }
 
-
-    public void downloadFile(ImageView avatar,String name) {
+    public void uploadFile(String name, Uri avatar, String field) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("users");
-        StorageReference islandRef = storageRef.child("ProfileUser/"+name);
 
-        try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
+        StorageReference refImage = storageRef.child("ProfileUser/" + name);
 
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    avatar.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
-                }
-            });
+        UploadTask uploadTask = refImage.putFile(avatar);
 
-        } catch (IOException e) {
+        switch (field) {
+            case "avatar":
+                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
 
+                        // upload file xong tiếp tục lấy link image vừa upload
+                        return refImage.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+
+                            urlAvatar = downloadUri.toString();
+                            usersRef
+                                    .whereEqualTo("username", userName)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    User user = document.toObject(User.class);
+                                                    user.setUserId(document.getId()); // lấy id document của user
+                                                    usersRef.document(user.getUserId()).update("image", urlAvatar);
+                                                }
+                                            } else {
+                                                Log.e("ERROR", "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        } else {
+                            return;
+                        }
+                    }
+                });
+                break;
+            case "bg":
+                uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+
+                        // upload file xong tiếp tục lấy link image vừa upload
+                        return refImage.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+
+                            urlBg = downloadUri.toString();
+                            usersRef
+                                    .whereEqualTo("username", userName)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    User user = document.toObject(User.class);
+                                                    user.setUserId(document.getId()); // lấy id document của user
+                                                    usersRef.document(user.getUserId()).update("imageBg", urlBg);
+                                                }
+                                            } else {
+                                                Log.e("ERROR", "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        } else {
+                            return;
+                        }
+                    }
+                });
+                break;
+            default:
+                break;
         }
-    }
-
-    public void uploadFile(String name, Uri avatar) {
-        Log.d("upload", "uploadFile:okk ");
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-
-        StorageReference test = storageRef.child("ProfileUser/" + name);
-
-        UploadTask uploadTask = test.putFile(avatar);
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getApplication(), "Upload Thất bại", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Toast.makeText(getApplication(), "  Upload Thành công", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

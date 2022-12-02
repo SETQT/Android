@@ -296,7 +296,9 @@ public class activity_view_product extends Activity implements View.OnClickListe
             super.onProgressUpdate(products);
 
             // thiết lập các thuộc tính cơ bản của product
-            downloadFile(products[0].getImage());
+            ImageView imgProduct = (ImageView) findViewById(R.id.mono_1);
+            Picasso.with(getApplicationContext()).load(products[0].getImage()).into(imgProduct);
+            linkImage = products[0].getImage();
 
             TextView name_view_product = (TextView) findViewById(R.id.name_view_product);
             name_view_product.setText(products[0].getName());
@@ -325,31 +327,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
             // thiết lập size
             mAdapter_size = new ListTypeProductAdapter(products[0].getTypeSize());
             recyclerView_size.setAdapter(mAdapter_size);
-        }
-    }
-
-    public void downloadFile(String id) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference islandRef = storageRef.child("image").child(id.toString());
-
-        try {
-            islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    linkImage = uri.toString();
-                    ImageView imgProduct = (ImageView) findViewById(R.id.mono_1);
-                    Picasso.with(getApplicationContext()).load(uri.toString()).into(imgProduct);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                }
-            });
-
-        } catch (Exception error) {
-            Log.e("ERROR", "activity_view_product downloadFile: ", error);
         }
     }
 }

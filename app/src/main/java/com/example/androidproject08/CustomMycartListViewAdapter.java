@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,10 +44,6 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference usersRef = db.collection("users");
-
-    // kết nối firestore để lấy ảnh
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
 
     public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects) {
         super(context, resource, objects);
@@ -93,7 +90,8 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
 
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
-        downloadFile(v, my_cart.get(position).getImage());
+        Picasso.with(curContext).load(my_cart.get(position).getImage()).into(img);
+
         name.setText(my_cart.get(position).getName());
         old_cost.setText(oldCost.toString());
         new_cost.setText(my_cart.get(position).getPrice().toString());
@@ -160,32 +158,5 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         });
 
         return v;
-    }
-
-    public void downloadFile(View v, String id) {
-        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
-
-        try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Local temp file has been created
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ImageView imgProduct = (ImageView) v.findViewById(R.id.custom_mycart_picture);
-                    imgProduct.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
-                }
-            });
-
-        } catch (IOException e) {
-            Log.e("ERROR", "Custommycart downloadFile: ", e);
-        }
-
     }
 }

@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         price.setText("đ" + oldPrice.toString());
         percent_sale.setText("-"+products.get(position).getSale().toString() + "%");
 
-        downloadFile(v,products.get(position).getImage());
+        Picasso.with(curContext).load(products.get(position).getImage()).into(picture);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,37 +78,5 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         });
 
         return v;
-    }
-
-    public  void downloadFile(View v,String id){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
-        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
-
-        try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("down", "success: ");
-
-                    // Local temp file has been created
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ImageView imgProduct = (ImageView)  v.findViewById(R.id.dashboard_custom_picture_product);
-                    imgProduct.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
-                }
-            });
-
-        }catch ( IOException e){
-
-        }
-
     }
 }

@@ -29,6 +29,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,8 +121,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
                 }
             }
         }, username);
-
-
     }
 
     // truy vấn dữ liệu từ database với username mà người dùng nhập
@@ -200,8 +199,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             startActivity(moveActivity);
         }
-
-
     }
 
     public void loadImage(String name) {
@@ -220,16 +217,16 @@ public class activity_profile extends Activity implements View.OnClickListener {
                                     User user = document.toObject(User.class);
 
                                     if(user.getImage() != null) {
-                                        downloadFile(avatar,name+"avatar");
+                                        Picasso.with(getApplicationContext()).load(user.getImage()).into(avatar);
                                     }
 
                                     if(user.getImageBg() != null) {
-                                        downloadFile(header,name+"background");
+                                        Picasso.with(getApplicationContext()).load(user.getImageBg()).into(header);
                                     }
 
                                     if(user.getImage() != null && user.getImageBg() != null) {
-                                        downloadFile(avatar,name+"avatar");
-                                        downloadFile(header,name+"background");
+                                        Picasso.with(getApplicationContext()).load(user.getImage()).into(avatar);
+                                        Picasso.with(getApplicationContext()).load(user.getImageBg()).into(header);
                                     }
                                 }
                             } else {
@@ -239,35 +236,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
                     });
         } catch (Exception error) {
             Log.e("ERROR", "activity_profile loadImage: ", error);
-        }
-    }
-
-
-    public void downloadFile(ImageView avatar, String name) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference islandRef = storageRef.child("ProfileUser/" + name);
-
-        try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Local temp file has been created
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    avatar.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-//                    int errorCode = ((StorageException) exception).getErrorCode();
-//                    String errorMessage = exception.getMessage();
-//                    Log.e("ERROR", "activity_profile onFailure: " + ((StorageException) exception).ERROR_INVALID_CHECKSUM + " " + errorMessage);
-                    return;
-                }
-            });
-        } catch (IOException e) {
-            Log.e("ERROR", "downloadFile error " + e);
         }
     }
 }
