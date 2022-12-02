@@ -765,8 +765,8 @@
         android:layout_width="140dp"
         android:layout_height="49dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="257dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="257dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_buy_now_view_product">
 
@@ -776,8 +776,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="39dp"
+            android:layout_marginBottom="15dp"
             android:gravity="top"
             android:text="Mua ngay"
             android:textColor="#FFFFFF"

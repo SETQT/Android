@@ -8,16 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
-
-    ArrayList<Voucher> voucher = new ArrayList<Voucher>();
-
+    ArrayList<Voucher> vouchers = new ArrayList<Voucher>();
 
     public CustomVoucherListViewAdapter(Context context, int resource, ArrayList<Voucher> objects) {
         super(context, resource, objects);
-        this.voucher = objects;
+        this.vouchers = objects;
     }
 
 
@@ -36,15 +35,21 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
 
         TextView title = (TextView) v.findViewById(R.id.custom_voucher_title);
         TextView free_cost = (TextView) v.findViewById(R.id.custom_voucher_free_cost);
-        TextView date = (TextView) v.findViewById(R.id.custom_voucher_expiry_date);
+        TextView count = (TextView) v.findViewById(R.id.custom_voucher_count);
+        TextView start_date = (TextView) v.findViewById(R.id.custom_voucher_start_date);
+        TextView expiry_date = (TextView) v.findViewById(R.id.custom_voucher_expiry_date);
+
         ImageView img = (ImageView) v.findViewById(R.id.custom_voucher_picture) ;
 
-        title.setText(voucher.get(position).getTitle());
-        free_cost.setText(voucher.get(position).getFree_cost());
-        date.setText(voucher.get(position).getDate());
-        img.setImageResource(voucher.get(position).getImage());
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        title.setText(vouchers.get(position).getTitle());
+        free_cost.setText("Tối đa " + Handle.kFortmatter(vouchers.get(position).getMoneyDeals().toString()));
+        count.setText("Số lượng: " + vouchers.get(position).getAmount().toString());
+        start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());
+        expiry_date.setText("HSD: " + formatDate.format(vouchers.get(position).getFinishedAt()).toString());
+        img.setImageResource(R.drawable.img_voucher);
 
         return v;
-
     }
 }

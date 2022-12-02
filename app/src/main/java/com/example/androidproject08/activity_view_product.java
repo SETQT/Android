@@ -44,7 +44,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     // biến UI
     View ic_back_view_product, icon_cart;
     RecyclerView recyclerView_color, recyclerView_size;
-    RelativeLayout rectangle_add_to_card_view_product;
+    RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
     TextView number_cart;
 
     // biến xử lý
@@ -69,6 +69,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         rectangle_add_to_card_view_product = (RelativeLayout) findViewById(R.id.rectangle_add_to_card_view_product);
         rectangle_add_to_card_view_product.setOnClickListener(this);
+        rectangle_buy_now_view_product = (RelativeLayout) findViewById(R.id.rectangle_buy_now_view_product);
+        rectangle_buy_now_view_product.setOnClickListener(this);
 
         recyclerView_color = (RecyclerView) findViewById(R.id.recyclerView_color_view_product);
         LinearLayoutManager mLayoutManager_color = new LinearLayoutManager(getApplicationContext());
@@ -134,19 +136,23 @@ public class activity_view_product extends Activity implements View.OnClickListe
         if (view.getId() == ic_back_view_product.getId()) {
             Intent moveActivity = new Intent();
 
-            switch (previousActivity) {
-                case "activity_search":
-                    moveActivity = new Intent(getApplicationContext(), activity_search.class);
-                    startActivity(moveActivity);
-                    break;
-                case "activity_dashboard":
-                    moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                    startActivity(moveActivity);
-                    break;
-                default:
-                    break;
+            if(previousActivity == null) {
+                moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                startActivity(moveActivity);
+            }else {
+                switch (previousActivity) {
+                    case "activity_search":
+                        moveActivity = new Intent(getApplicationContext(), activity_search.class);
+                        startActivity(moveActivity);
+                        break;
+                    case "activity_dashboard":
+                        moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                        startActivity(moveActivity);
+                        break;
+                    default:
+                        break;
+                }
             }
-
         }
 
         if (view.getId() == icon_cart.getId()) {
@@ -222,6 +228,12 @@ public class activity_view_product extends Activity implements View.OnClickListe
             } catch (Exception error) {
                 Log.e("ERROR", "activity_view_product: " + error);
             }
+        }
+
+        if(view.getId() == rectangle_buy_now_view_product.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
+            moveActivity.putExtra("idDoc", idDoc);
+            startActivity(moveActivity);
         }
     }
 

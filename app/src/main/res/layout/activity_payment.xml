@@ -85,7 +85,7 @@
             android:background="@drawable/line_address_payment" />
 
         <TextView
-            android:id="@+id/some_id"
+            android:id="@+id/phone_user_payment"
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_alignParentTop="true"
@@ -96,18 +96,18 @@
             android:text="0812301805"
             android:textAppearance="@style/phone_user_payment"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/address_payment"
             android:layout_width="281dp"
             android:layout_height="42dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="63dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="63dp"
             android:layout_marginTop="43dp"
-            android:text="Ký túc xá khu B, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương"
-            android:textAppearance="@style/phone_user_payment"
             android:gravity="top"
-            />
+            android:text="Ký túc xá khu B, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương"
+            android:textAppearance="@style/phone_user_payment" />
 
         <View
             android:id="@+id/arrow_adrress_payment"
@@ -170,13 +170,14 @@
             android:gravity="center_vertical"
             android:textStyle="bold"
             />
+
         <TextView
             android:id="@+id/chon_voucher"
             android:layout_width="113dp"
             android:layout_height="18.19dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="270dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="270dp"
             android:layout_marginTop="14dp"
             android:text="Chọn voucher"
             android:textAppearance="@style/hintdonhangcuatoi_profile" />            android:gravity="center_vertical"

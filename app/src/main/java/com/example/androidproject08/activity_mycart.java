@@ -1,20 +1,15 @@
 package com.example.androidproject08;
 
-//import static io.grpc.Context.LazyStorage.storage;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,23 +22,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class activity_mycart extends Activity {
+public class activity_mycart extends Activity implements View.OnClickListener {
     // khai báo biến UI
     View icon_back;
     ListView listMyCart;
@@ -55,17 +47,17 @@ public class activity_mycart extends Activity {
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+
     // biến xử lý
+    String previousActivity, idDoc;
 
-
-
-    public void uploadFile(){
+    public void uploadFile() {
         String path = Environment.getExternalStorageDirectory().getPath();
         String myJpgPath = path + "/Download/girl480x600.jpg";
 
 
         Uri file = Uri.fromFile(new File(myJpgPath));
-        StorageReference test =storageRef.child("image/"+file.getLastPathSegment());
+        StorageReference test = storageRef.child("image/" + file.getLastPathSegment());
 
         UploadTask uploadTask = test.putFile(file);
 
@@ -91,13 +83,15 @@ public class activity_mycart extends Activity {
 
         listMyCart = (ListView) findViewById(R.id.MyCart_listview);
         icon_back = (View) findViewById(R.id.icon_back);
+        icon_back.setOnClickListener(this);
         MyCart_bg_buy = (Button) findViewById(R.id.MyCart_bg_buy);
+        MyCart_bg_buy.setOnClickListener(this);
         MyCart_total_cost = (TextView) findViewById(R.id.MyCart_total_cost);
 
         // get tên của activity trước đỏ để back khi nhấn button back lại đúng vị trí
         Intent intent = getIntent();
-        String previousActivity = intent.getStringExtra("name_activity");
-        String idDoc = intent.getStringExtra("idDoc");
+        previousActivity = intent.getStringExtra("name_activity");
+        idDoc = intent.getStringExtra("idDoc");
 
         // get username từ sqlite
         // kết nối sqlite
@@ -151,41 +145,54 @@ public class activity_mycart extends Activity {
         // query dữ liệu cho qua listview
         mycart_asynctask mc_at = new mycart_asynctask(activity_mycart.this, username);
         mc_at.execute();
+    }
 
-        // trở lại activity trước đó
-        icon_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent();
+    @Override
+    public void onClick(View view) {
+        // trở về activity trước đó
+        if (view.getId() == icon_back.getId()) {
+            Intent moveActivity = new Intent();
 
+            if (previousActivity != null) {
                 switch (previousActivity) {
                     case "activity_dashboard":
                         moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                        startActivity(moveActivity);
                         break;
                     case "activity_notify":
                         moveActivity = new Intent(getApplicationContext(), activity_notify.class);
+                        startActivity(moveActivity);
                         break;
                     case "activity_profile":
                         moveActivity = new Intent(getApplicationContext(), activity_profile.class);
+                        startActivity(moveActivity);
                         break;
                     case "activity_voucher":
                         moveActivity = new Intent(getApplicationContext(), activity_voucher.class);
+                        startActivity(moveActivity);
                         break;
                     case "activity_myorder":
                         moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                        startActivity(moveActivity);
                         break;
                     case "activity_view_product":
                         moveActivity = new Intent(getApplicationContext(), activity_view_product.class);
                         moveActivity.putExtra("idDoc", idDoc);
+                        startActivity(moveActivity);
                         break;
                     default:
                         break;
                 }
-
+            } else {
+                moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
                 startActivity(moveActivity);
             }
-        });
+        }
+
+        // tiến hành đặt hàng
+        if (view.getId() == MyCart_bg_buy.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
+            startActivity(moveActivity);
+        }
     }
-
-
 }

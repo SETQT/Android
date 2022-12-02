@@ -79,12 +79,38 @@
             android:textSize="8sp" />
 
         <TextView
-            android:id="@+id/custom_voucher_expiry_date"
+            android:id="@+id/custom_voucher_count"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="45dp"
+            android:gravity="center"
+            android:text="Số lượng: 10"
+            android:textColor="#000000"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/custom_voucher_start_date"
             android:layout_width="wrap_content"
             android:layout_height="12dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="65dp"
+            android:gravity="top"
+            android:text="Bắt đầu: 20/11/2022"
+            android:textColor="#AEAEAE"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/custom_voucher_expiry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="65dp"
             android:gravity="top"
             android:text="HSD: 20/11/2022"

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,34 +48,6 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
 
-    public void downloadFile(View v, String id) {
-//        StorageReference islandRef = storageRef.child("image/girl480x600.jpg");
-        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
-
-        try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Local temp file has been created
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ImageView imgProduct = (ImageView) v.findViewById(R.id.custom_mycart_picture);
-                    imgProduct.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
-                }
-            });
-
-        } catch (IOException e) {
-            Log.e("ERROR", "Custommycart downloadFile: ", e);
-        }
-
-    }
-
     public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects) {
         super(context, resource, objects);
         this.my_cart = objects;
@@ -102,6 +76,20 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         View addButton = (View) v.findViewById((R.id.custom_mycart_icon_increase));
         View garbage = (View) v.findViewById((R.id.custom_mycart_icon_garbage));
         View addTotal = (View) v.findViewById((R.id.custom_mycart_checkbox));
+
+        CheckBox custom_mycart_checkbox = (CheckBox) v.findViewById(R.id.custom_mycart_checkbox);
+        custom_mycart_checkbox.setChecked(true);
+
+        custom_mycart_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()) {
+                    Log.i("TAG", "onCheckedChanged: checked" );
+                }else {
+                    Log.i("TAG", "onCheckedChanged: unchecked" );
+                }
+            }
+        });
 
         Integer oldCost = (my_cart.get(position).getPrice() / (100 - my_cart.get(position).getSale())) * 100; // tính lại giá cũ
 
@@ -172,5 +160,32 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         });
 
         return v;
+    }
+
+    public void downloadFile(View v, String id) {
+        StorageReference islandRef = storageRef.child("image").child(id.toString());//+".jpg");
+
+        try {
+            File localFile = File.createTempFile("tempfile", ".jpg");
+
+            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    // Local temp file has been created
+                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                    ImageView imgProduct = (ImageView) v.findViewById(R.id.custom_mycart_picture);
+                    imgProduct.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("down", "onFailure: ");
+                }
+            });
+
+        } catch (IOException e) {
+            Log.e("ERROR", "Custommycart downloadFile: ", e);
+        }
+
     }
 }

@@ -11,8 +11,11 @@ public class Voucher {
     private Date startedAt;
     private Date finishedAt;
     private Integer moneyDeals; // số tiền được khuyến mãi trong voucher này
+    private String type; // loại voucher là freeship hay
 
-    public Voucher(String id, String image, String title, Integer minimumCost, Integer amount, Date startedAt, Date finishedAt, Integer moneyDeals) {
+    public Voucher() {}
+
+    public Voucher(String id, String image, String title, Integer minimumCost, Integer amount, Date startedAt, Date finishedAt, Integer moneyDeals, String type) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -21,6 +24,7 @@ public class Voucher {
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
         this.moneyDeals = moneyDeals;
+        this.type = type;
     }
 
     public String getId() {
@@ -55,6 +59,10 @@ public class Voucher {
         return moneyDeals;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -85,6 +93,10 @@ public class Voucher {
 
     public void setMoneyDeals(Integer moneyDeals) {
         this.moneyDeals = moneyDeals;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

@@ -8,29 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks {
+    // khai báo biến UI
     activity_voucher main;
-    ListView listVoucher;
-    ArrayList<Voucher> VoucherArray = new ArrayList<Voucher>();
-
-    ArrayList<String> title_free_ship = new ArrayList<>();
-    ArrayList<String> free_cost_free_ship = new ArrayList<>();
-    ArrayList<String> date_free_ship = new ArrayList<>();
-    ArrayList<Integer> image_free_ship = new ArrayList<>();
-
-    ArrayList<String> title_shop = new ArrayList<>();
-    ArrayList<String> free_cost_shop = new ArrayList<>();
-    ArrayList<String> date_shop = new ArrayList<>();
-    ArrayList<Integer> image_shop = new ArrayList<>();
+    ListView voucher_listview;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -50,6 +44,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         if (!(getActivity() instanceof MainCallbacks)) {
             throw new IllegalStateException("Activity must implement MainCallbacks");
         }
+
         main = (activity_voucher) getActivity();
     }
 
@@ -57,128 +52,107 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout layout_second = (LinearLayout) inflater.inflate(R.layout.custom_voucher_layout_fragment_second, null);
 
-        listVoucher = (ListView) layout_second.findViewById(R.id.voucher_listview);
+        voucher_listview = (ListView) layout_second.findViewById(R.id.voucher_listview);
 
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        title_free_ship.add("Tất cả hình thức thanh toán");
-        free_cost_free_ship.add("Tối đa 40k");
-        free_cost_free_ship.add("Tối đa 30k");
-        free_cost_free_ship.add("Tối đa 50k");
-        free_cost_free_ship.add("Tối đa 70k");
-        free_cost_free_ship.add("Tối đa 60k");
-        free_cost_free_ship.add("Tối đa 60k");
-        date_free_ship.add("HSD: 20/11/2022");
-        date_free_ship.add("HSD: 30/11/2022");
-        date_free_ship.add("HSD: 28/11/2022");
-        date_free_ship.add("HSD: 27/11/2022");
-        date_free_ship.add("HSD: 28/11/2022");
-        date_free_ship.add("HSD: 30/11/2022");
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
-        image_free_ship.add(R.drawable.img_voucher);
+        voucher_asynctask v_at = new voucher_asynctask("All");
+        v_at.execute();
 
-
-        title_shop.add("Mã giảm giá đơn hàng hơn 100k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 200k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 400k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 500k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 600k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 800k");
-        title_shop.add("Mã giảm giá đơn hàng hơn 1000k");
-        free_cost_shop.add("Tối đa 40k");
-        free_cost_shop.add("Tối đa 30k");
-        free_cost_shop.add("Tối đa 50k");
-        free_cost_shop.add("Tối đa 70k");
-        free_cost_shop.add("Tối đa 60k");
-        free_cost_shop.add("Tối đa 70k");
-        free_cost_shop.add("Tối đa 60k");
-        date_shop.add("HSD: 20/11/2022");
-        date_shop.add("HSD: 30/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        date_shop.add("HSD: 27/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        date_shop.add("HSD: 30/11/2022");
-        date_shop.add("HSD: 28/11/2022");
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-        image_shop.add(R.drawable.img_voucher);
-
-//        for (int i = 0; i < image_shop.size(); i++) {
-//            VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-//        }
-//        for (int i = 0; i < image_free_ship.size(); i++) {
-//            VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-//        }
-//
-//        CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
-//        listVoucher.setAdapter(myAdapter);
-//
-//        try {
-//            Bundle arguments = getArguments();
-//            textIdUser.setText(arguments.getString("arg1", ""));
-//        } catch (Exception e) {
-//            Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
-//        }
-
+        try {
+            Bundle arguments = getArguments();
+        } catch (Exception e) {
+            Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
+        }
         return layout_second;
     }
 
     @Override
     public void onMsgFromMainToFragment(String strValue) {
+        voucher_asynctask v_at = new voucher_asynctask();
 
-        Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
-
-//        if (strValue == "FreeShip") {
-//            VoucherArray.clear();
-//
-//            for (int i = 0; i < title_free_ship.size(); i++) {
-//                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-//            }
-//        }
-//        if (strValue == "Shop") {
-//            VoucherArray.clear();
-//
-//            for (int i = 0; i < image_shop.size(); i++) {
-//                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-//            }
-//        }
-//
-//        if (strValue == "All") {
-//            VoucherArray.clear();
-//            for (int i = 0; i < image_shop.size(); i++) {
-//                VoucherArray.add(new Voucher(i, image_shop.get(i), title_shop.get(i), free_cost_shop.get(i), date_shop.get(i)));
-//            }
-//            for (int i = 0; i < image_free_ship.size(); i++) {
-//                VoucherArray.add(new Voucher(i, image_free_ship.get(i), title_free_ship.get(i), free_cost_free_ship.get(i), date_free_ship.get(i)));
-//            }
-//
-//        }
-        CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, VoucherArray);
-        listVoucher.setAdapter(myAdapter);
-
+        switch (strValue) {
+            case "All":
+                v_at = new voucher_asynctask("All");
+                v_at.execute();
+                break;
+            case "FreeShip":
+                v_at = new voucher_asynctask("freeship");
+                v_at.execute();
+                break;
+            case "Shop":
+                v_at = new voucher_asynctask("shop");
+                v_at.execute();
+                break;
+            default:
+                break;
+        }
     }
 
     class voucher_asynctask extends AsyncTask<Void, Voucher, Voucher> {
+        ArrayList<Voucher> listVoucher = new ArrayList<>();
+        String type;
 
-        public voucher_asynctask() {
+        public voucher_asynctask() {}
 
+        public voucher_asynctask(String type) {
+            this.type = type;
         }
 
         @Override
         protected Voucher doInBackground(Void... voids) {
+            try {
+                if(type.equals("All")) {
+                    vouchersRef
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Voucher voucher = document.toObject(Voucher.class);
+                                            publishProgress(voucher);
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+                }else {
+                    vouchersRef
+                            .whereEqualTo("type", type)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Voucher voucher = document.toObject(Voucher.class);
+                                            publishProgress(voucher);
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+                }
+            } catch (Exception error) {
+                Log.e("ERROR", "VoucherFragmentSecond doInBackground: ", error);
+            }
             return null;
         }
-    }
 
+        @Override
+        protected void onProgressUpdate(Voucher... vouchers) {
+            //Hàm thực hiện update giao diện khi có dữ liệu từ hàm doInBackground gửi xuống
+            super.onProgressUpdate(vouchers);
+
+            if (vouchers.length == 0) {
+                listVoucher.clear();
+            } else {
+                listVoucher.add(vouchers[0]);
+            }
+
+            CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listVoucher);
+            voucher_listview.setAdapter(myAdapter);
+        }
+    }
 }

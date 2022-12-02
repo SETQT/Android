@@ -54,8 +54,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
     View icon_cart;
     RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
-//    android:id="@+id/profile_avatar"
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
