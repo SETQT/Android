@@ -42,7 +42,7 @@ public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Order> {
         TextView new_cost = (TextView) v.findViewById(R.id.custom_new_cost_product_payment);
         TextView number = (TextView) v.findViewById(R.id.soluong_payment);
         TextView size_color = (TextView) v.findViewById(R.id.size_color_product_payment);
-        TextView charge_tranfer = (TextView) v.findViewById(R.id.charge_tranfer_payment);
+        TextView charge_tranfer = (TextView) v.findViewById(R.id.cost_tranfer_payment);
         TextView cost_final = (TextView) v.findViewById(R.id.total_cost_product_payment);
         ImageView img = (ImageView) v.findViewById(R.id.custom_picture_payment) ;
 
