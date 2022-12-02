@@ -46,7 +46,7 @@
         android:layout_height="123dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="68dp"
-        android:src="@drawable/ao1"
+        android:src="@drawable/mono1"
         app:civ_border_color="#000000"
         app:civ_border_width="1dp" />
 
@@ -381,6 +381,50 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="511dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/icon_next" />
+
+    <View
+        android:id="@+id/record_bg_custom_08"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="545dp"
+        android:background="@drawable/record_bg_custom_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="555dp"
+        android:gravity="center"
+        android:text="Địa chỉ"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/record_id_profile_address"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="550dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="KTX khu B, ĐHQG TPHCM"
+        android:textColor="#AEAEAE"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/record_next_08"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="556dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/icon_next" />
 
