@@ -99,12 +99,12 @@
 
                 <TextView
                     android:id="@+id/name_view_product"
-                    android:layout_width="350dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="27dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center_vertical"
                     android:text="Áo khoác Mono cực cháy"
                     android:textAppearance="@style/phone_user_payment"
@@ -303,7 +303,7 @@
             <RelativeLayout
                 android:id="@+id/rectangle_type_view_product"
                 android:layout_width="411dp"
-                android:layout_height="135dp"
+                android:layout_height="120dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
@@ -330,58 +330,52 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="34dp"
                     android:background="@drawable/line_profile" />
+
                 <TextView
                     android:id="@+id/text_choice_color_view_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="39dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="45dp"
                     android:gravity="top"
                     android:text="Màu sắc"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     android:textStyle="bold" />
-                <LinearLayout
-                    android:id="@+id/list_type_color_view_product"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="27dp"
-                    android:orientation="vertical">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView_color_view_product"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/spiner_type_color_view_product"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="45dp" />
+
                 <TextView
                     android:id="@+id/text_choice_size_view_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="85dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="80dp"
                     android:gravity="top"
                     android:text="Size"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     android:textStyle="bold" />
-                <LinearLayout
-                    android:id="@+id/list_type_size_view_product"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="96dp"
-                    android:layout_marginLeft="27dp"
-                    android:orientation="vertical">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView_size_view_product"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
 
-
+                <Spinner
+                    android:id="@+id/spiner_type_size_view_product"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="80dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -393,7 +387,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rectangle_info_shop">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <View
                     android:id="@+id/avatar_shop_view_product"
                     android:layout_width="46dp"
                     android:layout_height="45dp"
@@ -401,7 +395,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="27dp"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/logo_shop" />
+                    android:background="@drawable/avatar_profile" />
 
                 <TextView
                     android:id="@+id/username_shop_view_product"
@@ -412,7 +406,7 @@
                     android:layout_marginLeft="89dp"
                     android:layout_marginTop="12dp"
                     android:gravity="top"
-                    android:text="G8 Shop"
+                    android:text="3T Shop"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -765,8 +759,8 @@
         android:layout_width="140dp"
         android:layout_height="49dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="257dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_buy_now_view_product">
 
@@ -776,8 +770,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="39dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginLeft="39dp"
             android:gravity="top"
             android:text="Mua ngay"
             android:textColor="#FFFFFF"

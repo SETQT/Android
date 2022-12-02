@@ -44,6 +44,60 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//Code Bảo 
+/*
+package com.example.doan;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
+
+public class activity_view_product extends Activity implements AdapterView.OnItemSelectedListener {
+    String[] listType_size = {"M", "N", "O", "P"};
+    String[] listType_color = {"Xanh", "Đỏ", "Tím", "Vàng"};
+    Spinner spiner_size_view_product, spiner_color_view_product;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_product);
+        // getting reference of  ExpandableTextView
+        ExpandableTextView expTv = (ExpandableTextView) findViewById(R.id.expand_text_view).findViewById(R.id.expand_text_view);
+
+// calling setText on the ExpandableTextView so that
+// text content will be  displayed to the user
+        expTv.setText(getString(R.string.expandable_text));
+
+        spiner_size_view_product = (Spinner) findViewById(R.id.spiner_type_size_view_product);
+        ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(this, R.layout.custom_spiner_payment_methods, listType_size);
+        spiner_size_view_product.setAdapter(adapter_size);
+        spiner_size_view_product.setOnItemSelectedListener(this);
+
+        spiner_color_view_product = (Spinner) findViewById(R.id.spiner_type_color_view_product);
+        ArrayAdapter<String> adapter_color = new ArrayAdapter<String>(this, R.layout.custom_spiner_create_voucher, listType_color);
+        spiner_color_view_product.setAdapter(adapter_color);
+        spiner_color_view_product.setOnItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+}
+*/
+
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
     View ic_back_view_product, icon_cart;
