@@ -41,8 +41,8 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
     String username;
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static CollectionReference usersRef = db.collection("users");
-    TextView record_id_profile_ten, record_id_profile_bio, record_id_profile_sex, record_id_profile_dob, record_id_profile_phone, record_id_profile_email;
-    View record_next_01, record_next_02, record_next_03, record_next_04, record_next_05, record_next_06, record_next_07;
+    TextView record_id_profile_ten, record_id_profile_bio, record_id_profile_sex, record_id_profile_dob, record_id_profile_phone, record_id_profile_email, record_id_profile_address;
+    View record_next_01, record_next_02, record_next_03, record_next_04, record_next_05, record_next_06, record_next_07, record_next_08;
     User curUser;
     Uri avatar;
     Uri background;
@@ -56,6 +56,7 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         this.record_id_profile_dob = curContext.findViewById(R.id.record_id_profile_dob);
         this.record_id_profile_phone = curContext.findViewById(R.id.record_id_profile_phone);
         this.record_id_profile_email = curContext.findViewById(R.id.record_id_profile_email);
+        this.record_id_profile_address = curContext.findViewById(R.id.record_id_profile_address);
         this.curUser = new User();
         this.record_next_01 = curContext.findViewById(R.id.record_next_01);
         this.record_next_02 = curContext.findViewById(R.id.record_next_02);
@@ -64,6 +65,7 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         this.record_next_05 = curContext.findViewById(R.id.record_next_05);
         this.record_next_06 = curContext.findViewById(R.id.record_next_06);
         this.record_next_07 = curContext.findViewById(R.id.record_next_07);
+        this.record_next_08 = curContext.findViewById(R.id.record_next_08);
 
         if(avatar!=null) {
             this.avatar = avatar;
@@ -114,6 +116,7 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
 //        record_id_profile_dob.setText(user[0].getBirthdate().toString());
         record_id_profile_phone.setText(user[0].getPhone());
         record_id_profile_email.setText(user[0].getEmail());
+        record_id_profile_address.setText(user[0].getAddress());
 
         record_next_01.setOnClickListener(this);
         record_next_02.setOnClickListener(this);
@@ -122,6 +125,7 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         record_next_05.setOnClickListener(this);
         record_next_06.setOnClickListener(this);
         record_next_07.setOnClickListener(this);
+        record_next_08.setOnClickListener(this);
     }
 
     @Override
@@ -137,6 +141,7 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
                 || view.getId() == record_next_04.getId()
                 || view.getId() == record_next_06.getId()
                 || view.getId() == record_next_07.getId()
+                || view.getId() == record_next_08.getId()
         ) {
             String propNeedUpdate = "";
             if (view.getId() == record_next_01.getId()) {
@@ -151,6 +156,8 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
                 propNeedUpdate = "phone";
             } else if (view.getId() == record_next_07.getId()) {
                 propNeedUpdate = "email";
+            }else if (view.getId() == record_next_08.getId()) {
+                propNeedUpdate = "address";
             }
 
             Intent moveActivity = new Intent(curContext, activity_edit_profile.class);
