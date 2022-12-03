@@ -49,8 +49,6 @@ public class CustomProductLabelAdapter extends ArrayAdapter<Product> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.custom_product_gridview, null);
 
-        Log.i("TAG", "getView: " + products.size());
-
         ImageView picture = (ImageView) v.findViewById(R.id.dashboard_custom_picture_product); // get the reference of ImageView
         TextView name = (TextView) v.findViewById(R.id.dashboard_custom_name_product);
         TextView price = (TextView) v.findViewById(R.id.dashboard_custom_cost_product);

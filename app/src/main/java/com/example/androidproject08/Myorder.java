@@ -12,14 +12,11 @@ public class Myorder implements Serializable {
     private Integer newCost;
     private Integer count;
     private Integer total;
-    private Integer transportFee; // phí vận chuyển
-    private String voucher; // voucher áp dụng cho đơn hàng này
-    private String state; // trạng thái đơn hàng
 
     public Myorder() {
     }
 
-    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total, Integer transportFee) {
+    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -29,7 +26,6 @@ public class Myorder implements Serializable {
         this.newCost = newCost;
         this.count = count;
         this.total = total;
-        this.transportFee = transportFee;
     }
 
     public String getId() {
@@ -102,30 +98,6 @@ public class Myorder implements Serializable {
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public Integer getTransportFee() {
-        return transportFee;
-    }
-
-    public void setTransportFee(Integer transportFee) {
-        this.transportFee = transportFee;
-    }
-
-    public String getVoucher() {
-        return voucher;
-    }
-
-    public void setVoucher(String voucher) {
-        this.voucher = voucher;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 }
 

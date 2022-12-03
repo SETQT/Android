@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,27 +26,28 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class activity_payment extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     // khai báo biến UI
     ListView listOrder;
     View ic_back_payment;
     TextView name_user_payment, phone_user_payment, address_payment, cost_payment, value_total_cost_product_payment, value_cost_tranfer_payment, value_total_voucher_discount_payment, value_total_money_payment;
-
-    ArrayList<Myorder> ListOrderArray = new ArrayList<>();
+    Button btn_order_payment;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference productsRef = db.collection("products");
     CollectionReference usersRef = db.collection("users");
+    CollectionReference ordersRef = db.collection("orders");
 
     // sqlite
     SQLiteDatabase sqlite;
 
     // biến xử lý
-    String username, preActivity;
+    String username, preActivity, paymentMethod;
     Spinner spinner_payment_methods;
     String[] type_payment_methods = {"Tiền mặt", "Momo", "Ngân hàng"};
+    ArrayList<Myorder> ListOrderArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
         ic_back_payment = (View) findViewById(R.id.ic_back_payment);
         ic_back_payment.setOnClickListener(this);
+        btn_order_payment = (Button) findViewById(R.id.btn_order_payment);
+        btn_order_payment.setOnClickListener(this);
         listOrder = (ListView) findViewById(R.id.listview_payment);
         name_user_payment = (TextView) findViewById(R.id.name_user_payment);
         phone_user_payment = (TextView) findViewById(R.id.phone_user_payment);
@@ -83,10 +87,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                 // xử lý khi vào xem sản phẩm và nhấn mua hàng ngay
                 case "activity_view_product":
                     value_total_cost_product_payment.setText("đ" + orderProduct.getTotal().toString());
-                    value_cost_tranfer_payment.setText("đ" + orderProduct.getTransportFee().toString());
+                    value_cost_tranfer_payment.setText("đ" + 30000);
                     value_total_voucher_discount_payment.setText("đ" + 0);
 
-                    Integer finalTotalMoney = orderProduct.getTotal() + orderProduct.getTransportFee();
+                    Integer finalTotalMoney = orderProduct.getTotal() + 30000;
                     cost_payment.setText("đ" + finalTotalMoney.toString());
                     value_total_money_payment.setText("đ" + finalTotalMoney.toString());
                     break;
@@ -140,10 +144,30 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
         }
+
+        if(view.getId() == btn_order_payment.getId()) {
+            // tính tổng tiền đơn hàng
+            Integer finalTotalMoney = 0;
+            for(int i = 0; i < ListOrderArray.size(); i++) {
+                finalTotalMoney += ListOrderArray.get(i).getTotal();
+            }
+            finalTotalMoney += 30000;
+
+            Order newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
+
+            // lưu đơn hàng lên database
+            ordersRef.add(newOrder);
+
+            Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+
+            // chuyển về activity dashboard
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
+        }
     }
 
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+        paymentMethod = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override

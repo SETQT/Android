@@ -107,9 +107,16 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        Boolean isHave = false;
+
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             Voucher voucher = document.toObject(Voucher.class);
+                                            isHave = true;
                                             publishProgress(voucher);
+                                        }
+
+                                        if(!isHave) {
+                                            publishProgress();
                                         }
                                     } else {
                                         Log.d("TAG", "Error getting documents: ", task.getException());
@@ -151,8 +158,13 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
                 listVoucher.add(vouchers[0]);
             }
 
-            CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listVoucher);
-            voucher_listview.setAdapter(myAdapter);
+            try {
+                CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listVoucher);
+                voucher_listview.setAdapter(myAdapter);
+            }catch (Exception error) {
+                Log.e("ERROR", "VoucherFragmentSecond: ", error);
+                return;
+            }
         }
     }
 }

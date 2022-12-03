@@ -9,8 +9,6 @@
 
     <ImageView
         android:id="@+id/record_rectangle_header_profile"
-
-
         android:layout_width="wrap_content"
         android:layout_height="165dp"
         android:layout_alignParentLeft="true"

@@ -25,9 +25,6 @@ public class activity_voucher extends FragmentActivity implements MainCallbacks,
         secondFrag = VoucherFragmentSecond.newInstance("");
         ft.replace(R.id.voucher_fragment_second, secondFrag);
         ft.commit();
-
-
-
     }
     @Override
     public void onMsgFromFragToMain(String sender, String strValue) {

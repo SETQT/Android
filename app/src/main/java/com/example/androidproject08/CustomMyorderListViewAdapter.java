@@ -1,6 +1,7 @@
 package com.example.androidproject08;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
-
-    ArrayList<Myorder> myorder = new ArrayList<Myorder>();
-
+    Context curContext;
+    ArrayList<Myorder> orders = new ArrayList<>();
 
     public CustomMyorderListViewAdapter(Context context, int resource, ArrayList<Myorder> objects) {
         super(context, resource, objects);
-        this.myorder = objects;
+        this.orders = objects;
+        this.curContext = context;
     }
 
 
@@ -42,14 +45,13 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         TextView total = (TextView) v.findViewById(R.id.myorder_custom_total);
         ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture) ;
 
-//        name.setText(myorder.get(position).getName());
-//        size.setText(myorder.get(position).getSize());
-//        old_cost.setText(myorder.get(position).getOld_cost());
-//        new_cost.setText(myorder.get(position).getNew_cost());
-//        count.setText(myorder.get(position).getCount());
-//        total.setText(myorder.get(position).getTotal());
-
-//        img.setImageResource(myorder.get(position).getImage());
+        name.setText(orders.get(position).getName());
+        size.setText("Kích thước: " + orders.get(position).getSize() + ", Màu sắc: " + orders.get(position).getColor());
+        old_cost.setText("đ" + orders.get(position).getOldCost().toString());
+        count.setText("Số lượng: " + orders.get(position).getCount().toString());
+        new_cost.setText("đ" + orders.get(position).getNewCost().toString());
+        total.setText("đ" + orders.get(position).getTotal().toString());
+        Picasso.with(curContext).load(orders.get(position).getImage()).into(img);
 
         return v;
 

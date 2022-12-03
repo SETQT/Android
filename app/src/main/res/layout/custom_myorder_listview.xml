@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/mono1" />
+        />
 
     <TextView
         android:id="@+id/myorder_custom_name"
@@ -34,7 +34,6 @@
         android:layout_marginLeft="140dp"
         android:layout_marginTop="15dp"
         android:gravity="top"
-        android:text="Áo khoác Mono cực chất lượng 🔥🔥🔥"
         android:textColor="#000000"
         android:textSize="14sp" />
 

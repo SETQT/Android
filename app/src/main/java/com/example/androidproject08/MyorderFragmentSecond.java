@@ -1,5 +1,8 @@
 package com.example.androidproject08;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,25 +10,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks {
-    activity_myorder main;
-    TextView textIdUser;
+    // biến UI
     ListView listMyOrder;
-    ArrayList<Myorder> MyOrderArray = new ArrayList<Myorder>();
 
-    ArrayList<Integer> image = new ArrayList<>();
-    ArrayList<String> name = new ArrayList<>();
-    ArrayList<String> size = new ArrayList<>();
-    ArrayList<String> oldCost = new ArrayList<>();
-    ArrayList<String> newCost = new ArrayList<>();
-    ArrayList<String> count = new ArrayList<>();
-    ArrayList<String> total = new ArrayList<>();
+    // sqlite
+    SQLiteDatabase sqlite;
+
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference ordersRef = db.collection("orders");
+
+    // biến xử lý
+    activity_myorder main;
+    ArrayList<Order> MyOrderArray = new ArrayList<>();
+    String username;
 
     public static MyorderFragmentSecond newInstance(String strArg1) {
         MyorderFragmentSecond fragment = new MyorderFragmentSecond();
@@ -41,33 +54,30 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         if (!(getActivity() instanceof MainCallbacks)) {
             throw new IllegalStateException("Activity must implement MainCallbacks");
         }
+
         main = (activity_myorder) getActivity();
+
+        // kết nối sqlite
+        File storagePath = main.getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        username = c1.getString(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout layout_second = (LinearLayout) inflater.inflate(R.layout.custom_myorder_layout_fragment_second, null);
-
         listMyOrder = (ListView) layout_second.findViewById(R.id.myorder_listview);
 
-        image.add(R.drawable.mono1);image.add(R.drawable.mono1);image.add(R.drawable.mono1);image.add(R.drawable.mono1);
-        name.add("Áo khoác cực chất");name.add("Áo thun");name.add("Áo khoác");name.add("Áo thun");
-        size.add("Size M, Đen");size.add("Size M, Đen");size.add("Size M, Đen");size.add("Size M, Đen");
-        oldCost.add("đ500.000");oldCost.add("đ200.000");oldCost.add("đ300.000");oldCost.add("đ200.000");
-        newCost.add("đ300.000");newCost.add("đ200.000");newCost.add("đ100.000");newCost.add("đ100.000");
-        count.add("Số lượng: 1");count.add("Số lượng: 1");count.add("Số lượng: 2");count.add("Số lượng: 1");
-        total.add("đ300.000");total.add("đ200.000");total.add("đ200.000");total.add("đ100.000");
-
-        for (int i = 0; i < image.size(); i++) {
-//            MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
-        }
-
-        CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, MyOrderArray);
-        listMyOrder.setAdapter(myAdapter);
+        order_asynctask o_at = new order_asynctask(1);
+        o_at.execute();
 
         try {
             Bundle arguments = getArguments();
-            textIdUser.setText(arguments.getString("arg1", ""));
         } catch (Exception e) {
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
@@ -77,86 +87,91 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
 
     @Override
     public void onMsgFromMainToFragment(String strValue) {
-
-        Log.i("TAG", "onMsgFromMainToFragment: " + strValue);
-
         if (strValue == "Cho xac nhan") {
-            name.clear(); size.clear(); count.clear(); oldCost.clear();newCost.clear(); image.clear(); total.clear();
-
-            image.add(R.drawable.ao1);image.add(R.drawable.mono1);image.add(R.drawable.ao1);
-            name.add("Áo khoác cực chất");name.add("Áo thun");name.add("Áo khoác");
-            size.add("Size M, Trắng");size.add("Size M, Đen");size.add("Size M, Trắng");
-            oldCost.add("đ400.000");oldCost.add("đ200.000");oldCost.add("đ300.000");
-            newCost.add("đ200.000");newCost.add("đ100.000");newCost.add("đ100.000");
-            count.add("Số lượng: 1");count.add("Số lượng: 1");count.add("Số lượng: 2");
-            total.add("đ200.000");total.add("đ100.000");total.add("đ200.000");
-
-            MyOrderArray.clear();
-
-            for (int i = 0; i < image.size(); i++) {
-//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
-            }
+            order_asynctask o_at = new order_asynctask(1);
+            o_at.execute();
         }
         if (strValue == "Cho lay hang") {
-            name.clear(); size.clear(); count.clear(); oldCost.clear();newCost.clear(); image.clear(); total.clear();
-
-            image.add(R.drawable.mono1);image.add(R.drawable.ao1);image.add(R.drawable.ao2);
-            name.add("Áo khoác cực chất");name.add("Áo thun");name.add("Áo khoác");
-            size.add("Size L, Trắng");size.add("Size M, Trắng");size.add("Size M, Đen");
-            oldCost.add("đ400.000");oldCost.add("đ200.000");oldCost.add("đ300.000");
-            newCost.add("đ200.000");newCost.add("đ100.000");newCost.add("đ100.000");
-            count.add("Số lượng: 1");count.add("Số lượng: 1");count.add("Số lượng: 2");
-            total.add("đ200.000");total.add("đ100.000");total.add("đ200.000");
-
-            MyOrderArray.clear();
-
-            for (int i = 0; i < image.size(); i++) {
-//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
-            }
+            order_asynctask o_at = new order_asynctask(2);
+            o_at.execute();
         }
 
         if (strValue == "Dang giao hang") {
-            name.clear(); size.clear(); count.clear(); oldCost.clear();newCost.clear(); image.clear(); total.clear();
-
-            image.add(R.drawable.ao1);image.add(R.drawable.mono1);
-            name.add("Áo khoác cực chất");name.add("Áo thun");
-            size.add("Size M, Đen");size.add("Size L, Trắng");
-            oldCost.add("đ400.000");oldCost.add("đ200.000");
-            newCost.add("đ200.000");newCost.add("đ100.000");
-            count.add("Số lượng: 1");count.add("Số lượng: 3");
-            total.add("đ200.000");total.add("đ300.000");
-
-            MyOrderArray.clear();
-
-            for (int i = 0; i < image.size(); i++) {
-//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
-            }
-
+            order_asynctask o_at = new order_asynctask(3);
+            o_at.execute();
         }
 
         if (strValue == "Da giao") {
-            name.clear(); size.clear(); count.clear(); oldCost.clear();newCost.clear(); image.clear(); total.clear();
-
-            image.add(R.drawable.ao2);image.add(R.drawable.mono1);image.add(R.drawable.ao1);
-            name.add("Áo khoác cực chất");name.add("Áo thun");name.add("Áo khoác");
-            size.add("Size M, Trắng");size.add("Size L, Đen");size.add("Size M, Trắng");
-            oldCost.add("đ400.000");oldCost.add("đ200.000");oldCost.add("đ300.000");
-            newCost.add("đ200.000");newCost.add("đ100.000");newCost.add("đ200.000");
-            count.add("Số lượng: 2");count.add("Số lượng: 5");count.add("Số lượng: 2");
-            total.add("đ400.000");total.add("đ500.000");total.add("đ400.000");
-
-            MyOrderArray.clear();
-
-            for (int i = 0; i < image.size(); i++) {
-//                MyOrderArray.add(new Myorder(i, image.get(i), name.get(i), size.get(i), oldCost.get(i), newCost.get(i), count.get(i), total.get(i)));
-            }
-
+            order_asynctask o_at = new order_asynctask(4);
+            o_at.execute();
         }
-
-        CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, MyOrderArray);
-        listMyOrder.setAdapter(myAdapter);
-
     }
 
+    class order_asynctask extends AsyncTask<Void, Order, Order> {
+        ArrayList<Myorder> listOrder = new ArrayList<>();
+        Integer state;
 
+        public order_asynctask() {
+        }
+
+        public order_asynctask(Integer state) {
+            this.state = state;
+        }
+
+        @Override
+        protected Order doInBackground(Void... voids) {
+            try {
+                ordersRef
+                        .whereEqualTo("ownOrder", username)
+                        .whereEqualTo("state", state)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    Boolean isHave = false;
+
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Order order = document.toObject(Order.class);
+                                        Log.i("TAG", "onComplete: " + order.getOwnOrder());
+                                        isHave = true;
+                                        publishProgress(order);
+                                    }
+
+                                    if (!isHave) {
+                                        publishProgress();
+                                    }
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+            } catch (Exception error) {
+                Log.e("ERROR", "VoucherFragmentSecond doInBackground: ", error);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Order... orders) {
+            // Hàm thực hiện update giao diện khi có dữ liệu từ hàm doInBackground gửi xuống
+            super.onProgressUpdate(orders);
+
+            if (orders.length == 0) {
+                listOrder.clear();
+            } else {
+                for (int i = 0; i < orders[0].getArrayOrder().size(); i++) {
+                    listOrder.add(orders[0].getArrayOrder().get(i));
+                }
+            }
+
+            try {
+                CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listOrder);
+                listMyOrder.setAdapter(myAdapter);
+            } catch (Exception error) {
+                Log.e("ERROR", "MyorderFragmentSecond: ", error);
+                return;
+            }
+        }
+    }
 }

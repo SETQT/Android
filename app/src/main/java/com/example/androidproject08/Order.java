@@ -1,108 +1,98 @@
 package com.example.androidproject08;
 
-public class Order{
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
+public class Order  implements Serializable {
+    private String ownOrder;
+    private ArrayList<Myorder> arrayOrder;
+    private Integer transportFee; // phí vận chuyển
+    private String voucher; // voucher áp dụng cho đơn hàng này
+    private Integer state; // trạng thái đơn hàng
+    // 1: đợi xác nhận
+    private String paymentMethods; // phương thức thanh toán
+    private Date createdAt;
+    private Integer finalTotalMoney; // tổng tiền của đơn hàng sau khi đã giảm tiền voucher và cộng phí vận chuyển
 
-    private int id;
-    private String name;
-    private String old_cost;
-    private String new_cost;
-    private String number;
-    private String size;
-    private String color;
-    private String charge_tranfer;
-    private String cost_final;
-    private Integer image;
+    public Order() {}
 
-
-    public Order(int id, String name, String old_cost, String new_cost, String number, String size,String color,String charge_tranfer,String cost_final,Integer img) {
-        this.setId(id);
-        this.setName(name);
-        this.setOld_cost(old_cost);
-        this.setNew_cost(new_cost);
-        this.setNumber(number);
-        this.setSize(size);
-        this.setColor(color);
-        this.set_charge_tranfer(charge_tranfer);
-        this.set_cost_final(cost_final);
-        this.setImage(img);
+    public Order(String ownOrder, ArrayList<Myorder> arrayOrder, Integer transportFee, String voucher, Integer state, String paymentMethods, Date createdAt, Integer finalTotalMoney) {
+        this.ownOrder = ownOrder;
+        this.arrayOrder = arrayOrder;
+        this.transportFee = transportFee;
+        this.voucher = voucher;
+        this.state = state;
+        this.paymentMethods = paymentMethods;
+        this.createdAt = createdAt;
+        this.finalTotalMoney = finalTotalMoney;
     }
 
-
-    public int getId() {
-        return id;
+    public String getOwnOrder() {
+        return ownOrder;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOwnOrder(String ownOrder) {
+        this.ownOrder = ownOrder;
     }
 
-    public String getName() {
-        return name;
+    public ArrayList<Myorder> getArrayOrder() {
+        return arrayOrder;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArrayOrder(ArrayList<Myorder> arrayOrder) {
+        this.arrayOrder = arrayOrder;
     }
 
-    public String getOld_cost() {
-        return old_cost;
+    public void addOrderToArrayOrder(Myorder order) {
+        this.arrayOrder.add(order);
     }
 
-    public void setOld_cost(String old_cost) {
-        this.old_cost = old_cost;
+    public Integer getTransportFee() {
+        return transportFee;
     }
 
-    public String getNew_cost() {
-        return new_cost;
+    public void setTransportFee(Integer transportFee) {
+        this.transportFee = transportFee;
     }
 
-    public void setNew_cost(String new_cost) {
-        this.new_cost = new_cost;
+    public String getVoucher() {
+        return voucher;
     }
 
-    public String getNumber() {
-        return number;
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-    public String getSize() {
-        return size;
+    public Integer getState() {
+        return state;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
-    public String getColor() {
-        return color;
+    public String getPaymentMethods() {
+        return paymentMethods;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-    public String get_charge_tranfer() {
-        return charge_tranfer;
+    public void setPaymentMethods(String paymentMethods) {
+        this.paymentMethods = paymentMethods;
     }
 
-    public void set_charge_tranfer(String charge_tranfer) {
-        this.charge_tranfer = charge_tranfer;
-    }
-    public String get_cost_final() {
-        return cost_final;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void set_cost_final(String cost_final) {
-        this.cost_final = cost_final;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Integer getImage() {
-        return image;
+    public Integer getFinalTotalMoney() {
+        return finalTotalMoney;
     }
 
-    public void setImage(Integer image) {
-        this.image = image;
+    public void setFinalTotalMoney(Integer finalTotalMoney) {
+        this.finalTotalMoney = finalTotalMoney;
     }
 }

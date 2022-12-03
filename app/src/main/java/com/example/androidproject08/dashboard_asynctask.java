@@ -84,7 +84,6 @@ public class dashboard_asynctask extends AsyncTask<Void, Product, Product> {
 
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             isPass = true;
-
                                             Product product = document.toObject(Product.class);
                                             product.setIdDoc(document.getId().toString());
                                             publishProgress(product);
