@@ -161,7 +161,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 
             // chuyển về activity dashboard
-            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             startActivity(moveActivity);
         }
     }

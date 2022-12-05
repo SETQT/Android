@@ -133,7 +133,6 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
 
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Order order = document.toObject(Order.class);
-                                        Log.i("TAG", "onComplete: " + order.getOwnOrder());
                                         isHave = true;
                                         publishProgress(order);
                                     }

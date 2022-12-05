@@ -11,6 +11,9 @@ public class Order  implements Serializable {
     private String voucher; // voucher áp dụng cho đơn hàng này
     private Integer state; // trạng thái đơn hàng
     // 1: đợi xác nhận
+    // 2: chờ lấy hàng
+    // 3: đang giao hàng
+    // 4: đã  giao
     private String paymentMethods; // phương thức thanh toán
     private Date createdAt;
     private Integer finalTotalMoney; // tổng tiền của đơn hàng sau khi đã giảm tiền voucher và cộng phí vận chuyển
