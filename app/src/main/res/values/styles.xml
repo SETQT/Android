@@ -8,6 +8,9 @@
         <item name="android:textSize">8sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="primaryColor">
+        <item name="colorAccent">#F9A826</item>
+    </style>
     <style name="ng_nh_p">
 
         <item name="android:textSize">

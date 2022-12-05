@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.androidproject08.activities.ChatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -26,7 +27,7 @@ import java.io.File;
 public class activity_dashboard extends FragmentActivity implements MainCallbacks, View.OnClickListener {
     // khai báo biến UI
     RelativeLayout icon_scan, icon_notify, icon_profile;
-    View icon_cart, icon_search;
+    View icon_cart, icon_search, icon_chat;
     TextView number_cart;
     EditText dashboard_id_search;
     FragmentTransaction ft;
@@ -65,6 +66,8 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         icon_cart.setOnClickListener(this);
         icon_search = (View) findViewById(R.id.icon_search);
         icon_search.setOnClickListener(this);
+        icon_chat = (View) findViewById(R.id.icon_chat);
+        icon_chat.setOnClickListener(this);
 
         dashboard_id_search = (EditText) findViewById(R.id.dashboard_id_search);
         number_cart = (TextView) findViewById(R.id.number_cart);
@@ -150,6 +153,13 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
             moveActivity.putExtra("data_search", dataSearch);
             startActivity(moveActivity);
         }
+
+        // Chuyển sang giao diện chat
+        if(view.getId() == icon_chat.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(moveActivity);
+        }
+
     }
 }
 

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#E5E5E5"
+    tools:context=".activities.ChatActivity">
+
+    <!-- header -->
+    <RelativeLayout
+        android:id="@+id/headerChat"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:background="@drawable/background_chat_content_top"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/iconBack"
+            android:layout_width="22dp"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/icon_back_chat" />
+
+        <!--  Info -->
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/chat_profile_avatar"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="73dp"
+            android:src="@drawable/mono1"
+            app:civ_border_color="#AEAEAE"
+            app:civ_border_width="0.75dp" />
+
+        <TextView
+            android:id="@+id/nameUserChat"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="28dp"
+            android:gravity="top"
+            android:lineHeight="30sp"
+            android:text="Dương Minh Hiếu"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/onlineTimeChat"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="58dp"
+            android:gravity="top"
+            android:lineHeight="12sp"
+            android:text="Hoạt động 10 phút trước"
+            android:textColor="#E6E6E6"
+
+            />
+
+    </RelativeLayout>
+
+
+    <!-- Nơi chat -->
+
+
+    <!-- Nơi nhập chat   -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:padding="20sp"
+        app:stackFromEnd="true"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/inputGroup"
+        app:layout_constraintTop_toBottomOf="@+id/headerChat"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/inputGroup"
+        app:layout_constraintEnd_toEndOf="@+id/headerChat"
+        android:theme="@style/primaryColor"
+        app:layout_constraintStart_toStartOf="@+id/inputGroup"
+        app:layout_constraintTop_toTopOf="@+id/headerChat" />
+
+    <RelativeLayout
+        android:id="@+id/inputGroup"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="604dp"
+        android:background="@drawable/background_chat_input"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:id="@+id/layoutSend"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/icon_send_chat" />
+
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_width="281dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/input_box_chat"
+            android:hint="Nhập tin nhắn của bạn ..."
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingLeft="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="#000000"
+            android:textColorHint="#AEAEAE" />
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="27dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/icon_upload_img_chat" />
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
