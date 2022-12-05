@@ -1,7 +1,7 @@
 package com.example.androidproject08.listeners;
 
-import com.example.androidproject08.models.User;
+import com.example.androidproject08.models.UserChat;
 
 public interface UserListener {
-    void onUserClicked(User user);
+    void onUserClicked(UserChat user);
 }

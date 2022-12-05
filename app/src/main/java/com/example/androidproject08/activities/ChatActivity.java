@@ -1,33 +1,30 @@
 package com.example.androidproject08.activities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidproject08.adapters.ChatAdapter;
 import com.example.androidproject08.databinding.ActivityChatBinding;
 import com.example.androidproject08.models.ChatMessage;
-import com.example.androidproject08.models.User;
+import com.example.androidproject08.models.UserChat;
 import com.example.androidproject08.utilities.Constants;
 import com.example.androidproject08.utilities.PreferenceManager;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +36,8 @@ import java.util.Locale;
 public class ChatActivity extends AppCompatActivity {
 
     private ActivityChatBinding binding;
-    private User receiverUser;
+    private UserChat receiverUser;
+    private UserChat senderUser;
     private List<ChatMessage> chatMessages;
     private ChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
@@ -51,23 +49,32 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // kết nối firestore
+        db = FirebaseFirestore.getInstance();
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        receiverUser = new UserChat();
+
         setListeners();
-        //loadReceiverDetails();
+        loadInfoSender();
+        getAdmins(); // receiver get info
         //init();
-        //listenerMessages();
+
     }
 
-    private void init() {
+    private void init(UserChat receiverUser) {
         preferenceManager = new PreferenceManager(getApplicationContext());
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(
                 chatMessages,
                 receiverUser.image,
-                preferenceManager.getString(Constants.KEY_ADMIN_ID)
+                preferenceManager.getString(Constants.KEY_USER_ID) // id của mình ( là userID người dùng)
         );
         binding.chatRecyclerView.setAdapter(chatAdapter);
         db = FirebaseFirestore.getInstance();
+        listenerMessages();
     }
+
 
     private final EventListener<QuerySnapshot> eventListener = (value, error) -> {
         if (error != null) {
@@ -101,7 +108,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void sendMessage() {
         HashMap<String, Object> message = new HashMap<>();
-        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_ADMIN_ID));
+        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
         message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
@@ -109,21 +116,25 @@ public class ChatActivity extends AppCompatActivity {
         binding.inputMessage.setText(null);
     }
 
-    private void listenerMessages(){
+    private void listenerMessages() {
         db.collection(Constants.KEY_COLLECTION_CHAT)
-                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_ADMIN_ID))
+                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
                 .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id)
                 .addSnapshotListener(eventListener);
         db.collection(Constants.KEY_COLLECTION_CHAT)
                 .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id)
-                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString( Constants.KEY_ADMIN_ID))
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
                 .addSnapshotListener(eventListener);
     }
 
-    private void loadReceiverDetails() {
-        receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
-        binding.nameUserChat.setText(receiverUser.fullName);
-        setUserImage(receiverUser.image, binding);
+    // hàm load thông tin người nhận ( tức là admin)
+    private void loadReceiverDetails(UserChat receiverUser) {
+        //receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
+        if (receiverUser != null) {
+            binding.nameUserChat.setText(receiverUser.fullName);
+            loadImageReceiver(receiverUser.image, binding);
+        }
+
     }
 
     private void setListeners() {
@@ -135,37 +146,82 @@ public class ChatActivity extends AppCompatActivity {
         return new SimpleDateFormat("dd/MM/yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
 
+    // lấy thông tin admin cần chat
+    private void getAdmins() {
+        db.collection("admin")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<UserChat> admins = new ArrayList<>();
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                            UserChat admin = new UserChat();
+                            admin.id = queryDocumentSnapshot.getId();
+                            admin.fullName = queryDocumentSnapshot.getString("name");
+                            admin.image = queryDocumentSnapshot.getString("image");
+                            admin.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                            admins.add(admin);
+                        }
+                        if (admins.size() > 0) {
+                            receiverUser = admins.get(0);
+                            loadReceiverDetails(receiverUser);// lấy amdin đầu tiên: thật ra còn nhiều admin khác, phát triển sau
+                            init(receiverUser);
+                        } else {
+                            loadReceiverDetails(null);
+                        }
+                    } else {
+                        loadReceiverDetails(null);
+                    }
+                });
+    }
 
-    private void setUserImage(String name, ActivityChatBinding binding) {
-        //name += "avatar";
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("users");
-        StorageReference islandRef = storageRef.child("ProfileUser/" + name);
+
+    private void loadImageReceiver(String image, ActivityChatBinding binding) {
         try {
-            File localFile = File.createTempFile("tempfile", ".jpg");
-            //final Bitmap[] bitmap = new Bitmap[1];
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    //bitmap[0] = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    binding.chatProfileAvatar.setImageBitmap(bitmap);
-                }
-
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.d("down", "onFailure: ");
-                }
-            });
-            //return bitmap[0];
-
-        } catch (IOException e) {
-            Log.e("error", "downloadFile error ");
-            //return null;
+            Picasso.with(getApplicationContext()).load(image).into(binding.chatProfileAvatar);
+        } catch (Exception error) {
+            Log.e("ERROR", "activity_profile loadImage: ", error);
         }
     }
+
+
+    private void loadInfoSender() {
+        // kết nối sqlite
+        File storagePath = getApplication().getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        SQLiteDatabase sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        String username = c1.getString(0);
+
+        try {
+            // lấy thông tin senderID
+            db.collection("users")
+                    .whereEqualTo("username", username)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        //Log.d("DOC", "sldoc: " + task.getResult().getDocuments().size());
+                        if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                            senderUser = new UserChat();
+                            senderUser.id = documentSnapshot.getId();
+                            senderUser.fullName = documentSnapshot.getString("fullname");
+                            senderUser.image = documentSnapshot.getString("image");
+//                            Log.d("user", "loadInfoSender: img: " + senderUser.image);
+//                            Log.d("user", "loadInfoSender: id: " + senderUser.id);
+                            preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());// lưu ID sender
+                        } else {
+
+                            Log.d("ERROR", "loadInfoSender: lấy thông tin không thành công! ");
+                        }
+                    });
+        } catch (Exception err){
+            Log.d("ERROR", "loadInfoSender: ERROr" + err);
+        }
+
+
+    }
+
 
 }
