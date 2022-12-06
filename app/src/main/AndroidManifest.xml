@@ -53,6 +53,7 @@
         <activity android:name=".activity_view_product"></activity>
         <activity android:name=".activity_change_password"></activity>
         <activity android:name=".activity_search"></activity>
+        <activity android:name=".activity_edit_dob"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

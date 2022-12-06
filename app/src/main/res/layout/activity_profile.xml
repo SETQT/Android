@@ -18,16 +18,15 @@
         android:layout_marginTop="-25dp"
         android:background="@drawable/rectangle_profile" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="35dp"
-        android:src="@drawable/ao1"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#000000"/>
+        android:src="@drawable/mono1"
+        app:civ_border_color="#000000"
+        app:civ_border_width="1dp" />
     <View
         android:id="@+id/icon_setting"
         android:layout_width="35dp"
