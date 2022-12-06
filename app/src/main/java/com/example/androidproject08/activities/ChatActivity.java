@@ -16,7 +16,9 @@ import com.example.androidproject08.models.ChatMessage;
 import com.example.androidproject08.models.UserChat;
 import com.example.androidproject08.utilities.Constants;
 import com.example.androidproject08.utilities.PreferenceManager;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
+    private String conversionId =null;
 
 
     @Override
@@ -103,6 +106,9 @@ public class ChatActivity extends AppCompatActivity {
             binding.chatRecyclerView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
+        if(conversionId == null){
+            checkForConversion();
+        }
     };
 
 
@@ -113,6 +119,20 @@ public class ChatActivity extends AppCompatActivity {
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        if(conversionId != null){
+            updateConversion(binding.inputMessage.getText().toString());
+        } else {
+            HashMap<String, Object> conversion = new HashMap<>();
+            conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+            conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_USER_NAME));
+            conversion.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+            conversion.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+            conversion.put(Constants.KEY_RECEIVER_NAME, receiverUser.fullName);
+            conversion.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
+            conversion.put(Constants.KEY_LAST_MESSAGE, binding.inputMessage.getText().toString());
+            conversion.put(Constants.KEY_TIMESTAMP, new Date());
+            addConversion(conversion);
+        }
         binding.inputMessage.setText(null);
     }
 
@@ -146,6 +166,23 @@ public class ChatActivity extends AppCompatActivity {
         return new SimpleDateFormat("dd/MM/yyyy - hh:mm a", Locale.getDefault()).format(date);
     }
 
+
+    private void addConversion(HashMap<String, Object> conversion) {
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .add(conversion)
+                .addOnSuccessListener(documentReference -> conversionId = documentReference.getId());
+    }
+
+    private void updateConversion(String message){
+        DocumentReference documentReference =
+                db.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversionId);
+        documentReference.update(
+                Constants.KEY_LAST_MESSAGE, message,
+                Constants.KEY_TIMESTAMP, new Date()
+        );
+    }
+
+
     // lấy thông tin admin cần chat
     private void getAdmins() {
         db.collection("admin")
@@ -164,7 +201,7 @@ public class ChatActivity extends AppCompatActivity {
                         if (admins.size() > 0) {
                             receiverUser = admins.get(0);
                             loadReceiverDetails(receiverUser);// lấy amdin đầu tiên: thật ra còn nhiều admin khác, phát triển sau
-                            init(receiverUser);
+                            init(receiverUser); // khai baos adapter
                         } else {
                             loadReceiverDetails(null);
                         }
@@ -211,6 +248,8 @@ public class ChatActivity extends AppCompatActivity {
 //                            Log.d("user", "loadInfoSender: img: " + senderUser.image);
 //                            Log.d("user", "loadInfoSender: id: " + senderUser.id);
                             preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());// lưu ID sender
+                            preferenceManager.putString(Constants.KEY_USER_NAME, documentSnapshot.getString("fullname"));
+                            preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString("image"));
                         } else {
 
                             Log.d("ERROR", "loadInfoSender: lấy thông tin không thành công! ");
@@ -219,9 +258,36 @@ public class ChatActivity extends AppCompatActivity {
         } catch (Exception err){
             Log.d("ERROR", "loadInfoSender: ERROr" + err);
         }
-
-
     }
+
+
+    private void checkForConversion() {
+        if (chatMessages.size() != 0) {
+            checkForConversionRemotely(
+                    preferenceManager.getString(Constants.KEY_USER_ID),
+                    receiverUser.id
+            );
+            checkForConversionRemotely(
+                    receiverUser.id,
+                    preferenceManager.getString(Constants.KEY_USER_ID)
+            );
+        }
+    }
+
+    private void checkForConversionRemotely(String senderId, String receiverId) {
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverId)
+                .get()
+                .addOnCompleteListener(conversionOnCompleteListener);
+    }
+
+    private final OnCompleteListener<QuerySnapshot> conversionOnCompleteListener = task -> {
+        if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+            conversionId = documentSnapshot.getId();
+        }
+    };
 
 
 }
