@@ -82,21 +82,23 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             ListOrderArray.add(orderProduct);
         }
 
-        if(preActivity != null) {
-            switch (preActivity) {
-                // xử lý khi vào xem sản phẩm và nhấn mua hàng ngay
-                case "activity_view_product":
-                    value_total_cost_product_payment.setText("đ" + orderProduct.getTotal().toString());
-                    value_cost_tranfer_payment.setText("đ" + 30000);
-                    value_total_voucher_discount_payment.setText("đ" + 0);
+        if(intent.hasExtra("products")) {
+            ListOrderArray = (ArrayList<Myorder>) intent.getExtras().getSerializable("products");
+        }
 
-                    Integer finalTotalMoney = orderProduct.getTotal() + 30000;
-                    cost_payment.setText("đ" + finalTotalMoney.toString());
-                    value_total_money_payment.setText("đ" + finalTotalMoney.toString());
-                    break;
-                default:
-                    break;
+        if(preActivity != null) {
+            Integer finalTotalMoney = 0;
+
+            for (int i = 0; i < ListOrderArray.size(); i++) {
+                finalTotalMoney += ListOrderArray.get(i).getTotal();
             }
+            value_total_cost_product_payment.setText("đ" + finalTotalMoney.toString());
+            value_cost_tranfer_payment.setText("đ" + 30000);
+            value_total_voucher_discount_payment.setText("đ" + 0);
+
+            finalTotalMoney += 30000;
+            cost_payment.setText("đ" + finalTotalMoney.toString());
+            value_total_money_payment.setText("đ" + finalTotalMoney.toString());
         }
 
         // kết nối sqlite

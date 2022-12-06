@@ -87,4 +87,8 @@ public class MyCart {
     public String getOwnCart() {
         return ownCart;
     }
+
+    public Integer getOldPrice() {
+        return (this.getPrice() / (100 - this.getSale())) * 100;
+    }
 }

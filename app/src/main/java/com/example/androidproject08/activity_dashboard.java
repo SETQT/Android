@@ -77,22 +77,34 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         String myDbPath = storagePath + "/" + "loginDb";
         sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
+
+        String username = "";
+
         String mySQL = "select * from USER";
         Cursor c1 = sqlite.rawQuery(mySQL, null);
         c1.moveToPosition(0);
-        String username = c1.getString(0);
 
-        // lấy số lượng sản phẩm
+        username = c1.getString(0);
+
         usersRef.whereEqualTo("username", username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            boolean isHave = false;
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
-                                break;
+                                isHave = true;
+                            }
+
+                            if (!isHave) {
+                                sqlite.execSQL("DROP TABLE IF EXISTS USER; "); // xóa bảng <=> xóa phiên đăng nhập hiện tại
+                                Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
+
+                                startActivity(moveActivity);
                             }
                         }
                     }
@@ -146,7 +158,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         }
 
         // Chuyển sang giao diện search + hiển thị kết quả
-        if(view.getId() == icon_search.getId()) {
+        if (view.getId() == icon_search.getId()) {
             String dataSearch = dashboard_id_search.getText().toString();
 
             Intent moveActivity = new Intent(getApplicationContext(), activity_search.class);
@@ -155,7 +167,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         }
 
         // Chuyển sang giao diện chat
-        if(view.getId() == icon_chat.getId()) {
+        if (view.getId() == icon_chat.getId()) {
             Intent moveActivity = new Intent(getApplicationContext(), ChatActivity.class);
             startActivity(moveActivity);
         }

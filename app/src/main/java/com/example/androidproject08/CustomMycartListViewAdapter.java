@@ -1,8 +1,6 @@
 package com.example.androidproject08;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +28,7 @@ import java.util.Map;
 public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     // biến xử lý
     ArrayList<MyCart> my_cart = new ArrayList<MyCart>();
+    ArrayList<Integer> listChecked = new ArrayList<>();
     Context curContext;
     int resource;
 
@@ -45,11 +37,12 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference usersRef = db.collection("users");
 
-    public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects) {
+    public CustomMycartListViewAdapter(Context context, int resource, ArrayList<MyCart> objects, ArrayList<Integer> listChecked) {
         super(context, resource, objects);
         this.my_cart = objects;
         this.curContext = context;
         this.resource = resource;
+        this.listChecked = listChecked;
     }
 
     @Override
@@ -75,7 +68,12 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         View addTotal = (View) v.findViewById((R.id.custom_mycart_checkbox));
 
         CheckBox custom_mycart_checkbox = (CheckBox) v.findViewById(R.id.custom_mycart_checkbox);
-        custom_mycart_checkbox.setChecked(true);
+
+        if(listChecked.get(position) == 0) {
+            custom_mycart_checkbox.setChecked(false);
+        }else {
+            custom_mycart_checkbox.setChecked(true);
+        }
 
         custom_mycart_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

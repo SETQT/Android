@@ -5,17 +5,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableList;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,35 +50,14 @@ public class activity_mycart extends Activity implements View.OnClickListener {
     // sqlite
     SQLiteDatabase sqlite;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
+    // firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference cartsRef = db.collection("carts");
 
     // biến xử lý
     String previousActivity, idDoc;
-
-    public void uploadFile() {
-        String path = Environment.getExternalStorageDirectory().getPath();
-        String myJpgPath = path + "/Download/girl480x600.jpg";
-
-
-        Uri file = Uri.fromFile(new File(myJpgPath));
-        StorageReference test = storageRef.child("image/" + file.getLastPathSegment());
-
-        UploadTask uploadTask = test.putFile(file);
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getApplicationContext(), " Upload Thành công", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getApplicationContext(), " Upload Thất bại", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
+    ObservableArrayList listChecked = new ObservableArrayList();
+    ArrayList<MyCart> finalList = new ArrayList<MyCart>(); // danh sách chứa các sản phẩm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +127,7 @@ public class activity_mycart extends Activity implements View.OnClickListener {
         });
 
         // query dữ liệu cho qua listview
-        mycart_asynctask mc_at = new mycart_asynctask(activity_mycart.this, username);
+        mycart_asynctask mc_at = new mycart_asynctask(username);
         mc_at.execute();
     }
 
@@ -191,8 +175,116 @@ public class activity_mycart extends Activity implements View.OnClickListener {
 
         // tiến hành đặt hàng
         if (view.getId() == MyCart_bg_buy.getId()) {
+            ArrayList<Myorder> finalMyOrders = new ArrayList<>();
+
+            for (int i = 0; i < finalList.size(); i++) {
+                Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
+                Myorder orderProduct = new Myorder(finalList.get(i).getId(), finalList.get(i).getImage(), finalList.get(i).getName(), "M", "Đen", finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total);
+                finalMyOrders.add(orderProduct);
+            }
+
             Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
+            moveActivity.putExtra("products", finalMyOrders);
+            moveActivity.putExtra("name_activity", "activity_mycart");
             startActivity(moveActivity);
+        }
+    }
+
+    private class mycart_asynctask extends AsyncTask<Void, MyCart, MyCart> {
+        String username;
+        Integer totalCart;
+        Integer totalMoney;
+
+        // biến UI
+        Button MyCart_bg_buy;
+        TextView MyCart_total_cost;
+        CheckBox mycart_checkbox_all;
+
+        public mycart_asynctask(String username) {
+            this.username = username;
+
+            this.MyCart_bg_buy = findViewById(R.id.MyCart_bg_buy);
+            this.MyCart_total_cost = findViewById(R.id.MyCart_total_cost);
+            this.mycart_checkbox_all = findViewById(R.id.mycart_checkbox_all);
+
+            this.totalCart = 0;
+            this.totalMoney = 0;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected MyCart doInBackground(Void... params) {
+            cartsRef
+                    .whereEqualTo("ownCart", username)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    MyCart cart = document.toObject(MyCart.class);
+                                    cart.setIdDoc(document.getId().toString());
+                                    publishProgress(cart);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(MyCart... carts) {
+            //Hàm thực hiện update giao diện khi có dữ liệu từ hàm doInBackground gửi xuống
+            super.onProgressUpdate(carts);
+            finalList.add(carts[0]);
+
+            totalCart += carts[0].getAmount();
+            totalMoney += carts[0].getAmount() * carts[0].getPrice();
+
+            // set check all mycart cho lần đầu
+            mycart_checkbox_all.setChecked(true);
+            listChecked.add(1);
+
+            CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(getApplicationContext(), R.layout.custom_notify_listview, finalList, listChecked);
+            listMyCart.setAdapter(myAdapter);
+
+            mycart_checkbox_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (compoundButton.isChecked()) {
+                        for (int i = 0; i < listChecked.size(); i++) {
+                            listChecked.set(i, 1);
+                        }
+
+                        myAdapter.notifyDataSetChanged();
+
+                        // hiển thị tổng sản phẩm và tổng tiền tất cả các mặt hàng có trong giỏ hàng
+                        MyCart_bg_buy.setText("Mua hàng (" + totalCart.toString() + ")");
+                        MyCart_total_cost.setText("đ" + totalMoney.toString());
+                    } else {
+                        for (int i = 0; i < listChecked.size(); i++) {
+                            listChecked.set(i, 0);
+                        }
+
+                        myAdapter.notifyDataSetChanged();
+
+                        // hiển thị tổng sản phẩm và tổng tiền tất cả các mặt hàng có trong giỏ hàng
+                        MyCart_bg_buy.setText("Mua hàng (" + 0 + ")");
+                        MyCart_total_cost.setText("đ" + 0);
+                    }
+                }
+            });
+        }
+
+        @Override
+        protected void onPostExecute(MyCart myCart) {
+            super.onPostExecute(myCart);
         }
     }
 }

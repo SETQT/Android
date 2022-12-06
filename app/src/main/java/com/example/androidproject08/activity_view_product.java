@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -38,16 +39,16 @@ public class activity_view_product extends Activity implements View.OnClickListe
     // biến UI
     View ic_back_view_product, icon_cart;
     RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
-    TextView number_cart;
+    TextView number_cart, custom_mycart_number_product;
     Spinner spiner_size_view_product, spiner_color_view_product;
+    Button custom_mycart_icon_increase, custom_mycart_icon_decrease;
 
     // biến xử lý
     String previousActivity, idDoc;
-    private ListTypeProductAdapter mAdapter_color, mAdapter_size;
-    ArrayList<String> list = new ArrayList<>();
     String username = "";
     String linkImage = "";
     String size, color;
+    Integer amount;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,6 +78,13 @@ public class activity_view_product extends Activity implements View.OnClickListe
         icon_cart.setOnClickListener(this);
 
         number_cart = (TextView) findViewById(R.id.number_cart);
+        custom_mycart_number_product = (TextView) findViewById(R.id.custom_mycart_number_product);
+        amount = Integer.parseInt(custom_mycart_number_product.getText().toString());
+
+        custom_mycart_icon_increase = (Button) findViewById(R.id.custom_mycart_icon_increase);
+        custom_mycart_icon_increase.setOnClickListener(this);
+        custom_mycart_icon_decrease = (Button) findViewById(R.id.custom_mycart_icon_decrease);
+        custom_mycart_icon_decrease.setOnClickListener(this);
 
         // nhận dữ liệu từ các activity khác gửi tới
         Intent intent = getIntent();
@@ -227,7 +235,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             TextView new_cost_view_product = (TextView) findViewById(R.id.new_cost_view_product);
             Integer newCost = Integer.parseInt(new_cost_view_product.getText().toString().substring(1));
 
-            Integer count = 1;
+            Integer count = amount;
             Integer total = newCost * count;
 
             Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total);
@@ -236,6 +244,20 @@ public class activity_view_product extends Activity implements View.OnClickListe
             moveActivity.putExtra("name_activity", "activity_view_product");
             moveActivity.putExtra("product", orderProduct);
             startActivity(moveActivity);
+        }
+
+        if(view.getId() == custom_mycart_icon_increase.getId()) {
+            amount += 1;
+            custom_mycart_number_product.setText(amount.toString());
+        }
+
+        if(view.getId() == custom_mycart_icon_decrease.getId()) {
+            amount -= 1;
+            if(amount < 1) {
+                amount = 1;
+            }
+
+            custom_mycart_number_product.setText(amount.toString());
         }
     }
 
