@@ -100,7 +100,11 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         record_id_profile_ten.setText(user[0].getFullname());
         record_id_profile_bio.setText(user[0].getBio());
         record_id_profile_sex.setText(user[0].getGender());
-        record_id_profile_dob.setText(simpleDateFormat.format(user[0].getBirthdate()));
+
+        if(user[0].getBirthdate() != null) {
+            record_id_profile_dob.setText(simpleDateFormat.format(user[0].getBirthdate()));
+        }
+
         record_id_profile_phone.setText(user[0].getPhone());
         record_id_profile_email.setText(user[0].getEmail());
         record_id_profile_address.setText(user[0].getAddress());
