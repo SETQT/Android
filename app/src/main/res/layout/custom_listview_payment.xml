@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/custom_listview_payment"
         android:layout_width="match_parent"
-        android:layout_height="182dp"
+        android:layout_height="150dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
@@ -99,44 +99,12 @@
         <View
             android:id="@+id/line_1_payment"
             android:layout_width="411dp"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="112dp"
             android:background="@drawable/line_profile" />
 
-        <TextView
-            android:id="@+id/charge_tranfer_payment"
-            android:layout_width="81dp"
-            android:layout_height="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="123dp"
-            android:gravity="top"
-            android:text="Phí vận chuyển:"
-            android:textAppearance="@style/phivanchuyen_payment" />
-
-        <TextView
-            android:id="@+id/cost_tranfer_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="123dp"
-            android:layout_marginRight="33dp"
-            android:gravity="top"
-            android:text="đ42.500"
-            android:textAppearance="@style/cost_tranfer_payment" />
-
-        <View
-            android:id="@+id/line_2_payment"
-            android:layout_width="411dp"
-            android:layout_height="1dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="147dp"
-            android:background="@drawable/line_profile" />
 
         <TextView
             android:id="@+id/total_cost_product_payment"
@@ -144,7 +112,7 @@
             android:layout_height="18dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="153dp"
+            android:layout_marginTop="120dp"
             android:layout_marginRight="33dp"
             android:gravity="top"
             android:text="đ200.000"
@@ -155,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="122dp"
             android:layout_marginRight="7dp"
             android:layout_toLeftOf="@+id/total_cost_product_payment"
             android:gravity="top"

@@ -48,7 +48,6 @@ public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Myorder> {
         TextView new_cost = (TextView) v.findViewById(R.id.custom_new_cost_product_payment);
         TextView number = (TextView) v.findViewById(R.id.soluong_payment);
         TextView size_color = (TextView) v.findViewById(R.id.size_color_product_payment);
-        TextView charge_tranfer = (TextView) v.findViewById(R.id.cost_tranfer_payment);
         TextView cost_final = (TextView) v.findViewById(R.id.total_cost_product_payment);
         ImageView img = (ImageView) v.findViewById(R.id.custom_picture_payment) ;
 
@@ -57,7 +56,6 @@ public class CustomMyListViewPaymentAdapter extends ArrayAdapter<Myorder> {
         new_cost.setText("đ" + orders.get(position).getNewCost().toString());
         number.setText("Số lượng: " + orders.get(position).getCount().toString());
         size_color.setText("Kích thước: " + orders.get(position).getSize()+", Màu sắc: "+orders.get(position).getColor());
-        charge_tranfer.setText("đ" + 30000);
         cost_final.setText("đ" + orders.get(position).getTotal().toString());
 
         Picasso.with(curContext).load(orders.get(position).getImage()).into(img);

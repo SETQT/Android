@@ -247,7 +247,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="362dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="50dp"
         android:gravity="center"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
@@ -256,10 +256,10 @@
         android:id="@+id/record_next_04"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="361dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/icon_next" />
 
     <View

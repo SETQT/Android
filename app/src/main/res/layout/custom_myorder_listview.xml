@@ -93,7 +93,7 @@
     <View
         android:id="@+id/myorder_custom_line"
         android:layout_width="411dp"
-        android:layout_height="2dp"
+        android:layout_height="0.5dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="112dp"
