@@ -305,7 +305,7 @@
             <RelativeLayout
                 android:id="@+id/rectangle_type_view_product"
                 android:layout_width="411dp"
-                android:layout_height="120dp"
+                android:layout_height="150dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
@@ -379,6 +379,76 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="250dp"
                     android:layout_marginTop="80dp" />
+
+                <TextView
+                    android:id="@+id/text_choice_quantity_view_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="115dp"
+                    android:gravity="top"
+                    android:text="Số lượng"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/custom_mycart_listview_circle_decrease"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="115dp"
+                    android:background="@drawable/mycart_custom_listview_circle_decrease" />
+
+                <Button
+                    android:id="@+id/custom_mycart_icon_decrease"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="299dp"
+                    android:layout_marginTop="119dp"
+                    android:background="@drawable/icon_decrease"
+                    android:backgroundTint="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/custom_mycart_number_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="328.5dp"
+                    android:layout_marginTop="117dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/custom_mycart_listview_circle_increase"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="347dp"
+                    android:layout_marginTop="115dp"
+                    android:background="@drawable/mycart_custom_listview_circle_increase" />
+
+                <Button
+                    android:id="@+id/custom_mycart_icon_increase"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="351dp"
+                    android:layout_marginTop="119dp"
+                    android:background="@drawable/icon_increase"
+                    android:backgroundTint="#FFFFFF" />
             </RelativeLayout>
 
             <RelativeLayout
