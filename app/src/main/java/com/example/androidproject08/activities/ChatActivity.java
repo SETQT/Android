@@ -34,8 +34,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends activity_base {
 
     private ActivityChatBinding binding;
     private UserChat receiverUser;
@@ -45,6 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
     private String conversionId =null;
+    private Boolean isReceiverAvailable = false;
 
 
     @Override
@@ -67,6 +69,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void init(UserChat receiverUser) {
         preferenceManager = new PreferenceManager(getApplicationContext());
+        preferenceManager.putString(Constants.KEY_RECEIVER_ID, receiverUser.id);
         chatMessages = new ArrayList<>();
         chatAdapter = new ChatAdapter(
                 chatMessages,
@@ -147,6 +150,31 @@ public class ChatActivity extends AppCompatActivity {
                 .addSnapshotListener(eventListener);
     }
 
+    private void listenAvailabilityOfReceiver(){
+        db = FirebaseFirestore.getInstance();
+        db.collection(Constants.KEY_COLLECTION_ADMIN).document(
+                preferenceManager.getString(Constants.KEY_RECEIVER_ID)
+                //"3gVLbOrbASjFLrOZTDhZ"receiverUser.id
+        ).addSnapshotListener(ChatActivity.this,(value, error) -> {
+            if(error!= null){
+                return;
+            }
+            if(value != null){
+                if(value.getLong(Constants.KEY_AVAILABILITY) != null){
+                    int availability = Objects.requireNonNull(
+                            value.getLong(Constants.KEY_AVAILABILITY)
+                    ).intValue();
+                    isReceiverAvailable = availability == 1;
+                }
+            }
+            if(isReceiverAvailable){
+                binding.textAvailability.setVisibility(View.VISIBLE);
+            }else{
+                binding.textAvailability.setVisibility(View.GONE);
+            }
+        });
+    }
+
     // hàm load thông tin người nhận ( tức là admin)
     private void loadReceiverDetails(UserChat receiverUser) {
         //receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
@@ -184,7 +212,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     // lấy thông tin admin cần chat
-    private void getAdmins() {
+    synchronized private void getAdmins() {
         db.collection("admin")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -289,5 +317,11 @@ public class ChatActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAdmins();
+        listenAvailabilityOfReceiver();
+    }
 
 }
