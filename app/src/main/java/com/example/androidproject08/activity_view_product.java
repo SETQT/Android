@@ -162,7 +162,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                     DocumentSnapshot document = task.getResult();
                                     Product product = document.toObject(Product.class);
 
-                                    MyCart ToCart = new MyCart(1, "", product.getImage(), product.getName(), product.getPrice(), product.getSale(), username, document.getId().toString());
+                                    MyCart ToCart = new MyCart(amount, "", product.getImage(), product.getName(), product.getPrice(), product.getSale(), username, document.getId().toString(), size, color);
 
                                     cartsRef
                                             .whereEqualTo("idDoc", ToCart.getIdDoc())
@@ -179,9 +179,13 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                                         // nếu có thì cộng thêm số lượng vào
                                                         for (QueryDocumentSnapshot document2 : task.getResult()) {
                                                             MyCart cart = document2.toObject(MyCart.class);
-                                                            isDuplicated = true;
-                                                            totalAmount = cart.getAmount() + 1;
-                                                            cartsRef.document(document2.getId()).update("amount", totalAmount);
+
+                                                            // check sản phẩm có trùng size + color hay không
+                                                            if(MyCart.checkDuplicatedCart(ToCart, cart)) {
+                                                                isDuplicated = true;
+                                                                totalAmount = cart.getAmount() + amount;
+                                                                cartsRef.document(document2.getId()).update("amount", totalAmount);
+                                                            }
                                                         }
 
                                                         // nếu không thì tạo cart mới
@@ -198,7 +202,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                                                     User user = document.toObject(User.class);
                                                                                     Map<String, Integer> userCart = new HashMap<>();
-                                                                                    userCart.put("amount", user.getCart().get("amount") + 1);
+                                                                                    userCart.put("amount", user.getCart().get("amount") + amount);
                                                                                     number_cart.setText(userCart.get("amount").toString());
                                                                                     usersRef.document(document.getId()).update("cart", userCart);
                                                                                 }

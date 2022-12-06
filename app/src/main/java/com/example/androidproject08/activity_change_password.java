@@ -83,7 +83,7 @@ public class activity_change_password extends Activity implements View.OnClickLi
         // trở lại activity myrecord
         if (view.getId() == ic_back_change_password.getId()) {
             try {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                Intent moveActivity = new Intent(getApplicationContext(), activity_record.class);
                 startActivity(moveActivity);
             } catch (Exception error) {
                 Log.e("ERROR", "Activity_change_password onClick: ", error);

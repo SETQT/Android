@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -179,7 +180,7 @@ public class activity_mycart extends Activity implements View.OnClickListener {
 
             for (int i = 0; i < finalList.size(); i++) {
                 Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
-                Myorder orderProduct = new Myorder(finalList.get(i).getId(), finalList.get(i).getImage(), finalList.get(i).getName(), "M", "Đen", finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total);
+                Myorder orderProduct = new Myorder(finalList.get(i).getId(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total);
                 finalMyOrders.add(orderProduct);
             }
 

@@ -2,39 +2,24 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class record_asynctask extends AsyncTask<Void, User, User> implements View.OnClickListener {
     Activity curContext;
@@ -67,11 +52,11 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         this.record_next_07 = curContext.findViewById(R.id.record_next_07);
         this.record_next_08 = curContext.findViewById(R.id.record_next_08);
 
-        if(avatar!=null) {
+        if (avatar != null) {
             this.avatar = avatar;
         }
 
-        if(background!=null) {
+        if (background != null) {
             this.background = background;
         }
     }
@@ -110,13 +95,16 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         super.onProgressUpdate(user);
         this.curUser = user[0];
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
         record_id_profile_ten.setText(user[0].getFullname());
         record_id_profile_bio.setText(user[0].getBio());
         record_id_profile_sex.setText(user[0].getGender());
-//        record_id_profile_dob.setText(user[0].getBirthdate().toString());
+        record_id_profile_dob.setText(simpleDateFormat.format(user[0].getBirthdate()));
         record_id_profile_phone.setText(user[0].getPhone());
         record_id_profile_email.setText(user[0].getEmail());
         record_id_profile_address.setText(user[0].getAddress());
+
 
         record_next_01.setOnClickListener(this);
         record_next_02.setOnClickListener(this);
@@ -138,7 +126,6 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
         if (view.getId() == record_next_01.getId()
                 || view.getId() == record_next_02.getId()
                 || view.getId() == record_next_03.getId()
-                || view.getId() == record_next_04.getId()
                 || view.getId() == record_next_06.getId()
                 || view.getId() == record_next_07.getId()
                 || view.getId() == record_next_08.getId()
@@ -150,13 +137,11 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
                 propNeedUpdate = "bio";
             } else if (view.getId() == record_next_03.getId()) {
                 propNeedUpdate = "gender";
-            } else if (view.getId() == record_next_04.getId()) {
-                propNeedUpdate = "birthdate";
             } else if (view.getId() == record_next_06.getId()) {
                 propNeedUpdate = "phone";
             } else if (view.getId() == record_next_07.getId()) {
                 propNeedUpdate = "email";
-            }else if (view.getId() == record_next_08.getId()) {
+            } else if (view.getId() == record_next_08.getId()) {
                 propNeedUpdate = "address";
             }
 
@@ -168,7 +153,18 @@ public class record_asynctask extends AsyncTask<Void, User, User> implements Vie
             curContext.startActivity(moveActivity);
         }
 
-        if(view.getId() == record_next_05.getId()) {
+        if (view.getId() == record_next_04.getId()) {
+            String propNeedUpdate = "birthdate";
+
+            Intent moveActivity = new Intent(curContext, activity_edit_dob.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("userId", curUser.getUserId());
+            bundle.putString("propNeedUpdate", propNeedUpdate);
+            moveActivity.putExtras(bundle);
+            curContext.startActivity(moveActivity);
+        }
+
+        if (view.getId() == record_next_05.getId()) {
             String propNeedUpdate = "password";
 
             Intent moveActivity = new Intent(curContext, activity_change_password.class);

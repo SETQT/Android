@@ -61,7 +61,8 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         TextView new_cost = (TextView) v.findViewById(R.id.custom_mycart_new_cost_product);
         TextView number = (TextView) v.findViewById(R.id.custom_mycart_number_product);
         ImageView img = (ImageView) v.findViewById(R.id.custom_mycart_picture);
-
+        TextView custom_mycart_size = (TextView) v.findViewById(R.id.custom_mycart_size);
+        TextView custom_mycart_color = (TextView) v.findViewById(R.id.custom_mycart_color);
         View subButton = (View) v.findViewById((R.id.custom_mycart_icon_decrease));
         View addButton = (View) v.findViewById((R.id.custom_mycart_icon_increase));
         View garbage = (View) v.findViewById((R.id.custom_mycart_icon_garbage));
@@ -94,6 +95,8 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
         old_cost.setText(oldCost.toString());
         new_cost.setText(my_cart.get(position).getPrice().toString());
         number.setText(my_cart.get(position).getAmount().toString());
+        custom_mycart_size.setText("Kích thước: " + my_cart.get(position).getSize());
+        custom_mycart_color.setText("Màu sắc: " + my_cart.get(position).getColor());
 
         // trừ số lượng san phẩm trong cart khi bấm vào button "-"
         subButton.setOnClickListener(new View.OnClickListener() {
