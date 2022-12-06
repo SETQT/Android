@@ -135,7 +135,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
                 // cập nhật lên firestore
                 cartsRef.document(my_cart.get(position).getIdDoc()).delete();
 
-                // tăng số lượng trong giỏ hàng cho user
+                // giảm số lượng trong giỏ hàng cho user
                 usersRef
                         .whereEqualTo("username", my_cart.get(position).getOwnCart())
                         .get()

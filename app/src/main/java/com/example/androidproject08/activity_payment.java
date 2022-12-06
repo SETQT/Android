@@ -29,6 +29,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class activity_payment extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     // khai báo biến UI
@@ -40,6 +42,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
+    CollectionReference cartsRef = db.collection("carts");
     CollectionReference ordersRef = db.collection("orders");
 
     // sqlite
@@ -84,11 +87,11 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             ListOrderArray.add(orderProduct);
         }
 
-        if(intent.hasExtra("products")) {
+        if (intent.hasExtra("products")) {
             ListOrderArray = (ArrayList<Myorder>) intent.getExtras().getSerializable("products");
         }
 
-        if(preActivity != null) {
+        if (preActivity != null) {
             Integer finalTotalMoney = 0;
 
             for (int i = 0; i < ListOrderArray.size(); i++) {
@@ -123,7 +126,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     User user = document.toObject(User.class);
-                                    if(name_user_payment == null || phone_user_payment == null || address_payment == null) {
+                                    if (name_user_payment == null || phone_user_payment == null || address_payment == null) {
                                         Toast.makeText(getApplicationContext(), "Bạn chưa điền thông tin vui lòng qua profile để thêm!", Toast.LENGTH_SHORT).show();
                                     }
 
@@ -150,24 +153,56 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             startActivity(moveActivity);
         }
 
-        if(view.getId() == btn_order_payment.getId()) {
+        if (view.getId() == btn_order_payment.getId()) {
             // tính tổng tiền đơn hàng
             Integer finalTotalMoney = 0;
-            for(int i = 0; i < ListOrderArray.size(); i++) {
+            for (int i = 0; i < ListOrderArray.size(); i++) {
                 finalTotalMoney += ListOrderArray.get(i).getTotal();
             }
             finalTotalMoney += 30000;
 
             Order newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
 
-            // lưu đơn hàng lên database
-            ordersRef.add(newOrder);
+            if (preActivity.equals("activity_mycart")) {
+                for (int i = 0; i < ListOrderArray.size(); i++) {
+                    // xóa mặt hàng khỏi giỏ hàng
+                    cartsRef.document(ListOrderArray.get(i).getId()).delete();
+                }
 
-            Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+                // giảm số lượng trong giỏ hàng cho user
+                usersRef
+                        .whereEqualTo("username", username)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        User user = document.toObject(User.class);
+                                        Map<String, Integer> userCart = new HashMap<>();
+                                        userCart.put("amount", user.getCart().get("amount") - ListOrderArray.size());
+                                        usersRef.document(document.getId()).update("cart", userCart);
 
-            // chuyển về activity dashboard
-            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-            startActivity(moveActivity);
+                                        // lưu đơn hàng lên database
+                                        ordersRef.add(newOrder);
+
+                                        Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+
+                                        // chuyển về activity dashboard
+                                        Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                                        startActivity(moveActivity);
+                                    }
+                                }
+                            }
+                        });
+            } else {
+                // lưu đơn hàng lên database
+                ordersRef.add(newOrder);
+
+                // chuyển về activity dashboard
+                Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                startActivity(moveActivity);
+            }
         }
     }
 
