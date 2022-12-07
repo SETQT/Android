@@ -281,7 +281,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
         @Override
         protected Product doInBackground(Void... voids) {
             try {
-                productsRef.document(idDoc).get()
+                productsRef
+                        .document(idDoc).get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
