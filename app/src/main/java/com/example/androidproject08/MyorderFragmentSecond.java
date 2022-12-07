@@ -165,7 +165,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             }
 
             try {
-                CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listOrder);
+                CustomMyorderListViewAdapter myAdapter = new CustomMyorderListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listOrder, state, username);
                 listMyOrder.setAdapter(myAdapter);
             } catch (Exception error) {
                 Log.e("ERROR", "MyorderFragmentSecond: ", error);

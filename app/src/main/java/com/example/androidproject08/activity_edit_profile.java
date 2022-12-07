@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -107,7 +108,6 @@ public class activity_edit_profile extends Activity implements View.OnClickListe
             }
         });
         dialog.show();
-        Window window = dialog.getWindow();
-        window.setLayout(700, 650);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }

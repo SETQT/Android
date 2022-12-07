@@ -3,7 +3,7 @@ package com.example.androidproject08;
 import java.io.Serializable;
 
 public class Myorder implements Serializable {
-    private String id;
+    private String id; //id san pham
     private String image;
     private String name;
     private String size;
@@ -12,13 +12,12 @@ public class Myorder implements Serializable {
     private Integer newCost;
     private Integer count;
     private Integer total;
-
-    private String danhgia;
+    private String idCart; // id cart
 
     public Myorder() {
     }
 
-    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total, String danhgia) {
+    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total, String idCart) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -28,7 +27,7 @@ public class Myorder implements Serializable {
         this.newCost = newCost;
         this.count = count;
         this.total = total;
-        this.danhgia = danhgia;
+        this.idCart = idCart;
     }
 
     public String getId() {
@@ -103,12 +102,12 @@ public class Myorder implements Serializable {
         this.total = total;
     }
 
-    public String getDanhgia() {
-        return danhgia;
+    public String getIdCart() {
+        return idCart;
     }
 
-    public void setDanhgia(String danhgia) {
-        this.danhgia = danhgia;
+    public void setIdCart(String idCart) {
+        this.idCart = idCart;
     }
 }
 

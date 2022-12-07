@@ -44,10 +44,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="335dp"
         android:layout_marginTop="15dp"
+        android:background="#AEAEAE"
         android:gravity="top"
         android:text="Đánh giá"
         android:textColor="#FF0000"
-        android:background="#AEAEAE"
         android:textSize="12sp" />
 
     <TextView

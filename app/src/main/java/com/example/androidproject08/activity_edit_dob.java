@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -160,7 +161,6 @@ public class activity_edit_dob extends Activity implements View.OnClickListener,
             }
         });
         dialog.show();
-        Window window = dialog.getWindow();
-        window.setLayout(700, 650);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }

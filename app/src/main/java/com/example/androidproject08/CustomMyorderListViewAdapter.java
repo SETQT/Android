@@ -16,31 +16,45 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
     Context curContext;
     ArrayList<Myorder> orders = new ArrayList<>();
     Integer count_star;
+    Integer state;
+    String username;
 
-    public CustomMyorderListViewAdapter(Context context, int resource, ArrayList<Myorder> objects) {
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference commentsRef = db.collection("comments");
+
+    public CustomMyorderListViewAdapter(Context context, int resource, ArrayList<Myorder> objects, Integer state, String username) {
         super(context, resource, objects);
         this.orders = objects;
         this.curContext = context;
+        this.state = state;
+        this.username = username;
     }
-
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return super.getCount();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.custom_myorder_listview, null);
@@ -54,8 +68,14 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture) ;
 
         TextView danhgia = (TextView) v.findViewById(R.id.myorder_custom_danhgia);
-        //Này state 4 thì value thuộc tính danhgia = "Đánh giá", còn 3 state còn lại = NULL
-        danhgia.setText(orders.get(position).getDanhgia());
+        if(state == 4) {
+            danhgia.setVisibility(View.VISIBLE);
+        }else {
+            danhgia.setVisibility(View.INVISIBLE);
+        }
+
+        // kiểm tra user đã đánh giá sản phẩm chưa rồi rồi thì không cho đánh giá nữa
+        checkUserCommented(position, danhgia);
 
         name.setText(orders.get(position).getName());
         size.setText("Kích thước: " + orders.get(position).getSize() + ", Màu sắc: " + orders.get(position).getColor());
@@ -68,7 +88,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         danhgia.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                showFormEvaluate();
+                showFormEvaluate(position, danhgia);
             }
         });
 
@@ -76,14 +96,12 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
 
     }
 
-    void showFormEvaluate(){
+    void showFormEvaluate(Integer position, TextView danhgia){
         final Dialog dialog = new Dialog(this.getContext());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.form_evaluate);
-
-
 
         View star1, star2, star3, star4, star5;
 
@@ -154,18 +172,14 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TAG", "onClick:" + text_evaluate.getText() + count_star);
-
-                Intent moveActivity = new Intent();
-                moveActivity = new Intent(curContext.getApplicationContext(), activity_dashboard.class);
-                curContext.startActivity(moveActivity);
-
+                Comment newComment = new Comment(orders.get(position).getId(), username, orders.get(position).getColor(), orders.get(position).getSize(), text_evaluate.getText().toString(), new Date(), count_star);
+                commentsRef.add(newComment);
+                dialog.dismiss();
             }
         });
 
         dialog.show();
-        Window window = dialog.getWindow();
-        window.setLayout(700, 650);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     void ResetBackgroundStar(View star1, View star2,View star3,View star4,View star5){
@@ -174,5 +188,21 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
         star4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
         star5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+    }
+
+    void checkUserCommented(Integer position, TextView danhgia) {
+        commentsRef
+                .whereEqualTo("idProduct", orders.get(position).getId())
+                .whereEqualTo("user", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            danhgia.setClickable(false);
+                            danhgia.setText("Đã đánh giá");
+                        }
+                    }
+                });
     }
 }

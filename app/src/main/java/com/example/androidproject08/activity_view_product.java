@@ -210,7 +210,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                                                     User user = document.toObject(User.class);
                                                                                     Map<String, Integer> userCart = new HashMap<>();
-                                                                                    userCart.put("amount", user.getCart().get("amount") + amount);
+                                                                                    userCart.put("amount", user.getCart().get("amount") + 1);
                                                                                     number_cart.setText(userCart.get("amount").toString());
                                                                                     usersRef.document(document.getId()).update("cart", userCart);
                                                                                 }
