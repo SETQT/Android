@@ -69,20 +69,6 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/textAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/headerChat"
-        android:background="#008000"
-        android:text="Online"
-        android:gravity="center"
-        android:textSize="@dimen/_10sdp"
-        android:textColor="@color/white"
-        android:padding="@dimen/_2sdp"
-        android:visibility="gone" />
-
-
     <!-- Nơi nhập chat   -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
@@ -95,7 +81,7 @@
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/inputGroup"
-        app:layout_constraintTop_toBottomOf="@+id/textAvailability"
+        app:layout_constraintTop_toBottomOf="@+id/headerChat"
         app:layout_constraintVertical_bias="0.0"
         app:stackFromEnd="true"
         tools:layout_editor_absoluteX="16dp" />
@@ -157,5 +143,18 @@
 
     </RelativeLayout>
 
+
+    <TextView
+        android:id="@+id/textAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/headerChat"
+        android:background="#008000"
+        android:text="Online"
+        android:gravity="center"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:padding="@dimen/_2sdp"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

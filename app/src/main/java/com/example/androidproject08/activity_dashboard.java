@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -21,10 +22,12 @@ import com.example.androidproject08.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -139,6 +142,9 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                         }
                     }
                 });
+
+
+        getToken(); // lấy tokens
     }
 
     @Override
@@ -202,6 +208,28 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
             startActivity(moveActivity);
         }
 
+    }
+
+
+    // Hàm show các thông báo
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void getToken(){
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
+    }
+
+    private void updateToken(String token){
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference documentReference =
+                db.collection("users").document(
+                        preferenceManager.getString(Constants.KEY_USER_ID)
+                );
+        documentReference.update(Constants.KEY_FCM_TOKEN, token)
+                //.addOnSuccessListener(unused -> showToast("Token updated"))
+                .addOnFailureListener(e->showToast("Unable to update token"));
     }
 
 }
