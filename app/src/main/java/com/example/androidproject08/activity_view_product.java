@@ -250,7 +250,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             Integer count = amount;
             Integer total = newCost * count;
 
-            Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total);
+            Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total, "");
 
             Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
             moveActivity.putExtra("name_activity", "activity_view_product");

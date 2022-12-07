@@ -180,7 +180,9 @@ public class activity_mycart extends Activity implements View.OnClickListener {
 
             for (int i = 0; i < finalList.size(); i++) {
                 Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
-                Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total);
+
+                //Đặt hàng -> Chờ xác nhận -> Đánh giá = NULL
+                Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total, "");
                 finalMyOrders.add(orderProduct);
             }
 
