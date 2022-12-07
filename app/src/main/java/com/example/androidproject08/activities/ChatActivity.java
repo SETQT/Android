@@ -395,8 +395,6 @@ public class ChatActivity extends activity_base {
     @Override
     protected void onResume() {
         super.onResume();
-        //getAdmins();
         listenAvailabilityOfReceiver();
     }
-
 }

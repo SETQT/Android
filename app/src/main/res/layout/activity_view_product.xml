@@ -633,8 +633,8 @@
 
             <RelativeLayout
                 android:id="@+id/rectangle_evaluate_product"
-                android:layout_width="411dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
@@ -750,7 +750,6 @@
                     android:background="@drawable/line_profile" />
             </RelativeLayout>
               <ListView
-
                 android:id="@+id/listview_comment_view_product" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
