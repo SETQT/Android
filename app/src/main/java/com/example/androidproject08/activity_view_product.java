@@ -37,6 +37,10 @@ import java.util.Map;
 
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
+
+    /*ListView listComment;
+    ArrayList<com.example.androidproject08.MyListComment> ListCommentArray =new ArrayList<com.example.androidproject08.MyListComment>();*/
+
     View ic_back_view_product, icon_cart;
     RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
     TextView number_cart, custom_mycart_number_product;
@@ -71,6 +75,23 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         spiner_size_view_product = (Spinner) findViewById(R.id.spiner_type_size_view_product);
         spiner_color_view_product = (Spinner) findViewById(R.id.spiner_type_color_view_product);
+
+       /* String[] username = {"3T Mãi đỉnh", "3T Mãi đỉnh", "3T Mãi đỉnh"};
+        String[] type_product = {"Phân loại: Đen,M","Phân loại: Đỏ,L","Phân loại: Hồng,XL"};
+        String[] value_comment={"aaaaaaaaaaaaaaaaaaaaaa","bbbbbbbbbbbbbbbbbbbbbb","ccccccccccccccccccccccc"};
+        String[] time_comment = {"30-10-2022 12:20","30-10-2022 12:20","30-10-2022 12:20"};
+
+
+
+
+        listComment = (ListView) findViewById(R.id.listview_comment_view_product);
+
+        for (int i=0;i<3;i++){
+            ListCommentArray.add(new com.example.androidproject08.MyListComment(i, username[i],type_product[i],value_comment[i],time_comment[i]));
+        }
+        com.example.androidproject08.CustomListCommentAdapter myAdapter = new com.example.androidproject08.CustomListCommentAdapter(this,R.layout.custom_listview_comment_view_product, ListCommentArray);
+        listComment.setAdapter(myAdapter);
+        setListViewHeightBasedOnChildren(listComment);*/
 
         ic_back_view_product = (View) findViewById(R.id.ic_back_view_product);
         ic_back_view_product.setOnClickListener(this);
@@ -120,7 +141,25 @@ public class activity_view_product extends Activity implements View.OnClickListe
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
     }
+     /*public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
 
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }*/
     @Override
     public void onClick(View view) {
         if (view.getId() == ic_back_view_product.getId()) {

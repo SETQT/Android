@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rectangle_custom_list_comment_view_product"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_custom_list_comment"
+        >
+
+        <TextView
+            android:id="@+id/name_user_comment_view_product"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
+            android:text="Giáo sư Trần Văn Thất"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:gravity="top"
+            />
+        <View
+            android:id="@+id/star1_evaluate_user_comment"
+            android:layout_width="14dp"
+            android:layout_height="13dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ic_star" />
+
+        <View
+            android:id="@+id/star2_evaluate_user_comment"
+            android:layout_width="14dp"
+            android:layout_height="13dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ic_star" />
+
+        <View
+            android:id="@+id/star3_evaluate_user_comment"
+            android:layout_width="14dp"
+            android:layout_height="13dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="57dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ic_star" />
+
+        <View
+            android:id="@+id/star4_evaluate_user_comment"
+            android:layout_width="14dp"
+            android:layout_height="13dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="73dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ic_star" />
+
+        <View
+            android:id="@+id/star5_evaluate_user_comment"
+            android:layout_width="14dp"
+            android:layout_height="13dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="89dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ic_star" />
+        <TextView
+            android:id="@+id/type_product_user_buy"
+            android:layout_width="220dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="108dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="33dp"
+            android:text="Phân loại: Đen, M"
+            android:textSize="12sp"
+            android:textColor="#AEAEAE"
+            android:gravity="top"
+            />
+        <TextView
+            android:id="@+id/value_comment_user_view_product"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="52dp"
+            android:textSize="11sp"
+            android:textColor="#000000"
+            android:gravity="top"
+            />
+
+        <TextView
+            android:id="@+id/time_user_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_below="@+id/value_comment_user_view_product"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="top"
+            android:text="30-10-2022 12:20"
+            android:textColor="#AEAEAE"
+            android:textSize="10dp" />
+    </RelativeLayout>
+</RelativeLayout>
