@@ -6,20 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+public class CustomListCommentAdapter extends ArrayAdapter<Comment> {
+    ArrayList<Comment> comments = new ArrayList<>();
 
-
-public class CustomListCommentAdapter extends ArrayAdapter<com.example.androidproject08.MyListComment> {
-    ArrayList<com.example.androidproject08.MyListComment> comments = new ArrayList<com.example.androidproject08.MyListComment>();
-
-
-    public CustomListCommentAdapter(Context context, int resource, ArrayList<com.example.androidproject08.MyListComment> objects) {
-        super(context, resource, objects);
-        this.comments = objects;
+    public CustomListCommentAdapter(Context context, int resource, ArrayList<Comment> comments) {
+        super(context, resource, comments);
+        this.comments = comments;
     }
-
 
     @Override
     public int getCount() {
@@ -39,11 +35,12 @@ public class CustomListCommentAdapter extends ArrayAdapter<com.example.androidpr
         TextView value_comment = (TextView) v.findViewById(R.id.value_comment_user_view_product);
         TextView time_comment = (TextView) v.findViewById(R.id.time_user_comment);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        username.setText(comments.get(position).getUserName());
-        type_product.setText(comments.get(position).getType_product());
-        value_comment.setText(comments.get(position).getComment());
-        time_comment.setText(comments.get(position).getTime_comment());
+        username.setText(comments.get(position).getUser());
+        type_product.setText("Kích thước: " + comments.get(position).getSizeProduct() + ", Màu sắc: " + comments.get(position).getColorProduct());
+        value_comment.setText(comments.get(position).getContent());
+        time_comment.setText(simpleDateFormat.format(comments.get(position).getCreatedAt()));
 
         return v;
     }
