@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/headerChat"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
+        android:layout_height="70dp"
         android:background="@drawable/background_chat_content_top"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,8 +28,8 @@
         <!--  Info -->
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/chat_profile_avatar"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="73dp"
@@ -40,32 +40,31 @@
         <TextView
             android:id="@+id/nameUserChat"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="140dp"
             android:gravity="top"
             android:lineHeight="30sp"
             android:text="Dương Minh Hiếu"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/onlineTimeChat"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="58dp"
-            android:gravity="top"
-            android:lineHeight="12sp"
-            android:text="Hoạt động 10 phút trước"
-            android:textColor="#E6E6E6"
+<!--        <TextView-->
+<!--            android:id="@+id/onlineTimeChat"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="18dp"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_marginLeft="160dp"-->
+<!--            android:layout_marginTop="58dp"-->
+<!--            android:gravity="top"-->
+<!--            android:lineHeight="12sp"-->
+<!--            android:text="Hoạt động 10 phút trước"-->
+<!--            android:textColor="#E6E6E6"-->
 
-            />
+<!--            />-->
 
     </RelativeLayout>
 
