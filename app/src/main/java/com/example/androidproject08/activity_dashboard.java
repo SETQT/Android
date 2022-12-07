@@ -15,14 +15,20 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.androidproject08.activities.ChatActivity;
+import com.example.androidproject08.models.UserChat;
+import com.example.androidproject08.utilities.Constants;
+import com.example.androidproject08.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class activity_dashboard extends FragmentActivity implements MainCallbacks, View.OnClickListener {
     // khai báo biến UI
@@ -33,6 +39,8 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
     FragmentTransaction ft;
     DashboardFragmentFirst firstFrag;
     DashboardFragmentSecond secondFrag;
+    PreferenceManager preferenceManager;
+    UserChat receiverUser;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -76,7 +84,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         File storagePath = getApplication().getFilesDir();
         String myDbPath = storagePath + "/" + "loginDb";
         sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
         String username = "";
 
@@ -93,7 +101,8 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             boolean isHave = false;
-
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                            preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());// lưu ID sender
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
@@ -106,6 +115,27 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
 
                                 startActivity(moveActivity);
                             }
+                        }
+                    }
+                });
+
+        // get info admin
+        db.collection("admin")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        List<UserChat> admins = new ArrayList<>();
+                        for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                            UserChat admin = new UserChat();
+                            admin.id = queryDocumentSnapshot.getId();
+                            admin.fullName = queryDocumentSnapshot.getString("name");
+                            admin.image = queryDocumentSnapshot.getString("image");
+                            admin.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                            admins.add(admin);
+                        }
+                        if (admins.size() > 0) {
+                            receiverUser = admins.get(0);
+                            preferenceManager.putString(Constants.KEY_RECEIVER_ID, receiverUser.id);
                         }
                     }
                 });
@@ -173,5 +203,6 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         }
 
     }
+
 }
 

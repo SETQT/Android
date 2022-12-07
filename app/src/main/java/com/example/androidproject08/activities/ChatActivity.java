@@ -212,7 +212,7 @@ public class ChatActivity extends activity_base {
 
 
     // lấy thông tin admin cần chat
-    synchronized private void getAdmins() {
+    private void getAdmins() {
         db.collection("admin")
                 .get()
                 .addOnCompleteListener(task -> {
