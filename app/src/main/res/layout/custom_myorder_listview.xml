@@ -21,9 +21,8 @@
         android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/myorder_custom_name"
@@ -31,11 +30,25 @@
         android:layout_height="37dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="140dp"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="15dp"
         android:gravity="top"
         android:textColor="#000000"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/myorder_custom_danhgia"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="335dp"
+        android:layout_marginTop="15dp"
+        android:gravity="top"
+        android:text="Đánh giá"
+        android:textColor="#FF0000"
+        android:background="#AEAEAE"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/myorder_custom_size"
@@ -43,7 +56,7 @@
         android:layout_height="15dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="140dp"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="58dp"
         android:gravity="top"
         android:text="Size M, Đen"

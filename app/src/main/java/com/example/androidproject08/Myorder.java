@@ -13,10 +13,12 @@ public class Myorder implements Serializable {
     private Integer count;
     private Integer total;
 
+    private String danhgia;
+
     public Myorder() {
     }
 
-    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total) {
+    public Myorder(String id, String image, String name, String size, String color, Integer oldCost, Integer newCost, Integer count, Integer total, String danhgia) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -26,6 +28,7 @@ public class Myorder implements Serializable {
         this.newCost = newCost;
         this.count = count;
         this.total = total;
+        this.danhgia = danhgia;
     }
 
     public String getId() {
@@ -98,6 +101,14 @@ public class Myorder implements Serializable {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public String getDanhgia() {
+        return danhgia;
+    }
+
+    public void setDanhgia(String danhgia) {
+        this.danhgia = danhgia;
     }
 }
 
