@@ -351,7 +351,7 @@ public class ChatActivity extends activity_base {
 //                            Log.d("user", "loadInfoSender: img: " + senderUser.image);
 //                            Log.d("user", "loadInfoSender: id: " + senderUser.id);
                             preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());// lưu ID sender
-                            preferenceManager.putString(Constants.KEY_USER_NAME, documentSnapshot.getString("fullname"));
+                            preferenceManager.putString(Constants.KEY_USER_NAME, documentSnapshot.getString("username"));
                             preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString("image"));
                         } else {
 
