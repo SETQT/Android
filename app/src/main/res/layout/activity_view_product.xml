@@ -248,23 +248,13 @@
 
                 <View
                     android:id="@+id/ic_heart_view_product"
-                    android:layout_width="14dp"
-                    android:layout_height="12dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="334dp"
-                    android:layout_marginTop="68dp"
-                    android:background="@drawable/ic_heart_view_product" />
-
-                <View
-                    android:id="@+id/ic_share_view_product"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="367dp"
-                    android:layout_marginTop="66dp"
-                    android:background="@drawable/ic_share_view_product" />
+                    android:layout_marginLeft="356dp"
+                    android:layout_marginTop="69dp"
+                    android:background="@drawable/ic_heart_view_product" />
 
             </RelativeLayout>
 

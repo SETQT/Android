@@ -2,8 +2,10 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,18 +39,19 @@ import java.util.Map;
 public class activity_view_product extends Activity implements View.OnClickListener {
     // biến UI
     ListView listview_comment_view_product;
-    View ic_back_view_product, icon_cart;
+    View ic_back_view_product, icon_cart, ic_heart_view_product;
     RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
-    TextView number_cart, custom_mycart_number_product, number_evaluate_comment;
+    TextView number_cart, custom_mycart_number_product, number_evaluate_comment, rate_evalute_comment, number_evaluate;
     Spinner spiner_size_view_product, spiner_color_view_product;
     Button custom_mycart_icon_increase, custom_mycart_icon_decrease;
+    View star1, star2, star3, star4, star5, star1m, star2m, star3m, star4m, star5m;
 
     // biến xử lý
     String previousActivity, idDoc;
     String username = "";
     String linkImage = "";
     String size, color;
-    Integer amount;
+    Integer amount, avgStar = 0;
     ArrayList<Comment> listComments = new ArrayList<>();
 
     // kết nối firestore
@@ -81,8 +84,24 @@ public class activity_view_product extends Activity implements View.OnClickListe
         icon_cart = (View) findViewById(R.id.icon_cart);
         icon_cart.setOnClickListener(this);
 
+        star1 = (View) findViewById(R.id.star1_evaluate_comment);
+        star2 = (View) findViewById(R.id.star2_evaluate_comment);
+        star3 = (View) findViewById(R.id.star3_evaluate_comment);
+        star4 = (View) findViewById(R.id.star4_evaluate_comment);
+        star5 = (View) findViewById(R.id.star5_evaluate_comment);
+
+        star1m = (View) findViewById(R.id.star1_view_product);
+        star2m = (View) findViewById(R.id.star2_view_product);
+        star3m = (View) findViewById(R.id.star3_view_product);
+        star4m = (View) findViewById(R.id.star4_view_product);
+        star5m = (View) findViewById(R.id.star5_view_product);
+
+        ic_heart_view_product = (View) findViewById(R.id.ic_heart_view_product);
+        ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
         number_cart = (TextView) findViewById(R.id.number_cart);
+        rate_evalute_comment = (TextView) findViewById(R.id.rate_evalute_comment);
         number_evaluate_comment = (TextView) findViewById(R.id.number_evaluate_comment);
+        number_evaluate = (TextView) findViewById(R.id.number_evaluate);
         custom_mycart_number_product = (TextView) findViewById(R.id.custom_mycart_number_product);
         amount = Integer.parseInt(custom_mycart_number_product.getText().toString());
 
@@ -362,6 +381,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     }
 
     private class comment_asynctask extends AsyncTask<Void, Comment, Comment> {
+        Integer variableRun = 0;
         comment_asynctask() {
         }
 
@@ -394,15 +414,22 @@ public class activity_view_product extends Activity implements View.OnClickListe
             listview_comment_view_product.setAdapter(myAdapter);
             setListViewHeightBasedOnChildren(listview_comment_view_product);
 
+            avgStar = (avgStar + comments[0].getCountStar())/ listComments.size() ;
+
+            Handle.setStar(star1, star2, star3, star4, star5, avgStar);
+            Handle.setStar(star1m, star2m, star3m, star4m, star5m, avgStar);
+
+            rate_evalute_comment.setText(avgStar.toString() + "/5");
+
             Integer amountOfComment = listComments.size();
             number_evaluate_comment.setText("(" + amountOfComment.toString() + " đánh giá)");
+            number_evaluate.setText(amountOfComment.toString());
         }
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
-            // pre-condition
             return;
         }
 
