@@ -133,7 +133,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             @Override
             public void onClick(View view) {
                 // cập nhật lên firestore
-                cartsRef.document(my_cart.get(position).getIdDoc()).delete();
+                cartsRef.document(my_cart.get(position).getId()).delete();
 
                 // giảm số lượng trong giỏ hàng cho user
                 usersRef

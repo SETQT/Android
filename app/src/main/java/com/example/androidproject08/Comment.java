@@ -9,18 +9,20 @@ public class Comment {
     private String sizeProduct;
     private String content;
     private Date createdAt;
+    private Integer countStar;
 
     public Comment() {
 
     }
 
-    public Comment(String idProduct, String user, String colorProduct, String sizeProduct, String content, Date createdAt) {
+    public Comment(String idProduct, String user, String colorProduct, String sizeProduct, String content, Date createdAt, Integer countStar) {
         this.idProduct = idProduct;
         this.user = user;
         this.colorProduct = colorProduct;
         this.sizeProduct = sizeProduct;
         this.content = content;
         this.createdAt = createdAt;
+        this.countStar = countStar;
     }
 
     public String getIdProduct() {
@@ -69,5 +71,13 @@ public class Comment {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getCountStar() {
+        return countStar;
+    }
+
+    public void setCountStar(Integer countStar) {
+        this.countStar = countStar;
     }
 }

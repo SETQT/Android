@@ -166,7 +166,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             if (preActivity.equals("activity_mycart")) {
                 for (int i = 0; i < ListOrderArray.size(); i++) {
                     // xóa mặt hàng khỏi giỏ hàng
-                    cartsRef.document(ListOrderArray.get(i).getId()).delete();
+                    cartsRef.document(ListOrderArray.get(i).getIdCart()).delete();
                 }
 
                 // giảm số lượng trong giỏ hàng cho user
@@ -198,6 +198,8 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             } else {
                 // lưu đơn hàng lên database
                 ordersRef.add(newOrder);
+
+                Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 
                 // chuyển về activity dashboard
                 Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);

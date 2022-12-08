@@ -1,8 +1,11 @@
 package com.example.androidproject08;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -58,6 +61,51 @@ public class Handle {
         result = number.substring(0, number.length() - 3) + "k";
 
         return result;
+    }
+
+    static public void ResetBackgroundStar(View star1, View star2, View star3, View star4, View star5) {
+        star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+        star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+        star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+        star4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+        star5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+    }
+
+    static public void setStar(View star1, View star2, View star3, View star4, View star5, Integer countStar) {
+        switch (countStar) {
+            case 5:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
+                star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                break;
+            case 4:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
+                star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                break;
+            case 3:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
+                star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                break;
+            case 2:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
+                star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                break;
+            case 1:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
+                star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                break;
+            default:
+                break;
+        }
     }
 }
 

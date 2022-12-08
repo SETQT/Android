@@ -1,6 +1,8 @@
 # Android
 Subject project of mobile software development group 8 - HCMUS.
-Teacher: TS. Trương Toàn Thịnh
+<br/>
+Lecturer: Doc. Trương Toàn Thịnh
+
 
 Team member:
 ## Triệu Quốc Thái - 20120370

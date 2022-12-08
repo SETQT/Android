@@ -2,13 +2,13 @@ package com.example.androidproject08;
 
 public class MyCart {
     private Integer amount; // lưu số lượng của mặt hàng này trong giỏ
-    private String id; // id sản phẩm
+    private String id; // id cart
     private String image; // lưu hình ảnh mô tả sản phẩm
     private String name; // tên sản phẩm
     private Integer price; // giá của sản phẩm
     private Integer sale; // phần trăm giảm giá đơn vị  %
     private String ownCart; // chủ của giỏ hàng này
-    private String idDoc;
+    private String idDoc; // id sản phẩm
     private String size;
     private String color;
 

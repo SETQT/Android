@@ -93,40 +93,6 @@ public class activity_mycart extends Activity implements View.OnClickListener {
             return;
         }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference cartsRef = db.collection("carts");
-
-        cartsRef.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                cartsRef
-                        .whereEqualTo("ownCart", username)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    ArrayList<MyCart> onChangeCart = new ArrayList<>();
-                                    Integer totalCart = 0, totalMoney = 0;
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        MyCart cart = document.toObject(MyCart.class);
-                                        cart.setIdDoc(document.getId().toString());
-
-                                        totalCart += cart.getAmount();
-                                        totalMoney += cart.getAmount() * cart.getPrice();
-                                    }
-
-                                    // hiển thị tổng sản phẩm và tổng tiền tất cả các mặt hàng có trong giỏ hàng
-                                    MyCart_bg_buy.setText("Mua hàng (" + totalCart.toString() + ")");
-                                    MyCart_total_cost.setText("đ" + totalMoney.toString());
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
-            }
-        });
-
         // query dữ liệu cho qua listview
         mycart_asynctask mc_at = new mycart_asynctask(username);
         mc_at.execute();
@@ -180,7 +146,9 @@ public class activity_mycart extends Activity implements View.OnClickListener {
 
             for (int i = 0; i < finalList.size(); i++) {
                 Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
-                Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total);
+
+                //Đặt hàng -> Chờ xác nhận -> Đánh giá = NULL
+                Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total, finalList.get(i).getId());
                 finalMyOrders.add(orderProduct);
             }
 
@@ -228,7 +196,7 @@ public class activity_mycart extends Activity implements View.OnClickListener {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     MyCart cart = document.toObject(MyCart.class);
-                                    cart.setIdDoc(document.getId().toString());
+                                    cart.setId(document.getId());
                                     publishProgress(cart);
                                 }
                             } else {
@@ -251,6 +219,10 @@ public class activity_mycart extends Activity implements View.OnClickListener {
             // set check all mycart cho lần đầu
             mycart_checkbox_all.setChecked(true);
             listChecked.add(1);
+
+            // hiển thị tổng sản phẩm và tổng tiền tất cả các mặt hàng có trong giỏ hàng
+            MyCart_bg_buy.setText("Mua hàng (" + totalCart.toString() + ")");
+            MyCart_total_cost.setText("đ" + totalMoney.toString());
 
             CustomMycartListViewAdapter myAdapter = new CustomMycartListViewAdapter(getApplicationContext(), R.layout.custom_notify_listview, finalList, listChecked);
             listMyCart.setAdapter(myAdapter);

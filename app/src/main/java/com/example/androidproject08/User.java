@@ -1,8 +1,6 @@
 package com.example.androidproject08;
 
 
-import android.util.Log;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -24,9 +22,9 @@ public class User {
     private Date birthdate;
     private String image;
     private String imageBg;
+    private String fcmToken;
 
     public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String id, String username, String password, String email,
@@ -220,5 +218,13 @@ public class User {
 
     public void setImageBg(String imageBg) {
         this.imageBg = imageBg;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }
