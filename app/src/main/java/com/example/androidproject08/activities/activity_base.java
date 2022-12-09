@@ -21,6 +21,7 @@ public class activity_base extends AppCompatActivity {
     private DocumentReference documentReference;
     private FirebaseFirestore db;
     private PreferenceManager preferenceManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class activity_base extends AppCompatActivity {
                             Log.d("ERROR", "loadInfoSender: lấy thông tin không thành công! ");
                         }
                     });
-        } catch (Exception err){
+        } catch (Exception err) {
             Log.d("ERROR", "loadInfoSender: ERROr" + err);
         }
     }
