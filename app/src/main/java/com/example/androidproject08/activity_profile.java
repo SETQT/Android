@@ -37,9 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class activity_profile extends Activity implements View.OnClickListener {
-
     //khai báo biến UI
-    RelativeLayout icon_home, icon_scan, icon_notify;
+    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -65,6 +64,14 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_scan.setOnClickListener(this);
         icon_notify = (RelativeLayout) findViewById(R.id.icon_notify);
         icon_notify.setOnClickListener(this);
+        icon_home = (RelativeLayout) findViewById(R.id.icon_home);
+        icon_home.setOnClickListener(this);
+        icon_choxacnhan = (RelativeLayout) findViewById(R.id.icon_choxacnhan);
+        icon_choxacnhan.setOnClickListener(this);
+        icon_cholayhang = (RelativeLayout) findViewById(R.id.icon_cholayhang);
+        icon_cholayhang.setOnClickListener(this);
+        icon_danggiaohang = (RelativeLayout) findViewById(R.id.icon_danggiaohang);
+        icon_danggiaohang.setOnClickListener(this);
 
         username_profile = (TextView) findViewById(R.id.username_profile);
         number_cart = (TextView) findViewById(R.id.number_cart);
@@ -78,7 +85,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_voucher_profile.setOnClickListener(this);
         icon_donhangcuatoi = (RelativeLayout) findViewById(R.id.icon_donhangcuatoi);
         icon_donhangcuatoi.setOnClickListener(this);
-
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -197,6 +203,27 @@ public class activity_profile extends Activity implements View.OnClickListener {
         if (view.getId() == icon_donhangcuatoi.getId()) {
             // chuyển sang giao diện đơn hàng của tôi
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_choxacnhan.getId()) {
+            // chuyển sang giao diện đơn hàng của tôi
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            moveActivity.putExtra("stateMyOrder", "1");
+            startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_cholayhang.getId()) {
+            // chuyển sang giao diện đơn hàng của tôi
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            moveActivity.putExtra("stateMyOrder", "2");
+            startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_danggiaohang.getId()) {
+            // chuyển sang giao diện đơn hàng của tôi
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            moveActivity.putExtra("stateMyOrder", "3");
             startActivity(moveActivity);
         }
     }

@@ -37,8 +37,8 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
 
     // biến xử lý
     activity_myorder main;
-    ArrayList<Order> MyOrderArray = new ArrayList<>();
     String username;
+    String stateMyOrder;
 
     public static MyorderFragmentSecond newInstance(String strArg1) {
         MyorderFragmentSecond fragment = new MyorderFragmentSecond();
@@ -82,29 +82,19 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
 
+        if(!stateMyOrder.isEmpty()) {
+            o_at = new order_asynctask(Integer.parseInt(stateMyOrder));
+            o_at.execute();
+        }
+
         return layout_second;
     }
 
     @Override
     public void onMsgFromMainToFragment(String strValue) {
-        if (strValue == "Cho xac nhan") {
-            order_asynctask o_at = new order_asynctask(1);
-            o_at.execute();
-        }
-        if (strValue == "Cho lay hang") {
-            order_asynctask o_at = new order_asynctask(2);
-            o_at.execute();
-        }
-
-        if (strValue == "Dang giao hang") {
-            order_asynctask o_at = new order_asynctask(3);
-            o_at.execute();
-        }
-
-        if (strValue == "Da giao") {
-            order_asynctask o_at = new order_asynctask(4);
-            o_at.execute();
-        }
+        stateMyOrder = strValue;
+        order_asynctask o_at = new order_asynctask(Integer.parseInt(strValue));
+        o_at.execute();
     }
 
     class order_asynctask extends AsyncTask<Void, Order, Order> {

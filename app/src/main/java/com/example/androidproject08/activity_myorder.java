@@ -1,13 +1,17 @@
 package com.example.androidproject08;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-public class activity_myorder extends FragmentActivity implements MainCallbacks{
-    FragmentTransaction ft; MyorderFragmentFirst firstFrag; MyorderFragmentSecond secondFrag;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
+public class activity_myorder extends FragmentActivity implements MainCallbacks {
+    FragmentTransaction ft;
+    MyorderFragmentFirst firstFrag;
+    MyorderFragmentSecond secondFrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,21 +25,31 @@ public class activity_myorder extends FragmentActivity implements MainCallbacks{
         secondFrag = MyorderFragmentSecond.newInstance("");
         ft.replace(R.id.voucher_fragment_second, secondFrag);
         ft.commit();
+
+        Intent intent = getIntent();
+
+        if(intent.hasExtra("stateMyOrder")) {
+            String stateMyOrder = intent.getStringExtra("stateMyOrder");
+            firstFrag.onMsgFromMainToFragment(stateMyOrder);
+            secondFrag.onMsgFromMainToFragment(stateMyOrder);
+        }
     }
+
     @Override
     public void onMsgFromFragToMain(String sender, String strValue) {
-//        Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
         if (sender.equals("RED-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
-                firstFrag.onMsgFromMainToFragment( strValue);
+                firstFrag.onMsgFromMainToFragment(strValue);
+            } catch (Exception e) {
+                Log.e("ERROR", "onStrFromFragToMain " + e.getMessage());
             }
-            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }
         if (sender.equals("BLUE-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
-                secondFrag.onMsgFromMainToFragment( strValue);
+                secondFrag.onMsgFromMainToFragment(strValue);
+            } catch (Exception e) {
+                Log.e("ERROR", "onStrFromFragToMain " + e.getMessage());
             }
-            catch (Exception e) { Log.e("ERROR", "onStrFromFragToMain " + e.getMessage()); }
         }
     }
 }
