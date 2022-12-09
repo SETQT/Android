@@ -56,6 +56,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     String[] type_payment_methods = {"Tiền mặt", "Momo", "Ngân hàng"};
     ArrayList<Myorder> ListOrderArray = new ArrayList<>();
     Voucher usedVoucher;
+    Integer finalTotalMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         }
 
         if (preActivity != null) {
-            Integer finalTotalMoney = 0;
+            finalTotalMoney = 0;
 
             for (int i = 0; i < ListOrderArray.size(); i++) {
                 finalTotalMoney += ListOrderArray.get(i).getTotal();
@@ -168,13 +169,6 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         }
 
         if (view.getId() == btn_order_payment.getId()) {
-            // tính tổng tiền đơn hàng
-            Integer finalTotalMoney = 0;
-            for (int i = 0; i < ListOrderArray.size(); i++) {
-                finalTotalMoney += ListOrderArray.get(i).getTotal();
-            }
-            finalTotalMoney += 30000;
-
             Order newOrder;
 
             if(usedVoucher != null) {
