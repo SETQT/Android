@@ -38,7 +38,7 @@ import java.util.List;
 
 public class activity_profile extends Activity implements View.OnClickListener {
     //khai báo biến UI
-    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua;
+    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,6 +74,9 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_danggiaohang.setOnClickListener(this);
         rectangle_donhangdamua = (RelativeLayout) findViewById(R.id.rectangle_donhangdamua);
         rectangle_donhangdamua.setOnClickListener(this);
+
+        icon_favorite_product = (RelativeLayout) findViewById(R.id.icon_favorite_product);
+        icon_favorite_product.setOnClickListener(this);
 
         username_profile = (TextView) findViewById(R.id.username_profile);
         number_cart = (TextView) findViewById(R.id.number_cart);
@@ -233,6 +236,12 @@ public class activity_profile extends Activity implements View.OnClickListener {
             // chuyển sang giao diện đơn hàng của tôi
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             moveActivity.putExtra("stateMyOrder", "4");
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_favorite_product.getId()) {
+            // chuyển sang giao diện danh sách yêu thích
+            Intent moveActivity = new Intent(getApplicationContext(), activity_my_favorite_list.class);
             startActivity(moveActivity);
         }
     }

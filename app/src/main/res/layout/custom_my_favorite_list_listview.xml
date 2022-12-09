@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/custom_mycart_listview_bg_mycart"
+        android:layout_width="363dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/mycart_custom_listview_bg_mycart" />
+
+    <ImageView
+        android:id="@+id/custom_favorite_picture"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:layout_width="245dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/custom_favorite_name_product"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:gravity="top"
+            android:text="Áo khoác Mono cực chất lượng"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/custom_favorite_old_cost_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="55dp"
+            android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
+            android:gravity="center"
+            android:text="đ500.000"
+            android:textColor="#AEAEAE"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/custom_favorite_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="55dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:text="-20%"
+            android:textColor="#E54335"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/custom_favorite_new_cost_product"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="55dp"
+            android:gravity="top"
+            android:text="đ100.000"
+            android:textColor="#F9A826"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
