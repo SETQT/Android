@@ -3,7 +3,7 @@ package com.example.androidproject08.utilities;
 import java.util.HashMap;
 
 public class Constants {
-    public static final String KEY_COLLECTION_ADMIN ="admin";
+    public static final String KEY_COLLECTION_ADMIN = "admin";
     public static final String KEY_ADMIN_NAME = "name";
     public static final String KEY_USER_NAME = "name";
     public static final String KEY_PASSWORD = "password";
@@ -32,8 +32,9 @@ public class Constants {
     public static final String REMOTE_MSG_REGISTRATION_IDS = "registration_ids";
 
     public static HashMap<String, String> remoteMsgHeaders = null;
-    public static HashMap<String, String> getRemoteMsgHeaders(){
-        if(remoteMsgHeaders == null){
+
+    public static HashMap<String, String> getRemoteMsgHeaders() {
+        if (remoteMsgHeaders == null) {
             remoteMsgHeaders = new HashMap<>();
             remoteMsgHeaders.put(
                     REMOTE_MSG_AUTHORIZATION,
