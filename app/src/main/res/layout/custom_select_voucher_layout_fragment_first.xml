@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_select_voucher_layout_fragment_first"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/border_edittext_select_voucher"
+            android:layout_width="235dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_edittext_select_voucher" />
+
+        <EditText
+            android:id="@+id/edittext_select_voucher"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="22dp"
+            android:background="@null"
+            android:hint="Nhập mã voucher"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/icon_search"
+        android:background="@drawable/icon_search"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:backgroundTint="#F9A826"
+        />
+
+    <Button
+        android:id="@+id/btn_confirm_select_voucher"
+        android:layout_width="86dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_confirm_select_voucher"
+        android:text="Áp dụng"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"/>
+
+</LinearLayout>

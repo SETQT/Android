@@ -57,7 +57,7 @@ public class ChatActivity extends activity_base {
     private ChatAdapter chatAdapter;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
-    private String conversionId =null;
+    private String conversionId = null;
     private Boolean isReceiverAvailable = false;
 
 
@@ -121,7 +121,7 @@ public class ChatActivity extends activity_base {
             binding.chatRecyclerView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
-        if(conversionId == null){
+        if (conversionId == null) {
             checkForConversion();
         }
     };
@@ -134,7 +134,7 @@ public class ChatActivity extends activity_base {
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
         db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        if(conversionId != null){
+        if (conversionId != null) {
             updateConversion(binding.inputMessage.getText().toString());
         } else {
             HashMap<String, Object> conversion = new HashMap<>();
@@ -148,7 +148,7 @@ public class ChatActivity extends activity_base {
             conversion.put(Constants.KEY_TIMESTAMP, new Date());
             addConversion(conversion);
         }
-        if(!isReceiverAvailable){
+        if (!isReceiverAvailable) {
             try {
                 JSONArray tokens = new JSONArray();
                 tokens.put(receiverUser.token);
@@ -164,7 +164,7 @@ public class ChatActivity extends activity_base {
                 body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
 
                 sendNotification(body.toString());
-            } catch (Exception exception){
+            } catch (Exception exception) {
                 showToast(exception.getMessage());
             }
         }
@@ -182,34 +182,34 @@ public class ChatActivity extends activity_base {
                 .addSnapshotListener(eventListener);
     }
 
-    private void showToast(String message){
+    private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void sendNotification(String messageBody){
+    private void sendNotification(String messageBody) {
         ApiClient.getClient().create(ApiService.class).sendMessage(
                 Constants.getRemoteMsgHeaders(),
                 messageBody
         ).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     try {
-                        if(response.body() != null){
+                        if (response.body() != null) {
                             JSONObject responseJson = new JSONObject(response.body());
                             JSONArray results = responseJson.getJSONArray("results");
-                            if(responseJson.getInt("failure")== 1){
-                                JSONObject error = (JSONObject)  results.get(0);
+                            if (responseJson.getInt("failure") == 1) {
+                                JSONObject error = (JSONObject) results.get(0);
                                 showToast(error.getString("error"));
                                 return;
                             }
                         }
-                    } catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     showToast("Notification sent successfully");
-                } else{
-                    showToast("Error: "+ response.code());
+                } else {
+                    showToast("Error: " + response.code());
                 }
             }
 
@@ -220,17 +220,17 @@ public class ChatActivity extends activity_base {
         });
     }
 
-    private void listenAvailabilityOfReceiver(){
+    private void listenAvailabilityOfReceiver() {
         db = FirebaseFirestore.getInstance();
         db.collection(Constants.KEY_COLLECTION_ADMIN).document(
                 preferenceManager.getString(Constants.KEY_RECEIVER_ID)
                 //"3gVLbOrbASjFLrOZTDhZ"receiverUser.id
-        ).addSnapshotListener(ChatActivity.this,(value, error) -> {
-            if(error!= null){
+        ).addSnapshotListener(ChatActivity.this, (value, error) -> {
+            if (error != null) {
                 return;
             }
-            if(value != null){
-                if(value.getLong(Constants.KEY_AVAILABILITY) != null){
+            if (value != null) {
+                if (value.getLong(Constants.KEY_AVAILABILITY) != null) {
                     int availability = Objects.requireNonNull(
                             value.getLong(Constants.KEY_AVAILABILITY)
                     ).intValue();
@@ -238,9 +238,9 @@ public class ChatActivity extends activity_base {
                 }
                 receiverUser.token = value.getString(Constants.KEY_FCM_TOKEN);
             }
-            if(isReceiverAvailable){
+            if (isReceiverAvailable) {
                 binding.textAvailability.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 binding.textAvailability.setVisibility(View.GONE);
             }
         });
@@ -250,7 +250,7 @@ public class ChatActivity extends activity_base {
     private void loadReceiverDetails(UserChat receiverUser) {
         //receiverUser = (User) getIntent().getSerializableExtra(Constants.KEY_USER);
         UserChat tmp = (UserChat) getIntent().getSerializableExtra("admin");
-        if(tmp != null){
+        if (tmp != null) {
             receiverUser = tmp;
         }
         if (receiverUser != null) {
@@ -276,7 +276,7 @@ public class ChatActivity extends activity_base {
                 .addOnSuccessListener(documentReference -> conversionId = documentReference.getId());
     }
 
-    private void updateConversion(String message){
+    private void updateConversion(String message) {
         DocumentReference documentReference =
                 db.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversionId);
         documentReference.update(
@@ -358,7 +358,7 @@ public class ChatActivity extends activity_base {
                             Log.d("ERROR", "loadInfoSender: lấy thông tin không thành công! ");
                         }
                     });
-        } catch (Exception err){
+        } catch (Exception err) {
             Log.d("ERROR", "loadInfoSender: ERROr" + err);
         }
     }

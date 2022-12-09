@@ -54,6 +54,7 @@
         <activity android:name=".activity_change_password"></activity>
         <activity android:name=".activity_search"></activity>
         <activity android:name=".activity_edit_dob"></activity>
+        <activity android:name=".activity_select_voucher"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
