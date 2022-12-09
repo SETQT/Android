@@ -319,29 +319,30 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="119dp">
-        <TextView
-            android:id="@+id/donhangdamua_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="12dp"
-            android:gravity="top"
-            android:text="@string/donhangdamua"
-            android:textAppearance="@style/donhangcuatoi"
-            android:textStyle="bold"
-            android:textSize="14dp" />
 
-        <View
-            android:id="@+id/baseline_arrow_profile2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="377dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_baseline_arrow" />
+            <TextView
+                android:id="@+id/donhangdamua_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:text="@string/donhangdamua"
+                android:textAppearance="@style/donhangcuatoi"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/baseline_arrow_profile2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="377dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ic_baseline_arrow" />
 
         </RelativeLayout>
 

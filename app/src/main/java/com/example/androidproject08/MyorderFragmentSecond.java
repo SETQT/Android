@@ -82,7 +82,7 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
 
-        if(!stateMyOrder.isEmpty()) {
+        if(stateMyOrder != null) {
             o_at = new order_asynctask(Integer.parseInt(stateMyOrder));
             o_at.execute();
         }

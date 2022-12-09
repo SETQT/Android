@@ -1,6 +1,9 @@
 package com.example.androidproject08;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Product {
     private String category; // loại sản phẩm
@@ -125,5 +128,18 @@ public class Product {
 
     public void setIdDoc(String idDoc) {
         this.idDoc = idDoc;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(idDoc, product.idDoc);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idDoc);
     }
 }

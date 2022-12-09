@@ -21,7 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +56,9 @@ public class activity_view_product extends Activity implements View.OnClickListe
     String size, color;
     Integer amount, avgStar = 0;
     ArrayList<Comment> listComments = new ArrayList<>();
+    Boolean isLiked = false;
+    Product curProduct;
+    FavoriteProduct curFavorite;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,6 +66,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference usersRef = db.collection("users");
     CollectionReference commentsRef = db.collection("comments");
+    CollectionReference favoritesRef = db.collection("favorites");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -97,7 +104,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
         star5m = (View) findViewById(R.id.star5_view_product);
 
         ic_heart_view_product = (View) findViewById(R.id.ic_heart_view_product);
-        ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+        ic_heart_view_product.setOnClickListener(this);
+
         number_cart = (TextView) findViewById(R.id.number_cart);
         rate_evalute_comment = (TextView) findViewById(R.id.rate_evalute_comment);
         number_evaluate_comment = (TextView) findViewById(R.id.number_evaluate_comment);
@@ -146,6 +154,10 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         comment_asynctask cmt_at = new comment_asynctask();
         cmt_at.execute();
+
+        // check thử sản phẩm đã được yêu thích hay chưa
+        favorite_asynctask f_at = new favorite_asynctask();
+        f_at.execute();
     }
 
     @Override
@@ -290,6 +302,41 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
             custom_mycart_number_product.setText(amount.toString());
         }
+
+        if (view.getId() == ic_heart_view_product.getId()) {
+            if (isLiked) {
+                // hủy yêu thích
+                ArrayList<Product> newListFavoriteProducts = curFavorite.getProducts();
+                newListFavoriteProducts.remove(curProduct);
+
+                favoritesRef.document(curFavorite.getId()).update("products", newListFavoriteProducts);
+
+                Toast.makeText(getApplicationContext(), "Hủy yêu thích sản phẩm thành công!", Toast.LENGTH_SHORT).show();
+
+                ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+
+            } else {
+                // thêm vào danh sách yêu thích
+                ArrayList<Product> newListFavoriteProducts = new ArrayList<>();
+                if (curFavorite == null) {
+                    newListFavoriteProducts.add(curProduct);
+                    FavoriteProduct newFavoriteProduct = new FavoriteProduct(username, newListFavoriteProducts);
+
+                    favoritesRef.add(newFavoriteProduct);
+                } else {
+                    newListFavoriteProducts = curFavorite.getProducts();
+                    newListFavoriteProducts.add(curProduct);
+
+                    favoritesRef.document(curFavorite.getId()).update("products", newListFavoriteProducts);
+                }
+
+                Toast.makeText(getApplicationContext(), "Đã thêm sản phẩm này vào danh sách yêu thích của bạn!", Toast.LENGTH_SHORT).show();
+
+                ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff695f")));
+            }
+
+            isLiked = !isLiked;
+        }
     }
 
     private class avp_asynctask extends AsyncTask<Void, Product, Product> {
@@ -308,6 +355,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     Product product = document.toObject(Product.class);
+                                    product.setIdDoc(document.getId());
                                     publishProgress(product);
                                 }
                             }
@@ -321,6 +369,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
         @Override
         protected void onProgressUpdate(Product... products) {
             super.onProgressUpdate(products);
+            curProduct = products[0];
 
             // thiết lập các thuộc tính cơ bản của product
             ImageView imgProduct = (ImageView) findViewById(R.id.mono_1);
@@ -381,7 +430,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
     }
 
     private class comment_asynctask extends AsyncTask<Void, Comment, Comment> {
-        Integer variableRun = 0;
         comment_asynctask() {
         }
 
@@ -414,7 +462,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
             listview_comment_view_product.setAdapter(myAdapter);
             setListViewHeightBasedOnChildren(listview_comment_view_product);
 
-            avgStar = (avgStar + comments[0].getCountStar())/ listComments.size() ;
+            avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
 
             Handle.setStar(star1, star2, star3, star4, star5, avgStar);
             Handle.setStar(star1m, star2m, star3m, star4m, star5m, avgStar);
@@ -425,6 +473,60 @@ public class activity_view_product extends Activity implements View.OnClickListe
             number_evaluate_comment.setText("(" + amountOfComment.toString() + " đánh giá)");
             number_evaluate.setText(amountOfComment.toString());
         }
+    }
+
+    private class favorite_asynctask extends AsyncTask<Void, FavoriteProduct, FavoriteProduct> {
+        favorite_asynctask() {
+        }
+
+        @Override
+        protected FavoriteProduct doInBackground(Void... voids) {
+            try {
+                favoritesRef
+                        .whereEqualTo("user", username)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                boolean isHave = false;
+
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    FavoriteProduct favoriteProduct = document.toObject(FavoriteProduct.class);
+                                    favoriteProduct.setId(document.getId());
+                                    publishProgress(favoriteProduct);
+                                    isHave = true;
+                                }
+
+                                if (!isHave) {
+                                    publishProgress();
+                                }
+                            }
+                        });
+            } catch (Exception error) {
+                Log.e("ERROR", "activity_view_product: " + error);
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(FavoriteProduct... favoriteProducts) {
+            super.onProgressUpdate(favoriteProducts);
+
+            if (favoriteProducts.length == 0) {
+                isLiked = false;
+                ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+            } else {
+                curFavorite = favoriteProducts[0];
+
+                if (favoriteProducts[0].getProducts().contains(curProduct)) {
+                    isLiked = true;
+                    ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff695f")));
+                } else {
+                    isLiked = false;
+                    ic_heart_view_product.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
+                }
+            }
+        }
+
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

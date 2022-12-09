@@ -107,7 +107,7 @@ public class MyorderFragmentFirst extends Fragment implements View.OnClickListen
                     }
                 });
 
-        if(!stateMyOder.isEmpty()) {
+        if(stateMyOder != null) {
             switch (stateMyOder) {
                 case "1":
                     myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextAfterClick);
