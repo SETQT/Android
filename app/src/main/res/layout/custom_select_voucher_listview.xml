@@ -44,16 +44,29 @@
         <TextView
             android:id="@+id/custom_select_voucher_title"
             android:layout_width="wrap_content"
-            android:layout_height="18dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="top"
             android:text="Tất cả hình thức thanh toán"
             android:textColor="#000000"
             android:textSize="12sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/custom_select_voucher_min_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="45dp"
+            android:gravity="top"
+            android:text="Đơn tối thiểu: 300k"
+            android:textColor="#000000"
+            android:textSize="10sp" />
 
         <View
             android:id="@+id/voucher_select_custom_frame_cost_free"
@@ -62,7 +75,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="64dp"
             android:background="@drawable/voucher_custom_frame_cost_free" />
 
         <TextView
@@ -72,7 +85,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="65dp"
             android:gravity="center"
             android:text="Tối đa 40k"
             android:textColor="#F9A826"
@@ -85,7 +98,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="85dp"
             android:gravity="top"
             android:text="Bắt đầu: 20/11/2022"
             android:textColor="#AEAEAE"
@@ -98,7 +111,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="120dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="85dp"
             android:gravity="top"
             android:text="HSD: 20/11/2022"
             android:textColor="#AEAEAE"
@@ -108,8 +121,8 @@
             android:id="@+id/custom_select_voucher_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="70dp" />
     </RelativeLayout>
 
 </RelativeLayout>

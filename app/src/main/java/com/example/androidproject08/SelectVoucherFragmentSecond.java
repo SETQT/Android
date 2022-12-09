@@ -215,6 +215,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             v = inflater.inflate(R.layout.custom_select_voucher_listview, null);
 
             TextView title = (TextView) v.findViewById(R.id.custom_select_voucher_title);
+            TextView min_cost = (TextView) v.findViewById(R.id.custom_select_voucher_min_cost);
             TextView free_cost = (TextView) v.findViewById(R.id.custom_select_voucher_free_cost);
             CheckBox checkbox = (CheckBox) v.findViewById(R.id.custom_select_voucher_checkbox);
             TextView start_date = (TextView) v.findViewById(R.id.custom_select_voucher_start_date);
@@ -258,7 +259,8 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
 
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
-            title.setText(vouchers.get(position).getTitle() + " cho đơn hàng tối thiểu " + Handle.kFortmatter(vouchers.get(position).getMinimumCost().toString()));
+            title.setText(vouchers.get(position).getTitle());
+            min_cost.setText("Đơn hàng tối thiểu: " + Handle.kFortmatter(vouchers.get(position).getMinimumCost().toString()));
             free_cost.setText("Tối đa " + Handle.kFortmatter(vouchers.get(position).getMoneyDeals().toString()));
             start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());
             expiry_date.setText("HSD: " + formatDate.format(vouchers.get(position).getFinishedAt()).toString());
