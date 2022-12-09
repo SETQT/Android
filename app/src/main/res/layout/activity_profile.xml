@@ -319,30 +319,29 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="119dp">
+        <TextView
+            android:id="@+id/donhangdamua_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="12dp"
+            android:gravity="top"
+            android:text="@string/donhangdamua"
+            android:textAppearance="@style/donhangcuatoi"
+            android:textStyle="bold"
+            android:textSize="14dp" />
 
-            <TextView
-                android:id="@+id/donhangdamua_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="12dp"
-                android:gravity="top"
-                android:text="@string/donhangdamua"
-                android:textAppearance="@style/donhangcuatoi"
-                android:textSize="14dp"
-                android:textStyle="bold" />
-
-            <View
-                android:id="@+id/baseline_arrow_profile2"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="377dp"
-                android:layout_marginTop="17dp"
-                android:background="@drawable/ic_baseline_arrow" />
+        <View
+            android:id="@+id/baseline_arrow_profile2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="377dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/ic_baseline_arrow" />
 
         </RelativeLayout>
 
@@ -381,7 +380,7 @@
             android:background="@drawable/line_profile" />
 
         <RelativeLayout
-            android:id="@+id/icon_vi"
+            android:id="@+id/icon_favorite_product"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
@@ -390,53 +389,24 @@
             android:layout_marginTop="64dp">
 
             <View
-                android:id="@+id/ic_vi"
+                android:id="@+id/ic_favorite_product"
                 android:layout_width="25dp"
-                android:layout_height="21.88dp"
+                android:layout_height="22dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="25dp"
-                android:background="@drawable/ic_vi" />
+                android:background="@drawable/ic_heart"
+                android:backgroundTint="#F9A826" />
 
             <TextView
                 android:id="@+id/text_vi"
-                android:layout_width="73dp"
-                android:layout_height="15dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="25dp"
-                android:gravity="center"
-                android:text="@string/vi"
-                android:textAppearance="@style/giaohang" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/icon_shop_xu"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="64dp">
-
-            <View
-                android:id="@+id/ic_shop_xu"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_coins" />
-
-            <TextView
-                android:id="@+id/text_shop_xu"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="25dp"
                 android:gravity="center"
-                android:text="@string/shop_xu"
+                android:text="Sản phẩm yêu thích"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
 
@@ -446,7 +416,7 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="310dp"
+            android:layout_marginLeft="180dp"
             android:layout_marginTop="64dp">
 
             <View
@@ -455,7 +425,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="14dp"
                 android:background="@drawable/ic_voucher" />
 
             <TextView
@@ -469,6 +439,8 @@
                 android:text="@string/kho_voucher"
                 android:textAppearance="@style/giaohang" />
         </RelativeLayout>
+
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -650,6 +622,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="340dp">
+
         <View
             android:id="@+id/dashboard_icon_profile"
             android:layout_width="26dp"
