@@ -311,6 +311,14 @@
             android:layout_marginTop="119dp"
             android:background="@drawable/line_profile" />
 
+        <RelativeLayout
+            android:id="@+id/rectangle_donhangdamua"
+            android:layout_width="411dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="119dp">
         <TextView
             android:id="@+id/donhangdamua_profile"
             android:layout_width="wrap_content"
@@ -318,10 +326,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="131dp"
+            android:layout_marginTop="12dp"
             android:gravity="top"
             android:text="@string/donhangdamua"
             android:textAppearance="@style/donhangcuatoi"
+            android:textStyle="bold"
             android:textSize="14dp" />
 
         <View
@@ -330,9 +339,11 @@
             android:layout_height="15dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="367dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginLeft="377dp"
+            android:layout_marginTop="17dp"
             android:background="@drawable/ic_baseline_arrow" />
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
@@ -520,18 +531,18 @@
         android:textColor="#FFFFFF"
         android:textSize="18dp" />
 
-    <View
-        android:id="@+id/rectangle_footer"
-        android:layout_width="411dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginTop="613dp"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/dashboard_rectangle_footer" />
+        <View
+            android:id="@+id/rectangle_footer"
+            android:layout_width="411dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-1dp"
+            android:layout_marginLeft="-1dp"
+            android:layout_marginTop="613dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/dashboard_rectangle_footer" />
 
     <RelativeLayout
         android:id="@+id/icon_home"
