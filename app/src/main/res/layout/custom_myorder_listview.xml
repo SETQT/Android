@@ -38,13 +38,12 @@
 
     <TextView
         android:id="@+id/myorder_custom_danhgia"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="335dp"
+        android:layout_marginLeft="325dp"
         android:layout_marginTop="15dp"
-        android:background="#AEAEAE"
         android:gravity="top"
         android:text="Đánh giá"
         android:textColor="#FF0000"
