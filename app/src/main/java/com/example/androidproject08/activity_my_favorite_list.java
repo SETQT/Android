@@ -27,6 +27,8 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
         setContentView(R.layout.activity_my_favorite_list);
 
         listview_my_favorite = (ListView) findViewById(R.id.listview_my_favorite);
+        icon_back = (View) findViewById(R.id.icon_back);
+        icon_cart = (View) findViewById(R.id.icon_cart);
 
         name.add("Áo khoác hồng");
         new_cost.add(300000);
