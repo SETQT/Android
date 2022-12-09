@@ -166,6 +166,11 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
     }
 
     @Override
+    public void onObjectFromFragToMain(String sender, Object value) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         // chuyển sang giao diện my cart
         if (view.getId() == icon_cart.getId()) {

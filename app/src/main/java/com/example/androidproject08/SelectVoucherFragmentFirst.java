@@ -29,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.File;
 import java.util.ArrayList;
 
-public class SelectVoucherFragmentFirst extends Fragment implements View.OnClickListener {
+public class SelectVoucherFragmentFirst extends Fragment implements View.OnClickListener, FragmentCallbacks {
     // this fragment shows a ListView
     activity_select_voucher main;
 
@@ -38,12 +38,9 @@ public class SelectVoucherFragmentFirst extends Fragment implements View.OnClick
     View icon_search;
     Button btn_confirm_select_voucher;
 
-    // kết nối firestore
-//    FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    CollectionReference usersRef = db.collection("users");
-//
-//    // sqlite
-//    SQLiteDatabase sqlite;
+    // biến xử lý
+    ArrayList<Myorder> ListOrderArray = new ArrayList<>();
+    Voucher usedVoucher;
 
     // convenient constructor(accept arguments, copy them to a bundle, binds bundle to fragment)
     public static SelectVoucherFragmentFirst newInstance(String strArg) {
@@ -71,69 +68,47 @@ public class SelectVoucherFragmentFirst extends Fragment implements View.OnClick
         edittext_select_voucher = (EditText) layout_first.findViewById(R.id.edittext_select_voucher);
         btn_confirm_select_voucher = (Button) layout_first.findViewById(R.id.btn_confirm_select_voucher);
         icon_search = (View) layout_first.findViewById(R.id.icon_search);
-
-        icon_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String dataSend = edittext_select_voucher.getText().toString();
-                main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
-            }
-        });
-
-        btn_confirm_select_voucher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn_confirm_select_voucher.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
-                Intent moveActivity = new Intent(main, activity_payment.class);
-                startActivity(moveActivity);
-            }
-        });
-        //btn_confirm_select_voucher.setOnClickListener(this);
-
-//        try {
-//            // kết nối sqlite
-//            File storagePath = main.getFilesDir();
-//            String myDbPath = storagePath + "/" + "loginDb";
-//            sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
-//
-//            String mySQL = "select * from USER";
-//            Cursor c1 = sqlite.rawQuery(mySQL, null);
-//            c1.moveToPosition(0);
-//            String username = c1.getString(0);
-//
-//            // lấy số lượng sản phẩm
-//            usersRef.whereEqualTo("username", username)
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if(task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot document : task.getResult()) {
-//                                    User user = document.toObject(User.class);
-//                                    number_cart.setText(user.getCart().get("amount").toString());
-//                                    break;
-//                                }
-//                            }
-//                        }
-//                    });
-//        }catch (Exception error) {
-//            Log.e("ERROR", "VoucherFragmentFirst onCreateView: ", error);
-//        }
+        icon_search.setOnClickListener(this);
+        btn_confirm_select_voucher.setOnClickListener(this);
 
         return layout_first;
     }// onCreateView
 
+    @Override
     public void onMsgFromMainToFragment(String strValue) {
         String dataSend = strValue;
         main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
     }
 
     @Override
+    public void onObjectFromMainToFragment(Object value) {
+        if(value != null) {
+            if(value.getClass() == Voucher.class) {
+                usedVoucher = (Voucher) value;
+            }else {
+                ListOrderArray = (ArrayList<Myorder>) value;
+            }
+        }
+    }
+
+    @Override
     public void onClick(View view) {
-//        if(view.getId() == btn_confirm_select_voucher.getId()) {
-//            btn_confirm_select_voucher.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
-//            String dataSend = edittext_select_voucher.getText().toString();
-//            main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
-//        }
+        if(view.getId() == icon_search.getId()) {
+            String dataSend = edittext_select_voucher.getText().toString();
+            main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
+        }
+
+        if(view.getId() == btn_confirm_select_voucher.getId()) {
+            btn_confirm_select_voucher.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+            Intent moveActivity = new Intent(main, activity_payment.class);
+
+            if(usedVoucher != null) {
+                moveActivity.putExtra("voucher", usedVoucher);
+            }
+
+            moveActivity.putExtra("products", ListOrderArray);
+            moveActivity.putExtra("name_activity", "activity_select_voucher");
+            startActivity(moveActivity);
+        }
     }
 }// class

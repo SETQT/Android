@@ -1,8 +1,10 @@
 package com.example.androidproject08;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class Voucher {
+public class Voucher implements Serializable {
     private String id;
     private String image;
     private String title;
@@ -97,6 +99,14 @@ public class Voucher {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Voucher voucher = (Voucher) o;
+        return Objects.equals(id, voucher.id);
     }
 }
 

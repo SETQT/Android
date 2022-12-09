@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     View ic_back_payment;
     TextView name_user_payment, phone_user_payment, address_payment, cost_payment, value_total_cost_product_payment, value_cost_tranfer_payment, value_total_voucher_discount_payment, value_total_money_payment;
     Button btn_order_payment;
+    Spinner spinner_payment_methods;
+    RelativeLayout rectangle_voucher;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -50,9 +53,9 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
     // biến xử lý
     String username, preActivity, paymentMethod;
-    Spinner spinner_payment_methods;
     String[] type_payment_methods = {"Tiền mặt", "Momo", "Ngân hàng"};
     ArrayList<Myorder> ListOrderArray = new ArrayList<>();
+    Voucher usedVoucher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,8 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_spiner_payment_methods, type_payment_methods);
         spinner_payment_methods.setAdapter(adapter);
         spinner_payment_methods.setOnItemSelectedListener(this);
-
+        rectangle_voucher = (RelativeLayout) findViewById(R.id.rectangle_voucher);
+        rectangle_voucher.setOnClickListener(this);
         ic_back_payment = (View) findViewById(R.id.ic_back_payment);
         ic_back_payment.setOnClickListener(this);
         btn_order_payment = (Button) findViewById(R.id.btn_order_payment);
@@ -91,6 +95,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             ListOrderArray = (ArrayList<Myorder>) intent.getExtras().getSerializable("products");
         }
 
+        if(intent.hasExtra("voucher")) {
+            usedVoucher = (Voucher) intent.getExtras().getSerializable("voucher");
+        }
+
         if (preActivity != null) {
             Integer finalTotalMoney = 0;
 
@@ -99,7 +107,13 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             }
             value_total_cost_product_payment.setText("đ" + finalTotalMoney.toString());
             value_cost_tranfer_payment.setText("đ" + 30000);
-            value_total_voucher_discount_payment.setText("đ" + 0);
+
+            if(usedVoucher != null) {
+                value_total_voucher_discount_payment.setText("- đ" + usedVoucher.getMoneyDeals().toString());
+                finalTotalMoney -= usedVoucher.getMoneyDeals();
+            }else {
+                value_total_voucher_discount_payment.setText("- đ" + 0);
+            }
 
             finalTotalMoney += 30000;
             cost_payment.setText("đ" + finalTotalMoney.toString());
@@ -161,9 +175,15 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             }
             finalTotalMoney += 30000;
 
-            Order newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
+            Order newOrder;
 
-            if (preActivity.equals("activity_mycart")) {
+            if(usedVoucher != null) {
+                newOrder = new Order(username, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
+            }else {
+                newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
+            }
+
+            if (!preActivity.equals("activity_view_product")) {
                 for (int i = 0; i < ListOrderArray.size(); i++) {
                     // xóa mặt hàng khỏi giỏ hàng
                     cartsRef.document(ListOrderArray.get(i).getIdCart()).delete();
@@ -205,6 +225,13 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                 Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
                 startActivity(moveActivity);
             }
+        }
+
+        if(view.getId() == rectangle_voucher.getId()) {
+            Intent moveActivity = new Intent(getApplicationContext(), activity_select_voucher.class);
+            moveActivity.putExtra("products", ListOrderArray);
+            moveActivity.putExtra("voucher", usedVoucher);
+            startActivity(moveActivity);
         }
     }
 

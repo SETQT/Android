@@ -57,4 +57,9 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
         dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, strValue);
         db_at.execute();
     }
+
+    @Override
+    public void onObjectFromMainToFragment(Object value) {
+
+    }
 }

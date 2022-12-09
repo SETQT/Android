@@ -52,4 +52,9 @@ public class activity_myorder extends FragmentActivity implements MainCallbacks 
             }
         }
     }
+
+    @Override
+    public void onObjectFromFragToMain(String sender, Object value) {
+
+    }
 }

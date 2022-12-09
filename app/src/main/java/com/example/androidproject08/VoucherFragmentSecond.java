@@ -87,6 +87,11 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         }
     }
 
+    @Override
+    public void onObjectFromMainToFragment(Object value) {
+
+    }
+
     class voucher_asynctask extends AsyncTask<Void, Voucher, Voucher> {
         ArrayList<Voucher> listVoucher = new ArrayList<>();
         String type;

@@ -97,6 +97,11 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         o_at.execute();
     }
 
+    @Override
+    public void onObjectFromMainToFragment(Object value) {
+
+    }
+
     class order_asynctask extends AsyncTask<Void, Order, Order> {
         ArrayList<Myorder> listOrder = new ArrayList<>();
         Integer state;

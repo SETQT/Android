@@ -8,15 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
     ArrayList<Voucher> vouchers = new ArrayList<Voucher>();
+    Context curContext;
 
     public CustomVoucherListViewAdapter(Context context, int resource, ArrayList<Voucher> objects) {
         super(context, resource, objects);
         this.vouchers = objects;
+        this.curContext = context;
     }
 
 
@@ -43,12 +47,12 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
 
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        title.setText(vouchers.get(position).getTitle());
+        title.setText(vouchers.get(position).getTitle() + " cho đơn hàng tối thiểu " + Handle.kFortmatter(vouchers.get(position).getMinimumCost().toString()));
         free_cost.setText("Tối đa " + Handle.kFortmatter(vouchers.get(position).getMoneyDeals().toString()));
         count.setText("Số lượng: " + vouchers.get(position).getAmount().toString());
         start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());
         expiry_date.setText("HSD: " + formatDate.format(vouchers.get(position).getFinishedAt()).toString());
-        img.setImageResource(R.drawable.img_voucher);
+//        Picasso.with(curContext).load(vouchers.get(position).getImage()).into(img);
 
         return v;
     }
