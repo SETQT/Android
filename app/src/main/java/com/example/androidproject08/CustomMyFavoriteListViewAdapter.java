@@ -18,12 +18,10 @@ public class CustomMyFavoriteListViewAdapter extends ArrayAdapter<Product> {
     ArrayList<Product> products;
     Context curContext;
 
-
     public CustomMyFavoriteListViewAdapter(Context context, int resource, ArrayList<Product> objects) {
         super(context, resource, objects);
         this.products = objects;
         this.curContext = context;
-
     }
 
     @Override
@@ -49,8 +47,7 @@ public class CustomMyFavoriteListViewAdapter extends ArrayAdapter<Product> {
         old_price.setText("đ" + products.get(position).getPrice().toString());
         price.setText("đ" + oldPrice.toString());
         percent_sale.setText("-"+products.get(position).getSale().toString() + "%");
-
-        // Picasso.with(curContext).load(products.get(position).getImage()).into(picture);
+         Picasso.with(curContext).load(products.get(position).getImage()).into(picture);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override

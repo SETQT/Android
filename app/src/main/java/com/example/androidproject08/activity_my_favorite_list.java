@@ -2,25 +2,34 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class activity_my_favorite_list extends Activity implements View.OnClickListener {
-
+    // biến UI
     View icon_back, icon_cart;
-
     ListView listview_my_favorite;
 
-    ArrayList<String> name = new ArrayList<>();
-    ArrayList<Integer> new_cost = new ArrayList<>();
-    ArrayList<Integer> percent_sale = new ArrayList<>();
+    // firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference favoritesRef = db.collection("favorites");
 
-    ArrayList<Product> product = new ArrayList<Product>();
-
+    // Biến xử lý
+    String username;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,20 +37,13 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
 
         listview_my_favorite = (ListView) findViewById(R.id.listview_my_favorite);
         icon_back = (View) findViewById(R.id.icon_back);
-        icon_cart = (View) findViewById(R.id.icon_cart);
+        icon_back.setOnClickListener(this);
 
-        name.add("Áo khoác hồng");
-        new_cost.add(300000);
-        percent_sale.add(20);
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
 
-        Product product1 = new Product("1",name.get(0), new_cost.get(0),10,percent_sale.get(0),"","",5,null, null);
-        product.add(product1);
-
-        Log.i("TAG", "onCreate: "+ product.get(0).getName());
-
-        CustomMyFavoriteListViewAdapter customAdapter = new CustomMyFavoriteListViewAdapter(this, R.layout.custom_my_favorite_list_listview, product);
-        listview_my_favorite.setAdapter(customAdapter);
-
+        favorite_asynctask f_at = new favorite_asynctask();
+        f_at.execute();
     }
 
     @Override
@@ -50,11 +52,39 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
             Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
             startActivity(moveActivity);
         }
-
-        if (view.getId() == icon_cart.getId()){
-            Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
-            startActivity(moveActivity);
-        }
     }
 
+    private class favorite_asynctask extends AsyncTask<Void, FavoriteProduct, FavoriteProduct> {
+        favorite_asynctask() {}
+
+        @Override
+        protected FavoriteProduct doInBackground(Void... voids) {
+            try {
+                favoritesRef.whereEqualTo("user", username)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    FavoriteProduct favoriteProduct = document.toObject(FavoriteProduct.class);
+                                    publishProgress(favoriteProduct);
+                                }
+                            }
+                        });
+            }catch (Exception error) {
+                Log.e("TAG", "Activity_my_favorite_list doInBackground: ", error);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(FavoriteProduct... favoriteProducts) {
+            super.onProgressUpdate(favoriteProducts);
+
+            ArrayList<Product> products = favoriteProducts[0].getProducts();
+
+            CustomMyFavoriteListViewAdapter customAdapter = new CustomMyFavoriteListViewAdapter(getApplicationContext(), R.layout.custom_my_favorite_list_listview, products);
+            listview_my_favorite.setAdapter(customAdapter);
+        }
+    }
 }

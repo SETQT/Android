@@ -39,6 +39,10 @@ import java.util.List;
 public class activity_profile extends Activity implements View.OnClickListener {
     //khai báo biến UI
     RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product;
+    TextView username_profile, number_cart;
+    Button dangxuat;
+    View icon_cart;
+    RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,11 +52,8 @@ public class activity_profile extends Activity implements View.OnClickListener {
     // sqlite
     SQLiteDatabase sqlite;
 
-    // khai báo biến UI
-    TextView username_profile, number_cart;
-    Button dangxuat;
-    View icon_cart;
-    RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
+    // biến xử lý
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
         String mySQL = "select * from USER";
         Cursor c1 = sqlite.rawQuery(mySQL, null);
         c1.moveToPosition(0);
-        String username = c1.getString(0);
+        username = c1.getString(0);
 
         // lấy số lượng sản phẩm
         usersRef.whereEqualTo("username", username)
@@ -242,6 +243,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
         if (view.getId() == icon_favorite_product.getId()) {
             // chuyển sang giao diện danh sách yêu thích
             Intent moveActivity = new Intent(getApplicationContext(), activity_my_favorite_list.class);
+            moveActivity.putExtra("username", username);
             startActivity(moveActivity);
         }
     }
