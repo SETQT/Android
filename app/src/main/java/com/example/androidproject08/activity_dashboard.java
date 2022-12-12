@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -104,12 +103,13 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             boolean isHave = false;
-                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                            preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());// lưu ID sender
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
+                                preferenceManager.putString(Constants.KEY_USER_ID, document.getId());// lưu ID sender
                                 isHave = true;
+
+                                getToken(); // lấy tokens
                             }
 
                             if (!isHave) {
@@ -142,9 +142,6 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                         }
                     }
                 });
-
-
-        getToken(); // lấy tokens
     }
 
     @Override
@@ -220,11 +217,11 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void getToken(){
+    private void getToken() {
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
     }
 
-    private void updateToken(String token){
+    private void updateToken(String token) {
         preferenceManager.putString(Constants.KEY_FCM_TOKEN, token);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
@@ -233,7 +230,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
                 );
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
                 //.addOnSuccessListener(unused -> showToast("Token updated"))
-                .addOnFailureListener(e->showToast("Unable to update token"));
+                .addOnFailureListener(e -> showToast("Unable to update token"));
     }
 
 }

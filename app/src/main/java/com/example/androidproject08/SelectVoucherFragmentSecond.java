@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -87,10 +86,9 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
 
     @Override
     public void onObjectFromMainToFragment(Object value) {
-        if(value != null) {
-            if(value.getClass() == Voucher.class) {
+        if (value != null) {
+            if (value.getClass() == Voucher.class) {
                 voucherFromMain = (Voucher) value;
-                Log.i("TAG", "onObjectFromMainToFragment: " + voucherFromMain.getId());
             }
         }
     }
@@ -98,12 +96,15 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
     class voucher_asynctask extends AsyncTask<Void, Voucher, Voucher> {
         ArrayList<Voucher> listVoucher = new ArrayList<>();
         String dataSearch;
+        Date curDate;
 
         public voucher_asynctask() {
+            this.curDate = new Date();
         }
 
         public voucher_asynctask(String dataSearch) {
             this.dataSearch = dataSearch;
+            this.curDate = new Date();
         }
 
         @Override
@@ -145,8 +146,10 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
 
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             Voucher voucher = document.toObject(Voucher.class);
-                                            isHave = true;
-                                            publishProgress(voucher);
+                                            if (curDate.after(voucher.getStartedAt()) && curDate.before(voucher.getFinishedAt())) {
+                                                isHave = true;
+                                                publishProgress(voucher);
+                                            }
                                         }
 
                                         if (!isHave) {
@@ -194,10 +197,10 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             super(context, resource, objects);
             this.vouchers = objects;
             this.curContext = context;
-            for(int i = 0; i < objects.size(); i++) {
-                if(vouchers.get(i).equals(voucherFromMain)) {
+            for (int i = 0; i < objects.size(); i++) {
+                if (vouchers.get(i).equals(voucherFromMain)) {
                     this.stateCheckbox.add(1);
-                }else {
+                } else {
                     this.stateCheckbox.add(0);
                 }
             }
@@ -221,15 +224,15 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             TextView start_date = (TextView) v.findViewById(R.id.custom_select_voucher_start_date);
             TextView expiry_date = (TextView) v.findViewById(R.id.custom_select_voucher_expiry_date);
 
-            if(stateCheckbox.get(position) == 1) {
+            if (stateCheckbox.get(position) == 1) {
                 usedVoucher = vouchers.get(position);
 
                 main.onObjectFromFragToMain("RED-FRAG", usedVoucher);
 
                 checkbox.setChecked(true);
-            }else if (stateCheckbox.get(position) == 3){
+            } else if (stateCheckbox.get(position) == 3) {
                 checkbox.setEnabled(false);
-            } else  {
+            } else {
                 checkbox.setEnabled(true);
                 checkbox.setChecked(false);
             }
@@ -237,16 +240,16 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if(b) {
+                    if (b) {
                         stateCheckbox.set(position, 1);
-                        for(int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                        for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
                             stateCheckbox.set(i, 3);
                         }
 
                         notifyDataSetChanged();
-                    }else {
+                    } else {
                         stateCheckbox.set(position, 0);
-                        for(int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                        for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
                             stateCheckbox.set(i, 0);
                         }
 
@@ -255,7 +258,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
                 }
             });
 
-            ImageView img = (ImageView) v.findViewById(R.id.custom_voucher_picture) ;
+            ImageView img = (ImageView) v.findViewById(R.id.custom_voucher_picture);
 
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
