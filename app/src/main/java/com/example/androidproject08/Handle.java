@@ -103,6 +103,8 @@ public class Handle {
                 Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
                 star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
                 break;
+            case 0:
+                Handle.ResetBackgroundStar(star1, star2, star3, star4, star5);
             default:
                 break;
         }

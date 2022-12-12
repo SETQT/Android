@@ -442,9 +442,15 @@ public class activity_view_product extends Activity implements View.OnClickListe
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                boolean isHave = false;
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Comment comment = document.toObject(Comment.class);
+                                    isHave = true;
                                     publishProgress(comment);
+                                }
+
+                                if (!isHave) {
+                                    publishProgress();
                                 }
                             }
                         });
@@ -456,13 +462,22 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         protected void onProgressUpdate(Comment... comments) {
             super.onProgressUpdate(comments);
-            listComments.add(comments[0]);
+
+            if (comments.length == 0) {
+                listComments.clear();
+
+                avgStar = 0;
+            }else {
+                listComments.add(comments[0]);
+
+                avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
+            }
 
             CustomListCommentAdapter myAdapter = new CustomListCommentAdapter(getApplicationContext(), R.layout.custom_listview_comment_view_product, listComments);
             listview_comment_view_product.setAdapter(myAdapter);
             setListViewHeightBasedOnChildren(listview_comment_view_product);
 
-            avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
+//            avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
 
             Handle.setStar(star1, star2, star3, star4, star5, avgStar);
             Handle.setStar(star1m, star2m, star3m, star4m, star5m, avgStar);
