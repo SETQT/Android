@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidproject08.activities.ChatActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +42,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
     RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product;
     TextView username_profile, number_cart;
     Button dangxuat;
-    View icon_cart;
+    View icon_cart, icon_chat;
     RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
     // kết nối firestore
@@ -85,6 +86,8 @@ public class activity_profile extends Activity implements View.OnClickListener {
         dangxuat.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
         icon_cart.setOnClickListener(this);
+        icon_chat = (View) findViewById(R.id.icon_chat);
+        icon_chat.setOnClickListener(this);
         rectangle_profile_hosocuatoi = (RelativeLayout) findViewById(R.id.rectangle_profile_hosocuatoi);
         rectangle_profile_hosocuatoi.setOnClickListener(this);
         icon_voucher_profile = (RelativeLayout) findViewById(R.id.icon_voucher_profile);
@@ -171,6 +174,11 @@ public class activity_profile extends Activity implements View.OnClickListener {
             Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
             moveActivity.putExtra("name_activity", "activity_profile");
             startActivity(moveActivity);
+        }
+
+        if(view.getId() == icon_chat.getId()){
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
         }
 
         if (view.getId() == dangxuat.getId()) {

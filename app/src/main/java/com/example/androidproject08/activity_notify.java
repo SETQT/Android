@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidproject08.activities.ChatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -42,7 +43,7 @@ public class activity_notify extends Activity {
     // khai báo biến UI
     RelativeLayout icon_home, icon_scan, icon_profile;
 
-    View icon_cart;
+    View icon_cart, icon_chat;
     TextView number_cart;
 
     // kết nối firestore
@@ -71,6 +72,7 @@ public class activity_notify extends Activity {
         icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
 
         icon_cart = (View) findViewById(R.id.icon_cart);
+        icon_chat = (View) findViewById(R.id.icon_chat);
 
         number_cart = (TextView) findViewById(R.id.number_cart);
         // kết nối sqlite
@@ -106,6 +108,15 @@ public class activity_notify extends Activity {
                 Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
                 moveActivity.putExtra("name_activity", "activity_notify");
                 startActivity(moveActivity);
+            }
+        });
+
+        // chuyển sang giao diện chat
+        icon_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(intent);
             }
         });
 

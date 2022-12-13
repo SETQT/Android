@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidproject08.activities.ChatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -43,7 +44,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     // biến UI
     ListView listview_comment_view_product;
     View ic_back_view_product, icon_cart, ic_heart_view_product;
-    RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product;
+    RelativeLayout rectangle_add_to_card_view_product, rectangle_buy_now_view_product, rectangle_chat_view_product;
     TextView number_cart, custom_mycart_number_product, number_evaluate_comment, rate_evalute_comment, number_evaluate;
     Spinner spiner_size_view_product, spiner_color_view_product;
     Button custom_mycart_icon_increase, custom_mycart_icon_decrease;
@@ -58,6 +59,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     ArrayList<Comment> listComments = new ArrayList<>();
     Boolean isLiked = false;
     Product curProduct;
+    Product infoProduct; // biến này để lưu thông tin product gửi qua chat
     FavoriteProduct curFavorite;
 
     // kết nối firestore
@@ -80,6 +82,8 @@ public class activity_view_product extends Activity implements View.OnClickListe
         rectangle_add_to_card_view_product.setOnClickListener(this);
         rectangle_buy_now_view_product = (RelativeLayout) findViewById(R.id.rectangle_buy_now_view_product);
         rectangle_buy_now_view_product.setOnClickListener(this);
+        rectangle_chat_view_product = (RelativeLayout) findViewById(R.id.rectangle_chat_view_product);
+        rectangle_chat_view_product.setOnClickListener(this);
 
         spiner_size_view_product = (Spinner) findViewById(R.id.spiner_type_size_view_product);
         spiner_color_view_product = (Spinner) findViewById(R.id.spiner_type_color_view_product);
@@ -289,6 +293,16 @@ public class activity_view_product extends Activity implements View.OnClickListe
             startActivity(moveActivity);
         }
 
+        // chuyển sang giao diện chat và thêm tin nhắn
+        if(view.getId() == rectangle_chat_view_product.getId()){
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            String messageInfoProduct = "Loại sản phẩm: " + infoProduct.getCategory() + "\nTên sản phẩm: " + infoProduct.getName() +
+                    "\nGiá sản phẩm: " + infoProduct.getPrice() + "\nSố lượng hiện có: " + infoProduct.getAmount() +
+                    "\nMô tả: " + infoProduct.getDescription() + "\n\nCho mình hỏi thông tin về sản phẩm này !!!!";
+            intent.putExtra("infoProduct", messageInfoProduct);
+            startActivity(intent);
+        }
+
         if (view.getId() == custom_mycart_icon_increase.getId()) {
             amount += 1;
             custom_mycart_number_product.setText(amount.toString());
@@ -356,6 +370,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                                     DocumentSnapshot document = task.getResult();
                                     Product product = document.toObject(Product.class);
                                     product.setIdDoc(document.getId());
+                                    infoProduct = product; // lưu thông tin của product để gửi qua chat
                                     publishProgress(product);
                                 }
                             }

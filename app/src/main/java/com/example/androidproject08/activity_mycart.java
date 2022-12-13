@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 
+import com.example.androidproject08.activities.ChatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 
 public class activity_mycart extends Activity implements View.OnClickListener {
     // khai báo biến UI
-    View icon_back;
+    View icon_back, icon_chat;
     ListView listMyCart;
     Button MyCart_bg_buy;
     TextView MyCart_total_cost;
@@ -69,6 +70,9 @@ public class activity_mycart extends Activity implements View.OnClickListener {
         listMyCart = (ListView) findViewById(R.id.MyCart_listview);
         icon_back = (View) findViewById(R.id.icon_back);
         icon_back.setOnClickListener(this);
+        icon_chat = (View) findViewById(R.id.icon_chat);
+        icon_chat.setOnClickListener(this);
+
         MyCart_bg_buy = (Button) findViewById(R.id.MyCart_bg_buy);
         MyCart_bg_buy.setOnClickListener(this);
         MyCart_total_cost = (TextView) findViewById(R.id.MyCart_total_cost);
@@ -157,6 +161,13 @@ public class activity_mycart extends Activity implements View.OnClickListener {
             moveActivity.putExtra("name_activity", "activity_mycart");
             startActivity(moveActivity);
         }
+
+        // vào giao diện chat
+        if(view.getId() == icon_chat.getId()){
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private class mycart_asynctask extends AsyncTask<Void, MyCart, MyCart> {
