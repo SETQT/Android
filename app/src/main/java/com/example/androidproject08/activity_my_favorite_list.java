@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 
 public class activity_my_favorite_list extends Activity implements View.OnClickListener {
     // biến UI
-    View icon_back, icon_cart;
-    ListView listview_my_favorite;
+    View icon_back;
+    GridView listview_my_favorite;
 
     // firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -35,7 +36,7 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_favorite_list);
 
-        listview_my_favorite = (ListView) findViewById(R.id.listview_my_favorite);
+        listview_my_favorite = (GridView) findViewById(R.id.listview_my_favorite);
         icon_back = (View) findViewById(R.id.icon_back);
         icon_back.setOnClickListener(this);
 
@@ -67,6 +68,7 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     FavoriteProduct favoriteProduct = document.toObject(FavoriteProduct.class);
+                                    Log.i("TAG", "onComplete: "+favoriteProduct);
                                     publishProgress(favoriteProduct);
                                 }
                             }
@@ -83,7 +85,7 @@ public class activity_my_favorite_list extends Activity implements View.OnClickL
 
             ArrayList<Product> products = favoriteProducts[0].getProducts();
 
-            CustomMyFavoriteListViewAdapter customAdapter = new CustomMyFavoriteListViewAdapter(getApplicationContext(), R.layout.custom_my_favorite_list_listview, products);
+            CustomMyFavoriteListViewAdapter customAdapter = new CustomMyFavoriteListViewAdapter(getApplicationContext(), R.layout.custom_my_favorite_list_gridview, products);
             listview_my_favorite.setAdapter(customAdapter);
         }
     }
