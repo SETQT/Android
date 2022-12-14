@@ -208,7 +208,6 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
             Intent moveActivity = new Intent(getApplicationContext(), ChatActivity.class);
             startActivity(moveActivity);
         }
-
     }
 
 

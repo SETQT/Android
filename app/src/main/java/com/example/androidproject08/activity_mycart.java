@@ -1,6 +1,8 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -146,20 +148,35 @@ public class activity_mycart extends Activity implements View.OnClickListener {
 
         // tiến hành đặt hàng
         if (view.getId() == MyCart_bg_buy.getId()) {
-            ArrayList<Myorder> finalMyOrders = new ArrayList<>();
+            if(finalList.size() == 0) {
+                // không có đơn hàng trong giỏ hàng để đặt
+                new AlertDialog.Builder(activity_mycart.this)
+                        .setMessage("Bạn hiện không có sản phẩm nào trong giỏ. Nhấn có để quay trở lại mua sắm nào!")
+                        .setCancelable(false)
+                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                                startActivity(moveActivity);
+                            }
+                        })
+                        .setNegativeButton("Không", null)
+                        .show();
+            }else {
+                ArrayList<Myorder> finalMyOrders = new ArrayList<>();
 
-            for (int i = 0; i < finalList.size(); i++) {
-                Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
+                for (int i = 0; i < finalList.size(); i++) {
+                    Integer total = finalList.get(i).getPrice() * finalList.get(i).getAmount();
 
-                //Đặt hàng -> Chờ xác nhận -> Đánh giá = NULL
-                Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total, finalList.get(i).getId());
-                finalMyOrders.add(orderProduct);
+                    //Đặt hàng -> Chờ xác nhận -> Đánh giá = NULL
+                    Myorder orderProduct = new Myorder(finalList.get(i).getIdDoc(), finalList.get(i).getImage(), finalList.get(i).getName(), finalList.get(i).getSize(), finalList.get(i).getColor(), finalList.get(i).getOldPrice(), finalList.get(i).getPrice(), finalList.get(i).getAmount(), total, finalList.get(i).getId());
+                    finalMyOrders.add(orderProduct);
+                }
+
+                Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
+                moveActivity.putExtra("products", finalMyOrders);
+                moveActivity.putExtra("name_activity", "activity_mycart");
+                startActivity(moveActivity);
             }
-
-            Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
-            moveActivity.putExtra("products", finalMyOrders);
-            moveActivity.putExtra("name_activity", "activity_mycart");
-            startActivity(moveActivity);
         }
 
         // vào giao diện chat

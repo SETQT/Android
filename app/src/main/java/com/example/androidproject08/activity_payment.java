@@ -1,6 +1,8 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -141,8 +143,24 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     User user = document.toObject(User.class);
-                                    if (name_user_payment == null || phone_user_payment == null || address_payment == null) {
-                                        Toast.makeText(getApplicationContext(), "Bạn chưa điền thông tin vui lòng qua profile để thêm!", Toast.LENGTH_SHORT).show();
+                                    if (user.getFullname() == null || user.getPhone() == null || user.getAddress() == null) {
+                                        new AlertDialog.Builder(activity_payment.this)
+                                                .setMessage("Bạn chưa điền đầy đủ thông tin giao hàng. Vui lòng nhấn Có để qua profile để cập nhật thông tin?")
+                                                .setCancelable(false)
+                                                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        Intent moveActivity = new Intent(getApplicationContext(), activity_record.class);
+                                                        startActivity(moveActivity);
+                                                    }
+                                                })
+                                                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+                                                        startActivity(moveActivity);
+                                                    }
+                                                })
+                                                .show();
                                     }
 
                                     name_user_payment.setText(user.getFullname());
