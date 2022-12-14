@@ -1,5 +1,6 @@
 package com.example.androidproject08;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +41,10 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
     CollectionReference vouchersRef = db.collection("vouchers");
 
     // biễn xử lý
+    ArrayList<Myorder> ListOrderArray = new ArrayList<>();
     Voucher usedVoucher, voucherFromMain;
+    Integer totalMoneyInListOrderArray = 0;
+    Date curDate = new Date();
 
     public static SelectVoucherFragmentSecond newInstance(String strArg1) {
         SelectVoucherFragmentSecond fragment = new SelectVoucherFragmentSecond();
@@ -89,6 +94,12 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
         if (value != null) {
             if (value.getClass() == Voucher.class) {
                 voucherFromMain = (Voucher) value;
+            }else {
+                ListOrderArray = (ArrayList<Myorder>) value;
+
+                for(int i = 0; i < ListOrderArray.size(); i++) {
+                    totalMoneyInListOrderArray += ListOrderArray.get(i).getTotal();
+                }
             }
         }
     }
@@ -175,7 +186,9 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             if (vouchers.length == 0) {
                 listVoucher.clear();
             } else {
-                listVoucher.add(vouchers[0]);
+                if(curDate.after(vouchers[0].getStartedAt()) && curDate.before(vouchers[0].getFinishedAt())) {
+                    listVoucher.add(vouchers[0]);
+                }
             }
 
             try {
@@ -241,14 +254,29 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (b) {
-                        stateCheckbox.set(position, 1);
-                        for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
-                            stateCheckbox.set(i, 3);
+                        if(vouchers.get(position).getMinimumCost() > totalMoneyInListOrderArray) {
+                            stateCheckbox.set(position, 0);
+
+                            new AlertDialog.Builder(curContext)
+                                    .setMessage("Bạn không đủ điều kiện để sử dụng voucher này!")
+                                    .setCancelable(true)
+                                    .show();
+
+                            for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                                stateCheckbox.set(i, 0);
+                            }
+                        }else {
+                            stateCheckbox.set(position, 1);
+
+                            for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                                stateCheckbox.set(i, 3);
+                            }
                         }
 
                         notifyDataSetChanged();
                     } else {
                         stateCheckbox.set(position, 0);
+
                         for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
                             stateCheckbox.set(i, 0);
                         }
@@ -258,7 +286,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
                 }
             });
 
-            ImageView img = (ImageView) v.findViewById(R.id.custom_voucher_picture);
+            ImageView img = (ImageView) v.findViewById(R.id.custom_select_voucher_picture);
 
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -267,6 +295,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             free_cost.setText("Tối đa " + Handle.kFortmatter(vouchers.get(position).getMoneyDeals().toString()));
             start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());
             expiry_date.setText("HSD: " + formatDate.format(vouchers.get(position).getFinishedAt()).toString());
+            Picasso.with(curContext).load(vouchers.get(position).getImage()).into(img);
 
             return v;
         }

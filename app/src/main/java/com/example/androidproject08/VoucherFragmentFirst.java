@@ -126,7 +126,7 @@ public class VoucherFragmentFirst extends Fragment implements View.OnClickListen
             voucher_option_tat_ca.setTextAppearance(getActivity(), R.style.setTextAfterClick);
             voucher_option_shop.setTextAppearance(getActivity(), R.style.setTextNotClick);
             voucher_option_free_ship.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            String dataSend = "All";
+            String dataSend = "all";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
 
@@ -134,7 +134,7 @@ public class VoucherFragmentFirst extends Fragment implements View.OnClickListen
             voucher_option_tat_ca.setTextAppearance(getActivity(), R.style.setTextNotClick);
             voucher_option_shop.setTextAppearance(getActivity(), R.style.setTextAfterClick);
             voucher_option_free_ship.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            String dataSend = "Shop";
+            String dataSend = "discount";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
 
@@ -142,7 +142,7 @@ public class VoucherFragmentFirst extends Fragment implements View.OnClickListen
             voucher_option_tat_ca.setTextAppearance(getActivity(), R.style.setTextNotClick);
             voucher_option_shop.setTextAppearance(getActivity(), R.style.setTextNotClick);
             voucher_option_free_ship.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-            String dataSend = "FreeShip";
+            String dataSend = "freeship";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
 

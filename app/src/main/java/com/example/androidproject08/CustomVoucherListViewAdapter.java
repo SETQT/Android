@@ -52,7 +52,7 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
         count.setText("Số lượng: " + vouchers.get(position).getAmount().toString());
         start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());
         expiry_date.setText("HSD: " + formatDate.format(vouchers.get(position).getFinishedAt()).toString());
-//        Picasso.with(curContext).load(vouchers.get(position).getImage()).into(img);
+        Picasso.with(curContext).load(vouchers.get(position).getImage()).into(img);
 
         return v;
     }

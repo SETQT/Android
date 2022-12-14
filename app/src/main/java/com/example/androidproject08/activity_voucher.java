@@ -28,7 +28,6 @@ public class activity_voucher extends FragmentActivity implements MainCallbacks,
     }
     @Override
     public void onMsgFromFragToMain(String sender, String strValue) {
-//        Toast.makeText(getApplication(), " MAIN GOT>> " + sender + "\n" + strValue, Toast.LENGTH_LONG).show();
         if (sender.equals("RED-FRAG")) {
             try { // forward blue-data to redFragment using its callback method
                 firstFrag.onMsgFromMainToFragment( strValue);

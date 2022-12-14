@@ -48,6 +48,7 @@ public class activity_select_voucher extends FragmentActivity implements MainCal
             secondFrag.onObjectFromMainToFragment(usedVoucher);
         }
         firstFrag.onObjectFromMainToFragment(ListOrderArray);
+        secondFrag.onObjectFromMainToFragment(ListOrderArray);
     }
 
     @Override

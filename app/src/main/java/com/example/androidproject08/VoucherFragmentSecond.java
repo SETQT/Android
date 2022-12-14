@@ -54,7 +54,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
 
         voucher_listview = (ListView) layout_second.findViewById(R.id.voucher_listview);
 
-        voucher_asynctask v_at = new voucher_asynctask("All");
+        voucher_asynctask v_at = new voucher_asynctask("all");
         v_at.execute();
 
         try {
@@ -67,24 +67,8 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
 
     @Override
     public void onMsgFromMainToFragment(String strValue) {
-        voucher_asynctask v_at = new voucher_asynctask();
-
-        switch (strValue) {
-            case "All":
-                v_at = new voucher_asynctask("All");
-                v_at.execute();
-                break;
-            case "FreeShip":
-                v_at = new voucher_asynctask("freeship");
-                v_at.execute();
-                break;
-            case "Shop":
-                v_at = new voucher_asynctask("shop");
-                v_at.execute();
-                break;
-            default:
-                break;
-        }
+        voucher_asynctask v_at = new voucher_asynctask(strValue);
+        v_at.execute();
     }
 
     @Override
@@ -96,7 +80,8 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         ArrayList<Voucher> listVoucher = new ArrayList<>();
         String type;
 
-        public voucher_asynctask() {}
+        public voucher_asynctask() {
+        }
 
         public voucher_asynctask(String type) {
             this.type = type;
@@ -105,7 +90,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         @Override
         protected Voucher doInBackground(Void... voids) {
             try {
-                if(type.equals("All")) {
+                if (type.equals("all")) {
                     vouchersRef
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -120,7 +105,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
                                             publishProgress(voucher);
                                         }
 
-                                        if(!isHave) {
+                                        if (!isHave) {
                                             publishProgress();
                                         }
                                     } else {
@@ -128,7 +113,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
                                     }
                                 }
                             });
-                }else {
+                } else {
                     vouchersRef
                             .whereEqualTo("type", type)
                             .get()
@@ -136,9 +121,16 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        Boolean isHave = false;
+
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             Voucher voucher = document.toObject(Voucher.class);
+                                            isHave = true;
                                             publishProgress(voucher);
+                                        }
+
+                                        if (!isHave) {
+                                            publishProgress();
                                         }
                                     } else {
                                         Log.d("TAG", "Error getting documents: ", task.getException());
@@ -166,7 +158,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
             try {
                 CustomVoucherListViewAdapter myAdapter = new CustomVoucherListViewAdapter(getActivity(), R.layout.custom_voucher_listview, listVoucher);
                 voucher_listview.setAdapter(myAdapter);
-            }catch (Exception error) {
+            } catch (Exception error) {
                 Log.e("ERROR", "VoucherFragmentSecond: ", error);
                 return;
             }
