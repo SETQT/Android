@@ -1,6 +1,7 @@
 package com.example.androidproject08.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class ChatActivity extends activity_base {
     private FirebaseFirestore db;
     private String conversionId = null;
     private Boolean isReceiverAvailable = false;
+    private String infoProductFromViewProduct;
 
 
     @Override
@@ -126,6 +128,14 @@ public class ChatActivity extends activity_base {
         }
     };
 
+    private void sendMessageFromMyCart(String infoProduct){
+        HashMap<String, Object> message = new HashMap<>();
+        message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+        message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+        message.put(Constants.KEY_MESSAGE, infoProduct);
+        message.put(Constants.KEY_TIMESTAMP, new Date());
+        db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+    }
 
     private void sendMessage() {
         HashMap<String, Object> message = new HashMap<>();
@@ -304,7 +314,14 @@ public class ChatActivity extends activity_base {
                         if (admins.size() > 0) {
                             receiverUser = admins.get(0);
                             loadReceiverDetails(receiverUser);// lấy amdin đầu tiên: thật ra còn nhiều admin khác, phát triển sau
+
+                            // nhận dữ liệu từ activity view product
+                            Intent intent = getIntent();
+                            infoProductFromViewProduct = intent.getStringExtra("infoProduct");
+                            if(infoProductFromViewProduct != null) sendMessageFromMyCart(infoProductFromViewProduct);
+
                             init(receiverUser); // khai baos adapter
+
                         } else {
                             loadReceiverDetails(null);
                         }
