@@ -477,8 +477,6 @@ public class activity_view_product extends Activity implements View.OnClickListe
             listview_comment_view_product.setAdapter(myAdapter);
             setListViewHeightBasedOnChildren(listview_comment_view_product);
 
-//            avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
-
             Handle.setStar(star1, star2, star3, star4, star5, avgStar);
             Handle.setStar(star1m, star2m, star3m, star4m, star5m, avgStar);
 
