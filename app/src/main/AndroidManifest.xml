@@ -39,23 +39,60 @@
             android:name=".activities.ChatActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity_mycart"></activity>
-        <activity android:name=".activity_login"></activity>
-        <activity android:name=".activity_register"></activity>
-        <activity android:name=".activity_dashboard"></activity>
-        <activity android:name=".activity_notify"></activity>
-        <activity android:name=".activity_profile"></activity>
-        <activity android:name=".activity_voucher"></activity>
-        <activity android:name=".activity_record"></activity>
-        <activity android:name=".activity_payment"></activity>
-        <activity android:name=".activity_myorder"></activity>
-        <activity android:name=".activity_edit_profile"></activity>
-        <activity android:name=".activity_view_product"></activity>
-        <activity android:name=".activity_change_password"></activity>
-        <activity android:name=".activity_search"></activity>
-        <activity android:name=".activity_edit_dob"></activity>
-        <activity android:name=".activity_select_voucher"></activity>
-        <activity android:name=".activity_my_favorite_list"></activity>
+        <activity
+            android:name=".activity_mycart"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_login"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_register"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_dashboard"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_scan_pay"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_notify"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_profile"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_voucher"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_record"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_payment"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_myorder"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_edit_profile"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_view_product"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_change_password"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_search"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_edit_dob"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_select_voucher"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_my_favorite_list"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

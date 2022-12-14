@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_scan_pay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/record_rectangle_header_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="81dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="0dp"
+            android:background="@drawable/record_rectangle_header_profile" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="QR thanh toán"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/scan_pay_fragment_first"
+        android:layout_width="411dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="81dp"
+        android:orientation="vertical" />
+
+    <FrameLayout
+        android:id="@+id/scan_pay_fragment_second"
+        android:layout_width="411dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="137dp"
+        android:layout_marginBottom="60dp"
+        android:layout_weight="2"
+        android:orientation="vertical" />
+
+    <View
+        android:id="@+id/rectangle_footer"
+        android:layout_width="411dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="613dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/dashboard_rectangle_footer" />
+
+    <RelativeLayout
+        android:id="@+id/icon_home"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="42dp">
+
+        <View
+            android:id="@+id/dashboard_icon_home"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_home"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Home"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/icon_scan"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="135dp">
+
+        <View
+            android:id="@+id/dashboard_icon_scan"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_qrcode"
+            android:backgroundTint="#F9A826"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/text_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Scan/Pay"
+            android:textColor="#F9A826"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/icon_notify"
+        android:layout_width="58dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="243dp">
+
+        <View
+            android:id="@+id/dashboard_icon_notify"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_notify"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/text_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Thông báo"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/icon_profile"
+        android:layout_width="26dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="340dp">
+        <View
+            android:id="@+id/dashboard_icon_profile"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/icon_profile"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="top"
+            android:text="Tôi"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

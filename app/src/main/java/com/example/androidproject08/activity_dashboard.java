@@ -178,7 +178,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
 
         // chuyển sang giao diện scan mã qr
         if (view.getId() == icon_scan.getId()) {
-            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            Intent moveActivity = new Intent(getApplicationContext(), activity_scan_pay.class);
             startActivity(moveActivity);
         }
 
