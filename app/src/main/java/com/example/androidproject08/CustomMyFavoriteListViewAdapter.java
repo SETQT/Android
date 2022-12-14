@@ -33,7 +33,7 @@ public class CustomMyFavoriteListViewAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.custom_my_favorite_list_listview, null);
+        v = inflater.inflate(R.layout.custom_my_favorite_list_gridview, null);
 
         ImageView picture = (ImageView) v.findViewById(R.id.custom_favorite_picture); // get the reference of ImageView
         TextView name = (TextView) v.findViewById(R.id.custom_favorite_name_product);
