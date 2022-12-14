@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.androidproject08.activities.ChatActivity;
+import com.example.androidproject08.databinding.ActivityNotifyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -25,7 +26,8 @@ import org.checkerframework.checker.units.qual.A;
 import java.io.File;
 import java.util.ArrayList;
 
-public class activity_notify extends Activity {
+public class activity_notify extends Activity implements View.OnClickListener {
+
     ListView listNotification;
     ArrayList<Notify> notifiesArray = new ArrayList<>();
 
@@ -61,6 +63,7 @@ public class activity_notify extends Activity {
 
         listNotification = (ListView) findViewById(R.id.notify_listview);
 
+
         for (int i = 0; i < 7; i++) {
             notifiesArray.add(new Notify(i, CheckProduct[i], title[i], status[i], product[i], date[i], content[i], image[i]));
         }
@@ -68,13 +71,18 @@ public class activity_notify extends Activity {
         listNotification.setAdapter(myAdapter);
 
         icon_home = (RelativeLayout) findViewById(R.id.icon_home);
+        icon_home.setOnClickListener(this);
         icon_scan = (RelativeLayout) findViewById(R.id.icon_scan);
+        icon_scan.setOnClickListener(this);
         icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
-
+        icon_profile.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
+        icon_cart.setOnClickListener(this);
         icon_chat = (View) findViewById(R.id.icon_chat);
+        icon_chat.setOnClickListener(this);
 
         number_cart = (TextView) findViewById(R.id.number_cart);
+
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
         String myDbPath = storagePath + "/" + "loginDb";
@@ -100,51 +108,39 @@ public class activity_notify extends Activity {
                         }
                     }
                 });
+    }
 
-        // chuyển sang giao diện my cart
-        icon_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
-                moveActivity.putExtra("name_activity", "activity_notify");
-                startActivity(moveActivity);
-            }
-        });
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == icon_cart.getId()) {
+            // chuyển sang giao diện my cart
+            Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
+            moveActivity.putExtra("name_activity", "activity_notify");
+            startActivity(moveActivity);
+        }
 
-        // chuyển sang giao diện chat
-        icon_chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(intent);
-            }
-        });
+        if(view.getId() == icon_chat.getId()) {
+            // chuyển sang giao diện chat
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
+        }
 
-        // trở về giao diện dashboard
-        icon_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                startActivity(moveActivity);
-            }
-        });
+        if(view.getId() == icon_home.getId()) {
+            // trở về giao diện dashboard
+            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            startActivity(moveActivity);
+        }
 
-        // chuyển sang giao diện scan mã qr
-        icon_scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                startActivity(moveActivity);
-            }
-        });
+        if(view.getId() == icon_scan.getId()) {
+            // chuyển sang giao diện scan mã qr
+            Intent moveActivity = new Intent(getApplicationContext(), activity_scan_pay.class);
+            startActivity(moveActivity);
+        }
 
-        // chuyển sang giao diện profile
-        icon_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
-                startActivity(moveActivity);
-            }
-        });
+        if(view.getId() == icon_profile.getId()) {
+            // chuyển sang giao diện profile
+            Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
+            startActivity(moveActivity);
+        }
     }
 }

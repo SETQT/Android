@@ -151,6 +151,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
                                     }
 
                                     my_cart.remove(position);
+                                    listChecked.remove(position);
                                     notifyDataSetChanged();
                                 }
                             }

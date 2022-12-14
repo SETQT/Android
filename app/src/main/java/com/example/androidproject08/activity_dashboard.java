@@ -210,7 +210,6 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         }
     }
 
-
     // Hàm show các thông báo
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

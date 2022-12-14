@@ -34,7 +34,6 @@ public class activity_scan_pay extends FragmentActivity implements MainCallbacks
         icon_notify.setOnClickListener(this);
         icon_profile = (RelativeLayout) findViewById(R.id.icon_profile);
         icon_profile.setOnClickListener(this);
-
     }
     @Override
     public void onMsgFromFragToMain(String sender, String strValue) {
@@ -77,7 +76,6 @@ public class activity_scan_pay extends FragmentActivity implements MainCallbacks
             Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
             startActivity(moveActivity);
         }
-
     }
 
 }

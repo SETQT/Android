@@ -120,6 +120,7 @@ public class ScanFragmentSecond extends Fragment implements FragmentCallbacks {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     Boolean isHave = false;
+
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Scan scan = document.toObject(Scan.class);
                                         isHave = true;
@@ -150,7 +151,7 @@ public class ScanFragmentSecond extends Fragment implements FragmentCallbacks {
                 option.setText(scans[0].getOption());
                 Picasso.with(getContext()).load(scans[0].getImg()).into(qrcode);
             } catch (Exception error) {
-                Log.e("ERROR", "VoucherFragmentSecond: ", error);
+                Log.e("ERROR", "ScanFragmentSecond: ", error);
                 return;
             }
         }

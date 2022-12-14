@@ -198,7 +198,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
 
         if (view.getId() == icon_scan.getId()) {
             // chuyển sang giao diện scan mã qr
-            Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+            Intent moveActivity = new Intent(getApplicationContext(), activity_scan_pay.class);
             startActivity(moveActivity);
         }
 
