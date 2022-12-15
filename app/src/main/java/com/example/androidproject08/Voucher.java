@@ -14,6 +14,8 @@ public class Voucher implements Serializable {
     private Date finishedAt;
     private Integer moneyDeals; // số tiền được khuyến mãi trong voucher này
     private String type; // loại voucher là freeship hay
+    private String idDoc; // id document của voucher trong collections vouchers
+    private Integer amoutOfUsed; // số lượng voucher đã được dùng
 
     public Voucher() {}
 
@@ -99,6 +101,22 @@ public class Voucher implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getIdDoc() {
+        return idDoc;
+    }
+
+    public void setIdDoc(String idDoc) {
+        this.idDoc = idDoc;
+    }
+
+    public Integer getAmoutOfUsed() {
+        return amoutOfUsed;
+    }
+
+    public void setAmoutOfUsed(Integer amoutOfUsed) {
+        this.amoutOfUsed = amoutOfUsed;
     }
 
     @Override

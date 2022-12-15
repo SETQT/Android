@@ -157,6 +157,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
 
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             Voucher voucher = document.toObject(Voucher.class);
+                                            voucher.setIdDoc(document.getId());
                                             if (curDate.after(voucher.getStartedAt()) && curDate.before(voucher.getFinishedAt())) {
                                                 isHave = true;
                                                 publishProgress(voucher);
@@ -186,7 +187,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             if (vouchers.length == 0) {
                 listVoucher.clear();
             } else {
-                if(curDate.after(vouchers[0].getStartedAt()) && curDate.before(vouchers[0].getFinishedAt())) {
+                if(curDate.after(vouchers[0].getStartedAt()) && curDate.before(vouchers[0].getFinishedAt()) && (vouchers[0].getAmoutOfUsed() != vouchers[0].getAmount())) {
                     listVoucher.add(vouchers[0]);
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.androidproject08;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -99,16 +100,21 @@ public class SelectVoucherFragmentFirst extends Fragment implements View.OnClick
         }
 
         if(view.getId() == btn_confirm_select_voucher.getId()) {
-            btn_confirm_select_voucher.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
-            Intent moveActivity = new Intent(main, activity_payment.class);
-
             if(usedVoucher != null) {
-                moveActivity.putExtra("voucher", usedVoucher);
-            }
+                btn_confirm_select_voucher.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F9A826")));
+                Intent moveActivity = new Intent(main, activity_payment.class);
 
-            moveActivity.putExtra("products", ListOrderArray);
-            moveActivity.putExtra("name_activity", "activity_select_voucher");
-            startActivity(moveActivity);
+                moveActivity.putExtra("voucher", usedVoucher);
+
+                moveActivity.putExtra("products", ListOrderArray);
+                moveActivity.putExtra("name_activity", "activity_select_voucher");
+                startActivity(moveActivity);
+            }else {
+                new AlertDialog.Builder(main)
+                        .setMessage("Vui lòng tick vào voucher trước khi nhấn nút này!")
+                        .setCancelable(true)
+                        .show();
+            }
         }
     }
 }// class

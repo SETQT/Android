@@ -49,6 +49,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     CollectionReference usersRef = db.collection("users");
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference ordersRef = db.collection("orders");
+    CollectionReference vouchersRef = db.collection("vouchers");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -217,6 +218,9 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
                                         // lưu đơn hàng lên database
                                         ordersRef.add(newOrder);
+
+                                        // tăng lượng voucher đã dùng lên 1 đơn vị
+                                        vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
 
                                         Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 
