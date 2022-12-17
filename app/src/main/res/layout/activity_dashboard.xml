@@ -71,30 +71,6 @@
         android:gravity="center" />
 
     <View
-        android:id="@+id/dashboard_circle_red_chat"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="363dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/dashboard_circle_red"
-        />
-
-    <TextView
-        android:id="@+id/number_chat"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="364.5dp"
-        android:layout_marginTop="7dp"
-        android:gravity="center"
-        android:text="10"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp" />
-
-    <View
         android:id="@+id/dashboard_frame_search"
         android:layout_width="376dp"
         android:layout_height="48dp"

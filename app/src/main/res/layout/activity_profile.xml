@@ -82,29 +82,6 @@
         android:background="@drawable/icon_chat"
         android:backgroundTint="#FFFFFF" />
 
-    <View
-        android:id="@+id/circle_red_chat_profile"
-        android:layout_width="19dp"
-        android:layout_height="19dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="368dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/cycle_red_profile" />
-
-    <TextView
-        android:id="@+id/id_cycle_red_chat"
-        android:layout_width="17dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="369dp"
-        android:layout_marginTop="7dp"
-        android:gravity="center"
-        android:text="5"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp" />
-
     <TextView
         android:id="@+id/username_profile"
         android:layout_width="wrap_content"
@@ -114,11 +91,9 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="60dp"
         android:gravity="top"
-        android:text=""
         android:textAppearance="@style/username" />
 
     <RelativeLayout
-
         android:id="@+id/donhangcuatoi_profile"
         android:layout_width="411dp"
         android:layout_height="164dp"
@@ -283,11 +258,11 @@
 
             <View
                 android:id="@+id/ic_danhgia"
-                android:layout_width="25dp"
-                android:layout_height="23.88dp"
+                android:layout_width="24dp"
+                android:layout_height="19dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="11dp"
                 android:background="@drawable/ic_saodanhgia" />
 
             <TextView

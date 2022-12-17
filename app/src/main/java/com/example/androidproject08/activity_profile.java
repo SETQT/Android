@@ -39,7 +39,7 @@ import java.util.List;
 
 public class activity_profile extends Activity implements View.OnClickListener {
     //khai báo biến UI
-    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product;
+    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product, icon_danhgia;
     TextView username_profile, number_cart;
     Button dangxuat;
     View icon_cart, icon_chat;
@@ -79,6 +79,9 @@ public class activity_profile extends Activity implements View.OnClickListener {
 
         icon_favorite_product = (RelativeLayout) findViewById(R.id.icon_favorite_product);
         icon_favorite_product.setOnClickListener(this);
+
+        icon_danhgia = (RelativeLayout) findViewById(R.id.icon_danhgia);
+        icon_danhgia.setOnClickListener(this);
 
         username_profile = (TextView) findViewById(R.id.username_profile);
         number_cart = (TextView) findViewById(R.id.number_cart);
@@ -251,6 +254,13 @@ public class activity_profile extends Activity implements View.OnClickListener {
         if (view.getId() == icon_favorite_product.getId()) {
             // chuyển sang giao diện danh sách yêu thích
             Intent moveActivity = new Intent(getApplicationContext(), activity_my_favorite_list.class);
+            moveActivity.putExtra("username", username);
+            startActivity(moveActivity);
+        }
+
+        if (view.getId() == icon_danhgia.getId()) {
+            // chuyển sang giao diện đánh giá
+            Intent moveActivity = new Intent(getApplicationContext(), activity_see_evaluate.class);
             moveActivity.putExtra("username", username);
             startActivity(moveActivity);
         }

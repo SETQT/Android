@@ -172,7 +172,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Comment newComment = new Comment(orders.get(position).getId(), username, orders.get(position).getColor(), orders.get(position).getSize(), text_evaluate.getText().toString(), new Date(), count_star);
+                Comment newComment = new Comment(orders.get(position).getId(), username, orders.get(position).getColor(), orders.get(position).getSize(), text_evaluate.getText().toString(), new Date(), count_star, "");
                 commentsRef.add(newComment);
                 dialog.dismiss();
             }

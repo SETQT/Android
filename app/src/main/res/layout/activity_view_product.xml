@@ -481,18 +481,16 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="89dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="29dp"
+                    android:layout_marginRight="20dp"
                     android:gravity="top"
                     android:text="KTX khu A, Phường Linh Trung, Thành phố Thủ Đức , Thành phố Hồ Chí Minh"
                     android:textColor="#AEAEAE"
                     android:textSize="12sp" />
 
 
-
-
-
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rectangle_detail_product"
                 android:layout_width="411dp"
@@ -511,17 +509,17 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="10dp"
                     android:gravity="top"
-                    android:textStyle="bold"
                     android:text="Chi tiết sản phẩm"
                     android:textColor="#000000"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
+
             <RelativeLayout xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="0.5dp"
-                >
+                android:layout_marginTop="0.5dp">
                 <!--  ExpandableTextView Container -->
                 <com.ms.square.android.expandabletextview.ExpandableTextView
                     android:id="@+id/expand_text_view"
@@ -681,13 +679,14 @@
                     android:layout_marginTop="51dp"
                     android:background="@drawable/line_profile" />
             </RelativeLayout>
+
             <ListView
-                android:id="@+id/listview_comment_view_product" android:layout_width="wrap_content"
+                android:id="@+id/listview_comment_view_product"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="1dp"
-                android:dividerHeight="-5dp"
-                />
+                android:layout_marginBottom="20dp"
+                android:dividerHeight="-5dp" />
         </LinearLayout>
     </ScrollView>
 

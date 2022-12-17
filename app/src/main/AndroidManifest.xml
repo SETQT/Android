@@ -93,6 +93,9 @@
         <activity
             android:name=".activity_my_favorite_list"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".activity_see_evaluate"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
