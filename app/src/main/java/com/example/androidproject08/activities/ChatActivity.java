@@ -1,10 +1,17 @@
 package com.example.androidproject08.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.androidproject08.adapters.ChatAdapter;
 import com.example.androidproject08.databinding.ActivityChatBinding;
@@ -29,13 +37,18 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,6 +123,7 @@ public class ChatActivity extends activity_base {
                     chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
                     chatMessage.dateTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
                     chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
+                    chatMessage.messageImage = documentChange.getDocument().getString("messageImage");
                     chatMessages.add(chatMessage);
                 }
             }
@@ -143,6 +157,11 @@ public class ChatActivity extends activity_base {
         message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
+        if(preferenceManager.getString("messageImage") != null){
+            message.put("messageImage", preferenceManager.getString("messageImage"));
+        } else {
+            message.put("messageImage" , null);
+        }
         db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
         if (conversionId != null) {
             updateConversion(binding.inputMessage.getText().toString());
@@ -179,7 +198,76 @@ public class ChatActivity extends activity_base {
             }
         }
         binding.inputMessage.setText(null);
+        preferenceManager.putString("messageImage", null);
     }
+
+
+    private void getImageChat() {
+
+        if (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 3);
+
+        } else {
+            requestPermission();
+            if (ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 3);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            Uri selectImage = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(selectImage);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                String imageEncode = encodedImage(bitmap);
+                preferenceManager.putString("messageImage", imageEncode);
+                sendMessage();
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String encodedImage(Bitmap bitmap){
+        int previewWidth= 350;
+        int previewHeight = bitmap.getHeight() * previewWidth /bitmap.getWidth();
+        Bitmap previewBitmap= Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
+    // request permission can thiet camera,thu vien ,...
+    public void requestPermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(ChatActivity.this, " Cấp quyền thành công !", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(ChatActivity.this, "Đã từ chối !!", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        TedPermission.create()
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("Không thể thực hiện do chưa cấp quyền truy cập!! \n\n Thay đổi bằng cách Setting -> Permission")
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
+
 
     private void listenerMessages() {
         db.collection(Constants.KEY_COLLECTION_CHAT)
@@ -273,6 +361,7 @@ public class ChatActivity extends activity_base {
     private void setListeners() {
         binding.iconBack.setOnClickListener(v -> onBackPressed());
         binding.layoutSend.setOnClickListener(v -> sendMessage());
+        binding.uploadImageChat.setOnClickListener(v -> getImageChat());
     }
 
     private String getReadableDateTime(Date date) {
