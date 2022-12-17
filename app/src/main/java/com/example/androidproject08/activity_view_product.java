@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +38,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -296,10 +304,12 @@ public class activity_view_product extends Activity implements View.OnClickListe
         // chuyển sang giao diện chat và thêm tin nhắn
         if(view.getId() == rectangle_chat_view_product.getId()){
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            //String imageCode = encodedImage(bitmap);
             String messageInfoProduct = "Loại sản phẩm: " + infoProduct.getCategory() + "\nTên sản phẩm: " + infoProduct.getName() +
                     "\nGiá sản phẩm: " + infoProduct.getPrice() + "\nSố lượng hiện có: " + infoProduct.getAmount() +
                     "\nMô tả: " + infoProduct.getDescription() + "\n\nCho mình hỏi thông tin về sản phẩm này !!!!";
             intent.putExtra("infoProduct", messageInfoProduct);
+            intent.putExtra("imageProduct", infoProduct.getImage());
             startActivity(intent);
         }
 
@@ -574,5 +584,16 @@ public class activity_view_product extends Activity implements View.OnClickListe
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    private String encodedImage(Bitmap bitmap){
+        if(bitmap == null)  return null;
+        int previewWidth= 350;
+        int previewHeight = bitmap.getHeight() * previewWidth /bitmap.getWidth();
+        Bitmap previewBitmap= Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 }

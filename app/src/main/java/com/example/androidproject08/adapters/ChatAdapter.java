@@ -16,6 +16,7 @@ import com.example.androidproject08.databinding.ItemContainerReceivedImageMessag
 import com.example.androidproject08.databinding.ItemContainerReceivedMessageBinding;
 import com.example.androidproject08.databinding.ItemContainerSentImageMessageBinding;
 import com.example.androidproject08.databinding.ItemContainerSentMessageBinding;
+import com.example.androidproject08.databinding.ItemContainerSentProductBinding;
 import com.example.androidproject08.models.ChatMessage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,6 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_TYPE_RECEIVED = 2;
     public static final int VIEW_TYPE_SENT_IMG = 3;
     public static final int VIEW_TYPE_RECEIVED_IMG = 4;
+    public static final int VIEW_TYPE_SENT_PRODUCT = 5;
 
     public ChatAdapter(List<ChatMessage> chatMessages, String receiverProfileImage, String senderId) {
         this.chatMessages = chatMessages;
@@ -73,9 +75,17 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             false
                     )
             );
-        } else {
+        } else if(viewType == VIEW_TYPE_RECEIVED_IMG){
             return new ReceiverMessageImageViewHolder(
                     ItemContainerReceivedImageMessageBinding.inflate(
+                            LayoutInflater.from(parent.getContext()),
+                            parent,
+                            false
+                    )
+            );
+        } else {
+            return new SentProductViewHolder(
+                    ItemContainerSentProductBinding.inflate(
                             LayoutInflater.from(parent.getContext()),
                             parent,
                             false
@@ -93,8 +103,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((ReceiverMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
         } else if(getItemViewType(position) == VIEW_TYPE_SENT_IMG){
             ((SentMessageImageViewHolder) holder).setData(chatMessages.get(position));
-        } else {
+        } else if(getItemViewType(position) == VIEW_TYPE_RECEIVED_IMG){
             ((ReceiverMessageImageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
+        } else {
+            ((SentProductViewHolder) holder).setData(chatMessages.get(position));
         }
 
     }
@@ -107,7 +119,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (chatMessages.get(position).senderId.equals(senderId)) {
-            if(chatMessages.get(position).messageImage != null){
+            if(chatMessages.get(position).messageImage != null && chatMessages.get(position).message != "" && chatMessages.get(position).message != null) {
+                return VIEW_TYPE_SENT_PRODUCT;
+            } else if(chatMessages.get(position).messageImage != null){
                 return VIEW_TYPE_SENT_IMG;
             }
             return VIEW_TYPE_SENT;
@@ -116,6 +130,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return VIEW_TYPE_RECEIVED_IMG;
             }
             return VIEW_TYPE_RECEIVED;
+        }
+    }
+
+    static class SentProductViewHolder extends RecyclerView.ViewHolder {
+        private final ItemContainerSentProductBinding binding;
+
+        SentProductViewHolder(ItemContainerSentProductBinding itemContainerSentProductBinding) {
+            super(itemContainerSentProductBinding.getRoot());
+            binding = itemContainerSentProductBinding;
+        }
+
+        void setData(ChatMessage chatMessage) {
+            //Log.d("TAG", "setData: " + chatMessage.message);
+            binding.textMessage.setText(chatMessage.message);
+            binding.textDateTime.setText(chatMessage.dateTime);
+            loadImage(chatMessage.messageImage, binding);
+        }
+        private void loadImage(String image, ItemContainerSentProductBinding binding) {
+            try {
+                Picasso.with(itemView.getContext()).load(image).into(binding.imageMessage);
+            } catch (Exception error) {
+                Log.e("ERROR", "activity_profile loadImage: ", error);
+            }
         }
     }
 

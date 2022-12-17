@@ -6,8 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="4sp">
 
-    <ImageView
-        android:id="@+id/imageMessage"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/carviewImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/_12sdp"
@@ -17,7 +18,31 @@
         app:layout_constraintWidth_max="wrap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8"/>
+        app:layout_constraintWidth_percent="0.8"
+        app:cardCornerRadius="8dp"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/imageMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
+            />
+    </androidx.cardview.widget.CardView>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageMessage"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingStart="@dimen/_12sdp"-->
+<!--        android:paddingTop="@dimen/_8sdp"-->
+<!--        android:paddingEnd="@dimen/_12sdp"-->
+<!--        android:paddingBottom="@dimen/_8sdp"-->
+<!--        app:layout_constraintWidth_max="wrap"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintWidth_percent="0.8"/>-->
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageChat"-->
@@ -41,6 +66,6 @@
         android:textColor="#000000"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageMessage"/>
+        app:layout_constraintTop_toBottomOf="@id/carviewImage"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
