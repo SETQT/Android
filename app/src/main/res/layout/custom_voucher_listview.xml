@@ -48,12 +48,25 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="top"
             android:text="Tất cả hình thức thanh toán"
             android:textColor="#000000"
             android:textSize="12sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/custom_voucher_min_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="33dp"
+            android:gravity="top"
+            android:text="Đơn tối thiểu 200k"
+            android:textColor="#AEAEAE"
+            android:textSize="10sp" />
 
         <View
             android:id="@+id/voucher_custom_frame_cost_free"
@@ -62,7 +75,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="54dp"
             android:background="@drawable/voucher_custom_frame_cost_free" />
 
         <TextView
@@ -72,7 +85,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="55dp"
             android:gravity="center"
             android:text="Tối đa 40k"
             android:textColor="#F9A826"
@@ -85,7 +98,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="120dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="55dp"
             android:gravity="center"
             android:text="Số lượng: 10"
             android:textColor="#000000"
@@ -98,7 +111,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="75dp"
             android:gravity="top"
             android:text="Bắt đầu: 20/11/2022"
             android:textColor="#AEAEAE"
@@ -111,7 +124,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="120dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="75dp"
             android:gravity="top"
             android:text="HSD: 20/11/2022"
             android:textColor="#AEAEAE"

@@ -28,7 +28,7 @@ public class MyorderFragmentFirst extends Fragment implements View.OnClickListen
     activity_myorder main;
 
     // khai báo biến UI
-    TextView myorder_option_cho_xac_nhan, myorder_option_cho_lay_hang, myorder_option_dang_giao_hang, myorder_option_da_giao, number_cart;
+    TextView myorder_option_cho_xac_nhan, myorder_option_dang_giao_hang, myorder_option_da_giao, number_cart;
     View icon_back, icon_cart;
 
     // sqlite
@@ -73,8 +73,6 @@ public class MyorderFragmentFirst extends Fragment implements View.OnClickListen
 
         myorder_option_cho_xac_nhan = (TextView) layout_first.findViewById(R.id.myorder_option_cho_xac_nhan);
         myorder_option_cho_xac_nhan.setOnClickListener(this);
-        myorder_option_cho_lay_hang = (TextView) layout_first.findViewById(R.id.myorder_option_cho_lay_hang);
-        myorder_option_cho_lay_hang.setOnClickListener(this);
         myorder_option_dang_giao_hang = (TextView) layout_first.findViewById(R.id.myorder_option_dang_giao_hang);
         myorder_option_dang_giao_hang.setOnClickListener(this);
         myorder_option_da_giao = (TextView) layout_first.findViewById(R.id.myorder_option_da_giao);
@@ -111,25 +109,16 @@ public class MyorderFragmentFirst extends Fragment implements View.OnClickListen
             switch (stateMyOder) {
                 case "1":
                     myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-                    myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     break;
                 case "2":
-                    myorder_option_cho_xac_nhan.setTextAppearance(main.getApplicationContext(), R.style.setTextNotClick);
-                    myorder_option_cho_lay_hang.setTextAppearance(main.getApplicationContext(), R.style.setTextAfterClick);
-                    myorder_option_dang_giao_hang.setTextAppearance(main.getApplicationContext(), R.style.setTextNotClick);
-                    myorder_option_da_giao.setTextAppearance(main.getApplicationContext(), R.style.setTextNotClick);
-                    break;
-                case "3":
                     myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextNotClick);
-                    myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextAfterClick);
                     myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     break;
-                case "4":
+                case "3":
                     myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextNotClick);
-                    myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
                     myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextAfterClick);
                     break;
@@ -162,37 +151,25 @@ public class MyorderFragmentFirst extends Fragment implements View.OnClickListen
 
         if (view.getId() == myorder_option_cho_xac_nhan.getId()) {
             myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-            myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
             myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
             myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextNotClick);
             String dataSend = "1";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
 
-        if (view.getId() == myorder_option_cho_lay_hang.getId()) {
+        if (view.getId() == myorder_option_dang_giao_hang.getId()) {
             myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-            myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
+            myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextAfterClick);
             myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextNotClick);
             String dataSend = "2";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
 
-        if (view.getId() == myorder_option_dang_giao_hang.getId()) {
-            myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-            myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            String dataSend = "3";
-            main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
-        }
-
         if (view.getId() == myorder_option_da_giao.getId()) {
             myorder_option_cho_xac_nhan.setTextAppearance(getActivity(), R.style.setTextNotClick);
-            myorder_option_cho_lay_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
             myorder_option_dang_giao_hang.setTextAppearance(getActivity(), R.style.setTextNotClick);
             myorder_option_da_giao.setTextAppearance(getActivity(), R.style.setTextAfterClick);
-            String dataSend = "4";
+            String dataSend = "3";
             main.onMsgFromFragToMain("BLUE-FRAG", dataSend);
         }
     }

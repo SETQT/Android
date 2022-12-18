@@ -90,7 +90,7 @@
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
-            android:layout_width="wrap_content"
+            android:layout_width="411dp"
             android:layout_height="50dp"
             android:layout_marginTop="81dp"
             android:layout_marginBottom="50dp"
@@ -104,38 +104,26 @@
 
                 <TextView
                     android:id="@+id/myorder_option_cho_xac_nhan"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="13dp"
                     android:gravity="center"
                     android:text="Chờ xác nhận"
                     android:textColor="#FFFFFF"
                     android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/myorder_option_cho_lay_hang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="Chờ lấy hàng"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/myorder_option_dang_giao_hang"
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="13dp"
                     android:gravity="center"
                     android:text="Đang giao hàng"
                     android:textColor="#FFFFFF"
@@ -143,16 +131,15 @@
 
                 <TextView
                     android:id="@+id/myorder_option_da_giao"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="13dp"
                     android:gravity="center"
-                    android:text="Đã giao"
+                    android:text="Đã giao hàng"
                     android:textColor="#FFFFFF"
                     android:textSize="13sp" />
 

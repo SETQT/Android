@@ -68,7 +68,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture) ;
 
         TextView danhgia = (TextView) v.findViewById(R.id.myorder_custom_danhgia);
-        if(state == 4) {
+        if(state == 3) {
             danhgia.setVisibility(View.VISIBLE);
         }else {
             danhgia.setVisibility(View.INVISIBLE);

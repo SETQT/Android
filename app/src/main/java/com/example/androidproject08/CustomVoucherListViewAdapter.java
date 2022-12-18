@@ -38,6 +38,7 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
         v = inflater.inflate(R.layout.custom_voucher_listview, null);
 
         TextView title = (TextView) v.findViewById(R.id.custom_voucher_title);
+        TextView min_cost = (TextView) v.findViewById(R.id.custom_voucher_min_cost);
         TextView free_cost = (TextView) v.findViewById(R.id.custom_voucher_free_cost);
         TextView count = (TextView) v.findViewById(R.id.custom_voucher_count);
         TextView start_date = (TextView) v.findViewById(R.id.custom_voucher_start_date);
@@ -47,7 +48,8 @@ public class CustomVoucherListViewAdapter extends ArrayAdapter<Voucher> {
 
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        title.setText(vouchers.get(position).getTitle() + " cho đơn hàng tối thiểu " + Handle.kFortmatter(vouchers.get(position).getMinimumCost().toString()));
+        title.setText(vouchers.get(position).getTitle());
+        min_cost.setText("Đơn tối thiểu " + Handle.kFortmatter(vouchers.get(position).getMinimumCost().toString()));
         free_cost.setText("Tối đa " + Handle.kFortmatter(vouchers.get(position).getMoneyDeals().toString()));
         count.setText("Số lượng: " + vouchers.get(position).getAmount().toString());
         start_date.setText("NBD: " + formatDate.format(vouchers.get(position).getStartedAt()).toString());

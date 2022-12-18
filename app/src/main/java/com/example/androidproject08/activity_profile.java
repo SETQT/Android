@@ -39,7 +39,7 @@ import java.util.List;
 
 public class activity_profile extends Activity implements View.OnClickListener {
     //khai báo biến UI
-    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_cholayhang, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product, icon_danhgia;
+    RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product, icon_danhgia;
     TextView username_profile, number_cart;
     Button dangxuat;
     View icon_cart, icon_chat;
@@ -70,8 +70,6 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_home.setOnClickListener(this);
         icon_choxacnhan = (RelativeLayout) findViewById(R.id.icon_choxacnhan);
         icon_choxacnhan.setOnClickListener(this);
-        icon_cholayhang = (RelativeLayout) findViewById(R.id.icon_cholayhang);
-        icon_cholayhang.setOnClickListener(this);
         icon_danggiaohang = (RelativeLayout) findViewById(R.id.icon_danggiaohang);
         icon_danggiaohang.setOnClickListener(this);
         rectangle_donhangdamua = (RelativeLayout) findViewById(R.id.rectangle_donhangdamua);
@@ -230,24 +228,17 @@ public class activity_profile extends Activity implements View.OnClickListener {
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_cholayhang.getId()) {
+        if(view.getId() == icon_danggiaohang.getId()) {
             // chuyển sang giao diện đơn hàng của tôi
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
             moveActivity.putExtra("stateMyOrder", "2");
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_danggiaohang.getId()) {
-            // chuyển sang giao diện đơn hàng của tôi
-            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-            moveActivity.putExtra("stateMyOrder", "3");
-            startActivity(moveActivity);
-        }
-
         if(view.getId() == rectangle_donhangdamua.getId()) {
             // chuyển sang giao diện đơn hàng của tôi
             Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-            moveActivity.putExtra("stateMyOrder", "4");
+            moveActivity.putExtra("stateMyOrder", "3");
             startActivity(moveActivity);
         }
 
