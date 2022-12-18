@@ -190,10 +190,12 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         if (view.getId() == btn_order_payment.getId()) {
             Order newOrder;
 
+            String code = (username + finalTotalMoney.toString()).toUpperCase();
+
             if(usedVoucher != null) {
-                newOrder = new Order(username, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
+                newOrder = new Order(username, code, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
             }else {
-                newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
+                newOrder = new Order(username, code, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
             }
 
             if (!preActivity.equals("activity_view_product")) {

@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Order  implements Serializable {
     private String ownOrder;
+    private String code;
     private ArrayList<Myorder> arrayOrder;
     private Integer transportFee; // phí vận chuyển
     private String voucher; // voucher áp dụng cho đơn hàng này
@@ -20,8 +21,9 @@ public class Order  implements Serializable {
 
     public Order() {}
 
-    public Order(String ownOrder, ArrayList<Myorder> arrayOrder, Integer transportFee, String voucher, Integer state, String paymentMethods, Date createdAt, Integer finalTotalMoney) {
+    public Order(String ownOrder, String code, ArrayList<Myorder> arrayOrder, Integer transportFee, String voucher, Integer state, String paymentMethods, Date createdAt, Integer finalTotalMoney) {
         this.ownOrder = ownOrder;
+        this.code = code;
         this.arrayOrder = arrayOrder;
         this.transportFee = transportFee;
         this.voucher = voucher;
@@ -37,6 +39,14 @@ public class Order  implements Serializable {
 
     public void setOwnOrder(String ownOrder) {
         this.ownOrder = ownOrder;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public ArrayList<Myorder> getArrayOrder() {
