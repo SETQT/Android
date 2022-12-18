@@ -33,7 +33,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class activity_payment extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     // khai báo biến UI
@@ -99,7 +101,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             ListOrderArray = (ArrayList<Myorder>) intent.getExtras().getSerializable("products");
         }
 
-        if(intent.hasExtra("voucher")) {
+        if (intent.hasExtra("voucher")) {
             usedVoucher = (Voucher) intent.getExtras().getSerializable("voucher");
         }
 
@@ -112,10 +114,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             value_total_cost_product_payment.setText("đ" + finalTotalMoney.toString());
             value_cost_tranfer_payment.setText("đ" + 30000);
 
-            if(usedVoucher != null) {
+            if (usedVoucher != null) {
                 value_total_voucher_discount_payment.setText("- đ" + usedVoucher.getMoneyDeals().toString());
                 finalTotalMoney -= usedVoucher.getMoneyDeals();
-            }else {
+            } else {
                 value_total_voucher_discount_payment.setText("- đ" + 0);
             }
 
@@ -190,11 +192,11 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         if (view.getId() == btn_order_payment.getId()) {
             Order newOrder;
 
-            String code = (username + finalTotalMoney.toString()).toUpperCase();
+            String code = RandomCode().toUpperCase();
 
-            if(usedVoucher != null) {
+            if (usedVoucher != null) {
                 newOrder = new Order(username, code, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
-            }else {
+            } else {
                 newOrder = new Order(username, code, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
             }
 
@@ -222,7 +224,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                                         ordersRef.add(newOrder);
 
                                         // tăng lượng voucher đã dùng lên 1 đơn vị
-                                        vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
+                                        //vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
 
                                         Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 
@@ -245,7 +247,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             }
         }
 
-        if(view.getId() == rectangle_voucher.getId()) {
+        if (view.getId() == rectangle_voucher.getId()) {
             Intent moveActivity = new Intent(getApplicationContext(), activity_select_voucher.class);
             moveActivity.putExtra("products", ListOrderArray);
             moveActivity.putExtra("voucher", usedVoucher);
@@ -281,5 +283,17 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static String RandomCode() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int len = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(len)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 }
