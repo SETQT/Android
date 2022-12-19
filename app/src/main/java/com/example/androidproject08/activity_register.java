@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,7 +44,7 @@ public class activity_register extends Activity implements View.OnClickListener 
     View btn_login;
     Button btn_register, btn_google_dk, btn_facebook_dk;
     EditText edittext_tk_dk, edittext_mk_dk, edittext_nhaplaimk;
-
+    ProgressBar progressBar;
     // google
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -75,6 +76,7 @@ public class activity_register extends Activity implements View.OnClickListener 
         edittext_nhaplaimk = (EditText) findViewById(R.id.edittext_nhaplaimk);
         btn_google_dk = (Button) findViewById(R.id.btn_google_dk);
         btn_google_dk.setOnClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // đăng nhập/ đăng ký bằng facebook
         mCallbackManager = CallbackManager.Factory.create();
@@ -111,11 +113,13 @@ public class activity_register extends Activity implements View.OnClickListener 
         }
 
         if (view.getId() == btn_register.getId()) {
+            loading(true);
             String tk = edittext_tk_dk.getText().toString();
             String mk = edittext_mk_dk.getText().toString();
             String mkAgain = edittext_nhaplaimk.getText().toString();
 
             if (tk.equals("") || mk.equals("") || mkAgain.equals("")) {
+                loading(false);
                 new AlertDialog.Builder(activity_register.this)
                         .setMessage("Vui lòng điền đầy đủ thông tin!")
                         .setCancelable(true)
@@ -125,6 +129,7 @@ public class activity_register extends Activity implements View.OnClickListener 
 
             // kiểm tra mật khẩu nhập lại có khớp hay không
             if (!mk.equals(mkAgain)) {
+                loading(false);
                 new AlertDialog.Builder(activity_register.this)
                         .setMessage("Xác thực mật khẩu không chính xác")
                         .setCancelable(true)
@@ -153,12 +158,14 @@ public class activity_register extends Activity implements View.OnClickListener 
                                     Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
                                     startActivity(moveActivity);
                                 } else {
+                                    loading(false);
                                     new AlertDialog.Builder(activity_register.this)
                                             .setMessage("Tài khoản này đã được sử dụng!")
                                             .setCancelable(true)
                                             .show();
                                 }
                             } else {
+                                loading(false);
                                 Log.d("TAG", "Error getting documents: ", task.getException());
                             }
                         }
@@ -297,5 +304,15 @@ public class activity_register extends Activity implements View.OnClickListener 
             }
         }
 
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            btn_register.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_register.setVisibility(View.VISIBLE);
+        }
     }
 }

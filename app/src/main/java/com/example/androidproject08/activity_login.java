@@ -2,16 +2,19 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidproject08.activities.dialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -41,6 +44,10 @@ public class activity_login extends Activity implements View.OnClickListener {
     View btn_register;
     EditText edittext_tk, edittext_mk;
     Button btn_login, btn_google;
+    ProgressBar progressBar;
+
+    // dialog
+    dialog loadingdialog;
 
     // google
     GoogleSignInOptions gso;
@@ -61,6 +68,9 @@ public class activity_login extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // creating object of Loadingdialog class and passing MainActivity as argument
+        loadingdialog = new dialog(activity_login.this);
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
 
@@ -72,7 +82,7 @@ public class activity_login extends Activity implements View.OnClickListener {
         edittext_mk = (EditText) findViewById(R.id.edittext_mk); // mật khẩu người dùng
         btn_google = (Button) findViewById(R.id.btn_google);
         btn_google.setOnClickListener(this);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         // login bằng facebook
         mCallbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(mCallbackManager,
@@ -99,12 +109,16 @@ public class activity_login extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == btn_register.getId()) {
+            // invoking startLoadingDialog method
+            //loadingdialog.startLoadingdialog();
             // chuyển sang activity đăng ký
             Intent moveActivity = new Intent(activity_login.this, activity_register.class);
             startActivity(moveActivity);
+            //loadingdialog.dismissdialog();
         }
 
         if (view.getId() == btn_login.getId()) {
+            loading(true);
             String tk = edittext_tk.getText().toString();// tài khoản người dùng
             String mk = edittext_mk.getText().toString();// mật khẩu người dùng
 
@@ -114,7 +128,7 @@ public class activity_login extends Activity implements View.OnClickListener {
                         .setMessage("Vui lòng điền đầy đủ thông tin!")
                         .setCancelable(true)
                         .show();
-
+                loading(false);
                 return;
             }
 
@@ -148,6 +162,7 @@ public class activity_login extends Activity implements View.OnClickListener {
                                             Intent moveActivity = new Intent(activity_login.this, activity_dashboard.class);
                                             startActivity(moveActivity);
                                         } else {
+                                            loading(false);
                                             new AlertDialog.Builder(activity_login.this)
                                                     .setTitle("KHÓA TÀI KHOẢN")
                                                     .setMessage("Chúng tôi rất lấy làm tiết tài khoản của bạn đã bị cấm vì vi phạm chính sách của chúng tôi!")
@@ -155,12 +170,14 @@ public class activity_login extends Activity implements View.OnClickListener {
                                                     .show();
                                         }
                                     } else {
+                                        loading(false);
                                         new AlertDialog.Builder(activity_login.this)
                                                 .setMessage("Tài khoản hoặc mật khẩu sai!")
                                                 .setCancelable(true)
                                                 .show();
                                     }
                                 }
+                                loading(false);
                             }
                         }
                     });
@@ -296,5 +313,15 @@ public class activity_login extends Activity implements View.OnClickListener {
             }
         }
 
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            btn_login.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_login.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/login"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/login"
-        android:clipToOutline="true"
-        tools:context=".activity_mycart">
-    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login"
+    android:clipToOutline="true"
+    tools:context=".activity_mycart">
 
 
-        <View
-            android:id="@+id/ellipse_1"
-            android:layout_width="213dp"
-            android:layout_height="213dp"
-            android:background="@drawable/ellipse_1"
-            android:translationX="-100dp"
-            android:translationY="-50dp" />
+    <View
+        android:id="@+id/ellipse_1"
+        android:layout_width="213dp"
+        android:layout_height="213dp"
+        android:background="@drawable/ellipse_1"
+        android:translationX="-100dp"
+        android:translationY="-50dp" />
 
-        <View
-            android:id="@+id/ellipse_2"
-            android:layout_width="337dp"
-            android:layout_height="337dp"
-            android:background="@drawable/ellipse_2"
-            android:translationX="-40dp"
-            android:translationY="-250dp" />
+    <View
+        android:id="@+id/ellipse_2"
+        android:layout_width="337dp"
+        android:layout_height="337dp"
+        android:background="@drawable/ellipse_2"
+        android:translationX="-40dp"
+        android:translationY="-250dp" />
 
     <View
         android:id="@+id/rectangle_4"
@@ -106,15 +105,15 @@
         android:paddingLeft="45dp"
         android:textSize="13sp" />
 
-        <View
-            android:id="@+id/ic_lock"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="285dp"
-            android:background="@drawable/ic_lock"/>
+    <View
+        android:id="@+id/ic_lock"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="285dp"
+        android:background="@drawable/ic_lock" />
 
     <View
         android:id="@+id/ic_eye"
@@ -139,20 +138,33 @@
         android:textAppearance="@style/m_t_kh_u"
         android:textSize="13sp" />
 
-    <Button
-        android:id="@+id/btn_dangnhap"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="390dp"
-        android:layout_marginBottom="43dp"
-        android:background="@drawable/btn_default"
-        android:gravity="center"
-        android:text="Đăng nhập"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:textSize="18dp" />
+        android:layout_marginTop="@dimen/_300sdp"
+        android:animateLayoutChanges="true">
+
+        <Button
+            android:id="@+id/btn_dangnhap"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_default"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:theme="@style/primaryColor"
+            android:visibility="invisible" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/m_t_kh_u"
