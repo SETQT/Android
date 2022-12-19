@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class activity_payment extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     // khai báo biến UI
@@ -229,7 +230,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                                         ordersRef.add(newOrder);
 
                                         // tăng lượng voucher đã dùng lên 1 đơn vị
-                                        vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
+                                        //vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
 
                                         Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 
@@ -279,5 +280,17 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static String RandomCode() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int len = 10;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(len)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 }

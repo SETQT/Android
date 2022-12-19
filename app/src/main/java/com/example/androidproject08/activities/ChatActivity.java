@@ -143,7 +143,37 @@ public class ChatActivity extends activity_base {
         }
     };
 
+    private void getConversionIdProduct(){
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, receiverUser.id)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        conversionId = documentSnapshot.getId();
+                        //Log.d("TAG", "sendMessageFromMyCart: " + conversionId);
+                        updateConversion("Đã gửi thông tin sản phẩm !");
+                    }
+                });
+
+        db.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
+                .whereEqualTo(Constants.KEY_SENDER_ID, receiverUser.id  )
+                .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
+                        DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                        conversionId = documentSnapshot.getId();
+                        //Log.d("TAG", "sendMessageFromMyCart: " + conversionId);
+                        updateConversion("Đã gửi thông tin sản phẩm !");
+                    }
+                });
+
+    }
+
     private void sendMessageFromMyCart(String infoProduct, String imageProduct){
+
         HashMap<String, Object> message = new HashMap<>();
         message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
         message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
@@ -152,20 +182,23 @@ public class ChatActivity extends activity_base {
         message.put("messageImage", imageProduct);
 
         db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-        if (conversionId != null) {
-            updateConversion(infoProduct);
-        } else {
-            HashMap<String, Object> conversion = new HashMap<>();
-            conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
-            conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_USER_NAME));
-            conversion.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
-            conversion.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
-            conversion.put(Constants.KEY_RECEIVER_NAME, receiverUser.fullName);
-            conversion.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
-            conversion.put(Constants.KEY_LAST_MESSAGE, infoProduct);
-            conversion.put(Constants.KEY_TIMESTAMP, new Date());
-            addConversion(conversion);
-        }
+        getConversionIdProduct();
+        Log.d("TAGCON", "sendMessageFromMyCart: " + conversionId);
+//        if (conversionId != null) {
+//            updateConversion("Đã gửi thông tin sản phẩm !");
+//        } else {
+//            HashMap<String, Object> conversion = new HashMap<>();
+//            conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+//            conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_USER_NAME));
+//            conversion.put(Constants.KEY_SENDER_IMAGE, preferenceManager.getString(Constants.KEY_IMAGE));
+//            conversion.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
+//            conversion.put(Constants.KEY_RECEIVER_NAME, receiverUser.fullName);
+//            conversion.put(Constants.KEY_RECEIVER_IMAGE, receiverUser.image);
+//            conversion.put(Constants.KEY_LAST_MESSAGE, "Đã gửi thông tin sản phẩm");
+//            conversion.put(Constants.KEY_TIMESTAMP, new Date());
+//            addConversion(conversion);
+//        }
+
         if (!isReceiverAvailable) {
             try {
                 JSONArray tokens = new JSONArray();
@@ -175,7 +208,7 @@ public class ChatActivity extends activity_base {
                 data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
                 data.put(Constants.KEY_USER_NAME, preferenceManager.getString(Constants.KEY_USER_NAME));
                 data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
-                data.put(Constants.KEY_MESSAGE,infoProduct);
+                data.put(Constants.KEY_MESSAGE,"Đã gửi thông tin sản phẩm");
 
                 JSONObject body = new JSONObject();
                 body.put(Constants.REMOTE_MSG_DATA, data);
@@ -191,6 +224,7 @@ public class ChatActivity extends activity_base {
     }
 
     private void sendMessage() {
+        Log.d("CONVER", "set: " + conversionId);
         HashMap<String, Object> message = new HashMap<>();
         int checkSendImage = preferenceManager.getString("messageImage") != null ? 1 : 0;
         message.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
@@ -199,6 +233,9 @@ public class ChatActivity extends activity_base {
         if(checkSendImage == 1){
             message.put("messageImage", preferenceManager.getString("messageImage"));
         } else {
+            if(binding.inputMessage.getText().toString().isEmpty()){
+                return;
+            }
             message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
             message.put("messageImage" , null);
         }
@@ -451,14 +488,17 @@ public class ChatActivity extends activity_base {
                             receiverUser = admins.get(0);
                             loadReceiverDetails(receiverUser);// lấy amdin đầu tiên: thật ra còn nhiều admin khác, phát triển sau
 
+
+                            //Log.d("TAG", "getAdmins: " + imageProductFromViewProduct);
+                            init(receiverUser); // khai baos adapter
+                            //Log.d("CONVERS", "getAdmins: " + conversionId);
+
                             // nhận dữ liệu từ activity view product
                             Intent intent = getIntent();
                             infoProductFromViewProduct = intent.getStringExtra("infoProduct");
                             imageProductFromViewProduct = intent.getStringExtra("imageProduct");
-                            Log.d("TAG", "getAdmins: " + imageProductFromViewProduct);
-                            if(infoProductFromViewProduct != null) sendMessageFromMyCart(infoProductFromViewProduct, imageProductFromViewProduct);
 
-                            init(receiverUser); // khai baos adapter
+                            if(infoProductFromViewProduct != null) sendMessageFromMyCart(infoProductFromViewProduct, imageProductFromViewProduct);
 
                         } else {
                             loadReceiverDetails(null);
@@ -546,6 +586,8 @@ public class ChatActivity extends activity_base {
             conversionId = documentSnapshot.getId();
         }
     };
+
+
 
     @Override
     protected void onResume() {
