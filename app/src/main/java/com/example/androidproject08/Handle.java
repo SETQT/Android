@@ -1,6 +1,5 @@
 package com.example.androidproject08;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -9,10 +8,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.CallbackManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,15 +21,16 @@ import java.util.ArrayList;
 public class Handle {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static CollectionReference usersRef = db.collection("users");
+    static CollectionReference usedVouchersRef = db.collection("usedVouchers");
     static ArrayList<User> usernameList = new ArrayList<>();
+    static boolean isUsed = false;
 
     static public boolean tableExists(SQLiteDatabase db, String tableName) {
         String mySql = "SELECT name FROM sqlite_master " + " WHERE type='table' " + " AND name='" + tableName + "'";
         int resultSize = db.rawQuery(mySql, null).getCount();
         if (resultSize != 0) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     // truy vấn dữ liệu từ database với username mà người dùng nhập
@@ -110,5 +110,36 @@ public class Handle {
         }
     }
 
+    static public void checkUserUsedVoucher(String username, String idVoucher) {
+
+        usedVouchersRef.whereEqualTo("user", username)
+                .whereEqualTo("idVoucher", idVoucher)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Boolean isHave = false;
+
+                            for (DocumentSnapshot document : task.getResult()) {
+                                isHave = true;
+                                isUsed = true;
+                            }
+
+                            if (!isHave) {
+                                isUsed = false;
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static boolean isIsUsed() {
+        return isUsed;
+    }
+
+    public static void setIsUsed(boolean isUsed) {
+        Handle.isUsed = isUsed;
+    }
 }
 

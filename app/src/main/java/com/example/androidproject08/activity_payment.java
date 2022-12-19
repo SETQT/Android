@@ -23,11 +23,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +57,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference ordersRef = db.collection("orders");
     CollectionReference vouchersRef = db.collection("vouchers");
+    CollectionReference usedVouchersRef = db.collection("usedVouchers");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -61,6 +68,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     ArrayList<Myorder> ListOrderArray = new ArrayList<>();
     Voucher usedVoucher;
     Integer finalTotalMoney;
+    User curUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +153,9 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     User user = document.toObject(User.class);
+                                    user.setUserId(document.getId());
+                                    curUser = user;
+
                                     if (user.getFullname() == null || user.getPhone() == null || user.getAddress() == null) {
                                         new AlertDialog.Builder(activity_payment.this)
                                                 .setMessage("Bạn chưa điền đầy đủ thông tin giao hàng. Vui lòng nhấn Có để qua profile để cập nhật thông tin?")
@@ -193,6 +204,35 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
             if (usedVoucher != null) {
                 newOrder = new Order(username, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
+
+                // tăng lượng voucher đã dùng lên 1 đơn vị
+                final DocumentReference updatedVoucher = vouchersRef.document(usedVoucher.getIdDoc());
+                db.runTransaction(new Transaction.Function<Void>() {
+                            @Override
+                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                                DocumentSnapshot snapshot = transaction.get(updatedVoucher);
+
+                                if (snapshot.getDouble("amount") - snapshot.getDouble("amoutOfUsed") >= 1) {
+                                    double newAmountOfUsed = snapshot.getDouble("amoutOfUsed") + 1;
+                                    transaction.update(updatedVoucher, "amoutOfUsed", newAmountOfUsed);
+
+                                    UsedVoucher newUsedVoucher = new UsedVoucher(username, usedVoucher.getIdDoc());
+                                    usedVouchersRef.add(newUsedVoucher);
+                                }
+
+                                // Success
+                                return null;
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
             } else {
                 newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
             }
@@ -200,12 +240,6 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             if (ListOrderArray.get(0).getIdCart().equals("")) {
                 // lưu đơn hàng lên database
                 ordersRef.add(newOrder);
-
-                Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
-
-                // chuyển về activity dashboard
-                Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-                startActivity(moveActivity);
             } else {
                 for (int i = 0; i < ListOrderArray.size(); i++) {
                     // xóa mặt hàng khỏi giỏ hàng
@@ -213,35 +247,19 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                 }
 
                 // giảm số lượng trong giỏ hàng cho user
-                usersRef
-                        .whereEqualTo("username", username)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        User user = document.toObject(User.class);
-                                        Map<String, Integer> userCart = new HashMap<>();
-                                        userCart.put("amount", user.getCart().get("amount") - ListOrderArray.size());
-                                        usersRef.document(document.getId()).update("cart", userCart);
+                Map<String, Integer> userCart = new HashMap<>();
+                userCart.put("amount", curUser.getCart().get("amount") - ListOrderArray.size());
+                usersRef.document(curUser.getUserId()).update("cart", userCart);
 
-                                        // lưu đơn hàng lên database
-                                        ordersRef.add(newOrder);
-
-                                        // tăng lượng voucher đã dùng lên 1 đơn vị
-                                        //vouchersRef.document(usedVoucher.getIdDoc()).update("amoutOfUsed", usedVoucher.getAmoutOfUsed() + 1);
-
-                                        Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
-
-                                        // chuyển về activity dashboard
-                                        Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-                                        startActivity(moveActivity);
-                                    }
-                                }
-                            }
-                        });
+                // lưu đơn hàng lên database
+                ordersRef.add(newOrder);
             }
+
+            Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+
+            // chuyển về activity dashboard
+            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+            startActivity(moveActivity);
         }
 
         if (view.getId() == rectangle_voucher.getId()) {

@@ -2,6 +2,8 @@ package com.example.androidproject08;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +29,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +47,10 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
     ArrayList<Myorder> ListOrderArray = new ArrayList<>();
     Voucher usedVoucher, voucherFromMain;
     Integer totalMoneyInListOrderArray = 0;
-    Date curDate = new Date();
+    String username;
+
+    // sqlite
+    SQLiteDatabase sqlite;
 
     public static SelectVoucherFragmentSecond newInstance(String strArg1) {
         SelectVoucherFragmentSecond fragment = new SelectVoucherFragmentSecond();
@@ -63,6 +69,16 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
         }
 
         main = (activity_select_voucher) getActivity();
+
+        // kết nối sqlite
+        File storagePath = main.getFilesDir();
+        String myDbPath = storagePath + "/" + "loginDb";
+        sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+
+        String mySQL = "select * from USER";
+        Cursor c1 = sqlite.rawQuery(mySQL, null);
+        c1.moveToPosition(0);
+        username = c1.getString(0);
     }
 
     @Override
@@ -94,10 +110,10 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
         if (value != null) {
             if (value.getClass() == Voucher.class) {
                 voucherFromMain = (Voucher) value;
-            }else {
+            } else {
                 ListOrderArray = (ArrayList<Myorder>) value;
 
-                for(int i = 0; i < ListOrderArray.size(); i++) {
+                for (int i = 0; i < ListOrderArray.size(); i++) {
                     totalMoneyInListOrderArray += ListOrderArray.get(i).getTotal();
                 }
             }
@@ -187,7 +203,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             if (vouchers.length == 0) {
                 listVoucher.clear();
             } else {
-                if(curDate.after(vouchers[0].getStartedAt()) && curDate.before(vouchers[0].getFinishedAt()) && (vouchers[0].getAmoutOfUsed() != vouchers[0].getAmount())) {
+                if (curDate.after(vouchers[0].getStartedAt()) && curDate.before(vouchers[0].getFinishedAt()) && (vouchers[0].getAmoutOfUsed() != vouchers[0].getAmount())) {
                     listVoucher.add(vouchers[0]);
                 }
             }
@@ -251,26 +267,35 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
                 checkbox.setChecked(false);
             }
 
+            Handle.checkUserUsedVoucher(username, vouchers.get(position).getIdDoc());
+
             checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (b) {
-                        if(vouchers.get(position).getMinimumCost() > totalMoneyInListOrderArray) {
-                            stateCheckbox.set(position, 0);
-
-                            new AlertDialog.Builder(curContext)
-                                    .setMessage("Bạn không đủ điều kiện để sử dụng voucher này!")
+                        if (Handle.isIsUsed()) {
+                            new AlertDialog.Builder(main)
+                                    .setMessage("Bạn chỉ được dùng voucher này 1 lần thôi!")
                                     .setCancelable(true)
                                     .show();
+                        } else {
+                            if (vouchers.get(position).getMinimumCost() > totalMoneyInListOrderArray) {
+                                stateCheckbox.set(position, 0);
 
-                            for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
-                                stateCheckbox.set(i, 0);
-                            }
-                        }else {
-                            stateCheckbox.set(position, 1);
+                                new AlertDialog.Builder(main)
+                                        .setMessage("Bạn không đủ điều kiện để sử dụng voucher này!")
+                                        .setCancelable(true)
+                                        .show();
 
-                            for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
-                                stateCheckbox.set(i, 3);
+                                for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                                    stateCheckbox.set(i, 0);
+                                }
+                            } else {
+                                stateCheckbox.set(position, 1);
+
+                                for (int i = 0; i < stateCheckbox.size() && i != position; i++) {
+                                    stateCheckbox.set(i, 3);
+                                }
                             }
                         }
 

@@ -23,6 +23,7 @@ public class User {
     private String image;
     private String imageBg;
     private String fcmToken;
+    private Integer status; // tình trạng tài khoản nếu 0 là bị bth còn 1 là bị ban
 
     public User() {
     }
@@ -40,6 +41,7 @@ public class User {
         this.userId = id;
         this.cart = cart;
         this.imageBg = imgBg;
+        this.status = 0;
     }
 
     public User(String username, String fullname, String email) {
@@ -226,5 +228,13 @@ public class User {
 
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
