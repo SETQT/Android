@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -13,44 +15,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.androidproject08.activities.ChatActivity;
-import com.example.androidproject08.databinding.ActivityNotifyBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class activity_notify extends Activity implements View.OnClickListener {
-
-    ListView listNotification;
-    ArrayList<Notify> notifiesArray = new ArrayList<>();
-
-    Integer[] CheckProduct = {1, 1, 1, 0, 1, 0, 1, 1};
-    String[] title = {"Đang giao hàng", "Giao kiện hàng thành công", "Giao kiện hàng không thành công", "Mã quà tặng từ shop",
-            "Giao kiện hàng không thành công", "Mã miễn phí vận chuyển", "Giao kiện hàng thành công", "Giao kiện hàng thành công"};
-    Integer[] status = {2, 1, 0, 1, 0, 1, 1, 1};
-    String[] product = {"Áo thun cực chất", "Áo MU", "Giày độn", "", "Áo khoác", "", "Mũ lưỡi trai", "Áo len"};
-    String[] content = {"", "", "", "Bạn nhận được mã voucher là 3TMAIDINH, mã voucher có giá trị sử dụng đến ngày 31-10-2022", "", "Bạn có mã freeship là GROUP8MOBILE, vui lòng sử dụng trong vòng 5 ngày", "", ""};
-    String[] date = {"09:54 12-10-2022", "06:50 15-10-2022", "09:04 18-10-2022", "16:35 22-10-2022"
-            , "09:00 23-10-2022", "16:35 24-10-2022", "08:20 25-10-2022", "16:47 26-10-2022"};
-    Integer[] image = {R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1,
-            R.drawable.mono1, R.drawable.mono1, R.drawable.mono1, R.drawable.mono1};
+    // khai báo biến xử lý
+    ArrayList<Notification> listNotify = new ArrayList<>();
+    String username;
 
     // khai báo biến UI
+    ListView listNotification;
     RelativeLayout icon_home, icon_scan, icon_profile;
-
     View icon_cart, icon_chat;
     TextView number_cart;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
+    CollectionReference notifyRef = db.collection("notifications");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -59,16 +49,6 @@ public class activity_notify extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
-
-
-        listNotification = (ListView) findViewById(R.id.notify_listview);
-
-
-        for (int i = 0; i < 7; i++) {
-            notifiesArray.add(new Notify(i, CheckProduct[i], title[i], status[i], product[i], date[i], content[i], image[i]));
-        }
-        CustomNotifyListViewAdapter myAdapter = new CustomNotifyListViewAdapter(this, R.layout.custom_notify_listview, notifiesArray);
-        listNotification.setAdapter(myAdapter);
 
         icon_home = (RelativeLayout) findViewById(R.id.icon_home);
         icon_home.setOnClickListener(this);
@@ -91,7 +71,7 @@ public class activity_notify extends Activity implements View.OnClickListener {
         String mySQL = "select * from USER";
         Cursor c1 = sqlite.rawQuery(mySQL, null);
         c1.moveToPosition(0);
-        String username = c1.getString(0);
+        username = c1.getString(0);
 
         // lấy số lượng sản phẩm
         usersRef.whereEqualTo("username", username)
@@ -99,7 +79,7 @@ public class activity_notify extends Activity implements View.OnClickListener {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 User user = document.toObject(User.class);
                                 number_cart.setText(user.getCart().get("amount").toString());
@@ -108,39 +88,85 @@ public class activity_notify extends Activity implements View.OnClickListener {
                         }
                     }
                 });
+
+        listNotification = (ListView) findViewById(R.id.notify_listview);
+
+        notify_asyntask n_at = new notify_asyntask();
+        n_at.execute();
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == icon_cart.getId()) {
+        if (view.getId() == icon_cart.getId()) {
             // chuyển sang giao diện my cart
             Intent moveActivity = new Intent(getApplicationContext(), activity_mycart.class);
             moveActivity.putExtra("name_activity", "activity_notify");
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_chat.getId()) {
+        if (view.getId() == icon_chat.getId()) {
             // chuyển sang giao diện chat
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
             startActivity(intent);
         }
 
-        if(view.getId() == icon_home.getId()) {
+        if (view.getId() == icon_home.getId()) {
             // trở về giao diện dashboard
             Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_scan.getId()) {
+        if (view.getId() == icon_scan.getId()) {
             // chuyển sang giao diện scan mã qr
             Intent moveActivity = new Intent(getApplicationContext(), activity_scan_pay.class);
             startActivity(moveActivity);
         }
 
-        if(view.getId() == icon_profile.getId()) {
+        if (view.getId() == icon_profile.getId()) {
             // chuyển sang giao diện profile
             Intent moveActivity = new Intent(getApplicationContext(), activity_profile.class);
             startActivity(moveActivity);
+        }
+    }
+
+    private class notify_asyntask extends AsyncTask<Void, Notification, Notification> {
+        notify_asyntask() {
+        }
+
+        @Override
+        protected Notification doInBackground(Void... voids) {
+            try {
+                notifyRef
+                        .whereEqualTo("receiver", username)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Notification notification = document.toObject(Notification.class);
+                                        notification.setIdDoc(document.getId());
+
+                                        publishProgress(notification);
+                                    }
+                                } else {
+                                }
+                            }
+                        });
+            } catch (Exception error) {
+                return null;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Notification... notifications) {
+            super.onProgressUpdate(notifications);
+            listNotify.add(notifications[0]);
+
+            CustomNotifyListViewAdapter myAdapter = new CustomNotifyListViewAdapter(getApplicationContext(), R.layout.custom_notify_listview, listNotify);
+            listNotification.setAdapter(myAdapter);
         }
     }
 }

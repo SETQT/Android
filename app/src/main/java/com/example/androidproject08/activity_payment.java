@@ -99,7 +99,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             ListOrderArray = (ArrayList<Myorder>) intent.getExtras().getSerializable("products");
         }
 
-        if(intent.hasExtra("voucher")) {
+        if (intent.hasExtra("voucher")) {
             usedVoucher = (Voucher) intent.getExtras().getSerializable("voucher");
         }
 
@@ -112,10 +112,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
             value_total_cost_product_payment.setText("đ" + finalTotalMoney.toString());
             value_cost_tranfer_payment.setText("đ" + 30000);
 
-            if(usedVoucher != null) {
+            if (usedVoucher != null) {
                 value_total_voucher_discount_payment.setText("- đ" + usedVoucher.getMoneyDeals().toString());
                 finalTotalMoney -= usedVoucher.getMoneyDeals();
-            }else {
+            } else {
                 value_total_voucher_discount_payment.setText("- đ" + 0);
             }
 
@@ -190,13 +190,22 @@ public class activity_payment extends Activity implements View.OnClickListener, 
         if (view.getId() == btn_order_payment.getId()) {
             Order newOrder;
 
-            if(usedVoucher != null) {
+            if (usedVoucher != null) {
                 newOrder = new Order(username, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
-            }else {
+            } else {
                 newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
             }
 
-            if (!preActivity.equals("activity_view_product")) {
+            if (ListOrderArray.get(0).getIdCart().equals("")) {
+                // lưu đơn hàng lên database
+                ordersRef.add(newOrder);
+
+                Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+
+                // chuyển về activity dashboard
+                Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                startActivity(moveActivity);
+            } else {
                 for (int i = 0; i < ListOrderArray.size(); i++) {
                     // xóa mặt hàng khỏi giỏ hàng
                     cartsRef.document(ListOrderArray.get(i).getIdCart()).delete();
@@ -231,19 +240,10 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                                 }
                             }
                         });
-            } else {
-                // lưu đơn hàng lên database
-                ordersRef.add(newOrder);
-
-                Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
-
-                // chuyển về activity dashboard
-                Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-                startActivity(moveActivity);
             }
         }
 
-        if(view.getId() == rectangle_voucher.getId()) {
+        if (view.getId() == rectangle_voucher.getId()) {
             Intent moveActivity = new Intent(getApplicationContext(), activity_select_voucher.class);
             moveActivity.putExtra("products", ListOrderArray);
             moveActivity.putExtra("voucher", usedVoucher);

@@ -193,7 +193,7 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
             }
 
             try {
-                CustomSelectVoucherListViewAdapter myAdapter = new CustomSelectVoucherListViewAdapter(getActivity(), R.layout.custom_select_voucher_layout_fragment_second, listVoucher);
+                CustomSelectVoucherListViewAdapter myAdapter = new CustomSelectVoucherListViewAdapter(main.getApplicationContext(), R.layout.custom_select_voucher_layout_fragment_second, listVoucher);
                 select_voucher_listview.setAdapter(myAdapter);
             } catch (Exception error) {
                 Log.e("ERROR", "VoucherFragmentSecond: ", error);
