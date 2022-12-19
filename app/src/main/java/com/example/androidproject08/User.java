@@ -49,6 +49,7 @@ public class User {
         this.fullname = fullname;
         this.username = username;
         this.email = email;
+        this.image = "https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/ProfileUser%2FAuto_avt.png?alt=media&token=6cd0697a-851a-4965-be78-6ed81b1fcdfb";
         this.cart.put("amount", 0);
         this.status = 0;
     }
@@ -69,7 +70,7 @@ public class User {
 
             this.password = sb.toString();
             this.username = username;
-
+            this.image = "https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/ProfileUser%2FAuto_avt.png?alt=media&token=6cd0697a-851a-4965-be78-6ed81b1fcdfb";
             this.cart.put("amount", 0);
             this.status = 0;
         } catch (NoSuchAlgorithmException e) {
