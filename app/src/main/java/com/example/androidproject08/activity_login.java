@@ -1,6 +1,7 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -62,18 +63,6 @@ public class activity_login extends Activity implements View.OnClickListener {
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "com.example.androidproject08",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//        } catch (NoSuchAlgorithmException e) {
-//        }
 
         btn_register = (View) findViewById(R.id.rectangle_4);
         btn_register.setOnClickListener(this);
@@ -121,45 +110,60 @@ public class activity_login extends Activity implements View.OnClickListener {
 
             // kiem tra empty
             if (tk.equals("") || mk.equals("")) {
-                Toast.makeText(activity_login.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(activity_login.this)
+                        .setMessage("Vui lòng điền đầy đủ thông tin!")
+                        .setCancelable(true)
+                        .show();
+
                 return;
             }
 
-            Handle.readData(new FirestoreCallBack() {
-                @Override
-                public void onCallBack(List<User> list) {
-                    if (Handle.usernameList.size() == 0) {
-                        Toast.makeText(activity_login.this, "Tài khoản hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
-                        return;
-                    } else {
-                        // kiểm tra password
-                        if (Handle.usernameList.get(0).checkPassword(mk)) {
-                            // thêm vào cookie => lần sau vào không cần đăng nhập nữa
-                            // khi người dùng đăng nhập vào thì ta lấy username của người dùng lưu lại
-                            // khi khởi động ứng dụng ta truy vấn vào sqlite này để xem nếu username tồn tại rồi thì
-                            // không cần đăng nhập vào thẳng trang dash_board cho người dùng
-                            File storagePath = getApplication().getFilesDir();
-                            String myDbPath = storagePath + "/" + "loginDb";
-                            sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+            usersRef.whereEqualTo("username", tk)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    User user = document.toObject(User.class);
+                                    if (user.checkPassword(mk)) {
+                                        if (user.getStatus() == 0) {
+                                            // thêm vào cookie => lần sau vào không cần đăng nhập nữa
+                                            // khi người dùng đăng nhập vào thì ta lấy username của người dùng lưu lại
+                                            // khi khởi động ứng dụng ta truy vấn vào sqlite này để xem nếu username tồn tại rồi thì
+                                            // không cần đăng nhập vào thẳng trang dash_board cho người dùng
+                                            File storagePath = getApplication().getFilesDir();
+                                            String myDbPath = storagePath + "/" + "loginDb";
+                                            sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                            if (!Handle.tableExists(sqlite, "USER")) {
-                                // create table USER
-                                sqlite.execSQL("create table USER ("
-                                        + "username text PRIMARY KEY);");
+                                            if (!Handle.tableExists(sqlite, "USER")) {
+                                                // create table USER
+                                                sqlite.execSQL("create table USER ("
+                                                        + "username text PRIMARY KEY);");
+                                            }
+
+                                            sqlite.execSQL("insert into USER(username) values ('" + tk + "');");
+
+                                            // chuyển sang giao diện chính
+                                            Intent moveActivity = new Intent(activity_login.this, activity_dashboard.class);
+                                            startActivity(moveActivity);
+                                        } else {
+                                            new AlertDialog.Builder(activity_login.this)
+                                                    .setTitle("KHÓA TÀI KHOẢN")
+                                                    .setMessage("Chúng tôi rất lấy làm tiết tài khoản của bạn đã bị cấm vì vi phạm chính sách của chúng tôi!")
+                                                    .setCancelable(true)
+                                                    .show();
+                                        }
+                                    } else {
+                                        new AlertDialog.Builder(activity_login.this)
+                                                .setMessage("Tài khoản hoặc mật khẩu sai!")
+                                                .setCancelable(true)
+                                                .show();
+                                    }
+                                }
                             }
-
-                            sqlite.execSQL("insert into USER(username) values ('" + tk + "');");
-
-                            // chuyển sang giao diện chính
-                            Intent moveActivity = new Intent(activity_login.this, activity_dashboard.class);
-                            startActivity(moveActivity);
-                        } else {
-                            Toast.makeText(activity_login.this, "Tài khoản hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
-                            return;
                         }
-                    }
-                }
-            }, tk);
+                    });
         }
 
         if (view.getId() == btn_google.getId()) {

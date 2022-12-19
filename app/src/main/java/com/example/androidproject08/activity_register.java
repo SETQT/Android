@@ -1,6 +1,7 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.List;
 
 public class activity_register extends Activity implements View.OnClickListener {
     // khai báo dữ liệu UI
@@ -163,13 +163,19 @@ public class activity_register extends Activity implements View.OnClickListener 
             String mkAgain = edittext_nhaplaimk.getText().toString();
 
             if (tk.equals("") || mk.equals("") || mkAgain.equals("")) {
-                Toast.makeText(activity_register.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(activity_register.this)
+                        .setMessage("Vui lòng điền đầy đủ thông tin!")
+                        .setCancelable(true)
+                        .show();
                 return;
             }
 
             // kiểm tra mật khẩu nhập lại có khớp hay không
             if (!mk.equals(mkAgain)) {
-                Toast.makeText(activity_register.this, "Mật khẩu nhập lại không khớp!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(activity_register.this)
+                        .setMessage("Xác thực mật khẩu không chính xác")
+                        .setCancelable(true)
+                        .show();
                 return;
             }
 
@@ -181,18 +187,23 @@ public class activity_register extends Activity implements View.OnClickListener 
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 boolean isExisted = false;
+
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     isExisted = true;
                                 }
-                                if (isExisted) {
-                                    Toast.makeText(activity_register.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
-                                } else {
+
+                                if (!isExisted) {
                                     User newUser = new User(tk, mk);
                                     usersRef.add(newUser);
 
                                     // chuyển sang giao diện đăng nhập
                                     Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
                                     startActivity(moveActivity);
+                                } else {
+                                    new AlertDialog.Builder(activity_register.this)
+                                            .setMessage("Tài khoản này đã được sử dụng!")
+                                            .setCancelable(true)
+                                            .show();
                                 }
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
@@ -221,36 +232,42 @@ public class activity_register extends Activity implements View.OnClickListener 
 
                             String username = response.getJSONObject().getString("id");
 
+                            usersRef.whereEqualTo("username", username)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                boolean isHave = false;
 
-                            // check tài khoản đã tồn tại hay chưa
-                            Handle.readData(new FirestoreCallBack() {
-                                @Override
-                                public void onCallBack(List<User> list) {
-                                    if (Handle.usernameList.size() == 0) {
-                                        // tạo user mới và thêm vào database
-                                        User newUser = new User(username, fullname, email);
-                                        Handle.usersRef.add(newUser);
-                                    }
+                                                for (DocumentSnapshot document : task.getResult()) {
+                                                    isHave = true;
+                                                }
 
-                                    // thêm vào cookie => lần sau vào không cần đăng nhập nữa
-                                    File storagePath = getApplication().getFilesDir();
-                                    String myDbPath = storagePath + "/" + "loginDb";
-                                    sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
+                                                if (!isHave) {
+                                                    User newUser = new User(username, fullname, email);
+                                                    Handle.usersRef.add(newUser);
+                                                }
 
-                                    if (!Handle.tableExists(sqlite, "USER")) {
-                                        // create table USER
-                                        sqlite.execSQL("create table USER ("
-                                                + "username text PRIMARY KEY);");
-                                    }
+                                                // thêm vào cookie => lần sau vào không cần đăng nhập nữa
+                                                File storagePath = getApplication().getFilesDir();
+                                                String myDbPath = storagePath + "/" + "loginDb";
+                                                sqlite = SQLiteDatabase.openDatabase(myDbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY); // open db
 
-                                    sqlite.execSQL("insert into USER(username) values ('" + username + "');");
+                                                if (!Handle.tableExists(sqlite, "USER")) {
+                                                    // create table USER
+                                                    sqlite.execSQL("create table USER ("
+                                                            + "username text PRIMARY KEY);");
+                                                }
 
-                                    // chuyển sang giao diện dash_board
-                                    Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
-                                    startActivity(moveActivity);
-                                }
-                            }, username);
+                                                sqlite.execSQL("insert into USER(username) values ('" + username + "');");
 
+                                                // chuyển sang giao diện dash_board
+                                                Intent moveActivity = new Intent(getApplicationContext(), activity_dashboard.class);
+                                                startActivity(moveActivity);
+                                            }
+                                        }
+                                    });
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
