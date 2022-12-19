@@ -41,6 +41,7 @@ public class User {
         this.userId = id;
         this.cart = cart;
         this.imageBg = imgBg;
+        this.cart.put("amount", 0);
         this.status = 0;
     }
 
@@ -49,6 +50,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.cart.put("amount", 0);
+        this.status = 0;
     }
 
     public User(String username, String password) {
@@ -69,6 +71,7 @@ public class User {
             this.username = username;
 
             this.cart.put("amount", 0);
+            this.status = 0;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

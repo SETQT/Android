@@ -69,6 +69,7 @@ public class activity_register extends Activity implements View.OnClickListener 
         btn_login = (View) findViewById(R.id.rectangle_3);
         btn_login.setOnClickListener(this);
         btn_register = (Button) findViewById(R.id.btn_dangky);
+        btn_register.setOnClickListener(this);
         edittext_tk_dk = (EditText) findViewById(R.id.edittext_tk_dk);
         edittext_mk_dk = (EditText) findViewById(R.id.edittext_mk_dk);
         edittext_nhaplaimk = (EditText) findViewById(R.id.edittext_nhaplaimk);
@@ -96,54 +97,6 @@ public class activity_register extends Activity implements View.OnClickListener 
                         Toast.makeText(activity_register.this, "Đăng nhập bằng facebook thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String tk = edittext_tk_dk.getText().toString();
-                String mk = edittext_mk_dk.getText().toString();
-                String mkAgain = edittext_nhaplaimk.getText().toString();
-
-                if (tk.equals("") || mk.equals("") || mkAgain.equals("")) {
-                    Toast.makeText(activity_register.this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // kiểm tra mật khẩu nhập lại có khớp hay không
-                if (!mk.equals(mkAgain)) {
-                    Toast.makeText(activity_register.this, "Mật khẩu nhập lại không khớp!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // check tài khoản đã tồn tại hay chưa
-                usersRef.whereEqualTo("username", tk)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    boolean isExisted = false;
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        isExisted = true;
-                                    }
-                                    if (isExisted) {
-                                        Toast.makeText(activity_register.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        User newUser = new User(tk, mk);
-                                        usersRef.add(newUser);
-
-                                        // chuyển sang giao diện đăng nhập
-                                        Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
-                                        startActivity(moveActivity);
-                                    }
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
-                                }
-                            }
-                        });
-            }
-        });
     }
 
     @Override
