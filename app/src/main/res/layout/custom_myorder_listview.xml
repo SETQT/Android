@@ -105,11 +105,12 @@
 
     <View
         android:id="@+id/myorder_custom_line"
-        android:layout_width="411dp"
-        android:layout_height="0.5dp"
+        android:layout_width="381dp"
+        android:layout_height="1dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="112dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/dashboard_custom_gridview_strikethrough" />
 
     <TextView
