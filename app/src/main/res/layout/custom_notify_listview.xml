@@ -10,8 +10,8 @@
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/myorder_custom_frame_bg" />
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_chat_input" />
 
     <ImageView
         android:id="@+id/custom_notify_icon"
@@ -26,8 +26,8 @@
         android:layout_width="411dp"
         android:layout_height="100dp"
         android:layout_marginLeft="105dp"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="2dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/custom_notify_itemTitle"

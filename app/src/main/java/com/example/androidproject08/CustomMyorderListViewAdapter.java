@@ -174,6 +174,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
             public void onClick(View view) {
                 Comment newComment = new Comment(orders.get(position).getId(), username, orders.get(position).getColor(), orders.get(position).getSize(), text_evaluate.getText().toString(), new Date(), count_star, "");
                 commentsRef.add(newComment);
+                danhgia.setText("Đã đánh giá");
                 dialog.dismiss();
             }
         });
