@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
     TextView textIdUser;
     GridView GridProduct;
     LinearLayout layout_second;
+    ProgressBar progressBar;
 
     public static DashboardFragmentSecond newInstance(String strArg1) {
         DashboardFragmentSecond fragment = new DashboardFragmentSecond();
@@ -37,6 +39,8 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout_second = (LinearLayout) inflater.inflate(R.layout.custom_dashboard_layout_fragment_second, null);
+        progressBar =(ProgressBar) layout_second.findViewById(R.id.progressBar);
+        loading(true);
 
         GridProduct = (GridView) layout_second.findViewById(R.id.dashboard_gridview);
 
@@ -48,7 +52,7 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
         } catch (Exception e) {
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
-
+        loading(false);
         return layout_second;
     }
 
@@ -61,5 +65,13 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
     @Override
     public void onObjectFromMainToFragment(Object value) {
 
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 }

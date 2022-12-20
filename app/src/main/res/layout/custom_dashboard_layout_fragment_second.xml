@@ -5,15 +5,34 @@
     android:id="@+id/custom_dashboard_layout_fragment_second"
     android:orientation="vertical"
     android:background="#E5E5E5">
-    <GridView
-        android:id="@+id/dashboard_gridview"
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:horizontalSpacing="5dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
+        android:layout_height="match_parent">
+
+        <GridView
+            android:id="@+id/dashboard_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:theme="@style/primaryColor"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+
 </LinearLayout>

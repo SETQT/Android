@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
     // khai báo biến UI
     RelativeLayout icon_scan, icon_notify, icon_profile;
     View icon_cart, icon_search, icon_chat;
+    ProgressBar progressBar;
     TextView number_cart;
     EditText dashboard_id_search;
     FragmentTransaction ft;
@@ -55,6 +57,8 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         ft = getSupportFragmentManager().beginTransaction();
         firstFrag = DashboardFragmentFirst.newInstance("first-frag");
@@ -229,6 +233,14 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
                 //.addOnSuccessListener(unused -> showToast("Token updated"))
                 .addOnFailureListener(e -> showToast("Unable to update token"));
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

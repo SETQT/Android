@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,13 +71,14 @@ public class activity_edit_profile extends Activity implements View.OnClickListe
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.password_authentication);
-
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
         EditText input_password_authentication = dialog.findViewById(R.id.input_password_authentication);
         Button btn_send_password_authentication = dialog.findViewById(R.id.btn_send_password_authentication);
 
         btn_send_password_authentication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loading(true, progressBar, btn_send_password_authentication);
                 String password = input_password_authentication.getText().toString();
                 usersRef.document(userId)
                         .get()
@@ -101,6 +103,7 @@ public class activity_edit_profile extends Activity implements View.OnClickListe
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
+                                        loading(false, progressBar, btn_send_password_authentication);
                                     }
                                 }
                             }
@@ -109,5 +112,15 @@ public class activity_edit_profile extends Activity implements View.OnClickListe
         });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    private void loading(Boolean isLoading, ProgressBar progressBar, Button btn_send_password_authentication) {
+        if (isLoading) {
+            btn_send_password_authentication.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_send_password_authentication.setVisibility(View.VISIBLE);
+        }
     }
 }

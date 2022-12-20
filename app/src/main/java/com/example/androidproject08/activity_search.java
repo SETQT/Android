@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class activity_search extends Activity implements View.OnClickListener {
     RelativeLayout icon_scan, icon_notify, icon_profile, icon_home;
     GridView search_gridview;
     EditText text_search;
+    ProgressBar progressBar;
 
     // biến xử lý
 
@@ -60,8 +62,11 @@ public class activity_search extends Activity implements View.OnClickListener {
         icon_search = (View) findViewById(R.id.icon_search);
         icon_search.setOnClickListener(this);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         text_search = (EditText) findViewById(R.id.text_search);
         search_gridview = (GridView) findViewById(R.id.search_gridview);
+
+        loading(true);
 
         Intent intent = getIntent();
         String dataSearch = "";
@@ -79,6 +84,7 @@ public class activity_search extends Activity implements View.OnClickListener {
 
         search_asynctask as_at = new search_asynctask(slugNameProduct);
         as_at.execute();
+        loading(false);
     }
 
     @Override
@@ -108,6 +114,7 @@ public class activity_search extends Activity implements View.OnClickListener {
         }
 
         if(view.getId() == icon_search.getId()) {
+            loading(true);
             String dataSearch = "";
             dataSearch = text_search.getText().toString();
 
@@ -147,14 +154,17 @@ public class activity_search extends Activity implements View.OnClickListener {
                                             publishProgress(product);
                                         }
                                     }
+
                                 } else {
                                     Log.d("TAG", "Error getting documents: ", task.getException());
                                 }
+                                loading(false);
                             }
                         });
             } catch (Exception error) {
                 Log.e("ERROR", "activity_search: " + error);
             }
+            loading(false);
             return null;
         }
 
@@ -176,6 +186,14 @@ public class activity_search extends Activity implements View.OnClickListener {
                 Log.e("ERROR", "Activity_search onProgressUpdate: ", error);
                 return;
             }
+        }
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 

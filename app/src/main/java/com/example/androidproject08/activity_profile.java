@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.example.androidproject08.activities.ChatActivity;
+import com.example.androidproject08.activities.dialog;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +44,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
     RelativeLayout icon_home, icon_scan, icon_notify, icon_choxacnhan, icon_danggiaohang, rectangle_donhangdamua, icon_favorite_product, icon_danhgia;
     TextView username_profile, number_cart;
     Button dangxuat;
+    ProgressBar progressBar;
     View icon_cart, icon_chat;
     RelativeLayout rectangle_profile_hosocuatoi, icon_voucher_profile, icon_donhangcuatoi;
 
@@ -83,6 +86,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
 
         username_profile = (TextView) findViewById(R.id.username_profile);
         number_cart = (TextView) findViewById(R.id.number_cart);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         dangxuat = (Button) findViewById(R.id.dangxuat);
         dangxuat.setOnClickListener(this);
         icon_cart = (View) findViewById(R.id.icon_cart);
@@ -95,6 +99,7 @@ public class activity_profile extends Activity implements View.OnClickListener {
         icon_voucher_profile.setOnClickListener(this);
         icon_donhangcuatoi = (RelativeLayout) findViewById(R.id.icon_donhangcuatoi);
         icon_donhangcuatoi.setOnClickListener(this);
+
 
         // kết nối sqlite
         File storagePath = getApplication().getFilesDir();
@@ -137,6 +142,8 @@ public class activity_profile extends Activity implements View.OnClickListener {
                 }
             }
         }, username);
+
+
     }
 
     // truy vấn dữ liệu từ database với username mà người dùng nhập
@@ -183,12 +190,15 @@ public class activity_profile extends Activity implements View.OnClickListener {
         }
 
         if (view.getId() == dangxuat.getId()) {
+
+            loading(true);
             // đăng xuất tài khoản
             sqlite.execSQL("DROP TABLE IF EXISTS USER; "); // xóa bảng <=> xóa phiên đăng nhập hiện tại
             Intent moveActivity = new Intent(getApplicationContext(), activity_login.class);
 
             LoginManager.getInstance().logOut();
             startActivity(moveActivity);
+            //loading(false);
         }
 
         if (view.getId() == icon_home.getId()) {
@@ -292,6 +302,16 @@ public class activity_profile extends Activity implements View.OnClickListener {
                     });
         } catch (Exception error) {
             Log.e("ERROR", "activity_profile loadImage: ", error);
+        }
+    }
+
+    private void loading(Boolean isLoading) {
+        if (isLoading) {
+            dangxuat.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            dangxuat.setVisibility(View.VISIBLE);
         }
     }
 }

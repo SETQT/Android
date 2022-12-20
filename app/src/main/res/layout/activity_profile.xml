@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/profile"
     android:background="@drawable/login"
     android:clipToOutline="true">
 
@@ -113,6 +113,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="263dp"
             android:layout_marginTop="14dp">
+
             <TextView
                 android:id="@+id/hintdonhangcuatoi_profile"
                 android:layout_width="wrap_content"
@@ -253,29 +254,30 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="119dp">
-        <TextView
-            android:id="@+id/donhangdamua_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="12dp"
-            android:gravity="top"
-            android:text="@string/donhangdamua"
-            android:textAppearance="@style/donhangcuatoi"
-            android:textStyle="bold"
-            android:textSize="14dp" />
 
-        <View
-            android:id="@+id/baseline_arrow_profile2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="377dp"
-            android:layout_marginTop="17dp"
-            android:background="@drawable/ic_baseline_arrow" />
+            <TextView
+                android:id="@+id/donhangdamua_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:text="@string/donhangdamua"
+                android:textAppearance="@style/donhangcuatoi"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/baseline_arrow_profile2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="377dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ic_baseline_arrow" />
 
         </RelativeLayout>
 
@@ -422,8 +424,7 @@
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/dangxuat"
+    <FrameLayout
         android:layout_width="361dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
@@ -431,25 +432,41 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
         android:layout_marginBottom="60dp"
-        android:background="@drawable/rectangle_dangxuat"
-        android:gravity="center"
-        android:text="Đăng xuất"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="18dp" />
+        android:gravity="center">
+        <Button
+            android:id="@+id/dangxuat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_dangxuat"
+            android:text="Đăng xuất"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
 
-        <View
-            android:id="@+id/rectangle_footer"
-            android:layout_width="411dp"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="-1dp"
-            android:layout_marginLeft="-1dp"
-            android:layout_marginTop="613dp"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/dashboard_rectangle_footer" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="center"
+            android:theme="@style/primaryColor"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+
+
+    <View
+        android:id="@+id/rectangle_footer"
+        android:layout_width="411dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="613dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/dashboard_rectangle_footer" />
 
     <RelativeLayout
         android:id="@+id/icon_home"
