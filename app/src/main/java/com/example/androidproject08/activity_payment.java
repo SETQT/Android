@@ -36,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,6 +59,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     CollectionReference ordersRef = db.collection("orders");
     CollectionReference vouchersRef = db.collection("vouchers");
     CollectionReference usedVouchersRef = db.collection("usedVouchers");
+    CollectionReference notifyRef = db.collection("notifications");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -254,6 +256,13 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                 // lưu đơn hàng lên database
                 ordersRef.add(newOrder);
             }
+
+            String title = "Thông báo đặt hàng!";
+            SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+            String content = "Khách hàng " + username + " vừa đặt đơn hàng gồm "+ ListOrderArray.size() + " sản phẩm từ shop";
+            // thông báo đến cho người dùng
+            Notification newNotification = new Notification("https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/logo%2FGroup%2010.png?alt=media&token=bc59d0df-9e04-4c66-a95d-78fbd0eef751", title, content, "admin", "order");
+            notifyRef.add(newNotification);
 
             Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
 

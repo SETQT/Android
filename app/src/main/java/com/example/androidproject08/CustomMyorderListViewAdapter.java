@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,6 +40,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference commentsRef = db.collection("comments");
+    CollectionReference notifyRef = db.collection("notifications");
 
     public CustomMyorderListViewAdapter(Context context, int resource, ArrayList<Myorder> objects, Integer state, String username) {
         super(context, resource, objects);
@@ -175,6 +177,13 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
                 Comment newComment = new Comment(orders.get(position).getId(), username, orders.get(position).getColor(), orders.get(position).getSize(), text_evaluate.getText().toString(), new Date(), count_star, "");
                 commentsRef.add(newComment);
                 danhgia.setText("Đã đánh giá");
+
+                String title = "Thông báo đánh giá sản phẩm";
+                String content = "Khách hàng " + username + " vừa đánh giá sản phẩm "+ orders.get(position).getName() + " của shop!";
+                // thông báo đến cho người dùng
+                Notification newNotification = new Notification("https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/logo%2FGroup%2010.png?alt=media&token=bc59d0df-9e04-4c66-a95d-78fbd0eef751", title, content, "admin", "evaluate");
+                notifyRef.add(newNotification);
+
                 dialog.dismiss();
             }
         });
