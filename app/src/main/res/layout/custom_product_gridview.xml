@@ -27,12 +27,14 @@
     <TextView
         android:id="@+id/dashboard_custom_name_product"
         android:layout_width="160dp"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="158dp"
+        android:ellipsize="end"
         android:gravity="top"
+        android:maxLines="2"
         android:textColor="#000000"
         android:textSize="12sp" />
 
