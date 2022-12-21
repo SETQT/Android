@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +43,7 @@ import java.io.File;
 
 public class activity_register extends Activity implements View.OnClickListener {
     // khai báo dữ liệu UI
-    View btn_login;
+    View btn_login, ic_eye, ic_eye_nlmk;
     Button btn_register, btn_google_dk, btn_facebook_dk;
     EditText edittext_tk_dk, edittext_mk_dk, edittext_nhaplaimk;
     ProgressBar progressBar;
@@ -58,6 +60,8 @@ public class activity_register extends Activity implements View.OnClickListener 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
+
+    Boolean isShowPassword = false, isShowPasswordConfirm = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,10 @@ public class activity_register extends Activity implements View.OnClickListener 
         btn_google_dk = (Button) findViewById(R.id.btn_google_dk);
         btn_google_dk.setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        ic_eye = (View) findViewById(R.id.ic_eye);
+        ic_eye.setOnClickListener(this);
+        ic_eye_nlmk = (View) findViewById(R.id.ic_eye_nlmk);
+        ic_eye_nlmk.setOnClickListener(this);
 
         // đăng nhập/ đăng ký bằng facebook
         mCallbackManager = CallbackManager.Factory.create();
@@ -103,6 +111,30 @@ public class activity_register extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == ic_eye.getId()) {
+            if (!isShowPassword) {
+                ic_eye.setBackgroundResource(R.drawable.ic_eye_slash);
+                edittext_mk_dk.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                ic_eye.setBackgroundResource(R.drawable.ic_eye);
+                edittext_mk_dk.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+
+            isShowPassword = !isShowPassword;
+        }
+
+        if (view.getId() == ic_eye_nlmk.getId()) {
+            if (!isShowPasswordConfirm) {
+                ic_eye_nlmk.setBackgroundResource(R.drawable.ic_eye_slash);
+                edittext_nhaplaimk.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                ic_eye_nlmk.setBackgroundResource(R.drawable.ic_eye);
+                edittext_nhaplaimk.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+
+            isShowPasswordConfirm = !isShowPasswordConfirm;
+        }
+
         if (view.getId() == btn_login.getId()) {
             Intent moveActivity = new Intent(activity_register.this, activity_login.class);
             startActivity(moveActivity);

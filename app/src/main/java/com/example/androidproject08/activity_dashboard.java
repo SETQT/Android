@@ -242,6 +242,5 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
             progressBar.setVisibility(View.INVISIBLE);
         }
     }
-
 }
 

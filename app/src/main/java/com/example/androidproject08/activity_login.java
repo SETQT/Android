@@ -2,10 +2,11 @@ package com.example.androidproject08;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ import java.io.File;
 import java.util.List;
 
 public class activity_login extends Activity implements View.OnClickListener {
-    View btn_register;
+    View btn_register, ic_eye;
     EditText edittext_tk, edittext_mk;
     Button btn_login, btn_google;
     ProgressBar progressBar;
@@ -63,6 +64,9 @@ public class activity_login extends Activity implements View.OnClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
 
+    // Biến xử lý
+    Boolean isShowPassword = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +86,8 @@ public class activity_login extends Activity implements View.OnClickListener {
         edittext_mk = (EditText) findViewById(R.id.edittext_mk); // mật khẩu người dùng
         btn_google = (Button) findViewById(R.id.btn_google);
         btn_google.setOnClickListener(this);
+        ic_eye = (View) findViewById(R.id.ic_eye);
+        ic_eye.setOnClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         // login bằng facebook
         mCallbackManager = CallbackManager.Factory.create();
@@ -108,6 +114,18 @@ public class activity_login extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == ic_eye.getId()) {
+            if (!isShowPassword) {
+                ic_eye.setBackgroundResource(R.drawable.ic_eye_slash);
+                edittext_mk.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                ic_eye.setBackgroundResource(R.drawable.ic_eye);
+                edittext_mk.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+
+            isShowPassword = !isShowPassword;
+        }
+
         if (view.getId() == btn_register.getId()) {
             // invoking startLoadingDialog method
             //loadingdialog.startLoadingdialog();

@@ -13,7 +13,9 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.androidproject08.R;
 import com.example.androidproject08.activities.ChatActivity;
+import com.example.androidproject08.activity_dashboard;
 import com.example.androidproject08.activity_myorder;
+import com.example.androidproject08.activity_voucher;
 import com.example.androidproject08.models.UserChat;
 import com.example.androidproject08.utilities.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -36,31 +38,53 @@ public class MessagingService extends FirebaseMessagingService {
         String channelId = "", title = "", body = "";
         int notificationId = new Random().nextInt();
         PendingIntent pendingIntent = null;
+        Intent intent = null;
+        String typeNotification = remoteMessage.getNotification().getTag();
+        switch (typeNotification) {
+            case "SERVER_ORDER":
+                channelId = "notification_admin_to_user";
+                title = remoteMessage.getNotification().getTitle();
+                body = remoteMessage.getNotification().getBody();
 
-        if (remoteMessage.getNotification().getTag().equals("SERVER_ORDER")) {
-            channelId = "notification_admin_to_user";
-            title = remoteMessage.getNotification().getTitle();
-            body = remoteMessage.getNotification().getBody();
+                intent = new Intent(this, activity_myorder.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("stateMyOrder", "2");
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                break;
+            case "SERVER_PRODUCT":
+                channelId = "notification_admin_to_user";
+                title = remoteMessage.getNotification().getTitle();
+                body = remoteMessage.getNotification().getBody();
 
-            Intent intent = new Intent(this, activity_myorder.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("stateMyOrder", "2");
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        } else {
-            UserChat user = new UserChat();
-            user.id = remoteMessage.getData().get(Constants.KEY_ADMIN_ID);
-            user.fullName = remoteMessage.getData().get(Constants.KEY_ADMIN_NAME);
-            user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
+                intent = new Intent(this, activity_dashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                break;
+            case "SERVER_VOUCHER":
+                channelId = "notification_admin_to_user";
+                title = remoteMessage.getNotification().getTitle();
+                body = remoteMessage.getNotification().getBody();
 
-            title = user.fullName;
-            body = remoteMessage.getData().get(Constants.KEY_MESSAGE);
+                intent = new Intent(this, activity_voucher.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                break;
+            default:
+                UserChat user = new UserChat();
+                user.id = remoteMessage.getData().get(Constants.KEY_ADMIN_ID);
+                user.fullName = remoteMessage.getData().get(Constants.KEY_ADMIN_NAME);
+                user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
 
-            channelId = "chat_message";
+                title = user.fullName;
+                body = remoteMessage.getData().get(Constants.KEY_MESSAGE);
 
-            Intent intent = new Intent(this, ChatActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("admin", user);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                channelId = "chat_message";
+
+                intent = new Intent(this, ChatActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("admin", user);
+                pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+                break;
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
