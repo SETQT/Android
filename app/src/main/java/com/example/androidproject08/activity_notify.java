@@ -25,6 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class activity_notify extends Activity implements View.OnClickListener {
     // khai báo biến xử lý
@@ -165,8 +167,20 @@ public class activity_notify extends Activity implements View.OnClickListener {
             super.onProgressUpdate(notifications);
             listNotify.add(notifications[0]);
 
+            SortArrayList(listNotify);
+
             CustomNotifyListViewAdapter myAdapter = new CustomNotifyListViewAdapter(getApplicationContext(), R.layout.custom_notify_listview, listNotify);
             listNotification.setAdapter(myAdapter);
         }
+    }
+
+    class sortCompare implements Comparator<Notification> {
+        public int compare(Notification s1, Notification s2) {
+            return s2.getDate().compareTo(s1.getDate());
+        }
+    }
+
+    public void SortArrayList(ArrayList<Notification> notify){
+        Collections.sort(notify, new sortCompare());
     }
 }

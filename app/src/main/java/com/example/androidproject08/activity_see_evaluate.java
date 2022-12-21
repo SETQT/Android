@@ -19,6 +19,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class activity_see_evaluate extends Activity implements View.OnClickListener {
     ListView see_evaluate_listview;
@@ -134,6 +136,8 @@ public class activity_see_evaluate extends Activity implements View.OnClickListe
             } else {
                 listComments.add(comments[0]);
             }
+
+            SortArrayList(listComments);
             try {
                 CustomSeeEvaluateListViewAdapter myAdapter = new CustomSeeEvaluateListViewAdapter(getApplicationContext(), R.layout.custom_listview_see_evaluate, listComments);
                 see_evaluate_listview.setAdapter(myAdapter);
@@ -160,6 +164,16 @@ public class activity_see_evaluate extends Activity implements View.OnClickListe
         commentEvaluate.setAvatar(u.getImage());
 
         return commentEvaluate;
+    }
+
+    class sortCompare implements Comparator<CommentEvaluate> {
+        public int compare(CommentEvaluate s1, CommentEvaluate s2) {
+            return s2.getCreatedAt().compareTo(s1.getCreatedAt());
+        }
+    }
+
+    public void SortArrayList(ArrayList<CommentEvaluate> cmt){
+        Collections.sort(cmt, new sortCompare());
     }
 
 }

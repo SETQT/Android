@@ -86,9 +86,22 @@ public class CustomNotifyListViewAdapter extends ArrayAdapter<Notification> {
                         moveActivity.putExtra("stateMyOrder", "2");
                         curContext.startActivity(moveActivity);
                         break;
+                    case "delivery":
+                        // chuyển sang giao diện đơn hàng của tôi
+                        moveActivity = new Intent(curContext, activity_myorder.class);
+                        moveActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        moveActivity.putExtra("stateMyOrder", "3");
+                        curContext.startActivity(moveActivity);
+                        break;
                     case "voucher":
                         // chuyển sang giao diện my voucher
                         moveActivity = new Intent(curContext, activity_voucher.class);
+                        moveActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        curContext.startActivity(moveActivity);
+                        break;
+                    case "evaluate":
+                        // chuyển sang giao diện đánh giá của tôi
+                        moveActivity = new Intent(curContext, activity_see_evaluate.class);
                         moveActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         curContext.startActivity(moveActivity);
                         break;
