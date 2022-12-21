@@ -57,6 +57,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference usersRef = db.collection("users");
+    CollectionReference productsRef = db.collection("products");
     CollectionReference cartsRef = db.collection("carts");
     CollectionReference ordersRef = db.collection("orders");
     CollectionReference vouchersRef = db.collection("vouchers");
@@ -211,18 +212,30 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                 newOrder = new Order(username, ListOrderArray, 30000, usedVoucher.getId(), 1, paymentMethod, new Date(), finalTotalMoney);
 
                 // tăng lượng voucher đã dùng lên 1 đơn vị
-                final DocumentReference updatedVoucher = vouchersRef.document(usedVoucher.getIdDoc());
                 db.runTransaction(new Transaction.Function<Void>() {
                             @Override
                             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
-                                DocumentSnapshot snapshot = transaction.get(updatedVoucher);
+                                DocumentReference updatedVoucher = vouchersRef.document(usedVoucher.getIdDoc());
+                                DocumentSnapshot snapshotVoucher = transaction.get(updatedVoucher);
 
-                                if (snapshot.getDouble("amount") - snapshot.getDouble("amoutOfUsed") >= 1) {
-                                    double newAmountOfUsed = snapshot.getDouble("amoutOfUsed") + 1;
+                                // cập nhật voucher lên 1 đơn vị
+                                if (snapshotVoucher.getDouble("amount") - snapshotVoucher.getDouble("amoutOfUsed") >= 1) {
+                                    double newAmountOfUsed = snapshotVoucher.getDouble("amoutOfUsed") + 1;
                                     transaction.update(updatedVoucher, "amoutOfUsed", newAmountOfUsed);
 
                                     UsedVoucher newUsedVoucher = new UsedVoucher(username, usedVoucher.getIdDoc());
                                     usedVouchersRef.add(newUsedVoucher);
+                                }
+
+                                // tăng số lượng đã bán ra cho sản phẩm
+                                for (int i = 0; i < ListOrderArray.size(); i++) {
+                                    DocumentReference updatedProduct = productsRef.document(ListOrderArray.get(i).getId());
+                                    DocumentSnapshot snapshotProduct = transaction.get(updatedProduct);
+
+                                    if (snapshotProduct.getDouble("amount") - snapshotProduct.getDouble("amountOfSold") >= ListOrderArray.get(i).getCount()) {
+                                        double newAmountOfSold = snapshotProduct.getDouble("amountOfSold") + ListOrderArray.get(i).getCount();
+                                        transaction.update(updatedProduct, "amountOfSold", newAmountOfSold);
+                                    }
                                 }
 
                                 // Success
@@ -240,7 +253,37 @@ public class activity_payment extends Activity implements View.OnClickListener, 
                         });
             } else {
                 newOrder = new Order(username, ListOrderArray, 30000, "", 1, paymentMethod, new Date(), finalTotalMoney);
+
+                // tăng lượng voucher đã dùng lên 1 đơn vị
+                db.runTransaction(new Transaction.Function<Void>() {
+                            @Override
+                            public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+                                // tăng số lượng đã bán ra cho sản phẩm
+                                for (int i = 0; i < ListOrderArray.size(); i++) {
+                                    DocumentReference updatedProduct = productsRef.document(ListOrderArray.get(i).getId());
+                                    DocumentSnapshot snapshotProduct = transaction.get(updatedProduct);
+
+                                    if (snapshotProduct.getDouble("amount") - snapshotProduct.getDouble("amountOfSold") >= ListOrderArray.get(i).getCount()) {
+                                        double newAmountOfSold = snapshotProduct.getDouble("amountOfSold") + ListOrderArray.get(i).getCount();
+                                        transaction.update(updatedProduct, "amountOfSold", newAmountOfSold);
+                                    }
+                                }
+
+                                // Success
+                                return null;
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
             }
+
 
             if (ListOrderArray.get(0).getIdCart().equals("")) {
                 // lưu đơn hàng lên database

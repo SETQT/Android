@@ -1,12 +1,12 @@
 package com.example.androidproject08;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,10 +40,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +65,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
     Product curProduct;
     Product infoProduct; // biến này để lưu thông tin product gửi qua chat
     FavoriteProduct curFavorite;
+    Boolean isStocking = true;
 
     // kết nối firestore
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -161,6 +158,25 @@ public class activity_view_product extends Activity implements View.OnClickListe
                     }
                 });
 
+        // check san phẩm còn hàng hay không
+        productsRef
+                .document(idDoc)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            Product product = document.toObject(Product.class);
+
+                            if (product.getAmount() - product.getAmountOfSold() <= 0) {
+                                isStocking = false;
+                                return;
+                            }
+                        }
+                    }
+                });
+
         avp_asynctask avp_at = new avp_asynctask();
         avp_at.execute();
 
@@ -204,74 +220,81 @@ public class activity_view_product extends Activity implements View.OnClickListe
         }
 
         if (view.getId() == rectangle_add_to_card_view_product.getId()) {
-            try {
-                productsRef.document(idDoc).get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    Product product = document.toObject(Product.class);
+            if (!isStocking) {
+                new AlertDialog.Builder(activity_view_product.this)
+                        .setMessage("Sản phẩm đã hết hàng mong quý khách thông cảm!")
+                        .setCancelable(true)
+                        .show();
+            } else {
+                try {
+                    productsRef.document(idDoc).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        Product product = document.toObject(Product.class);
 
-                                    MyCart ToCart = new MyCart(amount, "", product.getImage(), product.getName(), product.getPrice(), product.getSale(), username, document.getId().toString(), size, color);
+                                        MyCart ToCart = new MyCart(amount, "", product.getImage(), product.getName(), product.getPrice(), product.getSale(), username, document.getId().toString(), size, color);
 
-                                    cartsRef
-                                            .whereEqualTo("idDoc", ToCart.getIdDoc())
-                                            .whereEqualTo("ownCart", ToCart.getOwnCart())
-                                            .get()
-                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        boolean isDuplicated = false;
-                                                        Integer totalAmount = 0;
+                                        cartsRef
+                                                .whereEqualTo("idDoc", ToCart.getIdDoc())
+                                                .whereEqualTo("ownCart", ToCart.getOwnCart())
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            boolean isDuplicated = false;
+                                                            Integer totalAmount = 0;
 
-                                                        // kiểm tra thử sản phẩm đã có trong giỏ hàng trước đó chưa
-                                                        // nếu có thì cộng thêm số lượng vào
-                                                        for (QueryDocumentSnapshot document2 : task.getResult()) {
-                                                            MyCart cart = document2.toObject(MyCart.class);
+                                                            // kiểm tra thử sản phẩm đã có trong giỏ hàng trước đó chưa
+                                                            // nếu có thì cộng thêm số lượng vào
+                                                            for (QueryDocumentSnapshot document2 : task.getResult()) {
+                                                                MyCart cart = document2.toObject(MyCart.class);
 
-                                                            // check sản phẩm có trùng size + color hay không
-                                                            if (MyCart.checkDuplicatedCart(ToCart, cart)) {
-                                                                isDuplicated = true;
-                                                                totalAmount = cart.getAmount() + amount;
-                                                                cartsRef.document(document2.getId()).update("amount", totalAmount);
+                                                                // check sản phẩm có trùng size + color hay không
+                                                                if (MyCart.checkDuplicatedCart(ToCart, cart)) {
+                                                                    isDuplicated = true;
+                                                                    totalAmount = cart.getAmount() + amount;
+                                                                    cartsRef.document(document2.getId()).update("amount", totalAmount);
+                                                                }
                                                             }
-                                                        }
 
-                                                        // nếu không thì tạo cart mới
-                                                        if (!isDuplicated) {
-                                                            cartsRef.add(ToCart);
-                                                            // tăng số lượng trong giỏ hàng cho user
-                                                            usersRef
-                                                                    .whereEqualTo("username", ToCart.getOwnCart())
-                                                                    .get()
-                                                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                            if (task.isSuccessful()) {
-                                                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                                                    User user = document.toObject(User.class);
-                                                                                    Map<String, Integer> userCart = new HashMap<>();
-                                                                                    userCart.put("amount", user.getCart().get("amount") + 1);
-                                                                                    number_cart.setText(userCart.get("amount").toString());
-                                                                                    usersRef.document(document.getId()).update("cart", userCart);
+                                                            // nếu không thì tạo cart mới
+                                                            if (!isDuplicated) {
+                                                                cartsRef.add(ToCart);
+                                                                // tăng số lượng trong giỏ hàng cho user
+                                                                usersRef
+                                                                        .whereEqualTo("username", ToCart.getOwnCart())
+                                                                        .get()
+                                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                                        User user = document.toObject(User.class);
+                                                                                        Map<String, Integer> userCart = new HashMap<>();
+                                                                                        userCart.put("amount", user.getCart().get("amount") + 1);
+                                                                                        number_cart.setText(userCart.get("amount").toString());
+                                                                                        usersRef.document(document.getId()).update("cart", userCart);
+                                                                                    }
                                                                                 }
                                                                             }
-                                                                        }
-                                                                    });
+                                                                        });
+                                                            }
+                                                        } else {
+                                                            Log.d("TAG", "Error getting documents: ", task.getException());
                                                         }
-                                                    } else {
-                                                        Log.d("TAG", "Error getting documents: ", task.getException());
                                                     }
-                                                }
-                                            });
-                                    Toast.makeText(activity_view_product.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                                                });
+                                        Toast.makeText(activity_view_product.this, "Thêm vào giỏ hàng thành công!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
-            } catch (Exception error) {
-                Log.e("ERROR", "activity_view_product: " + error);
+                            });
+                } catch (Exception error) {
+                    Log.e("ERROR", "activity_view_product: " + error);
+                }
             }
         }
 
@@ -293,16 +316,38 @@ public class activity_view_product extends Activity implements View.OnClickListe
             Integer count = amount;
             Integer total = newCost * count;
 
-            Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total, "");
+            //kiểm tra số lượng còn lại có đủ để mua hay không
+            productsRef
+                    .document(id)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                Product product = document.toObject(Product.class);
 
-            Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
-            moveActivity.putExtra("name_activity", "activity_view_product");
-            moveActivity.putExtra("product", orderProduct);
-            startActivity(moveActivity);
+                                if (product.getAmount() - product.getAmountOfSold() >= count) {
+                                    Myorder orderProduct = new Myorder(id, image, name, size, color, oldCost, newCost, count, total, "");
+
+                                    Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
+                                    moveActivity.putExtra("name_activity", "activity_view_product");
+                                    moveActivity.putExtra("product", orderProduct);
+                                    startActivity(moveActivity);
+                                } else {
+                                    new AlertDialog.Builder(activity_view_product.this)
+                                            .setMessage("Sản phẩm không còn đủ hàng để cung ứng số lượng mua của bạn! Mong quý khách thông cảm!")
+                                            .setCancelable(true)
+                                            .show();
+                                    return;
+                                }
+                            }
+                        }
+                    });
         }
 
         // chuyển sang giao diện chat và thêm tin nhắn
-        if(view.getId() == rectangle_chat_view_product.getId()){
+        if (view.getId() == rectangle_chat_view_product.getId()) {
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
             //String imageCode = encodedImage(bitmap);
             String messageInfoProduct = "Loại sản phẩm: " + infoProduct.getCategory() + "\nTên sản phẩm: " + infoProduct.getName() +
@@ -315,7 +360,34 @@ public class activity_view_product extends Activity implements View.OnClickListe
 
         if (view.getId() == custom_mycart_icon_increase.getId()) {
             amount += 1;
-            custom_mycart_number_product.setText(amount.toString());
+
+            //kiểm tra số lượng còn lại có đủ để mua hay không
+            productsRef
+                    .document(idDoc)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                Product product = document.toObject(Product.class);
+
+                                if (product.getAmount() - product.getAmountOfSold() < amount) {
+                                    new AlertDialog.Builder(activity_view_product.this)
+                                            .setMessage("Sản phẩm không còn đủ hàng để cung ứng số lượng mua của bạn! Mong quý khách thông cảm!")
+                                            .setCancelable(true)
+                                            .show();
+                                    amount -= 1;
+                                    custom_mycart_number_product.setText(amount.toString());
+                                    return;
+                                } else {
+                                    custom_mycart_number_product.setText(amount.toString());
+                                }
+                            }
+                        }
+                    });
+
+
         }
 
         if (view.getId() == custom_mycart_icon_decrease.getId()) {
@@ -492,7 +564,7 @@ public class activity_view_product extends Activity implements View.OnClickListe
                 listComments.clear();
 
                 avgStar = 0;
-            }else {
+            } else {
                 listComments.add(comments[0]);
 
                 avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
@@ -586,11 +658,11 @@ public class activity_view_product extends Activity implements View.OnClickListe
         listView.setLayoutParams(params);
     }
 
-    private String encodedImage(Bitmap bitmap){
-        if(bitmap == null)  return null;
-        int previewWidth= 350;
-        int previewHeight = bitmap.getHeight() * previewWidth /bitmap.getWidth();
-        Bitmap previewBitmap= Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+    private String encodedImage(Bitmap bitmap) {
+        if (bitmap == null) return null;
+        int previewWidth = 350;
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
