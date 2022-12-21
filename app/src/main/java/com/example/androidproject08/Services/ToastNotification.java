@@ -22,7 +22,7 @@ public class ToastNotification extends FirebaseMessagingService {
 
             int notificationId = new Random().nextInt();
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "msg_from_server");
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "notification_admin_to_user");
             builder.setSmallIcon(R.drawable.icon_logo);
             builder.setContentTitle(title);
             builder.setContentText(body);
@@ -33,10 +33,10 @@ public class ToastNotification extends FirebaseMessagingService {
             builder.setAutoCancel(true);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                CharSequence channelName = "msg_from_server";
+                CharSequence channelName = "notification_admin_to_user";
                 String channelDescription = "This notification channel is used for chat message notifications";
                 int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel channel = new NotificationChannel("msg_from_server", channelName, importance);
+                NotificationChannel channel = new NotificationChannel("notification_admin_to_user", channelName, importance);
                 channel.setDescription(channelDescription);
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(channel);

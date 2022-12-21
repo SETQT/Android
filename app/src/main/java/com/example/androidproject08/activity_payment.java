@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidproject08.Services.FCMSend;
+import com.example.androidproject08.models.Admin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,6 +62,7 @@ public class activity_payment extends Activity implements View.OnClickListener, 
     CollectionReference vouchersRef = db.collection("vouchers");
     CollectionReference usedVouchersRef = db.collection("usedVouchers");
     CollectionReference notifyRef = db.collection("notifications");
+    CollectionReference adminRef = db.collection("admin");
 
     // sqlite
     SQLiteDatabase sqlite;
@@ -259,16 +262,30 @@ public class activity_payment extends Activity implements View.OnClickListener, 
 
             String title = "Thông báo đặt hàng!";
             SimpleDateFormat formatDate = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-            String content = "Khách hàng " + username + " vừa đặt đơn hàng gồm "+ ListOrderArray.size() + " sản phẩm từ shop";
+            String content = "Khách hàng " + username + " vừa đặt đơn hàng gồm " + ListOrderArray.size() + " sản phẩm từ shop";
             // thông báo đến cho người dùng
             Notification newNotification = new Notification("https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/logo%2FGroup%2010.png?alt=media&token=bc59d0df-9e04-4c66-a95d-78fbd0eef751", title, content, "admin", "order");
             notifyRef.add(newNotification);
 
-            Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+            adminRef.whereEqualTo("name", "G8Shop")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    Admin curAdmin = document.toObject(Admin.class);
+                                    FCMSend.pushNotifcication(activity_payment.this, curAdmin.getFcmToken(), title, content, "USER_ORDER");
 
-            // chuyển về activity dashboard
-            Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
-            startActivity(moveActivity);
+                                    Toast.makeText(getApplicationContext(), "Đặt hàng thành công! Chúng tôi sẽ gọi hoặc nhắn tin xác nhận đơn hàng với bạn!", Toast.LENGTH_LONG).show();
+
+                                    // chuyển về activity dashboard
+                                    Intent moveActivity = new Intent(getApplicationContext(), activity_myorder.class);
+                                    startActivity(moveActivity);
+                                }
+                            }
+                        }
+                    });
         }
 
         if (view.getId() == rectangle_voucher.getId()) {

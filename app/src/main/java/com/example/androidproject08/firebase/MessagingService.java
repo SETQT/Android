@@ -13,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.androidproject08.R;
 import com.example.androidproject08.activities.ChatActivity;
+import com.example.androidproject08.activity_myorder;
 import com.example.androidproject08.models.UserChat;
 import com.example.androidproject08.utilities.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -25,38 +26,56 @@ public class MessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
-        Log.d("FCM", "token: " +token);
+        Log.d("FCM", "token: " + token);
     }
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        UserChat user = new UserChat();
-        user.id = remoteMessage.getData().get(Constants.KEY_ADMIN_ID);
-        user.fullName = remoteMessage.getData().get(Constants.KEY_ADMIN_NAME);
-        user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
 
+        String channelId = "", title = "", body = "";
         int notificationId = new Random().nextInt();
-        String channelId = "chat_message";
+        PendingIntent pendingIntent = null;
 
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("admin", user);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, 0);
+        if (remoteMessage.getNotification().getTag().equals("SERVER_ORDER")) {
+            channelId = "notification_admin_to_user";
+            title = remoteMessage.getNotification().getTitle();
+            body = remoteMessage.getNotification().getBody();
+
+            Intent intent = new Intent(this, activity_myorder.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("stateMyOrder", "2");
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        } else {
+            UserChat user = new UserChat();
+            user.id = remoteMessage.getData().get(Constants.KEY_ADMIN_ID);
+            user.fullName = remoteMessage.getData().get(Constants.KEY_ADMIN_NAME);
+            user.token = remoteMessage.getData().get(Constants.KEY_FCM_TOKEN);
+
+            title = user.fullName;
+            body = remoteMessage.getData().get(Constants.KEY_MESSAGE);
+
+            channelId = "chat_message";
+
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("admin", user);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
         builder.setSmallIcon(R.drawable.icon_logo);
-        builder.setContentTitle(user.fullName);
+        builder.setContentTitle(title);
         builder.setContentText(remoteMessage.getData().get(Constants.KEY_MESSAGE));
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(
-                remoteMessage.getData().get(Constants.KEY_MESSAGE)
+                body
         ));
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence channelName = "ChatMessage";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence channelName = channelId;
             String channelDescription = "This notification channel is used for chat message notifications";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
@@ -67,6 +86,5 @@ public class MessagingService extends FirebaseMessagingService {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(notificationId, builder.build());
-
     }
 }

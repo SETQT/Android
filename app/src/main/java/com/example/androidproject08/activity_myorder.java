@@ -28,10 +28,15 @@ public class activity_myorder extends FragmentActivity implements MainCallbacks 
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("stateMyOrder")) {
+        if (intent.hasExtra("stateMyOrder")) {
             String stateMyOrder = intent.getStringExtra("stateMyOrder");
-            firstFrag.onMsgFromMainToFragment(stateMyOrder);
-            secondFrag.onMsgFromMainToFragment(stateMyOrder);
+            if (stateMyOrder == null) {
+                firstFrag.onMsgFromMainToFragment("2");
+                secondFrag.onMsgFromMainToFragment("2");
+            } else {
+                firstFrag.onMsgFromMainToFragment(stateMyOrder);
+                secondFrag.onMsgFromMainToFragment(stateMyOrder);
+            }
         }
     }
 
