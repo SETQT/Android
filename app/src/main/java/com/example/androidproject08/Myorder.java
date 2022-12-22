@@ -13,6 +13,7 @@ public class Myorder implements Serializable {
     private Integer count;
     private Integer total;
     private String idCart; // id cart
+    private String idOrder; // id order của đơn hàng
 
     public Myorder() {
     }
@@ -108,6 +109,14 @@ public class Myorder implements Serializable {
 
     public void setIdCart(String idCart) {
         this.idCart = idCart;
+    }
+
+    public String getIdOrder() {
+        return idOrder;
+    }
+
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 }
 

@@ -17,6 +17,7 @@ public class Order  implements Serializable {
     private String paymentMethods; // phương thức thanh toán
     private Date createdAt;
     private Integer finalTotalMoney; // tổng tiền của đơn hàng sau khi đã giảm tiền voucher và cộng phí vận chuyển
+    private String idDoc; // id document của đơn hàng này
 
     public Order() {}
 
@@ -97,5 +98,13 @@ public class Order  implements Serializable {
 
     public void setFinalTotalMoney(Integer finalTotalMoney) {
         this.finalTotalMoney = finalTotalMoney;
+    }
+
+    public String getIdDoc() {
+        return idDoc;
+    }
+
+    public void setIdDoc(String idDoc) {
+        this.idDoc = idDoc;
     }
 }

@@ -8,16 +8,26 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class DashboardFragmentSecond extends Fragment implements FragmentCallbacks {
     activity_dashboard main;
-    TextView textIdUser;
     GridView GridProduct;
     LinearLayout layout_second;
     ProgressBar progressBar;
+
+    // kết nối firestore
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference productsRef = db.collection("products");
 
     public static DashboardFragmentSecond newInstance(String strArg1) {
         DashboardFragmentSecond fragment = new DashboardFragmentSecond();
@@ -39,16 +49,45 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout_second = (LinearLayout) inflater.inflate(R.layout.custom_dashboard_layout_fragment_second, null);
-        progressBar =(ProgressBar) layout_second.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) layout_second.findViewById(R.id.progressBar);
         loading(true);
 
         GridProduct = (GridView) layout_second.findViewById(R.id.dashboard_gridview);
 
         dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, "Tất cả");
         db_at.execute();
+
+        productsRef
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+
+                        dashboard_asynctask db_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    db_at = new dashboard_asynctask(main, layout_second, "Tất cả");
+                                    db_at.execute();
+                                    break;
+                                case MODIFIED:
+                                    break;
+                                case REMOVED:
+                                    db_at = new dashboard_asynctask(main, layout_second, "Tất cả");
+                                    db_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
         try {
             Bundle arguments = getArguments();
-//            textIdUser.setText(arguments.getString("arg1", ""));
         } catch (Exception e) {
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
@@ -60,6 +99,36 @@ public class DashboardFragmentSecond extends Fragment implements FragmentCallbac
     public void onMsgFromMainToFragment(String strValue) {
         dashboard_asynctask db_at = new dashboard_asynctask(main, layout_second, strValue);
         db_at.execute();
+
+        productsRef
+                .whereEqualTo("category", strValue)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+
+                        dashboard_asynctask db_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    db_at = new dashboard_asynctask(main, layout_second, strValue);
+                                    db_at.execute();
+                                    break;
+                                case MODIFIED:
+                                    break;
+                                case REMOVED:
+                                    db_at = new dashboard_asynctask(main, layout_second, strValue);
+                                    db_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

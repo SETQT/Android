@@ -19,12 +19,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -90,6 +94,32 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
         voucher_asynctask v_at = new voucher_asynctask();
         v_at.execute();
 
+        vouchersRef
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+                        voucher_asynctask v_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    v_at = new voucher_asynctask();
+                                    v_at.execute();
+                                    break;
+                                case REMOVED:
+                                    v_at = new voucher_asynctask();
+                                    v_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
         try {
             Bundle arguments = getArguments();
         } catch (Exception e) {
@@ -103,6 +133,32 @@ public class SelectVoucherFragmentSecond extends Fragment implements FragmentCal
     public void onMsgFromMainToFragment(String strValue) {
         voucher_asynctask v_at = new voucher_asynctask(strValue);
         v_at.execute();
+
+        vouchersRef
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+                        voucher_asynctask v_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    v_at = new voucher_asynctask(strValue);
+                                    v_at.execute();
+                                    break;
+                                case REMOVED:
+                                    v_at = new voucher_asynctask(strValue);
+                                    v_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

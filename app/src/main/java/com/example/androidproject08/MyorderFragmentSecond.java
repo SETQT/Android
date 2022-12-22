@@ -12,19 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks {
     // biến UI
@@ -78,13 +80,39 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         order_asynctask o_at = new order_asynctask(1);
         o_at.execute();
 
+        ordersRef
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+                        order_asynctask o_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    o_at = new order_asynctask(1);
+                                    o_at.execute();
+                                    break;
+                                case REMOVED:
+                                    o_at = new order_asynctask(1);
+                                    o_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
         try {
             Bundle arguments = getArguments();
         } catch (Exception e) {
             Log.e("RED BUNDLE ERROR – ", "" + e.getMessage());
         }
 
-        if(stateMyOrder != null) {
+        if (stateMyOrder != null) {
             o_at = new order_asynctask(Integer.parseInt(stateMyOrder));
             o_at.execute();
         }
@@ -97,6 +125,33 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         stateMyOrder = strValue;
         order_asynctask o_at = new order_asynctask(Integer.parseInt(strValue));
         o_at.execute();
+
+        ordersRef
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            return;
+                        }
+
+                        order_asynctask o_at = null;
+                        for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case ADDED:
+                                    o_at = new order_asynctask(Integer.parseInt(strValue));
+                                    o_at.execute();
+                                    break;
+                                case REMOVED:
+                                    o_at = new order_asynctask(Integer.parseInt(strValue));
+                                    o_at.execute();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -130,6 +185,12 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
 
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Order order = document.toObject(Order.class);
+                                        order.setIdDoc(document.getId());
+
+                                        for (int i = 0; i < order.getArrayOrder().size(); i++) {
+                                            order.getArrayOrder().get(i).setIdOrder(document.getId());
+                                        }
+
                                         isHave = true;
                                         publishProgress(order);
                                     }

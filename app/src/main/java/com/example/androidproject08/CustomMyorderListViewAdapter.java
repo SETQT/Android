@@ -2,10 +2,8 @@ package com.example.androidproject08;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +24,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -67,18 +64,20 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         TextView new_cost = (TextView) v.findViewById(R.id.myorder_custom_new_cost);
         TextView count = (TextView) v.findViewById(R.id.myorder_custom_count);
         TextView total = (TextView) v.findViewById(R.id.myorder_custom_total);
-        ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture) ;
+        ImageView img = (ImageView) v.findViewById(R.id.myorder_custom_picture);
+        TextView myorder_custom_id = (TextView) v.findViewById(R.id.myorder_custom_id);
 
         TextView danhgia = (TextView) v.findViewById(R.id.myorder_custom_danhgia);
-        if(state == 3) {
+        if (state == 3) {
             danhgia.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             danhgia.setVisibility(View.INVISIBLE);
         }
 
         // kiểm tra user đã đánh giá sản phẩm chưa rồi rồi thì không cho đánh giá nữa
         checkUserCommented(position, danhgia);
 
+        myorder_custom_id.setText("#" + orders.get(position).getIdOrder().toUpperCase());
         name.setText(orders.get(position).getName());
         size.setText("Kích thước: " + orders.get(position).getSize() + ", Màu sắc: " + orders.get(position).getColor());
         old_cost.setText("đ" + orders.get(position).getOldCost().toString());
@@ -87,7 +86,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         total.setText("đ" + orders.get(position).getTotal().toString());
         Picasso.with(curContext).load(orders.get(position).getImage()).into(img);
 
-        danhgia.setOnClickListener(new View.OnClickListener(){
+        danhgia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFormEvaluate(position, danhgia);
@@ -98,7 +97,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
 
     }
 
-    void showFormEvaluate(Integer position, TextView danhgia){
+    void showFormEvaluate(Integer position, TextView danhgia) {
         final Dialog dialog = new Dialog(this.getContext());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -179,7 +178,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
                 danhgia.setText("Đã đánh giá");
 
                 String title = "Thông báo đánh giá sản phẩm";
-                String content = "Khách hàng " + username + " vừa đánh giá sản phẩm "+ orders.get(position).getName() + " của shop!";
+                String content = "Khách hàng " + username + " vừa đánh giá sản phẩm " + orders.get(position).getName() + " của shop!";
                 // thông báo đến cho người dùng
                 Notification newNotification = new Notification("https://firebasestorage.googleapis.com/v0/b/androidgroup8.appspot.com/o/logo%2FGroup%2010.png?alt=media&token=bc59d0df-9e04-4c66-a95d-78fbd0eef751", title, content, "admin", "evaluate");
                 notifyRef.add(newNotification);
@@ -192,7 +191,7 @@ public class CustomMyorderListViewAdapter extends ArrayAdapter<Myorder> {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
-    void ResetBackgroundStar(View star1, View star2,View star3,View star4,View star5){
+    void ResetBackgroundStar(View star1, View star2, View star3, View star4, View star5) {
         star1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
         star2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
         star3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#A09B9B")));
