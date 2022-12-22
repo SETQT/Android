@@ -127,6 +127,8 @@ public class MyorderFragmentSecond extends Fragment implements FragmentCallbacks
         o_at.execute();
 
         ordersRef
+                .whereEqualTo("ownOrder", username)
+                .whereEqualTo("state", Integer.parseInt(strValue))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots,

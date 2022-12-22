@@ -101,6 +101,7 @@ public class VoucherFragmentSecond extends Fragment implements FragmentCallbacks
         v_at.execute();
 
         vouchersRef
+                .whereEqualTo("type", strValue)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots,
