@@ -286,7 +286,9 @@ public class activity_login extends Activity implements View.OnClickListener {
                 String email = accountGG.getEmail().toString();
                 String fullname = accountGG.getDisplayName().toString();
                 String username = accountGG.getId().toString();
-                User newUser = new User(username, fullname, email);
+                User newUser = new User(username, "123");
+                newUser.setFullname(fullname);
+                newUser.setEmail(email);
                 newUser.setImage(accountGG.getPhotoUrl().toString());
 
                 usersRef.whereEqualTo("username", username)
@@ -304,6 +306,8 @@ public class activity_login extends Activity implements View.OnClickListener {
                                     // chưa có thì tạo account mới
                                     if (!isHave) {
                                         usersRef.add(newUser);
+
+                                        NotificationBar.createdNotification(activity_login.this, "Notify_pwd", "Thông báo mật khẩu khi dùng GG ACCOUNT", "Mật khẩu của bạn là '123'");
                                     }
 
                                     // thêm vào cookie => lần sau vào không cần đăng nhập nữa

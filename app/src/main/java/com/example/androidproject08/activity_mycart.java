@@ -173,14 +173,14 @@ public class activity_mycart extends Activity implements View.OnClickListener {
                     }
                 }
 
-                if(finalMyOrders.size() == 0) {
+                if (finalMyOrders.size() == 0) {
                     // ko có đơn hàng nào được check
                     new AlertDialog.Builder(activity_mycart.this)
                             .setMessage("Vui lòng tick vào sản phẩm cần mua trước khi mua hàng!")
                             .setCancelable(true)
                             .setPositiveButton("OKE", null)
                             .show();
-                }else {
+                } else {
                     Intent moveActivity = new Intent(getApplicationContext(), activity_payment.class);
                     moveActivity.putExtra("products", finalMyOrders);
                     moveActivity.putExtra("name_activity", "activity_mycart");
@@ -379,7 +379,7 @@ public class activity_mycart extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
                     Integer newNumber = Integer.parseInt(number.getText().toString()) - 1;
-                    if (newNumber >= 0) {
+                    if (newNumber >= 1) {
                         number.setText(newNumber.toString());
 
                         // cập nhật lên firestore
@@ -452,8 +452,15 @@ public class activity_mycart extends Activity implements View.OnClickListener {
                                             usersRef.document(document.getId()).update("cart", userCart);
                                         }
 
+                                        totalCart -= my_cart.get(position).getAmount();
+                                        totalMoney -= my_cart.get(position).getAmount() * my_cart.get(position).getPrice();
+
                                         my_cart.remove(position);
                                         listChecked.remove(position);
+
+                                        MyCart_bg_buy.setText("Mua hàng (" + totalCart.toString() + ")");
+                                        MyCart_total_cost.setText("đ" + totalMoney.toString());
+
                                         notifyDataSetChanged();
                                     }
                                 }

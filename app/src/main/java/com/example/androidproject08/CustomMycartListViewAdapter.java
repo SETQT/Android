@@ -103,7 +103,7 @@ public class CustomMycartListViewAdapter extends ArrayAdapter<MyCart> {
             @Override
             public void onClick(View view) {
                 Integer newNumber = Integer.parseInt(number.getText().toString()) - 1;
-                if (newNumber >= 0) {
+                if (newNumber >= 1) {
                     number.setText(newNumber.toString());
 
                     // cập nhật lên firestore

@@ -26,6 +26,7 @@ public class NotificationBar {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(generateID(), builder.build());
     }
