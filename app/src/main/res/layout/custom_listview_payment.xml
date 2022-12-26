@@ -39,7 +39,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="5dp"
                 android:gravity="top"
-                android:text="Áo khoác Mono cực chất lượng"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -53,7 +52,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="45dp"
                 android:gravity="top"
-                android:text="Size M,Đen"
                 android:textAppearance="@style/size_color_product_payment" />
 
             <TextView
@@ -65,7 +63,6 @@
                 android:layout_marginTop="45dp"
                 android:layout_marginRight="20dp"
                 android:gravity="top"
-                android:text="Số lượng:1"
                 android:textAppearance="@style/size_color_product_payment" />
 
             <TextView
@@ -77,7 +74,6 @@
                 android:layout_marginTop="75dp"
                 android:layout_marginRight="20dp"
                 android:gravity="top"
-                android:text="đ100.000"
                 android:textColor="#F9A826"
                 android:textSize="12sp" />
 
@@ -91,7 +87,6 @@
                 android:layout_toLeftOf="@+id/custom_new_cost_product_payment"
                 android:foreground="@drawable/dashboard_custom_gridview_strikethrough"
                 android:gravity="center"
-                android:text="đ500.000"
                 android:textColor="#AEAEAE"
                 android:textSize="10sp" />
         </RelativeLayout>
@@ -115,7 +110,6 @@
             android:layout_marginTop="120dp"
             android:layout_marginRight="33dp"
             android:gravity="top"
-            android:text="đ200.000"
             android:textAppearance="@style/cost_product_payment" />
 
         <TextView
