@@ -566,8 +566,13 @@ public class activity_view_product extends Activity implements View.OnClickListe
                 avgStar = 0;
             } else {
                 listComments.add(comments[0]);
+                avgStar = 0;
 
-                avgStar = (avgStar + comments[0].getCountStar()) / listComments.size();
+                for (int i = 0; i < listComments.size(); i++) {
+                    avgStar += listComments.get(i).getCountStar();
+                }
+
+                avgStar = avgStar / listComments.size();
             }
 
             CustomListCommentAdapter myAdapter = new CustomListCommentAdapter(getApplicationContext(), R.layout.custom_listview_comment_view_product, listComments);
