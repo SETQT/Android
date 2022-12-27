@@ -106,7 +106,6 @@
         android:layout_marginTop="228dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="Dương Minh Hiếu"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 
@@ -150,7 +149,6 @@
         android:layout_marginTop="273dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="Đẹp trai không có tội"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 
@@ -194,7 +192,6 @@
         android:layout_marginTop="318dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="Nam"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 
@@ -312,7 +309,6 @@
         android:layout_marginTop="467dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="09******08"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 
@@ -356,7 +352,6 @@
         android:layout_marginTop="505dp"
         android:layout_marginRight="50dp"
         android:gravity="center"
-        android:text="duongminh22002@gmail.com"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 
@@ -400,7 +395,6 @@
         android:layout_marginTop="545dp"
         android:layout_marginRight="50dp"
         android:gravity="right|center"
-        android:text="KTX khu B, ĐHQG TPHCM"
         android:textColor="#AEAEAE"
         android:textSize="14sp" />
 

@@ -34,7 +34,6 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="5dp"
                 android:gravity="top"
-                android:text="that123"
                 android:textColor="#AEAEAE"
                 android:textSize="8sp" />
 

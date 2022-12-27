@@ -20,7 +20,6 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="11dp"
             android:gravity="top"
-            android:text="Giáo sư Trần Văn Thất"
             android:textColor="#000000"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -84,7 +83,6 @@
             android:layout_marginLeft="108dp"
             android:layout_marginTop="33dp"
             android:gravity="top"
-            android:text="Phân loại: Đen, M"
             android:textColor="#AEAEAE"
             android:textSize="12sp" />
 
@@ -110,7 +108,6 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:gravity="top"
-            android:text="30-10-2022 12:20"
             android:textColor="#AEAEAE"
             android:textSize="10dp" />
     </RelativeLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/payment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -70,7 +69,6 @@
             android:layout_marginLeft="63dp"
             android:layout_marginTop="15dp"
             android:gravity="top"
-            android:text="Dương Minh Hiếu"
             android:textAppearance="@style/name_user_payment"
             android:textStyle="bold" />
 
@@ -93,7 +91,6 @@
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/line_address_payment"
             android:gravity="top"
-            android:text="0812301805"
             android:textAppearance="@style/phone_user_payment"
             android:textStyle="bold" />
 
@@ -106,7 +103,6 @@
             android:layout_marginLeft="63dp"
             android:layout_marginTop="43dp"
             android:gravity="top"
-            android:text="Ký túc xá khu B, Phường Đông Hòa, Thị xã Dĩ An, Bình Dương"
             android:textAppearance="@style/phone_user_payment" />
 
         <View
@@ -415,7 +411,6 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/btn_order_payment"
             android:gravity="top"
-            android:text="263.000000đ"
             android:textAppearance="@style/tongtien_payment"
             android:textStyle="bold" />
     </RelativeLayout>
