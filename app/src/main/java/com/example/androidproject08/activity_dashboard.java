@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.androidproject08.Services.CheckBannedService;
 import com.example.androidproject08.activities.ChatActivity;
 import com.example.androidproject08.models.UserChat;
 import com.example.androidproject08.utilities.Constants;
@@ -57,6 +58,9 @@ public class activity_dashboard extends FragmentActivity implements MainCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        Intent serviceIntent = new Intent(this, CheckBannedService.class);
+        startService(serviceIntent);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
