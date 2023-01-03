@@ -156,8 +156,10 @@ public class activity_login extends Activity implements View.OnClickListener {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
+                                boolean isHave = false;
                                 for (DocumentSnapshot document : task.getResult()) {
                                     User user = document.toObject(User.class);
+                                    isHave = true;
                                     if (user.checkPassword(mk)) {
                                         if (user.getStatus() == 0) {
                                             // thêm vào cookie => lần sau vào không cần đăng nhập nữa
@@ -194,6 +196,13 @@ public class activity_login extends Activity implements View.OnClickListener {
                                                 .setCancelable(true)
                                                 .show();
                                     }
+                                }
+
+                                if (!isHave) {
+                                    new AlertDialog.Builder(activity_login.this)
+                                            .setMessage("Tài khoản hoặc mật khẩu sai!")
+                                            .setCancelable(true)
+                                            .show();
                                 }
                                 loading(false);
                             }
