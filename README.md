@@ -65,7 +65,6 @@ toàn hơn.
 SHA, …
 • Giao diện: Được đầu tư thiết riêng từ công cụ Figma (tại đây).
 <br/>
-
 ## Thông tin cần thiết để thực thi chương trình
 Dự án G8 Shop được chia thành 2 app
 * App G8 Shop: Dành cho khách hàng, tại đây khách hàng có thể thoải thích mua sắm,
