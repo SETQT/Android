@@ -21,9 +21,11 @@ có giá hời hơn rất nhiều so với bên ngoài cửa hàng.
 online nhưng đôi khi sản phẩm họ nhận về lại không chất lượng như họ kỳ vọng khi xem thông
 tin sản phẩm. Vì thế, G8 Shop đã ra đời vừa giải quyết được vấn đề nhu cầu cực lớn về mua
 sắm của con người, mà còn mang lại sự an toàn về sản phẩm họ sẽ nhận được.
+<br/>
 ## Các phần mềm có chức năng tương tự
 Hiện nay có rất nhiều App thương mại điện tử rất nổi tiếng trên thị trường như: Shopee,
 Lazada, … Mỗi app sẽ có những chức năng chính nổi bật sau:
+<br/>
  **Shopee:**
 o Người bán: Có thể thiết lập shop, cài đặt thông báo, thiết lập vận chuyển, cài
 đặt chat, chọn ngôn ngữ, hiển thị địa chỉ lấy hàng, hiển thị hồ sơ shop, quản lí
@@ -35,6 +37,8 @@ nhận xét, chia sẻ …
 =>>>>App khá hoàn thiện và đẹp, nhưng hay xảy ra tình trạng chồng chất dữ liệu dẫn đến lag cho
 người sử dụng Android. Việc ai cũng có thể thiết lập shop và bán hàng dẫn đến không kiểm
 soát được chất lượng, gây nhiều vấn đề phá giá.
+<br/>
+
 **Lazada**
 o Người bán: Có thể thiết lập shop, cài đặt thông báo, thiết lập vận chuyển, cài
 đặt chat, chọn ngôn ngữ, hiển thị địa chỉ lấy hàng, hiển thị hồ sơ shop, quản lí
@@ -45,6 +49,8 @@ cao, đánh giá, nhận xét, theo dõi đơn hàng, dễ dàng chia sẻ, …P
 3
 =>>>>App mượt mà, nhưng giao diện và các chức năng bố trí khó nhận thấy hơn shopee, dẫn đến
 trải nghiệm không tốt cho người mới sử dụng.
+<br/>
+
 ## Điểm khác biệt của chương trình
 Nhóm phát triển nhóm dựa trên những chức năng đã có của các app trên, nhưng có những
 điểm khách biệt như sau:
@@ -56,6 +62,8 @@ toàn hơn.
 • Sử dụng nhữ kĩ thuật đặc biệt: đăng nhập bằng facebook, mã hóa mật khẩu bằng
 SHA, …
 • Giao diện: Được đầu tư thiết riêng từ công cụ Figma (tại đây).
+<br/>
+
 ## Thông tin cần thiết để thực thi chương trình
 Dự án G8 Shop được chia thành 2 app
 • App G8 Shop: Dành cho khách hàng, tại đây khách hàng có thể thoải thích mua sắm,
@@ -63,7 +71,7 @@ chat, xem sản phẩm, …
 • App G8Shop Admin: App này dành cho Admin những người trực tiếp quản lí sản
 phẩm, mã giảm giá, tài khoản khách hàng, …
 
-##Cách cài đặt: 
+## Cách cài đặt: 
 * Cài đặt bằng file *.apk hoặc chạy trực tiếp trên máy ảo Android Studio
 * Chuẩn bị môi trường: Dùng điện thoại chạy hệ điều hành Android
 * Các tài khoản login vào hệ thống: Có thể tạo tài khoản khách hàng trên app (facebook,
